@@ -18,14 +18,11 @@ function updateDungeon() {
 }
 
 function drawDungeon(offsetX, offsetY) {
-  ctx.fillStyle = exitOpen ? '#8affc1' : '#60506d';
-  ctx.fillRect(offsetX - 44, room.y + offsetY, 88, 36);
+  drawStoneDoor(offsetX, room.y + offsetY, exitOpen, exitOpen ? 'SORTIE ↑' : 'SCELLÉE');
+  drawStoneDoor(offsetX, room.y + room.height + offsetY - 36, false, 'ENTRÉE');
   ctx.font = '12px system-ui';
   ctx.textAlign = 'center';
   ctx.fillStyle = '#eae7f5';
-  ctx.fillText(exitOpen ? 'SORTIE ↑' : 'SCELLÉE', offsetX, room.y + offsetY + 23);
-  ctx.fillStyle = '#b5afca';
-  ctx.fillText('ENTRÉE', offsetX, room.y + room.height + offsetY - 12);
   if (player.armed) return;
   const x = weapon.x + offsetX, y = weapon.y + offsetY;
   ctx.strokeStyle = '#c5afff';

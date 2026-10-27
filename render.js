@@ -1,5 +1,114 @@
 'use strict';
 
+const roomArt = { floor: null, wall: null };
+
+function loadRoomArt() {
+  if (typeof Image === 'undefined') return;
+  for (const [name, file] of [['floor', 'sol-pierre.svg'], ['wall', 'mur-pierre.svg']]) {
+    const image = new Image();
+    image.onload = () => { roomArt[name] = ctx.createPattern(image, 'repeat'); };
+    image.onerror = () => { roomArt[name] = null; };
+    image.src = `assets/${file}?v=22`;
+  }
+}
+
+function drawRoom(offsetX, offsetY) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
+  ctx.clip();
+  if (roomArt.floor) {
+    ctx.save();
+    ctx.translate(room.x + offsetX, room.y + offsetY);
+    ctx.fillStyle = roomArt.floor;
+    ctx.fillRect(0, 0, room.width, room.height);
+    ctx.restore();
+  } else {
+    // Dalles de secours : aucun chargement d’image n’est nécessaire pour jouer.
+    ctx.fillStyle = '#161f29';
+    ctx.fillRect(room.x + offsetX, room.y + offsetY, room.width, room.height);
+    const firstX = Math.max(0, Math.floor((-offsetX - room.x) / 48));
+    const firstY = Math.max(0, Math.floor((-offsetY - room.y) / 48));
+    for (let col = firstX; col * 48 < Math.min(room.width, width - offsetX - room.x); col++) {
+      for (let row = firstY; row * 48 < Math.min(room.height, height - offsetY - room.y); row++) {
+        const x = room.x + col * 48 + offsetX, y = room.y + row * 48 + offsetY;
+        ctx.fillStyle = (col + row) % 2 ? '#303a43' : '#35404a';
+        ctx.fillRect(x + 2, y + 2, 44, 44);
+        ctx.strokeStyle = '#59626b';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(x + 3, y + 3, 42, 42);
+      }
+    }
+  }
+  ctx.restore();
+  walls.forEach((wall, index) => {
+    const x = wall.x + offsetX, y = wall.y + offsetY;
+    ctx.save();
+    ctx.fillStyle = '#080d16aa';
+    ctx.fillRect(x + 6, y + 8, wall.width, wall.height);
+    ctx.translate(x, y);
+    ctx.fillStyle = roomArt.wall || '#4c5762';
+    ctx.fillRect(0, 0, wall.width, wall.height);
+    ctx.strokeStyle = '#8c969b';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(2, 2, wall.width - 4, wall.height - 4);
+    ctx.fillStyle = '#1a2533';
+    ctx.fillRect(0, wall.height - 5, wall.width, 5);
+    if (index >= 4) {
+      // Les bases restent rectangulaires et coïncident avec les collisions.
+      ctx.fillStyle = '#77828b';
+      ctx.fillRect(3, 3, wall.width - 6, 9);
+      ctx.fillStyle = '#2d3845';
+      ctx.fillRect(8, 16, 4, wall.height - 30);
+      ctx.fillRect(wall.width - 12, 16, 4, wall.height - 30);
+      ctx.strokeStyle = '#222d39';
+      ctx.beginPath();
+      ctx.moveTo(18, wall.height * .36); ctx.lineTo(wall.width * .55, wall.height * .48); ctx.lineTo(wall.width * .5, wall.height * .64);
+      ctx.stroke();
+    }
+    ctx.restore();
+  });
+}
+
+function drawRoomShade(x, y) {
+  ctx.save();
+  const radius = Math.max(240, Math.min(440, Math.hypot(width, height) * .65));
+  const shade = ctx.createRadialGradient(x, y, 85, x, y, radius);
+  shade.addColorStop(0, '#07101b00');
+  shade.addColorStop(.6, '#07101b28');
+  shade.addColorStop(1, '#07101ba8');
+  ctx.fillStyle = shade;
+  ctx.fillRect(0, 0, width, height);
+  ctx.restore();
+}
+
+function drawStoneDoor(x, y, open, label) {
+  ctx.save();
+  ctx.fillStyle = '#0c121b';
+  ctx.fillRect(x - 49, y - 7, 98, 45);
+  ctx.fillStyle = '#76818b';
+  ctx.fillRect(x - 49, y - 7, 10, 45);
+  ctx.fillRect(x + 39, y - 7, 10, 45);
+  ctx.fillRect(x - 49, y - 7, 98, 8);
+  ctx.fillStyle = open ? '#347268' : '#3d3746';
+  ctx.fillRect(x - 38, y + 2, 76, 32);
+  ctx.fillStyle = open ? '#8affc1' : '#aa8c68';
+  ctx.fillRect(x - 33, y + 29, 66, 3);
+  if (!open) {
+    ctx.fillStyle = '#242d38';
+    for (let i = -24; i <= 24; i += 12) ctx.fillRect(x + i, y + 3, 3, 26);
+  }
+  ctx.fillStyle = '#ffb66f';
+  ctx.beginPath(); ctx.arc(x - 60, y + 10, 3, 0, Math.PI * 2); ctx.arc(x + 60, y + 10, 3, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#111924e6';
+  ctx.fillRect(x - 40, y + 8, 80, 17);
+  ctx.fillStyle = open ? '#a5ffcf' : '#eee1c8';
+  ctx.font = 'bold 11px system-ui';
+  ctx.textAlign = 'center';
+  ctx.fillText(label, x, y + 21);
+  ctx.restore();
+}
+
 function draw() {
   ctx.fillStyle = '#0e0f19';
   ctx.fillRect(0, 0, width, height);
@@ -10,31 +119,9 @@ function draw() {
   const screenY = Math.max(height * .3, Math.min(height * .7, centerY + player.y));
   const offsetX = screenX - player.x;
   const offsetY = screenY - player.y;
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
-  ctx.clip();
-  ctx.fillStyle = '#1a1c2c';
-  ctx.fillRect(room.x + offsetX, room.y + offsetY, room.width, room.height);
-  const spacing = 48;
-  ctx.strokeStyle = '#292b40';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  for (let x = ((offsetX % spacing) + spacing) % spacing; x < width; x += spacing) {
-    ctx.moveTo(x, 0); ctx.lineTo(x, height);
-  }
-  for (let y = ((offsetY % spacing) + spacing) % spacing; y < height; y += spacing) {
-    ctx.moveTo(0, y); ctx.lineTo(width, y);
-  }
-  ctx.stroke();
-  ctx.restore();
-  for (const wall of walls) {
-    ctx.fillStyle = '#454158';
-    ctx.fillRect(wall.x + offsetX, wall.y + offsetY, wall.width, wall.height);
-    ctx.strokeStyle = '#746986';
-    ctx.strokeRect(wall.x + offsetX + .5, wall.y + offsetY + .5, wall.width - 1, wall.height - 1);
-  }
+  drawRoom(offsetX, offsetY);
   drawDungeon(offsetX, offsetY);
+  drawRoomShade(screenX, screenY);
   ctx.fillStyle = '#b5afca';
   ctx.font = '12px system-ui';
   ctx.textAlign = 'left';
@@ -47,7 +134,7 @@ function draw() {
       `yarden ${Math.round(player.x)},${Math.round(player.y)} · boss ${Math.round(boss.x)},${Math.round(boss.y)} actif ${boss.active}`
     ];
     ctx.fillStyle = '#ffd36b';
-    lines.forEach((line, i) => ctx.fillText(line, 14, 44 + i * 16));
+    lines.forEach((line, i) => ctx.fillText(line, 14, (boss.active ? 84 : 44) + i * 16));
   }
   for (const enemy of enemies) drawEnemy(enemy, offsetX, offsetY);
   if (attack.remaining > 0) {

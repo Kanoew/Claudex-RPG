@@ -65,14 +65,14 @@ function startAttack(empowered = false) {
 }
 
 function updateAttackButton() {
-  const recovering = !player.armed || combatOver || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || player.mana < 3;
+  const recovering = paused || !player.armed || combatOver || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || player.mana < 3;
   attackButton.classList.toggle('recovering', recovering);
   attackButton.setAttribute('aria-disabled', String(recovering));
-  const unavailable = !player.armed || combatOver || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || skill.cooldown > 0 || player.mana < skill.cost;
+  const unavailable = paused || !player.armed || combatOver || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || skill.cooldown > 0 || player.mana < skill.cost;
   skillButton.classList.toggle('recovering', unavailable);
   skillButton.setAttribute('aria-disabled', String(unavailable));
-  dodgeButton.classList.toggle('recovering', combatOver || bossDelay > 0 || dodge.cooldown > 0);
-  dodgeButton.setAttribute('aria-disabled', String(combatOver || bossDelay > 0 || dodge.cooldown > 0));
+  dodgeButton.classList.toggle('recovering', paused || combatOver || bossDelay > 0 || dodge.cooldown > 0);
+  dodgeButton.setAttribute('aria-disabled', String(paused || combatOver || bossDelay > 0 || dodge.cooldown > 0));
   updateButtonHints();
 }
 
@@ -211,8 +211,8 @@ function resetInput(source) {
   attack.remaining = 0;
   dodge.remaining = 0;
 }
-window.addEventListener('blur', () => { paused = true; resetInput(); updateStatus(); });
-window.addEventListener('focus', () => { paused = false; lastTime = null; updateStatus(); });
+window.addEventListener('blur', () => { paused = true; resetInput(); updateStatus(); updateAttackButton(); });
+window.addEventListener('focus', () => { paused = false; lastTime = null; updateStatus(); updateAttackButton(); });
 document.addEventListener('visibilitychange', resetInput);
 window.addEventListener('resize', resetInput);
 
@@ -367,4 +367,5 @@ function frame(time) {
 resize();
 updateStatus();
 updateAttackButton();
+loadRoomArt();
 requestAnimationFrame(frame);

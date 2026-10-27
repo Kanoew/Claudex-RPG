@@ -7,9 +7,10 @@ const path = require('node:path');
 const vm = require('node:vm');
 const root = path.join(__dirname, '..');
 
-function game() {
+function game(imageMode) {
   const listeners = {};
   const elements = {};
+  let patterns = 0;
   for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint']) {
     elements[id] = {
       hidden: id === 'result', style: { setProperty(name, value) { this[name] = value; } }, offsetWidth: 54, textContent: '', attributes: {},
@@ -19,16 +20,17 @@ function game() {
       hasPointerCapture: () => false, setPointerCapture() {}, releasePointerCapture() {}
     };
   }
-  elements.game.getContext = () => new Proxy({}, { get: () => () => {} });
+  elements.game.getContext = () => new Proxy({}, { get: (_, name) => name === 'createRadialGradient' ? () => ({ addColorStop() {} }) : name === 'createPattern' ? () => { patterns++; return {}; } : () => {} });
   const document = { hidden: false, getElementById: id => elements[id], addEventListener: (name, fn) => (listeners['document:' + name] ??= []).push(fn) };
   const context = vm.createContext({
     document, window: { devicePixelRatio: 1, addEventListener: (name, fn) => (listeners['window:' + name] ??= []).push(fn) },
+    Image: imageMode ? class { set src(value) { if (imageMode === 'error') this.onerror(); else this.onload(); } } : undefined,
     ResizeObserver: class { observe() {} }, requestAnimationFrame() {}
   });
   // Même ordre et portées globales que les scripts defer de la page.
   for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
-  return Object.assign(state, { elements, document, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
+  return Object.assign(state, { elements, document, patterns, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed() {
   const g = game();
@@ -54,6 +56,16 @@ function solid(g, body) {
   }
 }
 const tests = [
+  ['Décor avec textures ou secours, sans modification du monde', () => {
+    for (const mode of ['loaded', 'error', undefined]) {
+      const g = game(mode);
+      assert.equal(g.patterns, mode === 'loaded' ? 2 : 0);
+      const before = JSON.stringify({ player: g.player, enemies: g.enemies, walls: g.walls });
+      g.draw();
+      g.draw();
+      assert.equal(JSON.stringify({ player: g.player, enemies: g.enemies, walls: g.walls }), before);
+    }
+  }],
   ['Barres lisibles et repère du Gardien dès l’apparition', () => {
     const g = armed();
     g.hurtPlayer();
