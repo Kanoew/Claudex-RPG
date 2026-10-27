@@ -44,6 +44,7 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 
 ## 6. Règles pour les IA
 - Une étape à la fois. Ne jamais coder l'étape suivante sans validation.
+- Exception autorisée par Jordan pour cette livraison : étapes 6 et 7 regroupées dans une même PR, avec un commit distinct par étape. Les étapes suivantes restent soumises à validation.
 - Petits changements : une fonctionnalité par commit.
 - À chaque modification de `game.js`, augmenter le numéro dans son URL de chargement dans `index.html` (`game.js?v=3`, puis `?v=4`, etc.). Le numéro doit être supérieur à celui de la version précédente, même pour un correctif au sein d’une même étape : le navigateur recharge ainsi le script actualisé après ouverture ou actualisation de la page, sans vider le cache manuellement.
 - Aucune attribution automatique : pas de mention « Co-authored-by », « écrit avec Codex / ChatGPT / Claude », ni de signature ou de crédit d’IA dans les messages de commit, descriptions de PR, le code ou l’interface. Cette règle s’applique à tous les outils utilisés sur le projet.
@@ -74,4 +75,5 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 | 3 | passage à l’étape 4 validé par Jordan | Attaque à la faux fusionnée ; bouton tactile, Espace et zone de contact. Script `?v=3`. |
 | 4 | passage à l’étape 5 validé par Jordan | Premier ennemi fusionné : poursuite, contournement, coups annoncés, PV et relance du duel. Script `?v=5`. |
 | 5 | implémentée, à relire et à valider | Valeurs de test : 30 mana, régénération de 3/s pendant le duel ; Faux coûte 3 mana. Capacité provisoire Fauchage : bouton tactile et touche E, coût 12 mana, deux dégâts, portée 110 pixels, récupération de 2,5 s et verrou commun de 0,8 s. Secteur bleu, coûts affichés et boutons grisés si indisponibles. Mana et récupérations réinitialisés à la relance. Tests logiques validés : coûts, seuils, régénération plafonnée, dégâts uniques, récupérations, murs, multitouch, clavier, pause et relance. Rendu navigateur et Android à valider. Script `?v=7` après correction d’un arrondi au seuil de mana. Publication après fusion par Jordan. |
+| 6 | implémentée, à relire et à valider | Esquive gratuite : bouton tactile ou Maj, direction du déplacement ou du regard à l’arrêt ; durée et invulnérabilité de 0,2 s, vitesse de 500 pixels/s et récupération de 1,1 s. Respecte murs et blocs, interrompt le coup courant et interdit de frapper pendant l’esquive. Tests logiques validés ; rendu Android à vérifier. Script `?v=8`. |
 

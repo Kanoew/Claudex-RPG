@@ -7,6 +7,8 @@ const joystick = document.getElementById('joystick');
 const stick = document.getElementById('stick');
 const attackButton = document.getElementById('attack');
 const skillButton = document.getElementById('skill');
+const dodgeButton = document.getElementById('dodge');
+const dodge = { remaining: 0, cooldown: 0, duration: .2, recovery: 1.1, speed: 500, x: 0, y: -1 };
 const skill = { cost: 12, cooldown: 0, recovery: 2.5 };
 const status = document.getElementById('status');
 const result = document.getElementById('result');
@@ -37,7 +39,7 @@ const attack = { remaining: 0, cooldown: 0, duration: .22, recovery: .45, range:
 
 function startAttack(empowered = false) {
   const cost = empowered ? skill.cost : 3;
-  if (combatOver || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
+  if (combatOver || dodge.remaining > 0 || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
   player.mana -= cost;
   if (empowered) skill.cooldown = skill.recovery;
   Object.assign(attack, { empowered, damage: empowered ? 2 : 1, duration: empowered ? .3 : .22, recovery: empowered ? .8 : .45, range: empowered ? 110 : 72 });
@@ -50,13 +52,33 @@ function startAttack(empowered = false) {
 }
 
 function updateAttackButton() {
-  const recovering = combatOver || attack.cooldown > 0 || player.mana < 3;
+  const recovering = combatOver || dodge.remaining > 0 || attack.cooldown > 0 || player.mana < 3;
   attackButton.classList.toggle('recovering', recovering);
   attackButton.setAttribute('aria-disabled', String(recovering));
-  const unavailable = combatOver || attack.cooldown > 0 || skill.cooldown > 0 || player.mana < skill.cost;
+  const unavailable = combatOver || dodge.remaining > 0 || attack.cooldown > 0 || skill.cooldown > 0 || player.mana < skill.cost;
   skillButton.classList.toggle('recovering', unavailable);
   skillButton.setAttribute('aria-disabled', String(unavailable));
+  dodgeButton.classList.toggle('recovering', combatOver || dodge.cooldown > 0);
+  dodgeButton.setAttribute('aria-disabled', String(combatOver || dodge.cooldown > 0));
 }
+
+function startDodge() {
+  if (combatOver || document.hidden || dodge.cooldown > 0) return;
+  let x = input.pointerId === null ? Number(keys.has('d') || keys.has('arrowright')) - Number(keys.has('q') || keys.has('a') || keys.has('arrowleft')) : input.x;
+  let y = input.pointerId === null ? Number(keys.has('s') || keys.has('arrowdown')) - Number(keys.has('z') || keys.has('w') || keys.has('arrowup')) : input.y;
+  const length = Math.hypot(x, y);
+  if (length > 0) { x /= length; y /= length; } else { x = facing.x; y = facing.y; }
+  Object.assign(dodge, { x, y, remaining: dodge.duration, cooldown: dodge.recovery });
+  attack.remaining = 0;
+  updateAttackButton();
+}
+
+dodgeButton.addEventListener('pointerdown', event => {
+  if (event.pointerType === 'mouse' && event.button !== 0) return;
+  event.preventDefault();
+  startDodge();
+});
+dodgeButton.addEventListener('click', event => { if (event.detail === 0) startDodge(); });
 
 // Secteur de 120 degrés : portée de 72 pixels, ou 110 pour Fauchage.
 // Chaque coup ne peut infliger qu’une seule blessure à l’ennemi.
@@ -142,12 +164,17 @@ for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) {
   });
 }
 window.addEventListener('keydown', event => {
+  if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+    event.preventDefault();
+    if (!event.repeat) startDodge();
+    return;
+  }
   if (event.code === 'KeyE') {
     event.preventDefault();
     if (!event.repeat) startAttack(true);
     return;
   }
-  if (event.code === 'Space' && event.target !== attackButton && event.target !== skillButton && event.target !== retryButton) {
+  if (event.code === 'Space' && ![attackButton, skillButton, dodgeButton, retryButton].includes(event.target)) {
     event.preventDefault();
     if (!event.repeat) startAttack();
     return;
@@ -163,6 +190,7 @@ function resetInput() {
   releaseStick();
   lastTime = null;
   attack.remaining = 0;
+  dodge.remaining = 0;
 }
 window.addEventListener('blur', resetInput);
 document.addEventListener('visibilitychange', resetInput);
@@ -280,6 +308,7 @@ retryButton.addEventListener('click', () => {
   Object.assign(enemy, { x: 0, y: -200, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, routeTimer: 0, waypoint: null });
   Object.assign(attack, { cooldown: 0, remaining: 0, hit: false });
   skill.cooldown = 0;
+  Object.assign(dodge, { remaining: 0, cooldown: 0 });
   facing = { x: 0, y: -1 };
   combatOver = false;
   result.hidden = true;
@@ -294,7 +323,7 @@ function updateEnemy(seconds) {
   const reach = player.radius + enemy.radius + 8;
   if (enemy.windup > 0) {
     enemy.windup = Math.max(0, enemy.windup - seconds);
-    if (enemy.windup === 0 && distance <= reach && clearPath(enemy, player)) {
+    if (enemy.windup === 0 && dodge.remaining <= 0 && distance <= reach && clearPath(enemy, player)) {
       player.hp = Math.max(0, player.hp - 1);
       player.flash = .2;
       updateStatus();
@@ -322,6 +351,7 @@ function updateEnemy(seconds) {
 
 function update(seconds) {
   if (combatOver || document.hidden) return;
+  dodge.cooldown = Math.max(0, dodge.cooldown - seconds);
   player.mana = Math.min(player.maxMana, Math.round((player.mana + 3 * seconds) * 1e6) / 1e6);
   skill.cooldown = Math.max(0, skill.cooldown - seconds);
   updateStatus();
@@ -338,8 +368,14 @@ function update(seconds) {
   }
   const length = Math.hypot(x, y);
   if (length > 1) { x /= length; y /= length; }
-  movePlayer(x * player.speed * seconds, y * player.speed * seconds);
-  if (length > 0) facing = { x: x / Math.hypot(x, y), y: y / Math.hypot(x, y) };
+  if (dodge.remaining > 0) {
+    const time = Math.min(seconds, dodge.remaining);
+    movePlayer(dodge.x * dodge.speed * time, dodge.y * dodge.speed * time);
+    facing = { x: dodge.x, y: dodge.y };
+  } else {
+    movePlayer(x * player.speed * seconds, y * player.speed * seconds);
+    if (length > 0) facing = { x: x / Math.hypot(x, y), y: y / Math.hypot(x, y) };
+  }
   if (!attack.hit && attackHitsCircle(enemy) && clearPath(player, enemy)) {
     attack.hit = true;
     enemy.hp = Math.max(0, enemy.hp - attack.damage);
@@ -348,6 +384,7 @@ function update(seconds) {
     if (enemy.hp === 0) { finishCombat('Ennemi vaincu !'); return; }
   }
   updateEnemy(seconds);
+  dodge.remaining = Math.max(0, dodge.remaining - seconds);
 }
 
 function draw() {
@@ -437,7 +474,7 @@ function draw() {
     ctx.fill();
     ctx.restore();
   }
-  ctx.fillStyle = player.flash > 0 ? '#fff' : '#c5afff';
+  ctx.fillStyle = dodge.remaining > 0 ? '#8affc1' : player.flash > 0 ? '#fff' : '#c5afff';
   ctx.beginPath();
   ctx.arc(screenX, screenY, player.radius, 0, Math.PI * 2);
   ctx.fill();
