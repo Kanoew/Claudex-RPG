@@ -256,7 +256,9 @@ function awakenBoss() {
   const spawn = spawns.find(point => Math.hypot(point.x - player.x, point.y - player.y) > 160);
   Object.assign(boss, spawn);
   bossDelay = 1.2;
-  resetInput();
+  // On coupe le coup et l'esquive en cours, mais pas le joystick : le pouce est peut-être encore posé.
+  attack.remaining = 0;
+  dodge.remaining = 0;
   updateStatus();
   updateAttackButton();
 }
@@ -341,7 +343,8 @@ function update(seconds) {
   if (stage === 'boss' && boss.hp === 0) {
     stage = 'exit';
     exitOpen = true;
-    resetInput();
+    attack.remaining = 0;
+    dodge.remaining = 0;
     updateStatus();
     updateAttackButton();
     return;

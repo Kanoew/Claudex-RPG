@@ -179,6 +179,24 @@ const tests = [
     g.fire('retry:click');
     assert.equal(g.player.hp, 5);
     g.draw();
+  }],
+  ['Joystick maintenu pendant l’apparition du Gardien et après sa défaite', () => {
+    const g = armed();
+    const touch = { pointerId: 1, pointerType: 'touch', clientX: 300, clientY: 66, preventDefault() {} };
+    g.fire('joystick:pointerdown', touch);
+    g.enemies[0].hp = 0;
+    g.enemies[1].hp = 0;
+    g.update(.01);
+    assert.equal(g.stage, 'boss');
+    assert.equal(g.input.pointerId, 1);
+    g.update(1.2);
+    const x = g.player.x;
+    g.update(.1);
+    assert(g.player.x > x, 'Le pouce posé doit continuer à déplacer Yarden');
+    g.boss.hp = 0;
+    g.update(.01);
+    assert.equal(g.stage, 'exit');
+    assert.equal(g.input.pointerId, 1);
   }]
 ];
 for (const [name, run] of tests) { run(); console.log('OK — ' + name); }
