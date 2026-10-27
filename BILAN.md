@@ -27,3 +27,8 @@ Des simulations complémentaires ont vérifié la poursuite autour des blocs et 
 Les noms et valeurs du Gardien et de Fauchage sont provisoires ; l’équilibrage et le confort tactile nécessitent les essais de Jordan. Les statistiques FOR/DEX/AGI/VIT restent du contexte de conception, sans système de progression ajouté. Pas de sauvegarde : actualiser recommence la partie.
 
 La structure technique du petit donjon fonctionne dans les simulations. La faisabilité sur l’appareil cible ne peut être conclue qu’après un parcours complet et un retour sur la fluidité et les contrôles. Le bilan final reste donc à compléter avec cet essai, avant toute extension du jeu.
+
+## Conclusion du test (retour de Jordan)
+
+Le donjon a été joué en entier deux fois sur Android. Deux blocages ont été trouvés puis corrigés : le joystick relâché à l'apparition du Gardien et à sa défaite, et la pause de 1,2 s pendant laquelle Yarden était figée. La sortie et la fin fonctionnent. Verdict : jouable, avec une interface et un décor à améliorer. Le test de changement d'onglet n'a pas été fait sur téléphone, la fluidité n'a pas été mesurée, et l'équilibrage reste à juger. La suite est décrite en section 9 de `PROJECT.md`.
+
