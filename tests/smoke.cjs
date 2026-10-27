@@ -189,7 +189,11 @@ const tests = [
     g.update(.01);
     assert.equal(g.stage, 'boss');
     assert.equal(g.input.pointerId, 1);
-    g.update(1.2);
+    const bossX = g.boss.x, bossY = g.boss.y, hp = g.player.hp, before = g.player.x;
+    g.update(.3);
+    assert(g.player.x > before, 'Yarden doit pouvoir bouger pendant l’apparition');
+    assert.deepEqual([g.boss.x, g.boss.y, g.player.hp], [bossX, bossY, hp]);
+    g.update(1);
     const x = g.player.x;
     g.update(.1);
     assert(g.player.x > x, 'Le pouce posé doit continuer à déplacer Yarden');
