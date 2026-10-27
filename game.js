@@ -6,7 +6,13 @@ const ctx = canvas.getContext('2d');
 const joystick = document.getElementById('joystick');
 const stick = document.getElementById('stick');
 const attackButton = document.getElementById('attack');
-const player = { x: 0, y: 0, speed: 180, radius: 13 };
+const status = document.getElementById('status');
+const result = document.getElementById('result');
+const resultText = document.getElementById('result-text');
+const retryButton = document.getElementById('retry');
+const player = { x: 0, y: 0, speed: 180, radius: 13, hp: 5, maxHp: 5, flash: 0 };
+const enemy = { x: 0, y: -200, speed: 95, radius: 14, hp: 3, maxHp: 3, flash: 0, cooldown: 0, windup: 0, routeTimer: 0, waypoint: null };
+let combatOver = false;
 const room = { x: -480, y: -336, width: 960, height: 672 };
 const wallThickness = 24;
 const walls = [
@@ -25,24 +31,25 @@ let width = 0;
 let height = 0;
 let lastTime = null;
 let facing = { x: 0, y: -1 };
-const attack = { remaining: 0, cooldown: 0, duration: .22, recovery: .45, range: 72, halfAngle: Math.PI / 3, angle: 0 };
+const attack = { remaining: 0, cooldown: 0, duration: .22, recovery: .45, range: 72, halfAngle: Math.PI / 3, angle: 0, hit: false };
 
 function startAttack() {
-  if (attack.cooldown > 0 || document.hidden) return;
+  if (combatOver || attack.cooldown > 0 || document.hidden) return;
   attack.angle = Math.atan2(facing.y, facing.x);
   attack.remaining = attack.duration;
   attack.cooldown = attack.recovery;
+  attack.hit = false;
   updateAttackButton();
 }
 
 function updateAttackButton() {
-  const recovering = attack.cooldown > 0;
+  const recovering = combatOver || attack.cooldown > 0;
   attackButton.classList.toggle('recovering', recovering);
   attackButton.setAttribute('aria-disabled', String(recovering));
 }
 
 // Zone logique du coup : secteur de 120 degrés, portée de 72 pixels.
-// Les cibles et leurs points de vie seront ajoutés à l’étape 4.
+// Chaque coup ne peut infliger qu’une seule blessure à l’ennemi.
 function attackHitsCircle(target) {
   if (attack.remaining <= 0) return false;
   const dx = target.x - player.x;
@@ -123,7 +130,7 @@ for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) {
   });
 }
 window.addEventListener('keydown', event => {
-  if (event.code === 'Space' && event.target !== attackButton) {
+  if (event.code === 'Space' && event.target !== attackButton && event.target !== retryButton) {
     event.preventDefault();
     if (!event.repeat) startAttack();
     return;
@@ -146,36 +153,158 @@ window.addEventListener('resize', resetInput);
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
-function moveAxis(axis, distance) {
+function moveAxis(axis, distance, body = player) {
   if (distance === 0) return;
   const other = axis === 'x' ? 'y' : 'x';
   const size = axis === 'x' ? 'width' : 'height';
   const otherSize = axis === 'x' ? 'height' : 'width';
-  let target = player[axis] + distance;
+  let target = body[axis] + distance;
   for (const wall of walls) {
-    const gap = player[other] - clamp(player[other], wall[other], wall[other] + wall[otherSize]);
-    if (Math.abs(gap) >= player.radius) continue;
+    const gap = body[other] - clamp(body[other], wall[other], wall[other] + wall[otherSize]);
+    if (Math.abs(gap) >= body.radius) continue;
     // La distance au coin tient compte du disque visible de Yarden.
-    const reach = Math.sqrt(player.radius ** 2 - gap ** 2);
+    const reach = Math.sqrt(body.radius ** 2 - gap ** 2);
     const min = wall[axis] - reach;
     const max = wall[axis] + wall[size] + reach;
     if (target > min && target < max) {
       target = distance > 0 ? min : max;
     }
   }
-  player[axis] = target;
+  body[axis] = target;
 }
 
-function movePlayer(dx, dy) {
+function movePlayer(dx, dy, body = player) {
   // Petits pas pour ne pas traverser un mur, même lors d’une image lente.
-  const steps = Math.max(1, Math.ceil(Math.max(Math.abs(dx), Math.abs(dy)) / (player.radius / 2)));
+  const steps = Math.max(1, Math.ceil(Math.max(Math.abs(dx), Math.abs(dy)) / (body.radius / 2)));
   for (let step = 0; step < steps; step++) {
-    moveAxis('x', dx / steps);
-    moveAxis('y', dy / steps);
+    moveAxis('x', dx / steps, body);
+    moveAxis('y', dy / steps, body);
+  }
+}
+
+// Intersection segment/rectangle : sert au contournement et bloque les coups à travers les murs.
+function clearPath(from, to, padding = 0) {
+  return walls.every(wall => {
+    let enter = 0, exit = 1;
+    for (const [axis, size] of [['x', 'width'], ['y', 'height']]) {
+      const delta = to[axis] - from[axis];
+      const min = wall[axis] - padding, max = wall[axis] + wall[size] + padding;
+      if (Math.abs(delta) < 1e-9) {
+        if (from[axis] < min || from[axis] > max) return true;
+      } else {
+        const a = (min - from[axis]) / delta, b = (max - from[axis]) / delta;
+        enter = Math.max(enter, Math.min(a, b));
+        exit = Math.min(exit, Math.max(a, b));
+        if (enter > exit) return true;
+      }
+    }
+    return false;
+  });
+}
+
+function nextWaypoint() {
+  // Dix points seulement : ennemi, Yarden et coins des deux blocs.
+  const padding = enemy.radius + 2;
+  const goal = { x: clamp(player.x, room.x + padding, room.x + room.width - padding), y: clamp(player.y, room.y + padding, room.y + room.height - padding) };
+  // Yarden peut serrer un bloc de plus près que l’ennemi : viser un point accessible à côté.
+  for (const wall of walls.slice(4)) {
+    const left = wall.x - padding, right = wall.x + wall.width + padding;
+    const top = wall.y - padding, bottom = wall.y + wall.height + padding;
+    if (goal.x <= left || goal.x >= right || goal.y <= top || goal.y >= bottom) continue;
+    const sides = [{ x: left, y: goal.y }, { x: right, y: goal.y }, { x: goal.x, y: top }, { x: goal.x, y: bottom }];
+    sides.sort((a, b) => Math.hypot(a.x - goal.x, a.y - goal.y) - Math.hypot(b.x - goal.x, b.y - goal.y));
+    Object.assign(goal, sides[0]);
+  }
+  const nodes = [{ x: enemy.x, y: enemy.y }, goal];
+  for (const wall of walls.slice(4)) {
+    for (const x of [wall.x - padding, wall.x + wall.width + padding]) {
+      for (const y of [wall.y - padding, wall.y + wall.height + padding]) nodes.push({ x, y });
+    }
+  }
+  const costs = nodes.map(() => Infinity), previous = nodes.map(() => -1), visited = new Set();
+  costs[0] = 0;
+  for (let count = 0; count < nodes.length; count++) {
+    let current = -1;
+    for (let i = 0; i < nodes.length; i++) {
+      if (!visited.has(i) && (current < 0 || costs[i] < costs[current])) current = i;
+    }
+    if (current < 0 || !Number.isFinite(costs[current])) break;
+    if (current === 1) {
+      while (previous[current] > 0) current = previous[current];
+      return nodes[current];
+    }
+    visited.add(current);
+    for (let i = 1; i < nodes.length; i++) {
+      if (visited.has(i) || !clearPath(nodes[current], nodes[i], enemy.radius + .5)) continue;
+      const cost = costs[current] + Math.hypot(nodes[i].x - nodes[current].x, nodes[i].y - nodes[current].y);
+      if (cost < costs[i]) { costs[i] = cost; previous[i] = current; }
+    }
+  }
+  return null;
+}
+
+function updateStatus() {
+  status.textContent = `Yarden : ${player.hp}/${player.maxHp} PV · Ennemi : ${enemy.hp}/${enemy.maxHp} PV`;
+}
+
+function finishCombat(message) {
+  combatOver = true;
+  resetInput();
+  enemy.windup = 0;
+  resultText.textContent = message;
+  result.hidden = false;
+  updateAttackButton();
+}
+
+retryButton.addEventListener('click', () => {
+  resetInput();
+  Object.assign(player, { x: 0, y: 0, hp: player.maxHp, flash: 0 });
+  Object.assign(enemy, { x: 0, y: -200, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, routeTimer: 0, waypoint: null });
+  Object.assign(attack, { cooldown: 0, remaining: 0, hit: false });
+  facing = { x: 0, y: -1 };
+  combatOver = false;
+  result.hidden = true;
+  retryButton.blur();
+  updateStatus();
+  updateAttackButton();
+});
+
+function updateEnemy(seconds) {
+  enemy.cooldown = Math.max(0, enemy.cooldown - seconds);
+  const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+  const reach = player.radius + enemy.radius + 8;
+  if (enemy.windup > 0) {
+    enemy.windup = Math.max(0, enemy.windup - seconds);
+    if (enemy.windup === 0 && distance <= reach && clearPath(enemy, player)) {
+      player.hp = Math.max(0, player.hp - 1);
+      player.flash = .2;
+      updateStatus();
+      if (player.hp === 0) finishCombat('Yarden est tombée. Réessaie !');
+    }
+    return;
+  }
+  if (distance <= reach && clearPath(enemy, player)) {
+    if (enemy.cooldown === 0) { enemy.windup = .35; enemy.cooldown = .95; }
+    return;
+  }
+  enemy.routeTimer -= seconds;
+  if (enemy.routeTimer <= 0 || !enemy.waypoint || Math.hypot(enemy.waypoint.x - enemy.x, enemy.waypoint.y - enemy.y) < 2) {
+    enemy.waypoint = nextWaypoint();
+    enemy.routeTimer = .25;
+  }
+  if (!enemy.waypoint) return;
+  const dx = enemy.waypoint.x - enemy.x, dy = enemy.waypoint.y - enemy.y;
+  const length = Math.hypot(dx, dy);
+  if (length > 0) {
+    const step = Math.min(length, enemy.speed * seconds);
+    movePlayer(dx / length * step, dy / length * step, enemy);
   }
 }
 
 function update(seconds) {
+  if (combatOver || document.hidden) return;
+  player.flash = Math.max(0, player.flash - seconds);
+  enemy.flash = Math.max(0, enemy.flash - seconds);
   attack.remaining = Math.max(0, attack.remaining - seconds);
   attack.cooldown = Math.max(0, attack.cooldown - seconds);
   updateAttackButton();
@@ -189,6 +318,14 @@ function update(seconds) {
   if (length > 1) { x /= length; y /= length; }
   movePlayer(x * player.speed * seconds, y * player.speed * seconds);
   if (length > 0) facing = { x: x / Math.hypot(x, y), y: y / Math.hypot(x, y) };
+  if (!attack.hit && attackHitsCircle(enemy) && clearPath(player, enemy)) {
+    attack.hit = true;
+    enemy.hp = Math.max(0, enemy.hp - 1);
+    enemy.flash = .2;
+    updateStatus();
+    if (enemy.hp === 0) { finishCombat('Ennemi vaincu !'); return; }
+  }
+  updateEnemy(seconds);
 }
 
 function draw() {
@@ -229,6 +366,24 @@ function draw() {
   ctx.font = '12px system-ui';
   ctx.textAlign = 'left';
   ctx.fillText('ABYSSE · SALLE 1', 14, 24);
+  if (enemy.hp > 0) {
+    const ex = enemy.x + offsetX, ey = enemy.y + offsetY;
+    if (enemy.windup > 0) {
+      ctx.strokeStyle = '#ffb86b';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(ex, ey, enemy.radius + player.radius + 8, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.fillStyle = enemy.flash > 0 ? '#fff' : enemy.windup > 0 ? '#ffb86b' : '#df6c82';
+    ctx.beginPath();
+    ctx.arc(ex, ey, enemy.radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#302633';
+    ctx.fillRect(ex - 20, ey - 25, 40, 5);
+    ctx.fillStyle = '#df6c82';
+    ctx.fillRect(ex - 20, ey - 25, 40 * enemy.hp / enemy.maxHp, 5);
+  }
   if (attack.remaining > 0) {
     ctx.save();
     ctx.translate(screenX, screenY);
@@ -260,7 +415,7 @@ function draw() {
     ctx.fill();
     ctx.restore();
   }
-  ctx.fillStyle = '#c5afff';
+  ctx.fillStyle = player.flash > 0 ? '#fff' : '#c5afff';
   ctx.beginPath();
   ctx.arc(screenX, screenY, player.radius, 0, Math.PI * 2);
   ctx.fill();
@@ -281,4 +436,5 @@ function frame(time) {
   requestAnimationFrame(frame);
 }
 resize();
+updateStatus();
 requestAnimationFrame(frame);

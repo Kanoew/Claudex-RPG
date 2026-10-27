@@ -71,5 +71,6 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 |---|---|---|
 | 1 | validée par Jordan | Jeu publié sur GitHub Pages ; déplacement testé et jouable sur téléphone. |
 | 2 | passage à l’étape 3 validé par Jordan | Salle avec murs et collisions fusionnée ; ajout de `?v=2` après un ancien script conservé en cache. |
-| 3 | implémentée, à relire et à valider | Bouton Faux à droite et touche Espace. Coup orienté selon le regard au déclenchement, secteur visible de 120° et portée de 72 pixels, animation provisoire et récupération de 0,45 s. Zone de contact prête pour les cibles de l’étape 4. Tests logiques validés : zone, durée, récupération, direction, deux doigts, clavier et perte de focus. Rendu navigateur et test Android à valider. Script versionné `?v=3`. Publication après fusion par Jordan. |
+| 3 | passage à l’étape 4 validé par Jordan | Attaque à la faux fusionnée ; bouton tactile, Espace et zone de contact. Script `?v=3`. |
+| 4 | implémentée, à relire et à valider | Un ennemi poursuit Yarden en contournant les deux blocs. Yarden : 5 PV ; ennemi : 3 PV ; un dégât par coup de faux. Coup ennemi annoncé pendant 0,35 s, cadence 0,95 s ; coups bloqués par les murs. PV visibles, arrêt du duel à zéro PV et bouton de relance. Tests logiques validés : dégâts uniques, cadence, fuite, morts, relance, poursuites près des blocs et 12 000 déplacements sans traversée. Rendu navigateur et test Android à valider. Script `?v=5` après correction du contournement. Publication après fusion par Jordan. |
 
