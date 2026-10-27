@@ -302,12 +302,9 @@ retryButton.addEventListener('click', () => {
 function update(seconds) {
   if (combatOver || paused || document.hidden) return;
   elapsed += seconds;
-  if (bossDelay > 0) {
-    bossDelay = Math.max(0, bossDelay - seconds);
-    updateStatus();
-    updateAttackButton();
-    return;
-  }
+  // Pendant l'apparition du Gardien, Yarden peut bouger ; seuls les coups et les ennemis attendent.
+  const appearing = bossDelay > 0;
+  if (appearing) bossDelay = Math.max(0, bossDelay - seconds);
   dodge.cooldown = Math.max(0, dodge.cooldown - seconds);
   player.mana = Math.min(player.maxMana, Math.round((player.mana + 3 * seconds) * 1e6) / 1e6);
   skill.cooldown = Math.max(0, skill.cooldown - seconds);
@@ -337,6 +334,7 @@ function update(seconds) {
     dodge.remaining = Math.max(0, dodge.remaining - seconds);
     return;
   }
+  if (appearing) return;
   for (const enemy of enemies) {
     if ((enemy.boss && !enemy.active) || enemy.hp <= 0 || attack.hits.has(enemy) || !attackHitsCircle(enemy) || !clearPath(player, enemy)) continue;
     attack.hits.add(enemy);
