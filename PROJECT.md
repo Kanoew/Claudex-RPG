@@ -45,6 +45,7 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 ## 6. Règles pour les IA
 - Une étape à la fois. Ne jamais coder l'étape suivante sans validation.
 - Petits changements : une fonctionnalité par commit.
+- Aucune attribution automatique : pas de mention « Co-authored-by », « écrit avec Codex / ChatGPT / Claude », ni de signature ou de crédit d’IA dans les messages de commit, descriptions de PR, le code ou l’interface. Cette règle s’applique à tous les outils utilisés sur le projet.
 - Après chaque tâche, donner : (a) les fichiers touchés, (b) comment tester sur téléphone (« ouvre le lien, fais X, tu dois voir Z »).
 - Ne pas ajouter de bibliothèque ou de dépendance sans demander.
 - Le jeu doit rester fluide sur téléphone : pas de calculs lourds, pas d'images énormes.
@@ -67,5 +68,6 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 ## 8. Journal (à compléter après chaque étape)
 | Étape | Statut | Notes / bugs connus |
 |---|---|---|
-| 1 | implémentée, validation Android à faire | Page Canvas 2D, joystick tactile avec arrêt au relâchement, clavier flèches/ZQSD/WASD. Terrain libre défilant, sans murs ni combat. Vérification syntaxique réussie ; test navigateur local bloqué par le sandbox. Publication GitHub Pages demandée sur main, racine. |
+| 1 | validée par Jordan | Jeu publié sur GitHub Pages ; déplacement testé et jouable sur téléphone. |
+| 2 | implémentée, à relire et à valider | Salle fermée, quatre murs et deux blocs neutres solides. Collisions du disque avec les murs et glissement le long des parois. Syntaxe et tests de simulation validés (limites, blocs, diagonales, annulation tactile, 30 000 déplacements aléatoires). Rendu navigateur et test Android à valider. Branche et PR dédiées ; publication après fusion par Jordan. |
 
