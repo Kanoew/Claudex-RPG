@@ -30,10 +30,11 @@
     #attack { flex-shrink: 0; width: 88px; height: 88px; border: 2px solid #c5afff; border-radius: 50%; background: #46365f; color: #fff; font: bold 16px system-ui; touch-action: none; user-select: none; -webkit-user-select: none; }
     #attack.recovering { background: #252337; color: #b5afca; border-color: #70678e; }
     #attack:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
-    #actions { display: flex; flex-shrink: 0; gap: 8px; }
+    #actions { display: grid; grid-template-columns: repeat(2, 72px); flex-shrink: 0; gap: 8px; }
     #actions button { width: 72px; height: 80px; border: 2px solid #c5afff; border-radius: 22px; background: #46365f; color: #fff; font: bold 13px system-ui; touch-action: none; user-select: none; -webkit-user-select: none; }
     #actions small { display: block; margin-top: 4px; font-weight: normal; }
     #actions #skill { border-color: #70ddff; background: #214253; }
+    #actions #dodge { grid-column: 1 / -1; width: 152px; height: 48px; border-color: #8affc1; background: #214737; }
     #actions button.recovering { background: #252337; color: #b5afca; border-color: #70678e; }
     #actions button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
     @media (max-width: 600px) {
@@ -47,21 +48,23 @@
       #joystick { width: 104px; height: 104px; }
     }
   </style>
-  <script src="game.js?v=7" defer></script>
+  <script src="enemies.js?v=11" defer></script>
+  <script src="game.js?v=11" defer></script>
 </head>
 <body>
   <main>
-    <header><h1>YARDEN</h1><p>L’Abysse · Étape 5 · Mana et Fauchage</p><div id="status" role="status" aria-live="polite"></div></header>
+    <header><h1>YARDEN</h1><p>L’Abysse · Étapes 6 et 7 · Esquive et chargeur</p><div id="status" role="status" aria-live="polite"></div></header>
     <div id="view">
-      <canvas id="game" aria-label="Yarden, disque violet, affronte un ennemi rose dans une salle avec deux blocs solides.">Votre navigateur doit prendre en charge Canvas.</canvas>
+      <canvas id="game" aria-label="Yarden, disque violet, affronte un rôdeur rose et un chargeur carré jaune. Une ligne orange annonce la charge. L’esquive rend Yarden verte.">Votre navigateur doit prendre en charge Canvas.</canvas>
       <div id="result" hidden><strong id="result-text" role="status"></strong><button id="retry" type="button">Recommencer le duel</button></div>
     </div>
     <div id="controls">
       <div id="joystick" aria-label="Joystick tactile de déplacement"><div id="stick"></div></div>
-      <div id="help"><strong>Fauchage</strong>Un coup plus large, deux dégâts. Le mana revient à 3/s.<br>PC : Espace = Faux · E = Fauchage.</div>
+      <div id="help"><strong>Deux adversaires</strong>Rose : attaque au contact. Jaune : charge annoncée par une ligne orange. Esquive pour éviter le coup.<br>PC : Maj = Esquive · Espace = Faux · E = Fauchage.</div>
       <div id="actions">
         <button id="attack" type="button" aria-label="Faux, coût de 3 points de mana" aria-disabled="false">Faux<small>3 mana</small></button>
         <button id="skill" type="button" aria-label="Fauchage, deux dégâts, coût de 12 points de mana" aria-disabled="false">Fauchage<small>12 mana</small></button>
+        <button id="dodge" type="button" aria-label="Esquiver, sans coût de mana" aria-disabled="false">Esquive · Maj</button>
       </div>
     </div>
   </main>
