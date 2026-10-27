@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#121320">
-  <title>Yarden — Premiers pas dans l’Abysse</title>
+  <title>Yarden — L’Abysse · Chapitre 1</title>
   <style>
     * { box-sizing: border-box; }
     html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
@@ -15,6 +15,8 @@
     header p { margin: 5px 0 0; color: #b5afca; font-size: 13px; }
     #view { flex: 1; min-height: 0; position: relative; margin: 0 12px; border-radius: 12px; overflow: hidden; background: #1a1c2c; }
     #status { color: #eae7f5; font-size: 13px; }
+    #objective { margin-top: 5px; color: #c5afff; font-size: 13px; line-height: 1.4; }
+    #result-details { margin: 0; color: #b5afca; }
     #result:not([hidden]) { position: absolute; inset: 0; display: grid; place-content: center; gap: 14px; padding: 20px; background: #121320dd; text-align: center; }
     #retry { min-height: 52px; padding: 12px 24px; border: 2px solid #c5afff; border-radius: 10px; background: #46365f; color: #fff; font: bold 16px system-ui; touch-action: manipulation; }
     canvas { display: block; width: 100%; height: 100%; }
@@ -27,9 +29,6 @@
     #help { max-width: 320px; color: #b5afca; line-height: 1.6; font-size: 13px; }
     #help strong { display: block; color: #eae7f5; font-size: 14px; }
     #controls { justify-content: space-between; }
-    #attack { flex-shrink: 0; width: 88px; height: 88px; border: 2px solid #c5afff; border-radius: 50%; background: #46365f; color: #fff; font: bold 16px system-ui; touch-action: none; user-select: none; -webkit-user-select: none; }
-    #attack.recovering { background: #252337; color: #b5afca; border-color: #70678e; }
-    #attack:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
     #actions { display: grid; grid-template-columns: repeat(2, 72px); flex-shrink: 0; gap: 8px; }
     #actions button { width: 72px; height: 80px; border: 2px solid #c5afff; border-radius: 22px; background: #46365f; color: #fff; font: bold 13px system-ui; touch-action: none; user-select: none; -webkit-user-select: none; }
     #actions small { display: block; margin-top: 4px; font-weight: normal; }
@@ -48,19 +47,20 @@
       #joystick { width: 104px; height: 104px; }
     }
   </style>
-  <script src="enemies.js?v=11" defer></script>
-  <script src="game.js?v=11" defer></script>
+  <script src="enemies.js?v=14" defer></script>
+  <script src="dungeon.js?v=14" defer></script>
+  <script src="game.js?v=14" defer></script>
 </head>
 <body>
   <main>
-    <header><h1>YARDEN</h1><p>L’Abysse · Étapes 6 et 7 · Esquive et chargeur</p><div id="status" role="status" aria-live="polite"></div></header>
+    <header><h1>YARDEN</h1><p>L’Abysse · Chapitre 1 · Prototype</p><div id="status" role="status" aria-live="polite"></div><div id="objective" role="status"></div></header>
     <div id="view">
-      <canvas id="game" aria-label="Yarden, disque violet, affronte un rôdeur rose et un chargeur carré jaune. Une ligne orange annonce la charge. L’esquive rend Yarden verte.">Votre navigateur doit prendre en charge Canvas.</canvas>
-      <div id="result" hidden><strong id="result-text" role="status"></strong><button id="retry" type="button">Recommencer le duel</button></div>
+      <canvas id="game" aria-label="Yarden explore l’Abysse. Prends la faux, affronte les deux gardes et le Gardien, puis rejoins la porte verte au nord. Une ligne ou un cercle orange annonce les attaques ; l’esquive rend Yarden verte.">Votre navigateur doit prendre en charge Canvas.</canvas>
+      <div id="result" hidden><strong id="result-text" role="status"></strong><p id="result-details"></p><button id="retry" type="button">Recommencer le donjon</button></div>
     </div>
     <div id="controls">
       <div id="joystick" aria-label="Joystick tactile de déplacement"><div id="stick"></div></div>
-      <div id="help"><strong>Deux adversaires</strong>Rose : attaque au contact. Jaune : charge annoncée par une ligne orange. Esquive pour éviter le coup.<br>PC : Maj = Esquive · Espace = Faux · E = Fauchage.</div>
+      <div id="help"><strong>L’Abysse</strong>Prends la faux, vaincs les gardes puis le Gardien, et rejoins la sortie au nord.<br>PC : flèches / ZQSD / WASD · Maj = Esquive · Espace = Faux · E = Fauchage.</div>
       <div id="actions">
         <button id="attack" type="button" aria-label="Faux, coût de 3 points de mana" aria-disabled="false">Faux<small>3 mana</small></button>
         <button id="skill" type="button" aria-label="Fauchage, deux dégâts, coût de 12 points de mana" aria-disabled="false">Fauchage<small>12 mana</small></button>

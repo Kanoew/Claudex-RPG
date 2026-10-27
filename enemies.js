@@ -73,21 +73,22 @@ function nextWaypoint(enemy) {
 
 function resetEnemy(enemy) {
   Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null });
+  if (enemy.boss) enemy.active = false;
 }
 
-function hurtPlayer() {
+function hurtPlayer(damage = 1) {
   if (combatOver || dodge.remaining > 0) return;
-  player.hp = Math.max(0, player.hp - 1);
+  player.hp = Math.max(0, player.hp - damage);
   player.flash = .2;
   updateStatus();
   if (player.hp === 0) finishCombat('Yarden est tombée. Réessaie !');
 }
 
 function updateEnemy(enemy, seconds) {
-  if (enemy.hp <= 0) return;
+  if (enemy.hp <= 0 || (enemy.boss && !enemy.active)) return;
   enemy.cooldown = Math.max(0, enemy.cooldown - seconds);
   const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
-  const reach = player.radius + enemy.radius + 8;
+  const reach = enemy.boss ? 105 + player.radius : player.radius + enemy.radius + 8;
   if (enemy.charge > 0) {
     const before = { x: enemy.x, y: enemy.y };
     const step = Math.min(seconds, enemy.charge) * 420;
@@ -109,7 +110,7 @@ function updateEnemy(enemy, seconds) {
     enemy.windup = Math.max(0, enemy.windup - seconds);
     if (enemy.windup === 0) {
       if (enemy.charger) { enemy.charge = .32; enemy.chargeHit = false; }
-      else if (distance <= reach && clearPath(enemy, player)) hurtPlayer();
+      else if (distance <= reach && clearPath(enemy, player)) hurtPlayer(enemy.boss ? 2 : 1);
     }
     return;
   }
@@ -118,8 +119,8 @@ function updateEnemy(enemy, seconds) {
     : distance <= reach && clearPath(enemy, player);
   if (canStrike) {
     if (enemy.cooldown === 0) {
-      enemy.windup = enemy.charger ? .55 : .35;
-      enemy.cooldown = enemy.charger ? 1.8 : .95;
+      enemy.windup = enemy.boss ? (enemy.hp <= 4 ? .6 : .8) : enemy.charger ? .55 : .35;
+      enemy.cooldown = enemy.boss ? 2.1 : enemy.charger ? 1.8 : .95;
       enemy.dirX = distance > 0 ? (player.x - enemy.x) / distance : 0;
       enemy.dirY = distance > 0 ? (player.y - enemy.y) / distance : 1;
     }
@@ -140,7 +141,7 @@ function updateEnemy(enemy, seconds) {
 }
 
 function drawEnemy(enemy, offsetX, offsetY) {
-  if (enemy.hp <= 0) return;
+  if (enemy.hp <= 0 || (enemy.boss && !enemy.active)) return;
   const ex = enemy.x + offsetX, ey = enemy.y + offsetY;
   if (enemy.windup > 0) {
     ctx.strokeStyle = '#ffb86b';
@@ -149,10 +150,10 @@ function drawEnemy(enemy, offsetX, offsetY) {
     if (enemy.charger) {
       ctx.moveTo(ex, ey);
       ctx.lineTo(ex + enemy.dirX * 135, ey + enemy.dirY * 135);
-    } else ctx.arc(ex, ey, enemy.radius + player.radius + 8, 0, Math.PI * 2);
+    } else ctx.arc(ex, ey, enemy.boss ? 105 : enemy.radius + player.radius + 8, 0, Math.PI * 2);
     ctx.stroke();
   }
-  ctx.fillStyle = enemy.flash > 0 ? '#fff' : enemy.windup > 0 ? '#ffb86b' : enemy.charger ? '#e7c567' : '#df6c82';
+  ctx.fillStyle = enemy.flash > 0 ? '#fff' : enemy.windup > 0 ? '#ffb86b' : enemy.boss ? '#b187ef' : enemy.charger ? '#e7c567' : '#df6c82';
   if (enemy.charger) ctx.fillRect(ex - enemy.radius, ey - enemy.radius, enemy.radius * 2, enemy.radius * 2);
   else {
     ctx.beginPath();
@@ -160,7 +161,12 @@ function drawEnemy(enemy, offsetX, offsetY) {
     ctx.fill();
   }
   ctx.fillStyle = '#302633';
-  ctx.fillRect(ex - 20, ey - 25, 40, 5);
+  ctx.fillRect(ex - 20, ey - enemy.radius - 11, 40, 5);
   ctx.fillStyle = enemy.charger ? '#e7c567' : '#df6c82';
-  ctx.fillRect(ex - 20, ey - 25, 40 * enemy.hp / enemy.maxHp, 5);
+  ctx.fillRect(ex - 20, ey - enemy.radius - 11, 40 * enemy.hp / enemy.maxHp, 5);
+  if (enemy.boss) {
+    ctx.fillStyle = '#eae7f5';
+    ctx.textAlign = 'center';
+    ctx.fillText('GARDIEN', ex, ey - enemy.radius - 20);
+  }
 }
