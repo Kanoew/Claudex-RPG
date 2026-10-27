@@ -5,6 +5,7 @@ const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const joystick = document.getElementById('joystick');
 const stick = document.getElementById('stick');
+const attackButton = document.getElementById('attack');
 const player = { x: 0, y: 0, speed: 180, radius: 13 };
 const room = { x: -480, y: -336, width: 960, height: 672 };
 const wallThickness = 24;
@@ -24,6 +25,51 @@ let width = 0;
 let height = 0;
 let lastTime = null;
 let facing = { x: 0, y: -1 };
+const attack = { remaining: 0, cooldown: 0, duration: .22, recovery: .45, range: 72, halfAngle: Math.PI / 3, angle: 0 };
+
+function startAttack() {
+  if (attack.cooldown > 0 || document.hidden) return;
+  attack.angle = Math.atan2(facing.y, facing.x);
+  attack.remaining = attack.duration;
+  attack.cooldown = attack.recovery;
+  updateAttackButton();
+}
+
+function updateAttackButton() {
+  const recovering = attack.cooldown > 0;
+  attackButton.classList.toggle('recovering', recovering);
+  attackButton.setAttribute('aria-disabled', String(recovering));
+}
+
+// Zone logique du coup : secteur de 120 degrés, portée de 72 pixels.
+// Les cibles et leurs points de vie seront ajoutés à l’étape 4.
+function attackHitsCircle(target) {
+  if (attack.remaining <= 0) return false;
+  const dx = target.x - player.x;
+  const dy = target.y - player.y;
+  const distance = Math.hypot(dx, dy);
+  if (distance > attack.range + target.radius) return false;
+  const angle = Math.atan2(dy, dx) - attack.angle;
+  const relative = Math.atan2(Math.sin(angle), Math.cos(angle));
+  if (Math.abs(relative) <= attack.halfAngle) return true;
+  // Une cible peut aussi toucher les bords du secteur avec son rayon.
+  for (const side of [-1, 1]) {
+    const edge = attack.angle + side * attack.halfAngle;
+    const along = Math.max(0, Math.min(attack.range, dx * Math.cos(edge) + dy * Math.sin(edge)));
+    if (Math.hypot(dx - along * Math.cos(edge), dy - along * Math.sin(edge)) <= target.radius) return true;
+  }
+  return false;
+}
+
+attackButton.addEventListener('pointerdown', event => {
+  if (event.pointerType === 'mouse' && event.button !== 0) return;
+  event.preventDefault();
+  startAttack();
+});
+// Le clic sans pointeur conserve l’utilisation clavier et lecteur d’écran.
+attackButton.addEventListener('click', event => {
+  if (event.detail === 0) startAttack();
+});
 
 function resize() {
   const rect = canvas.getBoundingClientRect();
@@ -77,6 +123,11 @@ for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) {
   });
 }
 window.addEventListener('keydown', event => {
+  if (event.code === 'Space' && event.target !== attackButton) {
+    event.preventDefault();
+    if (!event.repeat) startAttack();
+    return;
+  }
   const key = event.key.toLowerCase();
   if (!movementKeys.has(key)) return;
   event.preventDefault();
@@ -87,6 +138,7 @@ function resetInput() {
   keys.clear();
   releaseStick();
   lastTime = null;
+  attack.remaining = 0;
 }
 window.addEventListener('blur', resetInput);
 document.addEventListener('visibilitychange', resetInput);
@@ -124,6 +176,9 @@ function movePlayer(dx, dy) {
 }
 
 function update(seconds) {
+  attack.remaining = Math.max(0, attack.remaining - seconds);
+  attack.cooldown = Math.max(0, attack.cooldown - seconds);
+  updateAttackButton();
   let x = input.x;
   let y = input.y;
   if (input.pointerId === null) {
@@ -174,6 +229,37 @@ function draw() {
   ctx.font = '12px system-ui';
   ctx.textAlign = 'left';
   ctx.fillText('ABYSSE · SALLE 1', 14, 24);
+  if (attack.remaining > 0) {
+    ctx.save();
+    ctx.translate(screenX, screenY);
+    ctx.rotate(attack.angle);
+    ctx.fillStyle = '#c5afff44';
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, attack.range, -attack.halfAngle, attack.halfAngle);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = '#c5afff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    // Faux provisoire en formes simples, animée à travers la zone du coup.
+    const progress = 1 - attack.remaining / attack.duration;
+    ctx.rotate(-attack.halfAngle + progress * attack.halfAngle * 2);
+    ctx.strokeStyle = '#eae7f5';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(10, 0);
+    ctx.lineTo(58, 0);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(58, -5);
+    ctx.quadraticCurveTo(80, 4, 53, 27);
+    ctx.lineTo(62, 7);
+    ctx.closePath();
+    ctx.fillStyle = '#eae7f5';
+    ctx.fill();
+    ctx.restore();
+  }
   ctx.fillStyle = '#c5afff';
   ctx.beginPath();
   ctx.arc(screenX, screenY, player.radius, 0, Math.PI * 2);

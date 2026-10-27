@@ -45,6 +45,7 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 ## 6. Règles pour les IA
 - Une étape à la fois. Ne jamais coder l'étape suivante sans validation.
 - Petits changements : une fonctionnalité par commit.
+- À chaque modification de `game.js`, augmenter le numéro dans son URL de chargement dans `index.html` (`game.js?v=3`, puis `?v=4`, etc.). Le numéro doit être supérieur à celui de la version précédente, même pour un correctif au sein d’une même étape : le navigateur recharge ainsi le script actualisé après ouverture ou actualisation de la page, sans vider le cache manuellement.
 - Aucune attribution automatique : pas de mention « Co-authored-by », « écrit avec Codex / ChatGPT / Claude », ni de signature ou de crédit d’IA dans les messages de commit, descriptions de PR, le code ou l’interface. Cette règle s’applique à tous les outils utilisés sur le projet.
 - Après chaque tâche, donner : (a) les fichiers touchés, (b) comment tester sur téléphone (« ouvre le lien, fais X, tu dois voir Z »).
 - Ne pas ajouter de bibliothèque ou de dépendance sans demander.
@@ -69,5 +70,6 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 | Étape | Statut | Notes / bugs connus |
 |---|---|---|
 | 1 | validée par Jordan | Jeu publié sur GitHub Pages ; déplacement testé et jouable sur téléphone. |
-| 2 | implémentée, à relire et à valider | Salle fermée, quatre murs et deux blocs neutres solides. Collisions du disque avec les murs et glissement le long des parois. Syntaxe et tests de simulation validés (limites, blocs, diagonales, annulation tactile, 30 000 déplacements aléatoires). Rendu navigateur et test Android à valider. Branche et PR dédiées ; publication après fusion par Jordan. |
+| 2 | passage à l’étape 3 validé par Jordan | Salle avec murs et collisions fusionnée ; ajout de `?v=2` après un ancien script conservé en cache. |
+| 3 | implémentée, à relire et à valider | Bouton Faux à droite et touche Espace. Coup orienté selon le regard au déclenchement, secteur visible de 120° et portée de 72 pixels, animation provisoire et récupération de 0,45 s. Zone de contact prête pour les cibles de l’étape 4. Tests logiques validés : zone, durée, récupération, direction, deux doigts, clavier et perte de focus. Rendu navigateur et test Android à valider. Script versionné `?v=3`. Publication après fusion par Jordan. |
 

@@ -23,21 +23,27 @@
     #stick { position: absolute; top: 50%; left: 50%; width: 54px; height: 54px; margin: -27px; border-radius: 50%; background: #c5afff; box-shadow: 0 3px 16px #0005; z-index: 1; pointer-events: none; }
     #help { max-width: 320px; color: #b5afca; line-height: 1.6; font-size: 13px; }
     #help strong { display: block; color: #eae7f5; font-size: 14px; }
+    #controls { justify-content: space-between; }
+    #attack { flex-shrink: 0; width: 88px; height: 88px; border: 2px solid #c5afff; border-radius: 50%; background: #46365f; color: #fff; font: bold 16px system-ui; touch-action: none; user-select: none; -webkit-user-select: none; }
+    #attack.recovering { background: #252337; color: #b5afca; border-color: #70678e; }
+    #attack:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+    @media (max-width: 600px) { #help { display: none; } }
     @media (orientation: landscape) and (max-height: 500px) {
       header { padding: 8px 20px; } h1 { font-size: 18px; } header p { display: none; }
       #controls { padding-top: 8px; padding-bottom: max(8px, env(safe-area-inset-bottom)); }
       #joystick { width: 104px; height: 104px; }
     }
   </style>
-  <script src="game.js?v=2" defer></script>
+  <script src="game.js?v=3" defer></script>
 </head>
 <body>
   <main>
-    <header><h1>YARDEN</h1><p>L’Abysse · Prototype · Étape 2</p></header>
+    <header><h1>YARDEN</h1><p>L’Abysse · Étape 3 · Joystick + bouton Faux</p></header>
     <div id="view"><canvas id="game" aria-label="Yarden, représentée par un disque violet, explore une salle entourée de murs avec deux blocs solides.">Votre navigateur doit prendre en charge Canvas.</canvas></div>
     <div id="controls">
       <div id="joystick" aria-label="Joystick tactile de déplacement"><div id="stick"></div></div>
-      <div id="help"><strong>La première salle</strong>Explore la salle : les murs et les blocs arrêtent Yarden.<br>Joystick tactile · PC : flèches ou ZQSD / WASD.</div>
+      <div id="help"><strong>La faux</strong>Un appui, un coup dans la direction du regard.<br>PC : flèches ou ZQSD / WASD · Espace pour attaquer.</div>
+      <button id="attack" type="button" aria-label="Attaquer à la faux" aria-disabled="false">Faux</button>
     </div>
   </main>
 </body>
