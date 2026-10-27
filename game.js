@@ -198,7 +198,12 @@ window.addEventListener('keydown', event => {
   keys.add(key);
 });
 window.addEventListener('keyup', event => keys.delete(event.key.toLowerCase()));
-function resetInput() {
+// Mode diagnostic : ouvrir le jeu avec ?debug à la fin du lien affiche l'état interne.
+const debugMode = typeof location !== 'undefined' && /[?&]debug\b/.test(location.search);
+const debugInfo = { resets: 0, last: '-' };
+function resetInput(source) {
+  debugInfo.resets++;
+  debugInfo.last = (source && source.type) || 'code';
   keys.clear();
   releaseStick();
   lastTime = null;
@@ -395,6 +400,16 @@ function draw() {
   ctx.font = '12px system-ui';
   ctx.textAlign = 'left';
   ctx.fillText('ABYSSE · SALLE 1', 14, 24);
+  if (debugMode) {
+    const lines = [
+      `stage ${stage} · delay ${bossDelay.toFixed(2)} · pause ${paused} · fin ${combatOver}`,
+      `doigt ${input.pointerId} · joy ${input.x.toFixed(2)},${input.y.toFixed(2)}`,
+      `reset ${debugInfo.resets} (dernier : ${debugInfo.last})`,
+      `yarden ${Math.round(player.x)},${Math.round(player.y)} · boss ${Math.round(boss.x)},${Math.round(boss.y)} actif ${boss.active}`
+    ];
+    ctx.fillStyle = '#ffd36b';
+    lines.forEach((line, i) => ctx.fillText(line, 14, 44 + i * 16));
+  }
   for (const enemy of enemies) drawEnemy(enemy, offsetX, offsetY);
   if (attack.remaining > 0) {
     ctx.save();
