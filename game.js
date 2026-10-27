@@ -6,11 +6,13 @@ const ctx = canvas.getContext('2d');
 const joystick = document.getElementById('joystick');
 const stick = document.getElementById('stick');
 const attackButton = document.getElementById('attack');
+const skillButton = document.getElementById('skill');
+const skill = { cost: 12, cooldown: 0, recovery: 2.5 };
 const status = document.getElementById('status');
 const result = document.getElementById('result');
 const resultText = document.getElementById('result-text');
 const retryButton = document.getElementById('retry');
-const player = { x: 0, y: 0, speed: 180, radius: 13, hp: 5, maxHp: 5, flash: 0 };
+const player = { x: 0, y: 0, speed: 180, radius: 13, hp: 5, maxHp: 5, flash: 0, mana: 30, maxMana: 30 };
 const enemy = { x: 0, y: -200, speed: 95, radius: 14, hp: 3, maxHp: 3, flash: 0, cooldown: 0, windup: 0, routeTimer: 0, waypoint: null };
 let combatOver = false;
 const room = { x: -480, y: -336, width: 960, height: 672 };
@@ -33,22 +35,30 @@ let lastTime = null;
 let facing = { x: 0, y: -1 };
 const attack = { remaining: 0, cooldown: 0, duration: .22, recovery: .45, range: 72, halfAngle: Math.PI / 3, angle: 0, hit: false };
 
-function startAttack() {
-  if (combatOver || attack.cooldown > 0 || document.hidden) return;
+function startAttack(empowered = false) {
+  const cost = empowered ? skill.cost : 3;
+  if (combatOver || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
+  player.mana -= cost;
+  if (empowered) skill.cooldown = skill.recovery;
+  Object.assign(attack, { empowered, damage: empowered ? 2 : 1, duration: empowered ? .3 : .22, recovery: empowered ? .8 : .45, range: empowered ? 110 : 72 });
   attack.angle = Math.atan2(facing.y, facing.x);
   attack.remaining = attack.duration;
   attack.cooldown = attack.recovery;
   attack.hit = false;
   updateAttackButton();
+  updateStatus();
 }
 
 function updateAttackButton() {
-  const recovering = combatOver || attack.cooldown > 0;
+  const recovering = combatOver || attack.cooldown > 0 || player.mana < 3;
   attackButton.classList.toggle('recovering', recovering);
   attackButton.setAttribute('aria-disabled', String(recovering));
+  const unavailable = combatOver || attack.cooldown > 0 || skill.cooldown > 0 || player.mana < skill.cost;
+  skillButton.classList.toggle('recovering', unavailable);
+  skillButton.setAttribute('aria-disabled', String(unavailable));
 }
 
-// Zone logique du coup : secteur de 120 degrés, portée de 72 pixels.
+// Secteur de 120 degrés : portée de 72 pixels, ou 110 pour Fauchage.
 // Chaque coup ne peut infliger qu’une seule blessure à l’ennemi.
 function attackHitsCircle(target) {
   if (attack.remaining <= 0) return false;
@@ -68,15 +78,17 @@ function attackHitsCircle(target) {
   return false;
 }
 
-attackButton.addEventListener('pointerdown', event => {
-  if (event.pointerType === 'mouse' && event.button !== 0) return;
-  event.preventDefault();
-  startAttack();
-});
-// Le clic sans pointeur conserve l’utilisation clavier et lecteur d’écran.
-attackButton.addEventListener('click', event => {
-  if (event.detail === 0) startAttack();
-});
+for (const [button, empowered] of [[attackButton, false], [skillButton, true]]) {
+  button.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    event.preventDefault();
+    startAttack(empowered);
+  });
+  // Clic clavier ou lecteur d’écran, sans doubler le déclenchement tactile.
+  button.addEventListener('click', event => {
+    if (event.detail === 0) startAttack(empowered);
+  });
+}
 
 function resize() {
   const rect = canvas.getBoundingClientRect();
@@ -130,7 +142,12 @@ for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) {
   });
 }
 window.addEventListener('keydown', event => {
-  if (event.code === 'Space' && event.target !== attackButton && event.target !== retryButton) {
+  if (event.code === 'KeyE') {
+    event.preventDefault();
+    if (!event.repeat) startAttack(true);
+    return;
+  }
+  if (event.code === 'Space' && event.target !== attackButton && event.target !== skillButton && event.target !== retryButton) {
     event.preventDefault();
     if (!event.repeat) startAttack();
     return;
@@ -244,7 +261,8 @@ function nextWaypoint() {
 }
 
 function updateStatus() {
-  status.textContent = `Yarden : ${player.hp}/${player.maxHp} PV · Ennemi : ${enemy.hp}/${enemy.maxHp} PV`;
+  const text = `Yarden : ${player.hp}/${player.maxHp} PV · Mana : ${Math.floor(player.mana)}/${player.maxMana} · Ennemi : ${enemy.hp}/${enemy.maxHp} PV`;
+  if (status.textContent !== text) status.textContent = text;
 }
 
 function finishCombat(message) {
@@ -258,9 +276,10 @@ function finishCombat(message) {
 
 retryButton.addEventListener('click', () => {
   resetInput();
-  Object.assign(player, { x: 0, y: 0, hp: player.maxHp, flash: 0 });
+  Object.assign(player, { x: 0, y: 0, hp: player.maxHp, flash: 0, mana: player.maxMana });
   Object.assign(enemy, { x: 0, y: -200, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, routeTimer: 0, waypoint: null });
   Object.assign(attack, { cooldown: 0, remaining: 0, hit: false });
+  skill.cooldown = 0;
   facing = { x: 0, y: -1 };
   combatOver = false;
   result.hidden = true;
@@ -303,6 +322,9 @@ function updateEnemy(seconds) {
 
 function update(seconds) {
   if (combatOver || document.hidden) return;
+  player.mana = Math.min(player.maxMana, Math.round((player.mana + 3 * seconds) * 1e6) / 1e6);
+  skill.cooldown = Math.max(0, skill.cooldown - seconds);
+  updateStatus();
   player.flash = Math.max(0, player.flash - seconds);
   enemy.flash = Math.max(0, enemy.flash - seconds);
   attack.remaining = Math.max(0, attack.remaining - seconds);
@@ -320,7 +342,7 @@ function update(seconds) {
   if (length > 0) facing = { x: x / Math.hypot(x, y), y: y / Math.hypot(x, y) };
   if (!attack.hit && attackHitsCircle(enemy) && clearPath(player, enemy)) {
     attack.hit = true;
-    enemy.hp = Math.max(0, enemy.hp - 1);
+    enemy.hp = Math.max(0, enemy.hp - attack.damage);
     enemy.flash = .2;
     updateStatus();
     if (enemy.hp === 0) { finishCombat('Ennemi vaincu !'); return; }
@@ -388,13 +410,13 @@ function draw() {
     ctx.save();
     ctx.translate(screenX, screenY);
     ctx.rotate(attack.angle);
-    ctx.fillStyle = '#c5afff44';
+    ctx.fillStyle = attack.empowered ? '#70ddff44' : '#c5afff44';
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.arc(0, 0, attack.range, -attack.halfAngle, attack.halfAngle);
     ctx.closePath();
     ctx.fill();
-    ctx.strokeStyle = '#c5afff';
+    ctx.strokeStyle = attack.empowered ? '#70ddff' : '#c5afff';
     ctx.lineWidth = 2;
     ctx.stroke();
     // Faux provisoire en formes simples, animée à travers la zone du coup.
