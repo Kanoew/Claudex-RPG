@@ -52,6 +52,13 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 - Ne jamais réécrire un fichier entier « pour nettoyer » sans demande.
 - Mettre à jour le journal (section 8) à la fin de chaque étape.
 
+### Travail à plusieurs IA (Codex + Claude Code)
+- Une seule IA travaille à la fois sur une étape, sinon leurs changements entrent en conflit.
+- Chaque tâche = une branche (`codex/etape-2`, `claude/etape-2`). Personne ne pousse directement sur `main`.
+- Codex écrit une étape ; Claude Code la relit ensuite : « Relis la branche `codex/etape-2` par rapport à `PROJECT.md`, corrige seulement les vrais bugs ».
+- Jordan teste sur téléphone, puis fusionne lui-même dans `main` (Create PR, puis Merge). GitHub Pages publie `main` : c'est la fusion qui met le jeu à jour.
+- Celui qui termine met à jour le journal (section 8).
+
 ## 7. Rôles
 - Codex / ChatGPT : écrit le code et commit dans le repo
 - Claude : relit chaque commit (bugs, cas oubliés, écarts avec ce fichier) et rapporte à Jordan
