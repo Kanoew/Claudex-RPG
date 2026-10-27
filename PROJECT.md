@@ -60,4 +60,5 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 ## 8. Journal (à compléter après chaque étape)
 | Étape | Statut | Notes / bugs connus |
 |---|---|---|
-| 1 | à faire | |
+| 1 | implémentée, validation Android à faire | Page Canvas 2D, joystick tactile avec arrêt au relâchement, clavier flèches/ZQSD/WASD. Terrain libre défilant, sans murs ni combat. Vérification syntaxique réussie ; test navigateur local bloqué par le sandbox. Publication GitHub Pages demandée sur main, racine. |
+
