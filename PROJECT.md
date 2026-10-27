@@ -7,6 +7,8 @@
 Un seul donjon jouable de bout en bout : Yarden y entre, obtient son arme, affronte des ennemis en temps réel, en sort.
 Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'est trop lourd. Les deux sont un succès.
 
+> **État (phase 1 terminée, phase 2 en préparation) :** le donjon du prototype est jouable de bout en bout sur Android (conclusion de Jordan : jouable, mais l'interface et le décor sont à améliorer). La suite est décrite en section 9, qui prime sur les sections 1 et 2 pour ce qu'elle autorise.
+
 ## 2. Hors périmètre (interdit pendant le mois)
 - Monde ouvert, villes, PNJ, quêtes, inventaire complexe, économie, système de niveaux complet
 - Multijoueur, sauvegarde complexe, menus élaborés, traductions
@@ -83,3 +85,42 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 | 9 | implémentée, à relire et à valider | Entrée au sud, faux à manifester gratuitement sur place ; les ennemis attendent la prise de l’arme. Gardes puis Gardien, puis ouverture de la porte au nord. Traverser la porte verte déclenche l’écran de fin. Mort ou victoire permettent de recommencer tout le donjon. Progression et décor simple dans `dungeon.js`. Tests de parcours logique validés, test réel Android restant. Scripts `?v=13`. |
 | 10 | implémentée, bilan Android à compléter | Nettoyage ciblé des styles et de la remise à zéro des impacts ; pause à la perte de focus, chronomètre de jeu et résumé de fin, barre de PV du boss lisible. Guide dans `README.md`, état et essais restants dans `BILAN.md`, sept scénarios logiques sans dépendance dans `tests/smoke.cjs`. Syntaxe et tests réussis ; rendu réel, fluidité, équilibrage et parcours complet Android à valider. Scripts `?v=14`. Correctif (retour de Jordan) : le joystick n’est plus relâché à l’apparition du Gardien ni à sa défaite, ce qui bloquait Yarden pouce posé ; scripts `?v=15`, test ajouté. Ensuite : Yarden peut bouger pendant l’apparition du Gardien (1,2 s) au lieu d’être figée ; mode diagnostic `?debug` ; scripts `?v=17`. |
 
+## 9. Phase 2 : habillage et première zone extérieure (proposée, à valider par Jordan)
+
+### Constat de départ
+- Le donjon est complet : entrée, faux, deux types d'ennemis, Gardien, porte, écran de fin. 8 scénarios logiques passent (`node tests/smoke.cjs`). Détails dans `BILAN.md`.
+- Points faibles relevés par Jordan : interface peu lisible (ligne de statut longue, boutons basiques), décor en blocs gris, personnage et ennemis en formes simples.
+- Le mode `?debug` (à ajouter à la fin du lien du jeu) affiche l'état interne. Il sert à diagnostiquer un blocage sur téléphone.
+
+### Décisions
+- On reste sur le jeu web (HTML, JavaScript, Canvas 2D, GitHub Pages). Godot 4 n'est pas nécessaire pour des sprites ni pour un décor habillé. On rouvre la question à la fin de la phase 2, seulement si on veut plusieurs salles, une vraie carte, du son ou un export Android.
+- Les images sont autorisées dans un dossier `assets/` : PNG avec fond transparent pour les sprites, formats légers (viser moins de 100 Ko par image, moins de 1 Mo au total pour la phase). Toujours prévoir un affichage de secours en formes simples si une image ne se charge pas.
+- Les illustrations de Yarden de Jordan (pleine hauteur, 4 vues, 8 expressions) ne vont pas telles quelles dans le jeu : elles servent de référence et de portraits (écran de fin, futurs dialogues). Le sprite en jeu est une version réduite, vue du dessus ou de trois quarts.
+- Le décor ne change pas la logique : murs, blocs et collisions restent des rectangles, seul le dessin évolue.
+- Toujours interdits : monde ouvert, PNJ, quêtes, inventaire, économie, niveaux, multijoueur, sauvegarde. Ajoutés comme autorisés : images dans `assets/`, découpage de `game.js` en plusieurs fichiers au-delà de ~500 lignes (il en compte ~470).
+- Les règles de la section 6 restent valables (une étape à la fois, branche par tâche, numéro de version des scripts, aucune mention d'IA dans les commits, PR et fichiers).
+
+### Étapes (une seule à la fois, validée par Jordan)
+Ordre voulu : d'abord ce qui rend le jeu agréable, ensuite ce qui l'agrandit.
+
+| # | Étape | Contenu | Critère de validation sur téléphone |
+|---|---|---|---|
+| 11 | Interface | Barres de PV et de mana à la place de la ligne de texte, objectif court, boutons plus lisibles, Gardien visible dès son apparition | Tout se lit d'un coup d'œil, sans chercher |
+| 12 | Décor de la salle | Sol en dalles, murs et blocs habillés (pierre, piliers, rochers), voile sombre autour de Yarden, porte d'entrée et de sortie dessinées. Images libres de droits (CC0) ou fournies par Jordan | La salle ressemble à un donjon, les collisions n'ont pas changé |
+| 13 | Sprite de Yarden | Petit sprite : 4 directions, marche à 2 images, coup de faux. Disque conservé comme secours | Yarden se reconnaît et reste lisible en combat |
+| 14 | Sprites des ennemis | Rôdeur, chargeur, Gardien, avec leurs annonces d'attaque toujours lisibles | On identifie chaque ennemi et son attaque sans lire le texte |
+| 15 | Structure en zones | Le jeu lit ses salles dans une liste de données (taille, murs, portes), sans nouveau contenu : le donjon actuel doit jouer à l'identique | Aucun changement visible, les tests passent |
+| 16 | Zone extérieure | Une seule zone dehors, reliée à la sortie du donjon : décor, quelques obstacles, au plus un type d'ennemi existant, pas de PNJ ni de quête | On sort du donjon, on explore, on peut revenir ou finir |
+| 17 | Bilan phase 2 | Fluidité mesurée sur téléphone, poids des images, décision sur Godot | Conclusion écrite dans `BILAN.md` |
+
+La zone extérieure vient en dernier et en deux temps (structure, puis contenu) : elle change la façon dont le jeu stocke ses salles, donc on ne la mélange pas avec l'habillage.
+
+### Rôles pour la phase 2
+- Jordan : fournit ou génère les images (sprite réduit, tuiles), teste sur téléphone, valide chaque étape et fusionne.
+- Codex / ChatGPT ou Claude Code : une seule IA par étape, branche dédiée, relecture croisée avant fusion, comme en section 6.
+- Les images produites par Jordan sont à nommer simplement (`yarden-bas-1.png`, `sol.png`, …) et à lister dans `README.md`.
+
+### Journal de la phase 2
+| Étape | Statut | Notes |
+|---|---|---|
+| 11 à 17 | à lancer | Plan proposé ci-dessus, en attente de validation par Jordan |
