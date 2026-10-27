@@ -48,6 +48,7 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 - Une étape à la fois. Ne jamais coder l'étape suivante sans validation.
 - Exception autorisée par Jordan pour cette livraison : étapes 6 et 7 regroupées dans une même PR, avec un commit distinct par étape. Les étapes suivantes restent soumises à validation.
 - Jordan autorise ensuite les étapes 8, 9 et 10 dans une même PR, avec un commit par étape : boss, sortie, puis nettoyage et bilan. Cette autorisation reste limitée au prototype décrit ici.
+- Phase 2 : Jordan autorise les étapes 11 et 12 ensemble, avec un commit par étape. L’étape 13 reste réservée à sa prochaine session ; aucun sprite n’est ajouté ici.
 - Petits changements : une fonctionnalité par commit.
 - À chaque modification de `game.js`, augmenter le numéro dans son URL de chargement dans `index.html` (`game.js?v=3`, puis `?v=4`, etc.). Le numéro doit être supérieur à celui de la version précédente, même pour un correctif au sein d’une même étape : le navigateur recharge ainsi le script actualisé après ouverture ou actualisation de la page, sans vider le cache manuellement.
 - Appliquer aussi ce principe aux fichiers JavaScript extraits : `enemies.js` est chargé avant `game.js`, avec une URL versionnée.
@@ -123,4 +124,7 @@ La zone extérieure vient en dernier et en deux temps (structure, puis contenu) 
 ### Journal de la phase 2
 | Étape | Statut | Notes |
 |---|---|---|
-| 11 à 17 | à lancer | Plan proposé ci-dessus, en attente de validation par Jordan |
+| 11 | implémentée, à relire et à valider sur Android | Barres de vie et de mana avec valeurs numériques, objectif court, boutons avec coûts et récupérations. Barre du Gardien dès son apparition et flèche quand il est hors champ. Affichage extrait dans `hud.js` et `render.js` ; corrections de maintien du joystick et diagnostic conservés. Neuf scénarios logiques passent. Vérification visuelle locale bloquée par le sandbox du navigateur ; test portrait/paysage sur Android restant. Scripts `?v=19`. |
+| 12 | implémentée, à relire et à valider sur Android | Sol en dalles, murs maçonnés, blocs habillés en piliers, portes d’entrée et de sortie dessinées, voile sombre sous les personnages et annonces. Deux SVG originaux dédiés CC0 dans `assets/` (1 276 octets au total), chargés une seule fois en motifs ; dessin de secours en cas d’échec. Dimensions et collisions conservées. Dix scénarios logiques passent, dont textures chargées/absentes et maintien du joystick. Vérification visuelle et fluidité Android restantes. Scripts et images `?v=22`. |
+| 13 à 17 | à lancer | Étape 13 laissée à la prochaine session de Jordan ; étapes suivantes soumises à validation. |
+

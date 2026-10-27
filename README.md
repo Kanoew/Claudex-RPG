@@ -17,7 +17,15 @@ Yarden a 5 PV et 30 mana. La faux coûte 3 mana, Fauchage 12 ; le mana revient �
 
 ## Fichiers et publication
 
-Ouvre `index.html` directement dans un navigateur récent ou utilise le lien du jeu. Aucun outil de build, paquet à installer ou serveur n’est nécessaire. `enemies.js` et `dungeon.js` sont chargés avant `game.js`.
+Ouvre `index.html` directement dans un navigateur récent ou utilise le lien du jeu. Aucun outil de build, paquet à installer ou serveur n’est nécessaire. `enemies.js`, `dungeon.js`, `hud.js` et `render.js` sont chargés avant `game.js`. Les règles et les contrôles restent dans `game.js` ; les barres et boutons sont mis à jour par `hud.js`, et le dessin de la salle et des formes provisoires est dans `render.js`.
+
+## Interface et décor
+
+La vie et le mana ont des barres avec valeurs numériques. Les boutons affichent leur coût ou leur temps de récupération. Le Gardien a une barre fixe dès son apparition et une flèche indique sa position lorsqu’il est hors champ. L’objectif reste au-dessus du terrain.
+
+Deux images de décor, originales et CC0, sont incluses : `assets/sol-pierre.svg` (dalles) et `assets/mur-pierre.svg` (maçonnerie), environ 1,3 Ko au total. Voir `assets/LICENCE.md`. Les portes, piliers et l’ombre autour de Yarden sont dessinés en Canvas. Si les images échouent à charger, un décor de secours est dessiné ; le jeu et les collisions restent identiques.
+
+Yarden et les ennemis gardent leurs formes provisoires. Les sprites restent pour les étapes 13 et 14 ; aucun portrait ou sprite n’est inclus dans cette livraison.
 
 GitHub Pages publie la racine de `main` après fusion. À chaque changement des scripts, augmente leur numéro `?v=` dans `index.html`, puis actualise la page après publication.
 

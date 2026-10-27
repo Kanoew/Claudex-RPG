@@ -32,3 +32,10 @@ La structure technique du petit donjon fonctionne dans les simulations. La faisa
 
 Le donjon a été joué en entier deux fois sur Android. Deux blocages ont été trouvés puis corrigés : le joystick relâché à l'apparition du Gardien et à sa défaite, et la pause de 1,2 s pendant laquelle Yarden était figée. La sortie et la fin fonctionnent. Verdict : jouable, avec une interface et un décor à améliorer. Le test de changement d'onglet n'a pas été fait sur téléphone, la fluidité n'a pas été mesurée, et l'équilibrage reste à juger. La suite est décrite en section 9 de `PROJECT.md`.
 
+## Phase 2 — étapes 11 et 12
+
+Interface : barres de vie/mana, objectif court, boutons avec coûts et récupérations, barre fixe et repère hors champ pour le Gardien. Décor : dalles et maçonnerie en deux SVG CC0 originaux (1 276 octets), piliers et portes dessinés, voile sombre sous les personnages et les annonces. Aucun sprite ni changement des collisions.
+
+Dix scénarios logiques passent, y compris le chargement des textures, leur échec avec affichage de secours, les barres et le repère du boss, ainsi que le maintien du joystick pendant les transitions. Le rendu est simulé : le navigateur local ne démarre pas dans le sandbox. Aucune mesure de fluidité Android ni validation visuelle n’est donc revendiquée.
+
+Après fusion, actualiser puis vérifier sur téléphone : barres lisibles en portrait et paysage ; boutons atteignables avec deux pouces ; Gardien identifiable dès son apparition sans relâcher le joystick ; salle en pierre et portes reconnaissables ; annonces orange et esquive verte lisibles dans la pénombre ; parcours complet toujours possible. La mesure de fluidité reste à l’étape 17. Les sprites de Yarden et des ennemis restent réservés aux étapes 13 et 14.

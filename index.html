@@ -3,68 +3,96 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#121320">
+  <meta name="theme-color" content="#11141c">
   <title>Yarden — L’Abysse · Chapitre 1</title>
   <style>
     * { box-sizing: border-box; }
     html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
-    body { background: #121320; color: #eae7f5; font: 15px system-ui, sans-serif; }
-    main { height: 100%; height: 100dvh; display: flex; flex-direction: column; }
-    header { padding: max(14px, env(safe-area-inset-top)) 20px 12px; }
-    h1 { margin: 0; font-size: 22px; letter-spacing: .12em; }
-    header p { margin: 5px 0 0; color: #b5afca; font-size: 13px; }
-    #view { flex: 1; min-height: 0; position: relative; margin: 0 12px; border-radius: 12px; overflow: hidden; background: #1a1c2c; }
-    #status { color: #eae7f5; font-size: 13px; }
-    #objective { margin-top: 5px; color: #c5afff; font-size: 13px; line-height: 1.4; }
-    #result-details { margin: 0; color: #b5afca; }
-    #result:not([hidden]) { position: absolute; inset: 0; display: grid; place-content: center; gap: 14px; padding: 20px; background: #121320dd; text-align: center; }
-    #retry { min-height: 52px; padding: 12px 24px; border: 2px solid #c5afff; border-radius: 10px; background: #46365f; color: #fff; font: bold 16px system-ui; touch-action: manipulation; }
+    body { background: #11141c; color: #f1eddf; font: 14px system-ui, sans-serif; }
+    main { height: 100%; height: 100dvh; display: flex; flex-direction: column; max-width: 1400px; margin: auto; }
+    header { flex-shrink: 0; padding: max(10px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 10px max(16px, env(safe-area-inset-left)); }
+    .brand { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; gap: 12px; }
+    h1 { margin: 0; font: 600 17px Georgia, serif; letter-spacing: .18em; }
+    #opponents { color: #a8afb7; font-size: 11px; text-align: right; }
+    .resources { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .meter-label { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 11px; letter-spacing: .05em; font-weight: 650; }
+    .meter { height: 10px; border: 1px solid #59616a; border-radius: 3px; background: #20262d; overflow: hidden; }
+    .meter::before { content: ''; display: block; width: var(--fill, 100%); height: 100%; background: linear-gradient(90deg, #a54759, #ef9d98); }
+    #mana-meter::before { background: linear-gradient(90deg, #3b719d, #91d2ed); }
+    #objective { margin-top: 9px; color: #e0c58f; font-size: 12px; line-height: 1.3; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    #view { flex: 1; min-height: 0; position: relative; margin: 0 10px; border: 1px solid #3b424c; border-radius: 7px; overflow: hidden; background: #161b24; }
     canvas { display: block; width: 100%; height: 100%; }
-    #controls { flex-shrink: 0; display: flex; align-items: center; gap: 24px; padding: 14px max(20px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); }
-    #joystick { position: relative; flex-shrink: 0; width: 132px; height: 132px; border: 2px solid #70678e; border-radius: 50%; background: #252337; touch-action: none; user-select: none; -webkit-user-select: none; }
-    #joystick::before, #joystick::after { content: ''; position: absolute; background: #39344f; }
+    #boss-panel { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: min(340px, calc(100% - 28px)); padding: 8px 12px; background: #12151feb; border: 1px solid #b08a68; border-radius: 5px; pointer-events: none; }
+    #boss-panel .meter { height: 7px; border-color: #786078; }
+    #boss-meter::before { background: linear-gradient(90deg, #775699, #d9a5dd); }
+    #boss-state { color: #e9c58b; letter-spacing: .16em; }
+    #result:not([hidden]) { position: absolute; inset: 0; display: grid; place-content: center; gap: 16px; padding: 24px; background: #10141aef; text-align: center; }
+    #result-text { font: 600 24px Georgia, serif; max-width: 340px; }
+    #result-details { margin: 0; color: #b8c1cb; }
+    #retry { min-height: 52px; padding: 12px 24px; border: 1px solid #c9ad78; border-radius: 5px; background: #3f3540; color: #fff2d6; font: bold 15px system-ui; touch-action: manipulation; }
+    #controls { flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px max(16px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+    #joystick { position: relative; flex-shrink: 0; width: 108px; height: 108px; border: 1px solid #737781; border-radius: 50%; background: radial-gradient(circle, #343849, #202631); touch-action: none; user-select: none; -webkit-user-select: none; box-shadow: inset 0 0 0 10px #ffffff05; }
+    #joystick::before, #joystick::after { content: ''; position: absolute; background: #69708066; }
     #joystick::before { top: 50%; left: 12px; right: 12px; height: 1px; }
     #joystick::after { left: 50%; top: 12px; bottom: 12px; width: 1px; }
-    #stick { position: absolute; top: 50%; left: 50%; width: 54px; height: 54px; margin: -27px; border-radius: 50%; background: #c5afff; box-shadow: 0 3px 16px #0005; z-index: 1; pointer-events: none; }
-    #help { max-width: 320px; color: #b5afca; line-height: 1.6; font-size: 13px; }
-    #help strong { display: block; color: #eae7f5; font-size: 14px; }
-    #controls { justify-content: space-between; }
-    #actions { display: grid; grid-template-columns: repeat(2, 72px); flex-shrink: 0; gap: 8px; }
-    #actions button { width: 72px; height: 80px; border: 2px solid #c5afff; border-radius: 22px; background: #46365f; color: #fff; font: bold 13px system-ui; touch-action: none; user-select: none; -webkit-user-select: none; }
-    #actions small { display: block; margin-top: 4px; font-weight: normal; }
-    #actions #skill { border-color: #70ddff; background: #214253; }
-    #actions #dodge { grid-column: 1 / -1; width: 152px; height: 48px; border-color: #8affc1; background: #214737; }
-    #actions button.recovering { background: #252337; color: #b5afca; border-color: #70678e; }
-    #actions button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
-    @media (max-width: 600px) {
-      #controls { gap: 12px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
-      #joystick { width: 120px; height: 120px; }
-    }
-    @media (max-width: 600px) { #help { display: none; } }
+    #stick { position: absolute; top: 50%; left: 50%; width: 48px; height: 48px; margin: -24px; border: 1px solid #d3c3df; border-radius: 50%; background: linear-gradient(135deg, #b5a2c5, #766683); box-shadow: 0 3px 12px #0006; z-index: 1; pointer-events: none; }
+    #help { max-width: 380px; color: #a8afb7; font-size: 12px; line-height: 1.7; }
+    #help strong { display: block; color: #e0c58f; letter-spacing: .08em; }
+    #actions { display: grid; grid-template-columns: repeat(2, 78px); flex-shrink: 0; gap: 8px; }
+    #actions button { position: relative; min-width: 0; height: 66px; padding: 8px 2px; border: 1px solid #b7a1ca; border-radius: 8px; background: linear-gradient(#453c54, #302a3d); color: #fcf8ff; font: 700 14px system-ui; touch-action: none; user-select: none; -webkit-user-select: none; }
+    #actions small { display: block; margin-top: 5px; font-size: 9px; font-weight: 500; color: #e1d9eb; }
+    #actions #skill { border-color: #77b7ce; background: linear-gradient(#284455, #1e303d); }
+    #actions #dodge { grid-column: 1 / -1; height: 46px; border-color: #85b39d; background: linear-gradient(#283f37, #1f302b); display: flex; justify-content: center; align-items: center; gap: 10px; }
+    #actions #dodge small { margin: 0; }
+    #actions button.recovering { background: #20252d; color: #a5acb9; border-color: #4c5461; }
+    #actions button.recovering small { color: #a5acb9; }
+    button:focus-visible { outline: 3px solid #fff1c2; outline-offset: 3px; }
+    button:active { filter: brightness(1.2); }
+    @media (max-width: 650px) { #help { display: none; } }
     @media (orientation: landscape) and (max-height: 500px) {
-      header { padding: 8px 20px; } h1 { font-size: 18px; } header p { display: none; }
-      #controls { padding-top: 8px; padding-bottom: max(8px, env(safe-area-inset-bottom)); }
-      #joystick { width: 104px; height: 104px; }
+      header { padding-top: max(6px, env(safe-area-inset-top)); padding-bottom: 6px; }
+      .brand { margin-bottom: 5px; }
+      h1 { font-size: 14px; }
+      .resources { max-width: 480px; }
+      #objective { position: absolute; right: max(16px, env(safe-area-inset-right)); top: 28px; max-width: 35%; margin: 0; }
+      #controls { padding-top: 6px; padding-bottom: max(6px, env(safe-area-inset-bottom)); }
+      #joystick { width: 96px; height: 96px; }
+      #actions { grid-template-columns: repeat(3, 78px); }
+      #actions #dodge { grid-column: auto; height: 66px; display: block; }
+      #actions #dodge small { margin-top: 5px; }
+      #help { display: none; }
     }
+    @media (orientation: landscape) and (max-width: 750px) { .resources { max-width: 55%; } }
   </style>
-  <script src="enemies.js?v=17" defer></script>
-  <script src="dungeon.js?v=17" defer></script>
-  <script src="game.js?v=17" defer></script>
+  <script src="enemies.js?v=22" defer></script>
+  <script src="dungeon.js?v=22" defer></script>
+  <script src="hud.js?v=22" defer></script>
+  <script src="render.js?v=22" defer></script>
+  <script src="game.js?v=22" defer></script>
 </head>
 <body>
   <main>
-    <header><h1>YARDEN</h1><p>L’Abysse · Chapitre 1 · Prototype</p><div id="status" role="status" aria-live="polite"></div><div id="objective" role="status"></div></header>
+    <header>
+      <div class="brand"><h1>YARDEN</h1><span id="opponents">Chapitre 1</span></div>
+      <div class="resources">
+        <div><div class="meter-label"><span>VIE</span><span id="hp-value">5 / 5</span></div><div class="meter" id="hp-meter" role="progressbar" aria-label="Points de vie de Yarden" aria-valuemin="0" aria-valuemax="5" aria-valuenow="5"></div></div>
+        <div><div class="meter-label"><span>MANA</span><span id="mana-value">30 / 30</span></div><div class="meter" id="mana-meter" role="progressbar" aria-label="Mana de Yarden" aria-valuemin="0" aria-valuemax="30" aria-valuenow="30"></div></div>
+      </div>
+      <div id="status" class="sr-only"></div><div id="objective" role="status"></div>
+    </header>
     <div id="view">
-      <canvas id="game" aria-label="Yarden explore l’Abysse. Prends la faux, affronte les deux gardes et le Gardien, puis rejoins la porte verte au nord. Une ligne ou un cercle orange annonce les attaques ; l’esquive rend Yarden verte.">Votre navigateur doit prendre en charge Canvas.</canvas>
+      <canvas id="game" aria-label="Prends la faux, affronte les deux gardes et le Gardien, puis rejoins la porte verte au nord. Orange : attaque annoncée ; vert : esquive.">Votre navigateur doit prendre en charge Canvas.</canvas>
+      <div id="boss-panel" hidden><div class="meter-label"><span id="boss-state">GARDIEN</span><span id="boss-value">8 / 8</span></div><div class="meter" id="boss-meter" role="progressbar" aria-label="Points de vie du Gardien" aria-valuemin="0" aria-valuemax="8" aria-valuenow="8"></div></div>
       <div id="result" hidden><strong id="result-text" role="status"></strong><p id="result-details"></p><button id="retry" type="button">Recommencer le donjon</button></div>
     </div>
     <div id="controls">
       <div id="joystick" aria-label="Joystick tactile de déplacement"><div id="stick"></div></div>
-      <div id="help"><strong>L’Abysse</strong>Prends la faux, vaincs les gardes puis le Gardien, et rejoins la sortie au nord.<br>PC : flèches / ZQSD / WASD · Maj = Esquive · Espace = Faux · E = Fauchage.</div>
+      <div id="help"><strong>L’ABYSSE · CHAPITRE 1</strong>Prends la faux, vaincs les gardes et le Gardien, puis trouve la sortie.<br>Flèches / ZQSD / WASD · Espace · E · Maj</div>
       <div id="actions">
-        <button id="attack" type="button" aria-label="Faux, coût de 3 points de mana" aria-disabled="false">Faux<small>3 mana</small></button>
-        <button id="skill" type="button" aria-label="Fauchage, deux dégâts, coût de 12 points de mana" aria-disabled="false">Fauchage<small>12 mana</small></button>
-        <button id="dodge" type="button" aria-label="Esquiver, sans coût de mana" aria-disabled="false">Esquive · Maj</button>
+        <button id="attack" type="button" aria-label="Faux, 3 mana" aria-disabled="true">Faux<small id="attack-hint">À récupérer</small></button>
+        <button id="skill" type="button" aria-label="Fauchage, deux dégâts, 12 mana" aria-disabled="true">Fauchage<small id="skill-hint">À récupérer</small></button>
+        <button id="dodge" type="button" aria-label="Esquive gratuite" aria-disabled="false">Esquive<small id="dodge-hint">Gratuite · Maj</small></button>
       </div>
     </div>
   </main>
