@@ -161,12 +161,12 @@ function drawEnemy(enemy, offsetX, offsetY) {
     ctx.fill();
   }
   ctx.fillStyle = '#302633';
-  ctx.fillRect(ex - 20, ey - 25, 40, 5);
+  ctx.fillRect(ex - 20, ey - enemy.radius - 11, 40, 5);
   ctx.fillStyle = enemy.charger ? '#e7c567' : '#df6c82';
-  ctx.fillRect(ex - 20, ey - 25, 40 * enemy.hp / enemy.maxHp, 5);
+  ctx.fillRect(ex - 20, ey - enemy.radius - 11, 40 * enemy.hp / enemy.maxHp, 5);
   if (enemy.boss) {
     ctx.fillStyle = '#eae7f5';
     ctx.textAlign = 'center';
-    ctx.fillText('GARDIEN', ex, ey - 36);
+    ctx.fillText('GARDIEN', ex, ey - enemy.radius - 20);
   }
 }

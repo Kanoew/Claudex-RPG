@@ -13,6 +13,7 @@ const skill = { cost: 12, cooldown: 0, recovery: 2.5 };
 const status = document.getElementById('status');
 const result = document.getElementById('result');
 const resultText = document.getElementById('result-text');
+const resultDetails = document.getElementById('result-details');
 const retryButton = document.getElementById('retry');
 const player = { x: 0, y: 240, speed: 180, radius: 13, hp: 5, maxHp: 5, flash: 0, mana: 30, maxMana: 30, armed: false };
 const weapon = { x: 0, y: 144 };
@@ -25,6 +26,8 @@ const enemies = [
 const boss = enemies[2];
 for (const enemy of enemies) resetEnemy(enemy);
 let combatOver = false;
+let paused = false;
+let elapsed = 0;
 let stage = 'entry';
 let bossDelay = 0;
 const room = { x: -480, y: -336, width: 960, height: 672 };
@@ -49,7 +52,7 @@ const attack = { remaining: 0, cooldown: 0, duration: .22, recovery: .45, range:
 
 function startAttack(empowered = false) {
   const cost = empowered ? skill.cost : 3;
-  if (!player.armed || combatOver || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
+  if (!player.armed || paused || combatOver || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
   player.mana -= cost;
   if (empowered) skill.cooldown = skill.recovery;
   Object.assign(attack, { empowered, damage: empowered ? 2 : 1, duration: empowered ? .3 : .22, recovery: empowered ? .8 : .45, range: empowered ? 110 : 72 });
@@ -73,7 +76,7 @@ function updateAttackButton() {
 }
 
 function startDodge() {
-  if (combatOver || bossDelay > 0 || document.hidden || dodge.cooldown > 0) return;
+  if (paused || combatOver || bossDelay > 0 || document.hidden || dodge.cooldown > 0) return;
   let x = input.pointerId === null ? Number(keys.has('d') || keys.has('arrowright')) - Number(keys.has('q') || keys.has('a') || keys.has('arrowleft')) : input.x;
   let y = input.pointerId === null ? Number(keys.has('s') || keys.has('arrowdown')) - Number(keys.has('z') || keys.has('w') || keys.has('arrowup')) : input.y;
   const length = Math.hypot(x, y);
@@ -202,7 +205,8 @@ function resetInput() {
   attack.remaining = 0;
   dodge.remaining = 0;
 }
-window.addEventListener('blur', resetInput);
+window.addEventListener('blur', () => { paused = true; resetInput(); updateStatus(); });
+window.addEventListener('focus', () => { paused = false; lastTime = null; updateStatus(); });
 document.addEventListener('visibilitychange', resetInput);
 window.addEventListener('resize', resetInput);
 
@@ -238,10 +242,10 @@ function movePlayer(dx, dy, body = player) {
 }
 
 function updateStatus() {
-  const text = `Yarden : ${player.hp}/${player.maxHp} PV · Mana : ${Math.floor(player.mana)}/${player.maxMana} · ${enemies.filter(enemy => !enemy.boss || enemy.active).map(enemy => `${enemy.name} : ${enemy.hp}/${enemy.maxHp}`).join(' · ')}`;
+  const text = `Yarden : ${player.hp}/${player.maxHp} PV · Mana : ${Math.floor(player.mana)}/${player.maxMana} · ${enemies.filter(enemy => enemy.boss ? enemy.active : stage === 'entry' || stage === 'guards').map(enemy => `${enemy.name} : ${enemy.hp}/${enemy.maxHp}`).join(' · ')}`;
   if (status.textContent !== text) status.textContent = text;
   const objective = document.getElementById('objective');
-  const goal = !player.armed ? 'Avance vers la faux violette pour la manifester.' : bossDelay > 0 ? 'Le Gardien apparaît…' : stage === 'guards' ? 'Vaincre le rôdeur et le chargeur.' : stage === 'boss' ? 'Vaincre le Gardien. Évite le cercle orange !' : stage === 'exit' ? 'Sortie ouverte ! Rejoins la porte verte au nord ↑.' : 'Yarden a quitté l’Abysse.';
+  const goal = paused && !combatOver ? 'Pause — reviens sur le jeu pour continuer.' : !player.armed ? 'Avance vers la faux violette pour la manifester.' : bossDelay > 0 ? 'Le Gardien apparaît…' : stage === 'guards' ? 'Vaincre le rôdeur et le chargeur.' : stage === 'boss' ? 'Vaincre le Gardien. Évite le cercle orange !' : stage === 'exit' ? 'Sortie ouverte ! Rejoins la porte verte au nord ↑.' : 'Yarden a quitté l’Abysse.';
   if (objective.textContent !== goal) objective.textContent = goal;
 }
 
@@ -262,6 +266,7 @@ function finishCombat(message) {
   resetInput();
   for (const enemy of enemies) { enemy.windup = 0; enemy.charge = 0; }
   resultText.textContent = message;
+  resultDetails.textContent = `Temps de jeu : ${Math.floor(elapsed)} s · PV restants : ${player.hp}/${player.maxHp}`;
   result.hidden = false;
   updateAttackButton();
 }
@@ -273,11 +278,14 @@ retryButton.addEventListener('click', () => {
   stage = 'entry';
   exitOpen = false;
   bossDelay = 0;
-  Object.assign(attack, { cooldown: 0, remaining: 0, hit: false });
+  Object.assign(attack, { cooldown: 0, remaining: 0 });
+  attack.hits.clear();
   skill.cooldown = 0;
   Object.assign(dodge, { remaining: 0, cooldown: 0 });
   facing = { x: 0, y: -1 };
   combatOver = false;
+  paused = false;
+  elapsed = 0;
   result.hidden = true;
   retryButton.blur();
   updateStatus();
@@ -285,7 +293,8 @@ retryButton.addEventListener('click', () => {
 });
 
 function update(seconds) {
-  if (combatOver || document.hidden) return;
+  if (combatOver || paused || document.hidden) return;
+  elapsed += seconds;
   if (bossDelay > 0) {
     bossDelay = Math.max(0, bossDelay - seconds);
     updateStatus();

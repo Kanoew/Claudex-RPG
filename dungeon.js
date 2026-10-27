@@ -8,7 +8,7 @@ function updateDungeon() {
     updateStatus();
     updateAttackButton();
   }
-  if (stage === 'exit' && exitOpen && Math.abs(player.x) < 36 && player.y <= room.y + 32) {
+  if (stage === 'exit' && exitOpen && Math.abs(player.x) <= 44 - player.radius && player.y <= room.y + 32) {
     stage = 'escaped';
     finishCombat('Yarden a quitté l’Abysse. Donjon terminé !');
     updateStatus();
