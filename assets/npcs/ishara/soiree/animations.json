@@ -1,0 +1,696 @@
+{
+  "name": "Ishara",
+  "version": 1,
+  "status": "premier pack à valider",
+  "outfit": "soiree",
+  "cell": {
+    "width": 128,
+    "height": 160
+  },
+  "anchor": {
+    "x": 64,
+    "y": 140
+  },
+  "mirror": false,
+  "animations": {
+    "idle": {
+      "file": "idle.png",
+      "label": "Repos et respiration",
+      "frames": 4,
+      "durationsMs": [
+        1000,
+        350,
+        110,
+        1200
+      ],
+      "loop": true,
+      "sourceScale": 0.136752,
+      "sourceCanvas": [
+        1774,
+        887
+      ],
+      "sourceFile": "sources/idle.png",
+      "frameData": [
+        {
+          "frame": 0,
+          "sourceCrop": [
+            20,
+            42,
+            427,
+            867
+          ],
+          "sourceRoot": [
+            209.0,
+            864
+          ],
+          "bounds": [
+            38,
+            28,
+            94,
+            141
+          ]
+        },
+        {
+          "frame": 1,
+          "sourceCrop": [
+            459,
+            42,
+            870,
+            867
+          ],
+          "sourceRoot": [
+            650.0,
+            864
+          ],
+          "bounds": [
+            38,
+            28,
+            94,
+            141
+          ]
+        },
+        {
+          "frame": 2,
+          "sourceCrop": [
+            901,
+            41,
+            1314,
+            867
+          ],
+          "sourceRoot": [
+            1093.0,
+            864
+          ],
+          "bounds": [
+            38,
+            27,
+            94,
+            140
+          ]
+        },
+        {
+          "frame": 3,
+          "sourceCrop": [
+            1351,
+            42,
+            1760,
+            867
+          ],
+          "sourceRoot": [
+            1541.0,
+            864
+          ],
+          "bounds": [
+            38,
+            28,
+            94,
+            141
+          ]
+        }
+      ]
+    },
+    "walk-left": {
+      "file": "walk-left.png",
+      "label": "Marche vers la gauche",
+      "frames": 4,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true,
+      "sourceScale": 0.147078,
+      "sourceCanvas": [
+        1774,
+        887
+      ],
+      "sourceFile": "sources/walk-left.png",
+      "frameData": [
+        {
+          "frame": 0,
+          "sourceCrop": [
+            52,
+            76,
+            424,
+            841
+          ],
+          "sourceRoot": [
+            232.0,
+            842
+          ],
+          "bounds": [
+            38,
+            27,
+            93,
+            140
+          ]
+        },
+        {
+          "frame": 1,
+          "sourceCrop": [
+            466,
+            74,
+            853,
+            845
+          ],
+          "sourceRoot": [
+            657.0,
+            842
+          ],
+          "bounds": [
+            36,
+            27,
+            93,
+            140
+          ]
+        },
+        {
+          "frame": 2,
+          "sourceCrop": [
+            915,
+            74,
+            1304,
+            842
+          ],
+          "sourceRoot": [
+            1097.0,
+            842
+          ],
+          "bounds": [
+            37,
+            27,
+            94,
+            140
+          ]
+        },
+        {
+          "frame": 3,
+          "sourceCrop": [
+            1355,
+            76,
+            1739,
+            843
+          ],
+          "sourceRoot": [
+            1535.0,
+            842
+          ],
+          "bounds": [
+            38,
+            27,
+            94,
+            140
+          ]
+        }
+      ]
+    },
+    "walk-right": {
+      "file": "walk-right.png",
+      "label": "Marche vers la droite",
+      "frames": 4,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true,
+      "sourceScale": 0.13939,
+      "sourceCanvas": [
+        1774,
+        887
+      ],
+      "sourceFile": "sources/walk-right.png",
+      "frameData": [
+        {
+          "frame": 0,
+          "sourceCrop": [
+            28,
+            39,
+            416,
+            845
+          ],
+          "sourceRoot": [
+            249.0,
+            846
+          ],
+          "bounds": [
+            33,
+            28,
+            87,
+            140
+          ]
+        },
+        {
+          "frame": 1,
+          "sourceCrop": [
+            471,
+            39,
+            858,
+            849
+          ],
+          "sourceRoot": [
+            699.0,
+            846
+          ],
+          "bounds": [
+            32,
+            28,
+            86,
+            141
+          ]
+        },
+        {
+          "frame": 2,
+          "sourceCrop": [
+            919,
+            40,
+            1313,
+            849
+          ],
+          "sourceRoot": [
+            1141.0,
+            846
+          ],
+          "bounds": [
+            33,
+            28,
+            88,
+            141
+          ]
+        },
+        {
+          "frame": 3,
+          "sourceCrop": [
+            1367,
+            39,
+            1752,
+            849
+          ],
+          "sourceRoot": [
+            1593.0,
+            846
+          ],
+          "bounds": [
+            32,
+            28,
+            86,
+            141
+          ]
+        }
+      ]
+    },
+    "walk-up": {
+      "file": "walk-up.png",
+      "label": "Marche de dos",
+      "frames": 4,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true,
+      "sourceScale": 0.146023,
+      "sourceCanvas": [
+        1774,
+        887
+      ],
+      "sourceFile": "sources/walk-up.png",
+      "frameData": [
+        {
+          "frame": 0,
+          "sourceCrop": [
+            89,
+            58,
+            414,
+            832
+          ],
+          "sourceRoot": [
+            229.5,
+            829
+          ],
+          "bounds": [
+            43,
+            27,
+            90,
+            140
+          ]
+        },
+        {
+          "frame": 1,
+          "sourceCrop": [
+            494,
+            58,
+            823,
+            832
+          ],
+          "sourceRoot": [
+            638.0,
+            829
+          ],
+          "bounds": [
+            43,
+            27,
+            91,
+            140
+          ]
+        },
+        {
+          "frame": 2,
+          "sourceCrop": [
+            938,
+            57,
+            1263,
+            829
+          ],
+          "sourceRoot": [
+            1080.0,
+            829
+          ],
+          "bounds": [
+            43,
+            27,
+            90,
+            140
+          ]
+        },
+        {
+          "frame": 3,
+          "sourceCrop": [
+            1381,
+            58,
+            1710,
+            826
+          ],
+          "sourceRoot": [
+            1524.0,
+            829
+          ],
+          "bounds": [
+            43,
+            27,
+            91,
+            139
+          ]
+        }
+      ]
+    },
+    "walk-down": {
+      "file": "walk-down.png",
+      "label": "Marche de face",
+      "frames": 4,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true,
+      "sourceScale": 0.137846,
+      "sourceCanvas": [
+        1774,
+        887
+      ],
+      "sourceFile": "sources/walk-down.png",
+      "frameData": [
+        {
+          "frame": 0,
+          "sourceCrop": [
+            34,
+            42,
+            406,
+            861
+          ],
+          "sourceRoot": [
+            219.0,
+            859
+          ],
+          "bounds": [
+            38,
+            27,
+            89,
+            140
+          ]
+        },
+        {
+          "frame": 1,
+          "sourceCrop": [
+            483,
+            42,
+            857,
+            860
+          ],
+          "sourceRoot": [
+            667.0,
+            859
+          ],
+          "bounds": [
+            39,
+            27,
+            91,
+            140
+          ]
+        },
+        {
+          "frame": 2,
+          "sourceCrop": [
+            922,
+            42,
+            1292,
+            859
+          ],
+          "sourceRoot": [
+            1104.0,
+            859
+          ],
+          "bounds": [
+            39,
+            27,
+            90,
+            140
+          ]
+        },
+        {
+          "frame": 3,
+          "sourceCrop": [
+            1367,
+            42,
+            1744,
+            862
+          ],
+          "sourceRoot": [
+            1556.0,
+            859
+          ],
+          "bounds": [
+            38,
+            27,
+            90,
+            140
+          ]
+        }
+      ]
+    },
+    "run-left": {
+      "file": "run-left.png",
+      "label": "Course vers la gauche",
+      "frames": 4,
+      "durationsMs": [
+        100,
+        90,
+        100,
+        90
+      ],
+      "loop": true,
+      "sourceScale": 0.147078,
+      "sourceCanvas": [
+        1774,
+        887
+      ],
+      "sourceFile": "sources/run-left.png",
+      "frameData": [
+        {
+          "frame": 0,
+          "sourceCrop": [
+            26,
+            99,
+            479,
+            823
+          ],
+          "sourceRoot": [
+            286.0,
+            820
+          ],
+          "bounds": [
+            26,
+            34,
+            93,
+            140
+          ]
+        },
+        {
+          "frame": 1,
+          "sourceCrop": [
+            437,
+            133,
+            857,
+            813
+          ],
+          "sourceRoot": [
+            712.0,
+            820
+          ],
+          "bounds": [
+            24,
+            39,
+            86,
+            139
+          ]
+        },
+        {
+          "frame": 2,
+          "sourceCrop": [
+            858,
+            108,
+            1344,
+            822
+          ],
+          "sourceRoot": [
+            1139.0,
+            820
+          ],
+          "bounds": [
+            23,
+            35,
+            94,
+            140
+          ]
+        },
+        {
+          "frame": 3,
+          "sourceCrop": [
+            1297,
+            99,
+            1749,
+            769
+          ],
+          "sourceRoot": [
+            1547.0,
+            820
+          ],
+          "bounds": [
+            27,
+            34,
+            93,
+            133
+          ]
+        }
+      ]
+    },
+    "run-right": {
+      "file": "run-right.png",
+      "label": "Course vers la droite",
+      "frames": 4,
+      "durationsMs": [
+        100,
+        90,
+        100,
+        90
+      ],
+      "loop": true,
+      "sourceScale": 0.170772,
+      "sourceCanvas": [
+        2172,
+        724
+      ],
+      "sourceFile": "sources/run-right.png",
+      "frameData": [
+        {
+          "frame": 0,
+          "sourceCrop": [
+            46,
+            37,
+            524,
+            698
+          ],
+          "sourceRoot": [
+            305.0,
+            696
+          ],
+          "bounds": [
+            20,
+            27,
+            102,
+            140
+          ]
+        },
+        {
+          "frame": 1,
+          "sourceCrop": [
+            657,
+            51,
+            1079,
+            699
+          ],
+          "sourceRoot": [
+            836.0,
+            696
+          ],
+          "bounds": [
+            33,
+            30,
+            105,
+            141
+          ]
+        },
+        {
+          "frame": 2,
+          "sourceCrop": [
+            1118,
+            45,
+            1589,
+            699
+          ],
+          "sourceRoot": [
+            1374.0,
+            696
+          ],
+          "bounds": [
+            20,
+            29,
+            100,
+            141
+          ]
+        },
+        {
+          "frame": 3,
+          "sourceCrop": [
+            1700,
+            47,
+            2160,
+            655
+          ],
+          "sourceRoot": [
+            1948.0,
+            696
+          ],
+          "bounds": [
+            22,
+            29,
+            101,
+            133
+          ]
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Vêtement de soirée ; pas la tenue de combat ultérieure.",
+    "Les vues sont des dessins distincts, sans retournement horizontal.",
+    "Sac choisi sur la hanche gauche anatomique pour cette proposition ; côté non précisé dans le canon fourni.",
+    "Le lien Jordan/Yarden reste volontairement de côté ; ces ressources ne déclenchent aucune scène.",
+    "Contrôler la constance du visage, du sac, du détail sous l’œil droit, du cou et des pas avant intégration."
+  ]
+}

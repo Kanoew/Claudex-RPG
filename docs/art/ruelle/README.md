@@ -16,4 +16,26 @@ Le physique des hommes est proposé, pas canonisé : grand plus longiligne en ve
 
 Le lieu prévu est un coin de trottoir sous un lampadaire éteint, avec façade aveugle à gauche et grille fermée à droite. Les révélations du chapitre 3 et la bénédiction d’Ishara restent des informations de conception et ne sont pas annoncées par cette illustration de rue.
 
-La scène n’est pas encore jouable : le lore nomme Jordan comme intervenant, alors que le personnage contrôlé est Yarden. L’adaptation de ce rôle reste à préciser. Les deux passants présents dans le jeu restent inchangés pendant la préparation du design.
+Jordan demande de laisser le lien Jordan/Yarden de côté pour l’instant : le lore correspondant sera fourni plus tard. Le travail se concentre sur les mouvements réutilisables d’Ishara pour sa présence future dans l’histoire. Les deux passants présents dans le jeu restent inchangés pendant cette préparation, et aucune intervention narrative n’est inventée.
+
+## Mouvements d’Ishara — premier pack
+
+[Ouvrir l’aperçu animé](ishara.html), avec lecture, vitesse réglable, examen image par image et fonds de contrôle. Conserver l’arborescence du dépôt pour une ouverture locale.
+
+Les ressources légères sont dans `assets/npcs/ishara/soiree/` : sept bandes PNG transparentes, quatre images par bande, soit **28 cases de 128 × 160 px**, ancrées en **(64, 140)**. Les bandes totalisent environ **71 Kio** ; elles ne sont pas chargées par le jeu actuel. Le manifeste `animations.json` indique les durées, les rectangles de source et les repères. `animations-data.js` expose les mêmes données à l’aperçu pour fonctionner aussi sans serveur.
+
+| Bande | Usage |
+|---|---|
+| `idle.png` | Repos, respiration et clignement |
+| `walk-left.png`, `walk-right.png` | Marche latérale, deux dessins distincts |
+| `walk-up.png` | Marche de dos |
+| `walk-down.png` | Marche de face |
+| `run-left.png`, `run-right.png` | Course latérale, deux dessins distincts |
+
+Ce pack conserve uniquement la **tenue de soirée**. Le côté gauche du sac est un choix de travail pour assurer sa continuité, pas un nouveau détail du canon. Les sources sont des propositions de poses : contrôler à la taille du jeu la constance du visage, de la robe, du cou, du sac, des pas et du détail sous l’œil droit. Les vues et les cadences restent à valider avant raccordement. Le cou de certaines illustrations doit encore être contrôlé par rapport au tour de cou non canonique de la première référence.
+
+La découpe utilise un grossissement uniforme par bande et une ligne de sol commune ; les courses reprennent le grossissement de la marche correspondante corrigé du format de la source. La pose aérienne de course garde son élévation. Aucun miroir ni recadrage à la taille de chaque silhouette n’est utilisé. Les durées d’aperçu sont provisoires, à synchroniser avec le déplacement futur.
+
+Il n’y a pas encore de course de face ou de dos, de tenue de combat ni de dialogue raccordé. L’organisation par tenue permet d’ajouter ces ressources plus tard sans changer l’identité d’Ishara ni inventer le lien Jordan/Yarden.
+
+Vérifications de préparation : les 28 cases ont les dimensions et marges transparentes prévues ; les deux courses conservent l’élévation de leur pose aérienne. L’aperçu charge les sept bandes dans Chromium sans exception JavaScript ; la lecture, la pause stable et l’avance image par image ont été contrôlées. Cela ne vaut pas validation du dessin ni essai des déplacements sur Android.

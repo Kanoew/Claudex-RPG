@@ -180,7 +180,7 @@ Ces précisions concernent la rencontre du chapitre 2. La bible et le texte publ
 - Le compact affiche une fausse assurance dans les épaules, qui compense son état.
 - Niveaux 3 et 5 au maximum, non éveillés, alcoolisés, « avec une idée fixe ». Ils restent ordinaires, sans allure de prédateurs sophistiqués ni de nouveaux boss.
 - Le texte ne précise ni visage, ni coiffure, ni couleur, ni nom. Toutes ces décisions visuelles restent des propositions, sans valeur canonique avant validation de Jordan.
-- Fin de la scène du texte : Jordan tord le poignet de l’un (« géométrie articulaire ») et dit « Elle est pas intéressée ». Le grand part le premier, le compact suit en marmonnant. Ne pas attribuer automatiquement ce rôle à Yarden : l’adaptation du protagoniste reste à préciser.
+- Fin de la scène du texte : Jordan tord le poignet de l’un (« géométrie articulaire ») et dit « Elle est pas intéressée ». Le grand part le premier, le compact suit en marmonnant. Ne pas attribuer automatiquement ce rôle à Yarden. Jordan indique que le lien entre Jordan et Yarden sera expliqué plus tard et demande de le laisser de côté pour l’instant.
 
 ### Cadrage et lieu
 Un coin de trottoir sous un lampadaire éteint, dans un cul-de-sac partiel : façade aveugle à gauche, grille fermée à droite. C’est le décor de cette rencontre ; ne pas déplacer toute la ruelle existante pour lui correspondre sans définir le raccordement. Dans une poursuite, garder les hommes génériques, peu détaillés et secondaires à l’image. Ishara concentre l’attention.
@@ -188,6 +188,11 @@ Un coin de trottoir sous un lampadaire éteint, dans un cul-de-sac partiel : fa�
 ### Première proposition de design (à valider)
 Référence de travail dans `docs/art/ruelle/`, sans chargement dans le jeu. Ishara garde sa tenue de soirée. Les hommes ont des palettes discrètes et des silhouettes contrastées : veste bleu-gris trop grande pour le grand, veste brun-charbon pour le compact. Coiffures sombres simples, chaussures et traits génériques sont des choix de travail. La couleur des yeux et les chaussures d’Ishara, non précisées par le lore fourni, restent elles aussi provisoires. Pas de noms ajoutés, pas d’arme pour les hommes, pas de tenue de combat ni d’effet magique pour Ishara.
 
-Le raccordement attend la décision sur le rôle de Jordan/Yarden. Les deux passants actuels n’ont pas été transformés en acteurs de cette rencontre et aucune nouvelle réplique de scène n’a été écrite.
+Jordan demande de laisser le lien Jordan/Yarden de côté jusqu’à la fourniture du lore correspondant. Le travail continue sur les mouvements réutilisables d’Ishara, qui restera présente dans la suite de l’histoire. Les deux passants actuels ne sont pas transformés en acteurs de cette rencontre et aucune nouvelle réplique de scène n’est écrite.
+
+### Mouvements préparés pour Ishara
+Premier pack de soirée dans `assets/npcs/ishara/soiree/` : repos avec respiration et clignement, marche dans les quatre directions et course à gauche/droite. Sept bandes transparentes de quatre images (28 cases de 128 × 160, ancrage 64 × 140, environ 71 Kio pour les PNG), avec manifeste et aperçu dans `docs/art/ruelle/ishara.html`. Les directions ont été dessinées séparément, sans miroir. Le sac à gauche anatomique est un choix de continuité visuelle encore à valider ; son côté n’est pas fixé par le lore fourni.
+
+Ces ressources préparent sa présence dans la suite de l’histoire, sans lui attribuer le rôle de Jordan ou de Yarden et sans déclencher la rencontre. Aspect, cou sans accessoire non canonique, raccords des poses et détails asymétriques restent à valider avant intégration. La course de face/de dos et la tenue de combat ne sont pas encore préparées. Aucun changement du comportement du jeu dans cette livraison de design et de mouvements.
 
 

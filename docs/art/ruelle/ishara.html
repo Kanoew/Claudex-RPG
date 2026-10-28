@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ishara — mouvements en tenue de soirée</title>
+<style>
+*{box-sizing:border-box}body{margin:24px auto;max-width:1250px;padding:0 16px;background:#17141e;color:#eee;font:16px system-ui;line-height:1.5}h1{margin-bottom:8px}h2{font-size:17px;margin:4px 0}a{color:#d6baff}label{display:inline-flex;align-items:center;gap:8px;margin:8px 12px 8px 0}button,select{font:inherit;padding:7px}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:20px 0}article{padding:12px;border:1px solid #65596f;border-radius:10px}canvas{display:block;width:100%;max-width:320px;margin:auto;aspect-ratio:4/5;background:repeating-conic-gradient(#e0e0e0 0% 25%,#b0bdb0 0% 50%) 0/24px 24px}body[data-bg="white"] canvas{background:#fff}body[data-bg="black"] canvas{background:#000}.frame{float:right;color:#dbc5ef}small{color:#d2c6db}.toolbar{position:sticky;top:0;background:#17141ef5;z-index:1;padding:8px 0}article p{margin:8px 0 0;font-size:13px}
+</style>
+<h1>Ishara — mouvements en tenue de soirée</h1>
+<p>Premier pack à valider : repos, quatre marches et deux courses. Les sept bandes sont dessinées séparément et ne sont pas retournées. Le personnage n’est pas encore ajouté à la scène du jeu.</p>
+<div class="toolbar"><label><input id="play" type="checkbox" checked> Lecture</label><label>Vitesse <input id="speed" type="range" min="25" max="200" value="100"><output id="speed-value">100 %</output></label><label><input id="guides" type="checkbox"> Repères au sol</label><label>Fond <select id="background"><option value="checker">Damier</option><option value="white">Blanc</option><option value="black">Noir</option></select></label><button id="previous">Image précédente</button> <button id="next">Image suivante</button> <button id="restart">Recommencer</button></div>
+<main></main>
+<p>Vérifier les pas et les raccords entre les vues, la taille de la tête, le côté du sac et le maquillage sous l’œil droit. Les durées de cet aperçu restent ajustables lors du futur raccordement.</p>
+<script src="../../../assets/npcs/ishara/soiree/animations-data.js"></script>
+<script>
+const imageBase='../../../assets/npcs/ishara/soiree/';
+const data=window.ISHARA_ANIMATIONS,items=[];
+let time=0,last=0;
+for(const[name,animation]of Object.entries(data.animations)){
+ const article=document.createElement('article'),title=document.createElement('h2'),counter=document.createElement('span'),canvas=document.createElement('canvas'),note=document.createElement('p'),link=document.createElement('a');
+ title.textContent=animation.label;counter.className='frame';title.append(counter);canvas.width=data.cell.width;canvas.height=data.cell.height;canvas.setAttribute('aria-label',animation.label);link.href=imageBase+animation.file;link.textContent='Bande PNG';note.append(link);article.append(title,canvas,note);document.querySelector('main').append(article);
+ const image=new Image();image.src=imageBase+animation.file;image.onerror=()=>note.textContent='Impossible de charger '+animation.file;items.push({name,animation,image,canvas,counter});
+}
+window.isharaPreview=items;
+const play=document.querySelector('#play');
+function freeze(){for(const item of items)item.frozenFrame=item.currentFrame||0;play.checked=false;}
+play.onchange=()=>{if(!play.checked)freeze()};
+document.querySelector('#next').onclick=()=>{if(play.checked)freeze();for(const item of items)item.frozenFrame=((item.frozenFrame||0)+1)%item.animation.frames};
+document.querySelector('#previous').onclick=()=>{if(play.checked)freeze();for(const item of items)item.frozenFrame=((item.frozenFrame||0)+item.animation.frames-1)%item.animation.frames};
+document.querySelector('#restart').onclick=()=>{time=0;for(const item of items)item.frozenFrame=0};
+document.addEventListener('visibilitychange',()=>last=0);
+document.querySelector('#background').onchange=e=>document.body.dataset.bg=e.target.value;
+function tick(now){const dt=last?(now-last)/1000:0;last=now;const speed=Number(document.querySelector('#speed').value);document.querySelector('#speed-value').textContent=speed+' %';if(play.checked&&!document.hidden)time+=Math.min(dt,.1)*speed/100;
+ for(const item of items){const{animation,image,canvas,counter}=item;if(!image.complete||!image.naturalWidth)continue;let frame=item.frozenFrame||0;
+ if(play.checked){let remaining=(time*1000)%animation.durationsMs.reduce((a,b)=>a+b,0);frame=0;while(frame<animation.frames-1&&remaining>=animation.durationsMs[frame])remaining-=animation.durationsMs[frame++];}
+ item.currentFrame=frame;counter.textContent=(frame+1)+'/'+animation.frames;const ctx=canvas.getContext('2d'),w=data.cell.width,h=data.cell.height;ctx.clearRect(0,0,w,h);ctx.drawImage(image,frame*w,0,w,h,0,0,w,h);
+ if(document.querySelector('#guides').checked){const{x,y}=data.anchor;ctx.strokeStyle='#ba005a';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.moveTo(x-3,y);ctx.lineTo(x+3,y);ctx.moveTo(x,y-3);ctx.lineTo(x,y+3);ctx.stroke();}
+ }requestAnimationFrame(tick)}requestAnimationFrame(tick);
+</script></html>
