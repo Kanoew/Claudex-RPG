@@ -1,0 +1,42 @@
+{
+  "name": "Monstres du Chapitre 1",
+  "version": 1,
+  "note": "Une bande par monstre, cases égales, centre de masse et sol alignés. Les monstres sont dessinés tournés vers la gauche : le jeu retourne l'image pour la droite, car aucun détail asymétrique n'est canon pour eux. La hauteur debout est donnée en pixels d'export, au même grossissement que les sprites de Yarden (Yarden debout : environ 99 px, affichée à l'échelle 0,62).",
+  "monsters": {
+    "troll": {
+      "file": "troll.png",
+      "role": "Boss de fin de donjon (ancien Gardien)",
+      "canon": "niveau 32, environ trois mètres, pierre vivante, peau grise, yeux jaunes, poing et coude en arc large, charge brute ; cristal noir dans le décor",
+      "cell": {
+        "width": 208,
+        "height": 262
+      },
+      "anchor": {
+        "x": 104,
+        "y": 258
+      },
+      "standHeight": 194,
+      "reachHeight": 252,
+      "frames": {
+        "walk": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "windup": 4,
+        "strike": 5
+      },
+      "source": {
+        "file": "bande fournie par Jordan, 6 images",
+        "sha256": "76f509c073638d8397a7032849aececa85f4d643da71a658fb77f195e444eb00",
+        "scale": 0.5065
+      }
+    }
+  },
+  "prevus": {
+    "gobelin": "ancien Rôdeur, éclaireur de niveau 8 à 12 (canon : groupes de quatre à six). Taille d'environ 1,0 fois Yarden, peau bleu-gris : choix de design, le canon ne précise pas son physique.",
+    "ogre": "ancien Chargeur, un des ogres jumeaux de niveau 25. Taille d'environ 1,25 fois Yarden, peau rouge brique : choix de design, le canon ne précise pas son physique.",
+    "araignee-de-cristal": "niveau 41, huit pattes, huit yeux à paupières de cristal, carapace de cristal : réservée pour plus tard (venin à distance, mécanique absente du jeu)."
+  }
+}

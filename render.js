@@ -219,6 +219,6 @@ function drawBossMarker(offsetX, offsetY) {
   ctx.fillStyle = '#12121e';
   ctx.fillRect(labelX - 34, labelY - 13, 68, 18);
   ctx.fillStyle = '#f0c77d';
-  ctx.fillText('GARDIEN', labelX, labelY);
+  ctx.fillText('TROLL', labelX, labelY);
   ctx.restore();
 }
