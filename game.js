@@ -26,6 +26,7 @@ const enemies = [
 const boss = enemies[2];
 for (const enemy of enemies) resetEnemy(enemy);
 let combatOver = false;
+let resultDelay = 0;
 let paused = false;
 let elapsed = 0;
 let stage = 'entry';
@@ -265,13 +266,14 @@ function awakenBoss() {
   updateAttackButton();
 }
 
-function finishCombat(message) {
+function finishCombat(message, delay = 0) {
   combatOver = true;
+  resultDelay = delay;
   resetInput();
   for (const enemy of enemies) { enemy.windup = 0; enemy.charge = 0; }
   resultText.textContent = message;
   resultDetails.textContent = `Temps de jeu : ${Math.floor(elapsed)} s · PV restants : ${player.hp}/${player.maxHp}`;
-  result.hidden = false;
+  result.hidden = delay > 0;
   updateAttackButton();
 }
 
@@ -291,12 +293,23 @@ retryButton.addEventListener('click', () => {
   paused = false;
   elapsed = 0;
   result.hidden = true;
+  resultDelay = 0;
+  resetYardenSprite();
   retryButton.blur();
   updateStatus();
   updateAttackButton();
 });
 
 function update(seconds) {
+  if (combatOver && !paused && !document.hidden) {
+    // Yarden finit de tomber, puis le message de fin s'affiche.
+    tickYardenSprite(seconds);
+    player.flash = Math.max(0, player.flash - seconds);
+    if (resultDelay > 0) {
+      resultDelay = Math.max(0, resultDelay - seconds);
+      if (resultDelay === 0) result.hidden = false;
+    }
+  }
   if (combatOver || paused || document.hidden) return;
   elapsed += seconds;
   // Pendant l'apparition du Gardien, Yarden peut bouger ; seuls les coups et les ennemis attendent.
@@ -327,7 +340,7 @@ function update(seconds) {
     movePlayer(x * player.speed * seconds, y * player.speed * seconds);
     if (length > 0) facing = { x: x / Math.hypot(x, y), y: y / Math.hypot(x, y) };
   }
-  updateYardenSprite(seconds, dodge.remaining > 0 ? dodge.x : x, dodge.remaining > 0 || length > 0);
+  updateYardenSprite(seconds, dodge.remaining > 0 ? dodge.x : x, dodge.remaining > 0 ? dodge.y : y, dodge.remaining > 0 || length > 0);
   if (updateDungeon()) {
     dodge.remaining = Math.max(0, dodge.remaining - seconds);
     return;

@@ -81,7 +81,11 @@ function hurtPlayer(damage = 1) {
   player.hp = Math.max(0, player.hp - damage);
   player.flash = .2;
   updateStatus();
-  if (player.hp === 0) finishCombat('Yarden est tombée. Réessaie !');
+  if (player.hp === 0) {
+    playYardenReaction('defeat');
+    // Le message de défaite attend un instant pour laisser voir Yarden tomber.
+    finishCombat('Yarden est tombée. Réessaie !', 1);
+  } else playYardenReaction('hurt');
 }
 
 function updateEnemy(enemy, seconds) {
