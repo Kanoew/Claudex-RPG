@@ -1,28 +1,105 @@
 'use strict';
 
-const roomArt = { floor: null, wall: null };
+const roomArt = { floor: null, wall: null, ground: null, cliff: null };
 
 function loadRoomArt() {
   if (typeof Image === 'undefined') return;
-  for (const [name, file] of [['floor', 'sol-pierre.svg'], ['wall', 'mur-pierre.svg']]) {
+  for (const [name, file] of [['floor', 'sol-pierre.svg'], ['wall', 'mur-pierre.svg'], ['ground', 'sol-terre.svg'], ['cliff', 'mur-falaise.svg']]) {
     const image = new Image();
     image.onload = () => { roomArt[name] = ctx.createPattern(image, 'repeat'); };
     image.onerror = () => { roomArt[name] = null; };
-    image.src = `assets/${file}?v=22`;
+    image.src = `assets/${file}?v=28`;
+  }
+}
+
+function roundedRectPath(x, y, w, h, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.arcTo(x + w, y, x + w, y + h, radius);
+  ctx.arcTo(x + w, y + h, x, y + h, radius);
+  ctx.arcTo(x, y + h, x, y, radius);
+  ctx.arcTo(x, y, x + w, y, radius);
+  ctx.closePath();
+}
+
+// Rocher de la zone extérieure : base arrondie légère, qui reste dans le rectangle de collision.
+function drawBoulder(x, y, w, h) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.fillStyle = '#05090ea0';
+  roundedRectPath(6, 9, w, h, 10);
+  ctx.fill();
+  ctx.fillStyle = '#4b555c';
+  roundedRectPath(0, 0, w, h, 10);
+  ctx.fill();
+  ctx.fillStyle = '#6b767d';
+  roundedRectPath(4, 3, w - 8, h * .52, 9);
+  ctx.fill();
+  ctx.fillStyle = '#232b31';
+  ctx.fillRect(5, h - 8, w - 10, 8);
+  ctx.strokeStyle = '#2a3238';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(w * .28, h * .12); ctx.lineTo(w * .4, h * .42); ctx.lineTo(w * .33, h * .7);
+  ctx.moveTo(w * .66, h * .2); ctx.lineTo(w * .58, h * .5);
+  ctx.stroke();
+  ctx.fillStyle = '#3a5a47';
+  ctx.beginPath();
+  ctx.ellipse(w * .2, h * .84, 9, 4, 0, 0, Math.PI * 2);
+  ctx.ellipse(w * .78, h * .78, 7, 3.5, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+// Décor sans collision de la zone extérieure : herbes, cailloux, petites fleurs.
+function drawProps(offsetX, offsetY) {
+  for (const prop of currentZone.props || []) {
+    const x = prop.x + offsetX, y = prop.y + offsetY;
+    if (x < -20 || x > width + 20 || y < -20 || y > height + 20) continue;
+    if (prop.kind === 'tuft') {
+      ctx.strokeStyle = '#3a5a47';
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(x - 4, y + 3); ctx.lineTo(x - 5, y - 4);
+      ctx.moveTo(x, y + 3); ctx.lineTo(x, y - 6);
+      ctx.moveTo(x + 4, y + 3); ctx.lineTo(x + 5, y - 3);
+      ctx.stroke();
+    } else if (prop.kind === 'pebble') {
+      ctx.fillStyle = '#3b4745';
+      ctx.beginPath();
+      ctx.ellipse(x, y, 5, 3, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#566360';
+      ctx.fillRect(x - 2, y - 2, 3, 1);
+    } else {
+      ctx.fillStyle = '#d9d2b0';
+      ctx.beginPath();
+      ctx.arc(x, y, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#c9a85a';
+      ctx.fillRect(x - .5, y - .5, 1, 1);
+    }
   }
 }
 
 function drawRoom(offsetX, offsetY) {
+  const outdoors = currentZone.theme === 'dehors';
+  const floorArt = outdoors ? roomArt.ground : roomArt.floor;
+  const wallArt = outdoors ? roomArt.cliff : roomArt.wall;
   ctx.save();
   ctx.beginPath();
   ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
   ctx.clip();
-  if (roomArt.floor) {
+  if (floorArt) {
     ctx.save();
     ctx.translate(room.x + offsetX, room.y + offsetY);
-    ctx.fillStyle = roomArt.floor;
+    ctx.fillStyle = floorArt;
     ctx.fillRect(0, 0, room.width, room.height);
     ctx.restore();
+  } else if (outdoors) {
+    // Terre unie de secours : aucun chargement d’image n’est nécessaire pour jouer.
+    ctx.fillStyle = '#18231f';
+    ctx.fillRect(room.x + offsetX, room.y + offsetY, room.width, room.height);
   } else {
     // Dalles de secours : aucun chargement d’image n’est nécessaire pour jouer.
     ctx.fillStyle = '#161f29';
@@ -40,16 +117,22 @@ function drawRoom(offsetX, offsetY) {
       }
     }
   }
+  if (outdoors) drawProps(offsetX, offsetY);
   ctx.restore();
   walls.forEach((wall, index) => {
     const x = wall.x + offsetX, y = wall.y + offsetY;
     ctx.save();
+    if (outdoors && index >= 4) {
+      ctx.restore();
+      drawBoulder(x, y, wall.width, wall.height);
+      return;
+    }
     ctx.fillStyle = '#080d16aa';
     ctx.fillRect(x + 6, y + 8, wall.width, wall.height);
     ctx.translate(x, y);
-    ctx.fillStyle = roomArt.wall || '#4c5762';
+    ctx.fillStyle = wallArt || (outdoors ? '#2a3238' : '#4c5762');
     ctx.fillRect(0, 0, wall.width, wall.height);
-    ctx.strokeStyle = '#8c969b';
+    ctx.strokeStyle = outdoors ? '#56636b' : '#8c969b';
     ctx.lineWidth = 2;
     ctx.strokeRect(2, 2, wall.width - 4, wall.height - 4);
     ctx.fillStyle = '#1a2533';
@@ -74,9 +157,10 @@ function drawRoomShade(x, y) {
   ctx.save();
   const radius = Math.max(240, Math.min(440, Math.hypot(width, height) * .65));
   const shade = ctx.createRadialGradient(x, y, 85, x, y, radius);
-  shade.addColorStop(0, '#07101b00');
-  shade.addColorStop(.6, '#07101b28');
-  shade.addColorStop(1, '#07101ba8');
+  const tint = currentZone.theme === 'dehors' ? ['#0b172200', '#0b172214', '#0b172272'] : ['#07101b00', '#07101b28', '#07101ba8'];
+  shade.addColorStop(0, tint[0]);
+  shade.addColorStop(.6, tint[1]);
+  shade.addColorStop(1, tint[2]);
   ctx.fillStyle = shade;
   ctx.fillRect(0, 0, width, height);
   ctx.restore();
@@ -109,6 +193,54 @@ function drawStoneDoor(x, y, open, label) {
   ctx.restore();
 }
 
+// Entrée de grotte dans la falaise : retour vers le donjon.
+function drawCaveMouth(x, y, label) {
+  ctx.save();
+  ctx.fillStyle = '#1b2025';
+  ctx.fillRect(x - 49, y - 7, 98, 45);
+  ctx.fillStyle = '#4b5860';
+  ctx.fillRect(x - 49, y - 7, 98, 6);
+  ctx.fillStyle = '#05070b';
+  ctx.beginPath();
+  ctx.moveTo(x - 36, y + 38); ctx.lineTo(x - 36, y + 14);
+  ctx.quadraticCurveTo(x, y - 14, x + 36, y + 14); ctx.lineTo(x + 36, y + 38);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = '#6b4fa855';
+  ctx.beginPath();
+  ctx.ellipse(x, y + 28, 26, 9, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#111924e6';
+  ctx.fillRect(x - 40, y + 8, 80, 17);
+  ctx.fillStyle = '#eee1c8';
+  ctx.font = 'bold 11px system-ui';
+  ctx.textAlign = 'center';
+  ctx.fillText(label + ' ↓', x, y + 21);
+  ctx.restore();
+}
+
+// Sentier qui quitte la zone : deux poteaux, un linteau et un passage plus clair.
+function drawPathGate(x, y, label) {
+  ctx.save();
+  ctx.fillStyle = '#0c121b';
+  ctx.fillRect(x - 49, y - 7, 98, 45);
+  ctx.fillStyle = '#2d3a35';
+  ctx.fillRect(x - 38, y + 2, 76, 36);
+  ctx.fillStyle = '#6b5239';
+  ctx.fillRect(x - 46, y - 7, 9, 45);
+  ctx.fillRect(x + 37, y - 7, 9, 45);
+  ctx.fillRect(x - 46, y - 7, 92, 8);
+  ctx.fillStyle = '#8affc1';
+  ctx.fillRect(x - 33, y + 33, 66, 3);
+  ctx.fillStyle = '#111924e6';
+  ctx.fillRect(x - 40, y + 8, 80, 17);
+  ctx.fillStyle = '#a5ffcf';
+  ctx.font = 'bold 11px system-ui';
+  ctx.textAlign = 'center';
+  ctx.fillText(label + ' ↑', x, y + 21);
+  ctx.restore();
+}
+
 function draw() {
   ctx.fillStyle = '#0e0f19';
   ctx.fillRect(0, 0, width, height);
@@ -125,7 +257,7 @@ function draw() {
   ctx.fillStyle = '#b5afca';
   ctx.font = '12px system-ui';
   ctx.textAlign = 'left';
-  ctx.fillText('ABYSSE · SALLE 1', 14, 24);
+  ctx.fillText(currentZone.title, 14, 24);
   if (debugMode) {
     const lines = [
       `stage ${stage} · delay ${bossDelay.toFixed(2)} · pause ${paused} · fin ${combatOver}`,
@@ -136,7 +268,7 @@ function draw() {
     ctx.fillStyle = '#ffd36b';
     lines.forEach((line, i) => ctx.fillText(line, 14, (boss.active ? 84 : 44) + i * 16));
   }
-  for (const enemy of enemies) drawEnemy(enemy, offsetX, offsetY);
+  for (const enemy of activeEnemies()) drawEnemy(enemy, offsetX, offsetY);
   if (attack.remaining > 0) {
     ctx.save();
     ctx.translate(screenX, screenY);
@@ -188,6 +320,11 @@ function draw() {
   ctx.textAlign = 'center';
   ctx.fillText('Yarden', screenX, labelY);
   drawBossMarker(offsetX, offsetY);
+  if (zoneFade > 0) {
+    // Fondu depuis le noir quand Yarden arrive dans une nouvelle zone.
+    ctx.fillStyle = `rgba(14, 15, 25, ${Math.min(1, zoneFade / .4)})`;
+    ctx.fillRect(0, 0, width, height);
+  }
 }
 
 function bossMarker(offsetX, offsetY) {

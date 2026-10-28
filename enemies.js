@@ -71,8 +71,21 @@ function nextWaypoint(enemy) {
 }
 
 
+// Modèles de monstres : une zone n'indique que le type et la position de départ.
+const enemyKinds = {
+  goblin: { name: 'Gobelin', art: 'goblin', speed: 95, radius: 14, maxHp: 3, charger: false },
+  ogre: { name: 'Ogre', art: 'ogre', speed: 80, radius: 14, maxHp: 2, charger: true },
+  troll: { name: 'Troll', art: 'troll', speed: 65, radius: 24, maxHp: 8, boss: true, active: false }
+};
+
+function makeEnemy(spec) {
+  const enemy = { ...enemyKinds[spec.kind], kind: spec.kind, spawnX: spec.x, spawnY: spec.y, ...(spec.aggro ? { aggro: spec.aggro } : {}) };
+  resetEnemy(enemy);
+  return enemy;
+}
+
 function resetEnemy(enemy) {
-  Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null , sprite: { time: 0, moving: false, face: -1, strike: 0 } });
+  Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null, engaged: false, sprite: { time: 0, moving: false, face: -1, strike: 0 } });
   if (enemy.boss) enemy.active = false;
 }
 
@@ -98,6 +111,11 @@ function stepEnemy(enemy, seconds) {
   if (enemy.hp <= 0 || (enemy.boss && !enemy.active)) return;
   enemy.cooldown = Math.max(0, enemy.cooldown - seconds);
   const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+  // Un monstre dont l'éveil est limité reste immobile jusqu'à ce que Yarden s'approche, puis ne s'arrête plus.
+  if (enemy.aggro && !enemy.engaged) {
+    if (distance > enemy.aggro) return;
+    enemy.engaged = true;
+  }
   const reach = enemy.boss ? 105 + player.radius : player.radius + enemy.radius + 8;
   if (enemy.charge > 0) {
     const before = { x: enemy.x, y: enemy.y };

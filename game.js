@@ -18,30 +18,23 @@ const retryButton = document.getElementById('retry');
 const player = { x: 0, y: 240, speed: 180, radius: 13, hp: 5, maxHp: 5, flash: 0, mana: 30, maxMana: 30, armed: false };
 const weapon = { x: 0, y: 144 };
 let exitOpen = false;
-const enemies = [
-  { name: 'Gobelin', art: 'goblin', x: 0, y: -200, spawnX: 0, spawnY: -200, speed: 95, radius: 14, hp: 3, maxHp: 3, charger: false },
-  { name: 'Ogre', art: 'ogre', x: 220, y: -160, spawnX: 220, spawnY: -160, speed: 80, radius: 14, hp: 2, maxHp: 2, charger: true },
-  { name: 'Troll', art: 'troll', spawnX: 0, spawnY: -220, speed: 65, radius: 24, maxHp: 8, boss: true, active: false }
-];
+const enemies = zones.donjon.enemies.map(makeEnemy);
+// Monstres de chaque zone ; seuls ceux de la zone courante bougent, se dessinent et reçoivent des coups.
+const zoneEnemies = { donjon: enemies, exterieur: zones.exterieur.enemies.map(makeEnemy) };
+const activeEnemies = () => zoneEnemies[currentZone.id] || [];
+const allEnemies = () => Object.values(zoneEnemies).flat();
 const boss = enemies[2];
-for (const enemy of enemies) resetEnemy(enemy);
 let combatOver = false;
 let resultDelay = 0;
 let paused = false;
 let elapsed = 0;
 let stage = 'entry';
 let bossDelay = 0;
-const room = { x: -480, y: -336, width: 960, height: 672 };
-const wallThickness = 24;
-const walls = [
-  { x: room.x - wallThickness, y: room.y - wallThickness, width: room.width + wallThickness * 2, height: wallThickness },
-  { x: room.x - wallThickness, y: room.y + room.height, width: room.width + wallThickness * 2, height: wallThickness },
-  { x: room.x - wallThickness, y: room.y, width: wallThickness, height: room.height },
-  { x: room.x + room.width, y: room.y, width: wallThickness, height: room.height },
-  // Deux blocs neutres pour tester les collisions à l’intérieur de la salle.
-  { x: -192, y: -96, width: 72, height: 144 },
-  { x: 120, y: 48, width: 96, height: 72 }
-];
+let zoneFade = 0;
+// Remplis par loadZone() à partir de la zone courante (voir zones.js).
+const room = {};
+const walls = [];
+loadZone('donjon');
 const input = { x: 0, y: 0, pointerId: null };
 const keys = new Set();
 const movementKeys = new Set(['arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'z', 'q', 's', 'd', 'w', 'a']);
@@ -270,7 +263,7 @@ function finishCombat(message, delay = 0) {
   combatOver = true;
   resultDelay = delay;
   resetInput();
-  for (const enemy of enemies) { enemy.windup = 0; enemy.charge = 0; }
+  for (const enemy of allEnemies()) { enemy.windup = 0; enemy.charge = 0; }
   resultText.textContent = message;
   resultDetails.textContent = `Temps de jeu : ${Math.floor(elapsed)} s · PV restants : ${player.hp}/${player.maxHp}`;
   result.hidden = delay > 0;
@@ -279,8 +272,9 @@ function finishCombat(message, delay = 0) {
 
 retryButton.addEventListener('click', () => {
   resetInput();
-  Object.assign(player, { x: 0, y: 240, hp: player.maxHp, flash: 0, mana: player.maxMana, armed: false });
-  for (const enemy of enemies) resetEnemy(enemy);
+  loadZone('donjon');
+  Object.assign(player, { x: zones.donjon.start.x, y: zones.donjon.start.y, hp: player.maxHp, flash: 0, mana: player.maxMana, armed: false });
+  for (const enemy of allEnemies()) resetEnemy(enemy);
   stage = 'entry';
   exitOpen = false;
   bossDelay = 0;
@@ -294,6 +288,7 @@ retryButton.addEventListener('click', () => {
   elapsed = 0;
   result.hidden = true;
   resultDelay = 0;
+  zoneFade = 0;
   resetYardenSprite();
   retryButton.blur();
   updateStatus();
@@ -312,6 +307,7 @@ function update(seconds) {
   }
   if (combatOver || paused || document.hidden) return;
   elapsed += seconds;
+  zoneFade = Math.max(0, zoneFade - seconds);
   // Pendant l'apparition du Troll, Yarden peut bouger ; seuls les coups et les ennemis attendent.
   const appearing = bossDelay > 0;
   if (appearing) bossDelay = Math.max(0, bossDelay - seconds);
@@ -320,7 +316,7 @@ function update(seconds) {
   skill.cooldown = Math.max(0, skill.cooldown - seconds);
   updateStatus();
   player.flash = Math.max(0, player.flash - seconds);
-  for (const enemy of enemies) enemy.flash = Math.max(0, enemy.flash - seconds);
+  for (const enemy of allEnemies()) enemy.flash = Math.max(0, enemy.flash - seconds);
   attack.remaining = Math.max(0, attack.remaining - seconds);
   attack.cooldown = Math.max(0, attack.cooldown - seconds);
   updateAttackButton();
@@ -346,7 +342,7 @@ function update(seconds) {
     return;
   }
   if (appearing) return;
-  for (const enemy of enemies) {
+  for (const enemy of activeEnemies()) {
     if ((enemy.boss && !enemy.active) || enemy.hp <= 0 || attack.hits.has(enemy) || !attackHitsCircle(enemy) || !clearPath(player, enemy)) continue;
     attack.hits.add(enemy);
     enemy.hp = Math.max(0, enemy.hp - attack.damage);
@@ -363,7 +359,7 @@ function update(seconds) {
     updateAttackButton();
     return;
   }
-  for (const enemy of enemies) {
+  for (const enemy of activeEnemies()) {
     if (combatOver) break;
     updateEnemy(enemy, seconds);
   }
