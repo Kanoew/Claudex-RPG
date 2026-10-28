@@ -25,7 +25,7 @@ La vie et le mana ont des barres avec valeurs numériques. Les boutons affichent
 
 Deux images de décor, originales et CC0, sont incluses : `assets/sol-pierre.svg` (dalles) et `assets/mur-pierre.svg` (maçonnerie), environ 1,3 Ko au total. Voir `assets/LICENCE.md`. Les portes, piliers et l’ombre autour de Yarden sont dessinés en Canvas. Si les images échouent à charger, un décor de secours est dessiné ; le jeu et les collisions restent identiques.
 
-Yarden et les ennemis gardent leurs formes provisoires. Les sprites restent pour les étapes 13 et 14 ; aucun portrait ou sprite n’est inclus dans cette livraison.
+Yarden et les ennemis gardent leurs formes provisoires dans le jeu. Le [pack de sprites de Yarden](docs/art/yarden/README.md) prépare l’étape 13 : bandes PNG légères (environ 208 Ko), planche source, GIF, vidéo, manifeste des images et [aperçu animé séparé](docs/art/yarden/index.html). L’intégration dans `render.js`, les directions de marche manquantes et le coup de faux restent pour la prochaine session. Les ennemis restent à l’étape 14.
 
 GitHub Pages publie la racine de `main` après fusion. À chaque changement des scripts, augmente leur numéro `?v=` dans `index.html`, puis actualise la page après publication.
 
@@ -38,3 +38,4 @@ node tests/smoke.cjs
 ```
 
 Ces tests simulent le Canvas. Ils ne remplacent pas une vérification du rendu, de la fluidité et des gestes à deux pouces sur Android. Voir [BILAN.md](BILAN.md) pour l’état du prototype et les essais restants.
+

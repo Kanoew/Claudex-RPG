@@ -126,5 +126,7 @@ La zone extérieure vient en dernier et en deux temps (structure, puis contenu) 
 |---|---|---|
 | 11 | implémentée, à relire et à valider sur Android | Barres de vie et de mana avec valeurs numériques, objectif court, boutons avec coûts et récupérations. Barre du Gardien dès son apparition et flèche quand il est hors champ. Affichage extrait dans `hud.js` et `render.js` ; corrections de maintien du joystick et diagnostic conservés. Neuf scénarios logiques passent. Vérification visuelle locale bloquée par le sandbox du navigateur ; test portrait/paysage sur Android restant. Scripts `?v=19`. |
 | 12 | implémentée, à relire et à valider sur Android | Sol en dalles, murs maçonnés, blocs habillés en piliers, portes d’entrée et de sortie dessinées, voile sombre sous les personnages et annonces. Deux SVG originaux dédiés CC0 dans `assets/` (1 276 octets au total), chargés une seule fois en motifs ; dessin de secours en cas d’échec. Dimensions et collisions conservées. Dix scénarios logiques passent, dont textures chargées/absentes et maintien du joystick. Vérification visuelle et fluidité Android restantes. Scripts et images `?v=22`. |
-| 13 à 17 | à lancer | Étape 13 laissée à la prochaine session de Jordan ; étapes suivantes soumises à validation. |
+| 13 | ressources préparées, intégration à lancer | Pack fourni par Jordan dans `assets/yarden/` (bandes transparentes, environ 208 Ko) et `docs/art/yarden/` (source, GIF, vidéo, aperçu et fiche de reprise). Le jeu garde son disque ; aucune modification de logique ou de rendu. Marche haut/de dos, marche bas et coup de faux encore manquants. Intégration et essai Android réservés à la prochaine session de Jordan. |
+| 14 à 17 | à lancer | Étapes suivantes soumises à validation de Jordan. |
+
 

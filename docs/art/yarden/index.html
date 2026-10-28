@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yarden — aperçu des sprites</title>
+<style>
+  :root { color-scheme: dark; font: 16px system-ui, sans-serif; background: #14121d; color: #ece6fa; }
+  body { max-width: 760px; margin: auto; padding: 24px 16px; }
+  h1 { font-size: 1.5rem; }
+  a { color: #d5bfff; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  label { display: grid; gap: 6px; }
+  select, button { min-height: 44px; padding: 8px 12px; font: inherit; color: inherit; background: #292336; border: 1px solid #9584ab; border-radius: 6px; }
+  canvas { display: block; margin: 24px auto; width: 288px; height: 312px; max-width: 100%; background: repeating-conic-gradient(#302d38 0% 25%, #24212c 0% 50%) 0 0 / 24px 24px; }
+  p { line-height: 1.6; }
+  #status { min-height: 1.6em; }
+  .note { color: #c7bed5; }
+</style>
+<h1>Yarden — aperçu des sprites</h1>
+<p>Bandes transparentes légères de 96 × 104 pixels par pose. Cet aperçu est séparé du jeu.</p>
+<div class="controls">
+  <label>Animation <select id="animation"></select></label>
+  <button id="pause" type="button" aria-pressed="false">Pause</button>
+</div>
+<canvas id="sprite" width="96" height="104" aria-label="Animation de Yarden"></canvas>
+<p id="status" role="status"></p>
+<p class="note">Les regards déplacent la tête, pas les jambes. Les animations de combat et la marche de dos restent à préparer.</p>
+<p><a href="README.md">Fiche et passage de relais</a> · <a href="previews/all-states.gif">Toutes les animations en GIF</a> · <a href="yarden-source.png">Planche source complète</a> · <a href="../../../index.html">Jeu actuel</a></p>
+<script id="animation-data" type="application/json">{
+  "name": "Yarden",
+  "version": 1,
+  "cell": {
+    "width": 96,
+    "height": 104
+  },
+  "anchor": {
+    "x": 48,
+    "y": 101
+  },
+  "source": {
+    "file": "../../docs/art/yarden/yarden-source.png",
+    "width": 1536,
+    "height": 2288,
+    "cellWidth": 192,
+    "cellHeight": 208,
+    "sha256": "57457ef5017dbb2f75bd7e649683cbbb6b63d094e83fd6881a06dc56580d3621"
+  },
+  "animations": {
+    "idle": {
+      "file": "idle.png",
+      "label": "Repos",
+      "frames": 6,
+      "durationsMs": [
+        280,
+        110,
+        110,
+        140,
+        140,
+        320
+      ],
+      "sourceRow": 0,
+      "loop": true
+    },
+    "running-right": {
+      "file": "running-right.png",
+      "label": "Course à droite",
+      "frames": 8,
+      "durationsMs": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        220
+      ],
+      "sourceRow": 1,
+      "loop": true
+    },
+    "running-left": {
+      "file": "running-left.png",
+      "label": "Course à gauche",
+      "frames": 8,
+      "durationsMs": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        220
+      ],
+      "sourceRow": 2,
+      "loop": true
+    },
+    "waving": {
+      "file": "waving.png",
+      "label": "Salut",
+      "frames": 4,
+      "durationsMs": [
+        140,
+        140,
+        140,
+        280
+      ],
+      "sourceRow": 3,
+      "loop": false
+    },
+    "jumping": {
+      "file": "jumping.png",
+      "label": "Saut",
+      "frames": 5,
+      "durationsMs": [
+        140,
+        140,
+        140,
+        140,
+        280
+      ],
+      "sourceRow": 4,
+      "loop": false
+    },
+    "failed": {
+      "file": "failed.png",
+      "label": "Déception",
+      "frames": 8,
+      "durationsMs": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        240
+      ],
+      "sourceRow": 5,
+      "loop": false
+    },
+    "waiting": {
+      "file": "waiting.png",
+      "label": "Attente",
+      "frames": 6,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        260
+      ],
+      "sourceRow": 6,
+      "loop": true
+    },
+    "running": {
+      "file": "running.png",
+      "label": "Réflexion",
+      "frames": 6,
+      "durationsMs": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        220
+      ],
+      "sourceRow": 7,
+      "loop": true
+    },
+    "review": {
+      "file": "review.png",
+      "label": "Vérification",
+      "frames": 6,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        280
+      ],
+      "sourceRow": 8,
+      "loop": true
+    }
+  },
+  "look": {
+    "anglesClockwiseFromUp": [
+      0.0,
+      22.5,
+      45.0,
+      67.5,
+      90.0,
+      112.5,
+      135.0,
+      157.5,
+      180.0,
+      202.5,
+      225.0,
+      247.5,
+      270.0,
+      292.5,
+      315.0,
+      337.5
+    ],
+    "rows": [
+      {
+        "file": "look-9.png",
+        "frames": 8,
+        "sourceRow": 9,
+        "angles": [
+          0.0,
+          22.5,
+          45.0,
+          67.5,
+          90.0,
+          112.5,
+          135.0,
+          157.5
+        ]
+      },
+      {
+        "file": "look-10.png",
+        "frames": 8,
+        "sourceRow": 10,
+        "angles": [
+          180.0,
+          202.5,
+          225.0,
+          247.5,
+          270.0,
+          292.5,
+          315.0,
+          337.5
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "running means thinking/active work, not locomotion",
+    "look rows change gaze, not full-body movement directions",
+    "no combat, dodge, death or back-facing movement sprites included",
+    "do not mirror: left glove/hip accent and right bare tattooed arm are asymmetric"
+  ]
+}
+</script>
+<script src="preview.js"></script>
+</html>
