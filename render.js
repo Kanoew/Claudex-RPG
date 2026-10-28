@@ -1,14 +1,14 @@
 'use strict';
 
-const roomArt = { floor: null, wall: null, ground: null, cliff: null };
+const roomArt = { floor: null, wall: null, asphalt: null, brick: null };
 
 function loadRoomArt() {
   if (typeof Image === 'undefined') return;
-  for (const [name, file] of [['floor', 'sol-pierre.svg'], ['wall', 'mur-pierre.svg'], ['ground', 'sol-terre.svg'], ['cliff', 'mur-falaise.svg']]) {
+  for (const [name, file] of [['floor', 'sol-pierre.svg'], ['wall', 'mur-pierre.svg'], ['asphalt', 'sol-bitume.svg'], ['brick', 'mur-brique.svg']]) {
     const image = new Image();
     image.onload = () => { roomArt[name] = ctx.createPattern(image, 'repeat'); };
     image.onerror = () => { roomArt[name] = null; };
-    image.src = `assets/${file}?v=28`;
+    image.src = `assets/${file}?v=29`;
   }
 }
 
@@ -22,70 +22,139 @@ function roundedRectPath(x, y, w, h, radius) {
   ctx.closePath();
 }
 
-// Rocher de la zone extérieure : base arrondie légère, qui reste dans le rectangle de collision.
-function drawBoulder(x, y, w, h) {
+// Objets de la ruelle : chacun reste dans son rectangle de collision, vu de dessus en trois quarts.
+function drawAlleyObject(kind, x, y, w, h) {
   ctx.save();
   ctx.translate(x, y);
-  ctx.fillStyle = '#05090ea0';
-  roundedRectPath(6, 9, w, h, 10);
-  ctx.fill();
-  ctx.fillStyle = '#4b555c';
-  roundedRectPath(0, 0, w, h, 10);
-  ctx.fill();
-  ctx.fillStyle = '#6b767d';
-  roundedRectPath(4, 3, w - 8, h * .52, 9);
-  ctx.fill();
-  ctx.fillStyle = '#232b31';
-  ctx.fillRect(5, h - 8, w - 10, 8);
-  ctx.strokeStyle = '#2a3238';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(w * .28, h * .12); ctx.lineTo(w * .4, h * .42); ctx.lineTo(w * .33, h * .7);
-  ctx.moveTo(w * .66, h * .2); ctx.lineTo(w * .58, h * .5);
-  ctx.stroke();
-  ctx.fillStyle = '#3a5a47';
-  ctx.beginPath();
-  ctx.ellipse(w * .2, h * .84, 9, 4, 0, 0, Math.PI * 2);
-  ctx.ellipse(w * .78, h * .78, 7, 3.5, 0, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.fillStyle = '#05080ea0';
+  ctx.fillRect(6, 8, w, h);
+  if (kind === 'benne') {
+    ctx.fillStyle = '#2c4452';
+    roundedRectPath(0, 0, w, h, 5);
+    ctx.fill();
+    ctx.fillStyle = '#3b5868';
+    roundedRectPath(3, 3, w - 6, h * .45, 4);
+    ctx.fill();
+    ctx.strokeStyle = '#1b2c37';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let i = 1; i < 4; i++) { ctx.moveTo(w * i / 4, 4); ctx.lineTo(w * i / 4, h - 4); }
+    ctx.stroke();
+    ctx.fillStyle = '#10161b';
+    ctx.fillRect(4, h - 7, 10, 7); ctx.fillRect(w - 14, h - 7, 10, 7);
+  } else if (kind === 'caisses') {
+    ctx.fillStyle = '#6b4a2e';
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#85603c';
+    ctx.fillRect(2, 2, w - 4, h * .4);
+    ctx.strokeStyle = '#3c2a1a';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(1, 1, w - 2, h - 2);
+    ctx.beginPath();
+    ctx.moveTo(w / 2, 0); ctx.lineTo(w / 2, h);
+    ctx.moveTo(0, h * .55); ctx.lineTo(w, h * .55);
+    ctx.stroke();
+  } else if (kind === 'poubelles') {
+    for (let i = 0; i < 2; i++) {
+      const cy = h * (i ? .72 : .28);
+      ctx.fillStyle = '#3a3f47';
+      ctx.beginPath(); ctx.ellipse(w / 2, cy, w / 2 - 2, h * .24, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#4d535c';
+      ctx.beginPath(); ctx.ellipse(w / 2, cy - 3, w / 2 - 7, h * .17, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#20242a';
+      ctx.fillRect(w / 2 - 5, cy - 4, 10, 3);
+    }
+  } else {
+    // Scooter garé de profil.
+    ctx.fillStyle = '#9097a3';
+    roundedRectPath(2, h * .22, w - 4, h * .56, 8);
+    ctx.fill();
+    ctx.fillStyle = '#20242a';
+    ctx.fillRect(w * .32, h * .22, w * .26, h * .56);
+    ctx.fillRect(w - 12, 3, 5, h - 6);
+    ctx.fillStyle = '#12151a';
+    ctx.fillRect(0, h * .3, 9, h * .4); ctx.fillRect(w - 10, h * .3, 9, h * .4);
+  }
   ctx.restore();
 }
 
-// Décor sans collision de la zone extérieure : herbes, cailloux, petites fleurs.
+// Décor sans collision de la ruelle : fissures, papiers, flaques, mégots et pools de lumière des lampadaires.
 function drawProps(offsetX, offsetY) {
   for (const prop of currentZone.props || []) {
     const x = prop.x + offsetX, y = prop.y + offsetY;
+    if (prop.kind === 'lampe') {
+      if (x < -170 || x > width + 170 || y < -170 || y > height + 170) continue;
+      const pool = ctx.createRadialGradient(x, y, 6, x, y, 160);
+      pool.addColorStop(0, '#ffd9923c');
+      pool.addColorStop(1, '#ffd99200');
+      ctx.fillStyle = pool;
+      ctx.fillRect(x - 160, y - 160, 320, 320);
+      ctx.fillStyle = '#0b0e14';
+      ctx.beginPath(); ctx.arc(x, y, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffe3a8';
+      ctx.beginPath(); ctx.arc(x, y, 3.4, 0, Math.PI * 2); ctx.fill();
+      continue;
+    }
     if (x < -20 || x > width + 20 || y < -20 || y > height + 20) continue;
-    if (prop.kind === 'tuft') {
-      ctx.strokeStyle = '#3a5a47';
-      ctx.lineWidth = 1.6;
+    if (prop.kind === 'fissure') {
+      ctx.strokeStyle = '#0d1014';
+      ctx.lineWidth = 1.4;
       ctx.beginPath();
-      ctx.moveTo(x - 4, y + 3); ctx.lineTo(x - 5, y - 4);
-      ctx.moveTo(x, y + 3); ctx.lineTo(x, y - 6);
-      ctx.moveTo(x + 4, y + 3); ctx.lineTo(x + 5, y - 3);
+      ctx.moveTo(x - 9, y + 2); ctx.lineTo(x - 2, y - 3); ctx.lineTo(x + 3, y + 2); ctx.lineTo(x + 10, y - 2);
       ctx.stroke();
-    } else if (prop.kind === 'pebble') {
-      ctx.fillStyle = '#3b4745';
-      ctx.beginPath();
-      ctx.ellipse(x, y, 5, 3, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#566360';
-      ctx.fillRect(x - 2, y - 2, 3, 1);
+    } else if (prop.kind === 'papier') {
+      ctx.fillStyle = '#b9b7ae';
+      ctx.fillRect(x - 3, y - 2, 6, 4);
+      ctx.fillStyle = '#8d8b84';
+      ctx.fillRect(x - 3, y + 1, 6, 1);
+    } else if (prop.kind === 'flaque') {
+      ctx.fillStyle = '#2c3a52';
+      ctx.beginPath(); ctx.ellipse(x, y, 13, 5, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#4a5f84';
+      ctx.beginPath(); ctx.ellipse(x - 3, y - 1, 6, 1.8, 0, 0, Math.PI * 2); ctx.fill();
     } else {
-      ctx.fillStyle = '#d9d2b0';
-      ctx.beginPath();
-      ctx.arc(x, y, 2.2, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#c9a85a';
-      ctx.fillRect(x - .5, y - .5, 1, 1);
+      ctx.fillStyle = '#d6cfc0';
+      ctx.fillRect(x - 1, y - 3, 2, 5);
+      ctx.fillStyle = '#c9803c';
+      ctx.fillRect(x - 1, y + 2, 2, 1);
     }
   }
 }
 
+// Façades de briques qui montent de chaque côté de la ruelle, avec quelques fenêtres allumées.
+function drawFacades(offsetX, offsetY) {
+  const depth = 320, top = room.y + offsetY - 500, tall = room.height + 1000;
+  for (const side of [-1, 1]) {
+    const x = side < 0 ? room.x - wallThickness - depth + offsetX : room.x + room.width + wallThickness + offsetX;
+    if (x + depth < 0 || x > width) continue;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x, top, depth, tall);
+    ctx.clip();
+    ctx.translate(x, top);
+    ctx.fillStyle = roomArt.brick || '#4b2824';
+    ctx.fillRect(0, 0, depth, tall);
+    for (let row = 0; row * 96 < tall; row++) {
+      for (let col = 0; col < 3; col++) {
+        const lit = (row * 5 + col * 3 + (side < 0 ? 0 : 2)) % 7 < 3;
+        ctx.fillStyle = lit ? '#ffd28ab0' : '#0b0e14c8';
+        ctx.fillRect(34 + col * 90, 26 + row * 96, 26, 36);
+      }
+    }
+    const dark = ctx.createLinearGradient(side < 0 ? 0 : depth, 0, side < 0 ? depth : 0, 0);
+    dark.addColorStop(0, '#03050aee');
+    dark.addColorStop(1, '#03050a77');
+    ctx.fillStyle = dark;
+    ctx.fillRect(0, 0, depth, tall);
+    ctx.restore();
+  }
+}
+
 function drawRoom(offsetX, offsetY) {
-  const outdoors = currentZone.theme === 'dehors';
-  const floorArt = outdoors ? roomArt.ground : roomArt.floor;
-  const wallArt = outdoors ? roomArt.cliff : roomArt.wall;
+  const outdoors = currentZone.theme === 'ruelle';
+  const floorArt = outdoors ? roomArt.asphalt : roomArt.floor;
+  const wallArt = outdoors ? roomArt.brick : roomArt.wall;
+  if (outdoors) drawFacades(offsetX, offsetY);
   ctx.save();
   ctx.beginPath();
   ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
@@ -97,8 +166,8 @@ function drawRoom(offsetX, offsetY) {
     ctx.fillRect(0, 0, room.width, room.height);
     ctx.restore();
   } else if (outdoors) {
-    // Terre unie de secours : aucun chargement d’image n’est nécessaire pour jouer.
-    ctx.fillStyle = '#18231f';
+    // Bitume uni de secours : aucun chargement d’image n’est nécessaire pour jouer.
+    ctx.fillStyle = '#1b1e25';
     ctx.fillRect(room.x + offsetX, room.y + offsetY, room.width, room.height);
   } else {
     // Dalles de secours : aucun chargement d’image n’est nécessaire pour jouer.
@@ -124,15 +193,15 @@ function drawRoom(offsetX, offsetY) {
     ctx.save();
     if (outdoors && index >= 4) {
       ctx.restore();
-      drawBoulder(x, y, wall.width, wall.height);
+      drawAlleyObject(wall.kind, x, y, wall.width, wall.height);
       return;
     }
     ctx.fillStyle = '#080d16aa';
     ctx.fillRect(x + 6, y + 8, wall.width, wall.height);
     ctx.translate(x, y);
-    ctx.fillStyle = wallArt || (outdoors ? '#2a3238' : '#4c5762');
+    ctx.fillStyle = wallArt || (outdoors ? '#4b2824' : '#4c5762');
     ctx.fillRect(0, 0, wall.width, wall.height);
-    ctx.strokeStyle = outdoors ? '#56636b' : '#8c969b';
+    ctx.strokeStyle = outdoors ? '#7a463e' : '#8c969b';
     ctx.lineWidth = 2;
     ctx.strokeRect(2, 2, wall.width - 4, wall.height - 4);
     ctx.fillStyle = '#1a2533';
@@ -157,7 +226,7 @@ function drawRoomShade(x, y) {
   ctx.save();
   const radius = Math.max(240, Math.min(440, Math.hypot(width, height) * .65));
   const shade = ctx.createRadialGradient(x, y, 85, x, y, radius);
-  const tint = currentZone.theme === 'dehors' ? ['#0b172200', '#0b172214', '#0b172272'] : ['#07101b00', '#07101b28', '#07101ba8'];
+  const tint = currentZone.theme === 'ruelle' ? ['#050a1800', '#050a1838', '#050a18b4'] : ['#07101b00', '#07101b28', '#07101ba8'];
   shade.addColorStop(0, tint[0]);
   shade.addColorStop(.6, tint[1]);
   shade.addColorStop(1, tint[2]);
@@ -193,48 +262,47 @@ function drawStoneDoor(x, y, open, label) {
   ctx.restore();
 }
 
-// Entrée de grotte dans la falaise : retour vers le donjon.
-function drawCaveMouth(x, y, label) {
+// La faille : une déchirure verticale en forme de bouche, aux bords d'un bleu profond, qui ramène dans l'Abysse.
+function drawFaille(x, y, label) {
   ctx.save();
-  ctx.fillStyle = '#1b2025';
-  ctx.fillRect(x - 49, y - 7, 98, 45);
-  ctx.fillStyle = '#4b5860';
-  ctx.fillRect(x - 49, y - 7, 98, 6);
-  ctx.fillStyle = '#05070b';
+  const glow = ctx.createRadialGradient(x, y - 20, 8, x, y - 20, 120);
+  glow.addColorStop(0, '#2f6bff55');
+  glow.addColorStop(1, '#2f6bff00');
+  ctx.fillStyle = glow;
+  ctx.fillRect(x - 120, y - 140, 240, 240);
   ctx.beginPath();
-  ctx.moveTo(x - 36, y + 38); ctx.lineTo(x - 36, y + 14);
-  ctx.quadraticCurveTo(x, y - 14, x + 36, y + 14); ctx.lineTo(x + 36, y + 38);
+  ctx.moveTo(x, y - 62);
+  ctx.bezierCurveTo(x + 30, y - 40, x + 30, y + 6, x, y + 34);
+  ctx.bezierCurveTo(x - 30, y + 6, x - 30, y - 40, x, y - 62);
   ctx.closePath();
+  ctx.fillStyle = '#02040b';
   ctx.fill();
-  ctx.fillStyle = '#6b4fa855';
-  ctx.beginPath();
-  ctx.ellipse(x, y + 28, 26, 9, 0, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.strokeStyle = '#3a86ff';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+  ctx.strokeStyle = '#a8ccff';
+  ctx.lineWidth = 1;
+  ctx.stroke();
   ctx.fillStyle = '#111924e6';
-  ctx.fillRect(x - 40, y + 8, 80, 17);
-  ctx.fillStyle = '#eee1c8';
+  ctx.fillRect(x - 40, y + 36, 80, 17);
+  ctx.fillStyle = '#cfe1ff';
   ctx.font = 'bold 11px system-ui';
   ctx.textAlign = 'center';
-  ctx.fillText(label + ' ↓', x, y + 21);
+  ctx.fillText(label + ' ↓', x, y + 49);
   ctx.restore();
 }
 
-// Sentier qui quitte la zone : deux poteaux, un linteau et un passage plus clair.
-function drawPathGate(x, y, label) {
+// Bout de la ruelle : la lumière de la rue et de la fête, plus loin.
+function drawStreetGate(x, y, label) {
   ctx.save();
-  ctx.fillStyle = '#0c121b';
-  ctx.fillRect(x - 49, y - 7, 98, 45);
-  ctx.fillStyle = '#2d3a35';
-  ctx.fillRect(x - 38, y + 2, 76, 36);
-  ctx.fillStyle = '#6b5239';
-  ctx.fillRect(x - 46, y - 7, 9, 45);
-  ctx.fillRect(x + 37, y - 7, 9, 45);
-  ctx.fillRect(x - 46, y - 7, 92, 8);
-  ctx.fillStyle = '#8affc1';
-  ctx.fillRect(x - 33, y + 33, 66, 3);
+  const light = ctx.createLinearGradient(0, y - 10, 0, y + 190);
+  light.addColorStop(0, '#ffcf8a88');
+  light.addColorStop(1, '#ffcf8a00');
+  ctx.fillStyle = light;
+  ctx.fillRect(x - 130, y - 10, 260, 200);
   ctx.fillStyle = '#111924e6';
   ctx.fillRect(x - 40, y + 8, 80, 17);
-  ctx.fillStyle = '#a5ffcf';
+  ctx.fillStyle = '#ffe9c4';
   ctx.font = 'bold 11px system-ui';
   ctx.textAlign = 'center';
   ctx.fillText(label + ' ↑', x, y + 21);

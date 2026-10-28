@@ -19,45 +19,47 @@ const zones = {
     ],
     enemies: [{ kind: 'goblin', x: 0, y: -200 }, { kind: 'ogre', x: 220, y: -160 }, { kind: 'troll', x: 0, y: -220 }]
   },
-  // Première zone dehors : pas de PNJ ni de quête, seulement de l'exploration et deux gobelins.
-  // Le canon ne décrit pas cet extérieur : son apparence est un choix de design provisoire.
+  // Dehors : la ruelle d'Helvara où s'ouvre la faille (canon du chapitre 1). Une ruelle étroite, du bitume,
+  // des murs de briques, une nuit d'été sous le ciel étouffé de la ville ; la fête d'une résidence
+  // universitaire bat son plein à une trentaine de mètres. Les humains ne voient pas la faille : aucun
+  // monstre ici, aucun PNJ. La faille est au fond (sud), la rue est au nord.
   exterieur: {
     id: 'exterieur',
-    title: 'EXTÉRIEUR · PREMIÈRE ZONE',
-    theme: 'dehors',
-    room: { x: -600, y: -400, width: 1200, height: 800 },
-    // Rochers solides, répartis pour laisser un chemin dégagé entre la grotte (sud) et le sentier (nord).
+    title: 'HELVARA · RUELLE',
+    theme: 'ruelle',
+    room: { x: -200, y: -520, width: 400, height: 1040 },
+    // Bennes, caisses, poubelles et scooter : obstacles en slalom, un côté puis l'autre.
     blocks: [
-      { x: -330, y: -170, width: 120, height: 90 }, { x: 210, y: -250, width: 140, height: 100 },
-      { x: -90, y: -40, width: 80, height: 80 }, { x: 300, y: 70, width: 100, height: 130 },
-      { x: -500, y: 120, width: 90, height: 120 }, { x: 90, y: 170, width: 110, height: 70 },
-      { x: -180, y: 230, width: 90, height: 70 }
+      { x: -200, y: 330, width: 110, height: 62, kind: 'benne' }, { x: 110, y: 230, width: 90, height: 84, kind: 'caisses' },
+      { x: -200, y: 90, width: 56, height: 80, kind: 'poubelles' }, { x: 90, y: -50, width: 110, height: 46, kind: 'scooter' },
+      { x: -200, y: -190, width: 100, height: 70, kind: 'caisses' }, { x: 120, y: -330, width: 80, height: 100, kind: 'benne' },
+      { x: -200, y: -420, width: 90, height: 60, kind: 'poubelles' }
     ],
     doors: [
       { side: 'south', x: 0, half: 44, label: 'ABYSSE', to: 'donjon', arrive: 'north' },
-      { side: 'north', x: 0, half: 44, label: 'SENTIER', end: 'Première zone traversée. Fin du prototype !' }
+      { side: 'north', x: 0, half: 44, label: 'RUE', end: 'Yarden a rejoint la rue. Fin du prototype !' }
     ],
-    // Un gobelin ne bouge qu'une fois Yarden à moins de 320 pixels, puis il la poursuit comme les autres.
-    enemies: [{ kind: 'goblin', x: -250, y: -290, aggro: 320 }, { kind: 'goblin', x: 440, y: -120, aggro: 320 }],
+    enemies: [],
     props: []
   }
 };
 let currentZone = zones.donjon;
 
-// Brins d'herbe, cailloux et fleurs : décor sans collision, placé une fois pour toutes avec un
-// générateur à graine fixe, pour que la zone soit toujours la même.
+// Flaques, papiers, mégots et fissures : décor sans collision, placé une fois pour toutes avec un
+// générateur à graine fixe, pour que la ruelle soit toujours la même. Les lampadaires sont à des
+// positions fixes : ils éclairent des cercles de bitume.
 function scatterProps(zone, seed, count) {
   let state = seed;
   const next = () => (state = (state * 1664525 + 1013904223) % 4294967296) / 4294967296;
-  const r = zone.room, props = [], kinds = ['tuft', 'tuft', 'pebble', 'flower'];
+  const r = zone.room, props = [], kinds = ['fissure', 'fissure', 'papier', 'papier', 'flaque', 'megot'];
   while (props.length < count) {
-    const x = r.x + 30 + next() * (r.width - 60), y = r.y + 30 + next() * (r.height - 60);
+    const x = r.x + 20 + next() * (r.width - 40), y = r.y + 20 + next() * (r.height - 40);
     if (zone.blocks.some(b => x > b.x - 12 && x < b.x + b.width + 12 && y > b.y - 12 && y < b.y + b.height + 12)) continue;
     props.push({ x: Math.round(x), y: Math.round(y), kind: kinds[Math.floor(next() * kinds.length)] });
   }
   return props;
 }
-zones.exterieur.props = scatterProps(zones.exterieur, 20261028, 90);
+zones.exterieur.props = [{ x: -150, y: -360, kind: 'lampe' }, { x: 150, y: -120, kind: 'lampe' }, { x: -140, y: 210, kind: 'lampe' }, ...scatterProps(zones.exterieur, 20261028, 60)];
 
 function zoneWalls(zone) {
   const r = zone.room;

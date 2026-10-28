@@ -10,7 +10,7 @@ Prototype du chapitre 1 : un petit donjon en vue du dessus, jouable sur téléph
 2. Bats le gobelin bleu et l’ogre rouge. Les annonces orange indiquent leurs attaques.
 3. Affronte le Troll : éloigne-toi du cercle orange ou esquive l’impact.
 4. Après sa défaite, rejoins la porte verte au nord : elle mène dehors.
-5. Dehors, explore la première zone (rochers, deux gobelins qui se réveillent quand tu t’approches), puis quitte-la par le sentier au nord pour terminer le prototype. La grotte au sud te ramène au donjon.
+5. Dehors, c’est la ruelle d’Helvara où s’ouvre la faille : traverse-la en évitant bennes et caisses, et rejoins la rue au nord pour terminer le prototype. La faille bleue au sud te ramène au donjon.
 
 Sur téléphone : joystick à gauche ; boutons Faux, Fauchage et Esquive à droite. Sur PC : flèches, ZQSD ou WASD ; Espace pour la faux, E pour Fauchage et Maj pour esquiver.
 

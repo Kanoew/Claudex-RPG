@@ -52,9 +52,9 @@ function drawDungeon(offsetX, offsetY) {
   for (const door of currentZone.doors) {
     const open = !door.needs || exitOpen;
     const y = door.side === 'north' ? room.y + offsetY : room.y + room.height + offsetY - 36;
-    if (currentZone.theme === 'dehors') {
-      if (door.side === 'south') drawCaveMouth(door.x + offsetX, y, door.label);
-      else drawPathGate(door.x + offsetX, y, door.label);
+    if (currentZone.theme === 'ruelle') {
+      if (door.side === 'south') drawFaille(door.x + offsetX, y - 18, door.label);
+      else drawStreetGate(door.x + offsetX, y, door.label);
     } else drawStoneDoor(door.x + offsetX, y, open && !door.decorative, open ? door.label + (door.side === 'north' ? ' ↑' : '') : door.sealed);
   }
   ctx.font = '12px system-ui';
