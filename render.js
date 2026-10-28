@@ -152,14 +152,23 @@ function drawFacades(offsetX, offsetY) {
 
 function drawRoom(offsetX, offsetY) {
   const outdoors = currentZone.theme === 'ruelle';
-  const floorArt = outdoors ? roomArt.asphalt : roomArt.floor;
-  const wallArt = outdoors ? roomArt.brick : roomArt.wall;
+  const crystal = currentZone.theme === 'cristal';
+  const floorArt = crystal ? null : outdoors ? roomArt.asphalt : roomArt.floor;
+  const wallArt = crystal ? null : outdoors ? roomArt.brick : roomArt.wall;
   if (outdoors) drawFacades(offsetX, offsetY);
   ctx.save();
   ctx.beginPath();
   ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
   ctx.clip();
-  if (floorArt) {
+  if (crystal) {
+    ctx.fillStyle = '#121822';
+    ctx.fillRect(room.x + offsetX, room.y + offsetY, room.width, room.height);
+    ctx.strokeStyle = '#29384a'; ctx.lineWidth = 1;
+    for (let i = -6; i < 8; i++) {
+      ctx.beginPath(); ctx.moveTo(offsetX - 480 + i * 100, offsetY - 400);
+      ctx.lineTo(offsetX + i * 100, offsetY + 400); ctx.stroke();
+    }
+  } else if (floorArt) {
     ctx.save();
     ctx.translate(room.x + offsetX, room.y + offsetY);
     ctx.fillStyle = floorArt;
@@ -322,6 +331,8 @@ function draw() {
   drawRoom(offsetX, offsetY);
   drawDungeon(offsetX, offsetY);
   drawRoomShade(screenX, screenY);
+  drawEncounter(offsetX, offsetY);
+  drawNpcs(offsetX, offsetY);
   ctx.fillStyle = '#b5afca';
   ctx.font = '12px system-ui';
   ctx.textAlign = 'left';

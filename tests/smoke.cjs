@@ -11,10 +11,10 @@ function game(imageMode) {
   const listeners = {};
   const elements = {};
   let patterns = 0;
-  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint']) {
+  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-next']) {
     elements[id] = {
       hidden: id === 'result', style: { setProperty(name, value) { this[name] = value; } }, offsetWidth: 54, textContent: '', attributes: {},
-      classList: { toggle() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {},
+      classList: { toggle() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {}, focus() {},
       getBoundingClientRect: () => ({ left: 0, top: 0, width: 366, height: 500 }),
       addEventListener: (name, fn) => (listeners[id + ':' + name] ??= []).push(fn),
       hasPointerCapture: () => false, setPointerCapture() {}, releasePointerCapture() {}
@@ -29,8 +29,8 @@ function game(imageMode) {
     ResizeObserver: class { observe() {} }, requestAnimationFrame() {}
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'yarden-sprite.js', 'monster-sprite.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'npc.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -48,6 +48,35 @@ function bossFight(mode) {
   assert.equal(g.stage, 'boss');
   g.update(1.2);
   return g;
+}
+function beginSpider(g) {
+  g.keys.clear();
+  g.enterZone('antre', 'south');
+  g.player.y = 190;
+  g.update(.01);
+  assert(g.story.active);
+  g.advanceStory();
+  g.advanceStory();
+  assert.equal(g.encounter.phase, 'combat');
+  return g;
+}
+function winSpider(g) {
+  beginSpider(g);
+  const crystal = g.zones.antre.crystal;
+  Object.assign(g.player, crystal);
+  g.useCrystal();
+  assert.equal(g.encounter.phase, 'blinded');
+  const spider = g.zoneEnemies.antre[0];
+  Object.assign(g.player, { x: spider.x - 60, y: spider.y });
+  g.keys.add('d'); g.update(.01); g.keys.clear();
+  g.player.mana = g.player.maxMana;
+  g.startAttack(true);
+  g.update(.01);
+  assert.equal(g.encounter.phase, 'falling');
+  g.update(1.3);
+  assert(g.story.active);
+  g.advanceStory(); g.advanceStory();
+  assert.equal(g.currentZone.id, 'exterieur');
 }
 function solid(g, body) {
   for (const wall of g.walls) {
@@ -179,8 +208,9 @@ const tests = [
     g.player.y = -280;
     g.keys.add('w');
     for (let i = 0; i < 4; i++) g.update(.05);
-    assert(!g.over, 'La sortie du donjon mène dehors, elle ne termine plus la partie');
-    assert.equal(g.currentZone.id, 'exterieur');
+    assert(!g.over, 'La sortie du donjon mène à la deuxième salle');
+    assert.equal(g.currentZone.id, 'antre');
+    winSpider(g);
     // Au bout de la ruelle, côté rue, au nord de la zone extérieure : fin du prototype.
     Object.assign(g.player, { x: 0, y: -495 });
     for (let i = 0; i < 4; i++) g.update(.05);
@@ -466,7 +496,7 @@ const tests = [
     assert.equal(g.enemies[2].active, false);
     assert.equal(g.boss, g.enemies[2]);
     assert.equal(g.activeEnemies(), g.enemies);
-    assert.equal(g.allEnemies().length, g.enemies.length + g.zoneEnemies.exterieur.length);
+    assert.equal(g.allEnemies().length, g.enemies.length + g.zoneEnemies.exterieur.length + g.zoneEnemies.antre.length);
     // Chargement d’une zone : les références de room et de walls restent valables.
     const room = g.room, walls = g.walls;
     g.zones.test = { id: 'test', title: 'TEST', theme: 'pierre', room: { x: -100, y: -80, width: 200, height: 160 }, blocks: [{ x: 0, y: 0, width: 20, height: 20 }], start: { x: 0, y: 0 }, doors: [], enemies: [] };
@@ -579,6 +609,112 @@ const tests = [
     s.loadZone('exterieur');
     s.fire('retry:click');
     assert.equal(s.currentZone.id, 'donjon');
+  }],
+  ['Antre : récit en pause, entrée verrouillée pendant le combat, carapace et ruse', () => {
+    const g = armed('loaded');
+    g.enterZone('antre', 'south');
+    assert.equal(g.currentZone.theme, 'cristal');
+    const spider = g.zoneEnemies.antre[0];
+    assert.equal(g.activeEnemies().length, 1);
+    assert(g.doorIsOpen(g.currentZone.doors[0]));
+    g.player.y = 190; g.update(.01);
+    assert(g.story.active && g.encounter.phase === 'intro');
+    const elapsed = g.elapsed, mana = g.player.mana;
+    g.update(2); g.startAttack(); g.startDodge();
+    assert.equal(g.elapsed, elapsed, 'Pas de temps de combat pendant un dialogue');
+    assert.equal(g.player.mana, mana);
+    assert.equal(g.dodge.remaining, 0);
+    g.advanceStory(); g.advanceStory();
+    assert(!g.story.active && g.encounter.phase === 'combat');
+    assert(!g.doorIsOpen(g.currentZone.doors[0]));
+    g.hitSpider(true);
+    assert.equal(spider.hp, spider.maxHp, 'Fauchage seul ne perce pas la carapace');
+    const crystal = g.zones.antre.crystal;
+    assert(!g.canUseCrystal(), 'Le cristal exige de s’approcher');
+    Object.assign(g.player, crystal);
+    g.fire('window:blur'); g.useCrystal();
+    assert.equal(g.encounter.phase, 'combat', 'Pas de ruse en pause');
+    g.fire('window:focus'); g.useCrystal();
+    assert.equal(g.encounter.phase, 'blinded');
+    assert.equal(g.monsterPose(spider).frame, 7);
+    const blind = g.encounter.blind;
+    g.fire('window:blur'); g.update(10);
+    assert.equal(g.encounter.blind, blind);
+    g.fire('window:focus'); g.update(5.1);
+    assert.equal(g.encounter.phase, 'combat', 'L’ouverture expire sans coup final');
+    assert(g.canUseCrystal(), 'La ruse peut être retentée');
+  }],
+  ['Araignée : venin annoncé, collision continue, murs, esquive et territoire', () => {
+    const g = beginSpider(armed('loaded'));
+    const spider = g.zoneEnemies.antre[0];
+    Object.assign(g.player, { x: 0, y: 120 });
+    g.updateEnemy(spider, .01);
+    assert.equal(spider.windup, .9);
+    g.updateEnemy(spider, .86);
+    g.updateEnemy(spider, .05);
+    assert.equal(g.encounter.projectiles.length, 1);
+    assert.equal(g.monsterPose(spider).frame, 5);
+    Object.assign(g.player, { x: 0, y: 100 });
+    g.encounter.projectiles = [{ x: 0, y: -100, dx: 0, dy: 1, life: 3 }];
+    const hp = g.player.hp;
+    g.tickVenom(.5);
+    assert.equal(g.player.hp, hp - 1, 'Le trajet complet touche, même sur une image lente');
+    assert.equal(g.encounter.slow, 3);
+    assert.equal(g.encounter.projectiles.length, 0);
+    g.dodge.remaining = .2;
+    g.encounter.projectiles = [{ x: 0, y: 50, dx: 0, dy: 1, life: 3 }];
+    g.tickVenom(.2);
+    assert.equal(g.player.hp, hp - 1, 'L’esquive protège du venin');
+    g.dodge.remaining = 0;
+    Object.assign(g.player, { x: -180, y: -140 });
+    g.encounter.projectiles = [{ x: -400, y: -140, dx: 1, dy: 0, life: 3 }];
+    g.tickVenom(.5);
+    assert.equal(g.encounter.projectiles.length, 0);
+    assert.equal(g.player.hp, hp - 1, 'Le pilier intercepte le fil');
+    Object.assign(g.player, { x: 450, y: 300 });
+    for (let i = 0; i < 100; i++) { g.updateEnemy(spider, .05); solid(g, spider); }
+    const area = g.currentZone.territory;
+    assert(spider.x <= area.x + area.width - spider.radius);
+    assert(spider.y <= area.y + area.height - spider.radius);
+    for (const mode of ['loaded', 'error', undefined]) {
+      const fallback = beginSpider(armed(mode));
+      fallback.draw();
+    }
+  }],
+  ['Araignée : incapacitation vivante, réveil dans la ruelle et deux passants', () => {
+    const g = armed('loaded');
+    winSpider(g);
+    const spider = g.zoneEnemies.antre[0];
+    assert(spider.incapacitated && spider.hp === 1);
+    assert.equal(g.monsterPose(spider).frame, 8);
+    assert(g.encounter.complete && !g.over);
+    assert(!g.yardenSprite.defeated);
+    assert.equal(g.activeEnemies().length, 0);
+    assert.equal(g.currentZone.npcs.length, 2);
+    Object.assign(g.player, { x: 0, y: 500 });
+    assert.equal(g.doorAtPlayer(), null, 'La faille se ferme après le réveil');
+    const before = JSON.stringify(g.currentZone.npcs);
+    g.draw();
+    assert.equal(JSON.stringify(g.currentZone.npcs), before);
+    assert(!g.allEnemies().some(e => e.name === 'Passante' || e.name === 'Passant'));
+  }],
+  ['Antre : reprendre après une mort réinitialise le combat sans refaire le Troll', () => {
+    const g = beginSpider(armed());
+    g.enemies[0].hp = g.enemies[1].hp = g.boss.hp = 0;
+    g.encounter.projectiles.push({ x: 0, y: 0, dx: 1, dy: 0, life: 1 });
+    g.encounter.slow = 3;
+    g.hurtPlayer(5);
+    assert(g.over);
+    assert.equal(g.elements.retry.textContent, 'Reprendre l’antre');
+    g.fire('retry:click');
+    assert.equal(g.currentZone.id, 'antre');
+    assert.equal(g.encounter.phase, 'waiting');
+    assert.equal(g.encounter.projectiles.length, 0);
+    assert.equal(g.encounter.slow, 0);
+    assert(!g.over && g.player.hp === 5 && g.player.mana === 30 && g.player.armed);
+    assert.equal(g.boss.hp, 0, 'Le Troll reste vaincu');
+    assert.equal(g.zoneEnemies.antre[0].hp, 12);
+    assert(!g.zoneEnemies.antre[0].incapacitated);
   }]
 ];
 for (const [name, run] of tests) { run(); console.log('OK — ' + name); }

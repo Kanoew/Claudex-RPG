@@ -14,15 +14,25 @@ const zones = {
     blocks: [{ x: -192, y: -96, width: 72, height: 144 }, { x: 120, y: 48, width: 96, height: 72 }],
     start: { x: 0, y: 240 },
     doors: [
-      { side: 'north', x: 0, half: 44, label: 'SORTIE', sealed: 'SCELLÉE', needs: 'exitOpen', to: 'exterieur', arrive: 'south' },
+      { side: 'north', x: 0, half: 44, label: 'ANTRE', sealed: 'SCELLÉE', needs: 'exitOpen', to: 'antre', arrive: 'south' },
       { side: 'south', x: 0, half: 44, label: 'ENTRÉE', decorative: true }
     ],
     enemies: [{ kind: 'goblin', x: 0, y: -200 }, { kind: 'ogre', x: 220, y: -160 }, { kind: 'troll', x: 0, y: -220 }]
   },
+  antre: {
+    id: 'antre', title: 'ABYSSE · ANTRE DE CRISTAL', theme: 'cristal',
+    room: { x: -480, y: -400, width: 960, height: 800 },
+    blocks: [{ x: -330, y: -180, width: 80, height: 100 }, { x: 230, y: -120, width: 90, height: 110 }],
+    start: { x: 0, y: 310 },
+    doors: [{ side: 'south', x: 0, half: 44, label: 'RETOUR', sealed: 'FILS', needs: 'antreOpen', to: 'donjon', arrive: 'north' }],
+    enemies: [{ kind: 'spider', x: 0, y: -160 }],
+    crystal: { x: -220, y: 80 },
+    territory: { x: -200, y: -280, width: 400, height: 420 }
+  },
   // Dehors : la ruelle d'Helvara où s'ouvre la faille (canon du chapitre 1). Une ruelle étroite, du bitume,
   // des murs de briques, une nuit d'été sous le ciel étouffé de la ville ; la fête d'une résidence
   // universitaire bat son plein à une trentaine de mètres. Les humains ne voient pas la faille : aucun
-  // monstre ici, aucun PNJ. La faille est au fond (sud), la rue est au nord.
+  // monstre ici. Deux passants provisoires ne réagissent pas à la faille. Elle est au fond (sud), la rue au nord.
   exterieur: {
     id: 'exterieur',
     title: 'HELVARA · RUELLE',
@@ -36,10 +46,14 @@ const zones = {
       { x: -200, y: -420, width: 90, height: 60, kind: 'poubelles' }
     ],
     doors: [
-      { side: 'south', x: 0, half: 44, label: 'ABYSSE', to: 'donjon', arrive: 'north' },
+      { side: 'south', x: 0, half: 44, label: 'ABYSSE', needs: 'riftOpen', to: 'donjon', arrive: 'north' },
       { side: 'north', x: 0, half: 44, label: 'RUE', end: 'Yarden a rejoint la rue. Fin du prototype !' }
     ],
     enemies: [],
+    npcs: [
+      { id: 'passant-a', name: 'Passante', x: 100, y: 120, coat: '#52677f', hair: '#342b28' },
+      { id: 'passant-b', name: 'Passant', x: -80, y: -270, coat: '#84565e', hair: '#28272b' }
+    ],
     props: []
   }
 };

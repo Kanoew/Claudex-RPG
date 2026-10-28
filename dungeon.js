@@ -4,7 +4,7 @@
 function doorAtPlayer() {
   for (const door of currentZone.doors) {
     if (door.decorative) continue;
-    if (door.needs === 'exitOpen' && !exitOpen) continue;
+    if (!doorIsOpen(door)) continue;
     if (Math.abs(player.x - door.x) > door.half - player.radius) continue;
     if (door.side === 'north' && player.y <= room.y + 32) return door;
     if (door.side === 'south' && player.y >= room.y + room.height - 32) return door;
@@ -50,10 +50,12 @@ function updateDungeon() {
 
 function drawDungeon(offsetX, offsetY) {
   for (const door of currentZone.doors) {
-    const open = !door.needs || exitOpen;
+    const open = doorIsOpen(door);
     const y = door.side === 'north' ? room.y + offsetY : room.y + room.height + offsetY - 36;
     if (currentZone.theme === 'ruelle') {
-      if (door.side === 'south') drawFaille(door.x + offsetX, y - 18, door.label);
+      if (door.side === 'south') {
+        if (open) drawFaille(door.x + offsetX, y - 18, door.label);
+      }
       else drawStreetGate(door.x + offsetX, y, door.label);
     } else drawStoneDoor(door.x + offsetX, y, open && !door.decorative, open ? door.label + (door.side === 'north' ? ' ↑' : '') : door.sealed);
   }
