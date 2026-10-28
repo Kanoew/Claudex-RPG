@@ -6,7 +6,10 @@
 // à Yarden). `stand` est leur hauteur debout et `reach` la hauteur poings levés, au même grossissement que les sprites de Yarden.
 const monsterClips = {
   // Cases : 0 à 3 marche, 4 annonce de l'attaque (poings levés), 5 coup (poings au sol).
-  troll: { cell: [208, 262], anchor: [104, 258], stand: 194, reach: 252, walk: [0, 1, 2, 3], walkSeconds: .13, windup: 4, strike: 5, strikeSeconds: .3 }
+  troll: { cell: [208, 262], anchor: [104, 258], stand: 194, reach: 252, walk: [0, 1, 2, 3], walkSeconds: .13, windup: 4, strike: 5, strikeSeconds: .3 },
+  // Gobelin : 4 marche, 5 dague en arrière, 6 coup de dague. Ogre : 4 marche, 5 accroupi poings en arrière, 6 charge.
+  goblin: { cell: [130, 94], anchor: [65, 90], stand: 89, reach: 89, walk: [0, 1, 2, 3], walkSeconds: .1, windup: 4, strike: 5, strikeSeconds: .2 },
+  ogre: { cell: [170, 127], anchor: [85, 123], stand: 124, reach: 124, walk: [0, 1, 2, 3], walkSeconds: .12, windup: 4, strike: 5, strikeSeconds: .2 }
 };
 const monsterArt = { strips: {} };
 
@@ -16,7 +19,7 @@ function loadMonsterArt() {
     const image = new Image();
     image.onload = () => { monsterArt.strips[name] = image; };
     image.onerror = () => { monsterArt.strips[name] = null; };
-    image.src = `assets/monsters/${name}.png?v=25`;
+    image.src = `assets/monsters/${name}.png?v=26`;
   }
 }
 

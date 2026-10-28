@@ -246,10 +246,12 @@ const tests = [
     const hitbox = JSON.stringify([g.player.x, g.player.y, g.player.radius]);
     g.calls.length = 0;
     g.draw();
-    const sprite = g.calls.filter(call => call[0] === 'drawImage');
+    // Les monstres dessinés avant Yarden peuvent se retourner ; elle, jamais.
+    const sprite = g.calls.filter(call => call[0] === 'drawImage' && call[4] === 96 && call[5] === 104);
     assert.equal(sprite.length, 1);
     assert.deepEqual(sprite[0].slice(2, 6), [0, 0, 96, 104]);
-    assert(!g.calls.some(call => ['scale', 'transform'].includes(call[0])), 'Aucun retournement du sprite');
+    const afterShadow = g.calls.slice(g.calls.map(call => call[0]).lastIndexOf('ellipse'));
+    assert(!afterShadow.some(call => ['scale', 'transform'].includes(call[0])), 'Aucun retournement du sprite de Yarden');
     assert.equal(JSON.stringify([g.player.x, g.player.y, g.player.radius]), hitbox);
     // Côté de course, marche verticale, puis retour à la course latérale.
     const g2 = armed('loaded');
@@ -303,7 +305,7 @@ const tests = [
     g.calls.length = 0;
     g.draw();
     assert(!g.calls.some(call => call[0] === 'quadraticCurveTo'), 'La faux dessinée par le jeu disparaît quand le sprite la porte');
-    assert.equal(g.calls.filter(call => call[0] === 'drawImage').length, 1);
+    assert.equal(g.calls.filter(call => call[0] === 'drawImage' && call[4] === 211 && call[5] === 148).length, 1);
     // Esquive vers la gauche.
     const d = armed('loaded');
     d.keys.add('a');
@@ -393,6 +395,50 @@ const tests = [
     // Noms affichés : gobelin, ogre et Troll.
     const named = armed('loaded');
     assert.equal(JSON.stringify(named.enemies.map(enemy => enemy.name)), JSON.stringify(['Gobelin', 'Ogre', 'Troll']));
+  }],
+  ['Gobelin et ogre : sprites, annonce, coup, charge et repli sur les formes provisoires', () => {
+    const g = armed('loaded');
+    const [goblin, ogre] = g.enemies;
+    assert.equal(goblin.art, 'goblin');
+    assert.equal(ogre.art, 'ogre');
+    for (const enemy of [goblin, ogre]) {
+      assert(g.monsterArt.strips[enemy.art], 'Bande chargée');
+      Object.assign(enemy.sprite, { moving: false, strike: 0, time: 0 });
+      enemy.windup = 0; enemy.charge = 0;
+      assert.equal(g.monsterPose(enemy).frame, 0);
+      enemy.sprite.moving = true;
+      const step = g.monsterClips[enemy.art].walkSeconds;
+      const frames = [0, 1, 2, 3, 4].map(k => { enemy.sprite.time = step * k + step / 2; return g.monsterPose(enemy).frame; });
+      assert.equal(JSON.stringify(frames), JSON.stringify([0, 1, 2, 3, 0]));
+      enemy.windup = .3;
+      assert.equal(g.monsterPose(enemy).frame, 4, 'Pose d’annonce');
+      enemy.windup = 0;
+    }
+    // Ogre : la pose de charge dure tant que la charge dure, puis il reprend sa marche.
+    ogre.charge = .2;
+    assert.equal(g.monsterPose(ogre).frame, 5);
+    ogre.charge = 0;
+    assert.notEqual(g.monsterPose(ogre).frame, 5);
+    // Gobelin : le coup de dague s'affiche après la fin de l'annonce, qu'il touche ou non.
+    Object.assign(g.player, { x: goblin.x + 300, y: goblin.y });
+    goblin.windup = .01; goblin.cooldown = 5;
+    g.updateEnemy(goblin, .02);
+    assert(goblin.sprite.strike > .15);
+    assert.equal(g.monsterPose(goblin).frame, 5);
+    // Collisions, points de vie et vitesses inchangés.
+    assert.equal(JSON.stringify([goblin.radius, goblin.maxHp, goblin.speed, ogre.radius, ogre.maxHp, ogre.speed]), JSON.stringify([14, 3, 95, 14, 2, 80]));
+    // Gobelin, ogre et Yarden : trois images de personnage sont dessinées.
+    g.calls.length = 0;
+    g.draw();
+    assert.equal(g.calls.filter(call => call[0] === 'drawImage').length >= 3, true);
+    // Sans image : retour aux formes provisoires (disque rose, carré jaune) et aux barres de vie.
+    const bare = armed('error');
+    assert.equal(bare.monsterPose(bare.enemies[0]), null);
+    assert.equal(bare.monsterPose(bare.enemies[1]), null);
+    bare.calls.length = 0;
+    bare.draw();
+    assert(bare.calls.some(call => call[0] === 'arc'));
+    assert(bare.calls.some(call => call[0] === 'fillRect'));
   }]
 ];
 for (const [name, run] of tests) { run(); console.log('OK — ' + name); }

@@ -19,8 +19,8 @@ const player = { x: 0, y: 240, speed: 180, radius: 13, hp: 5, maxHp: 5, flash: 0
 const weapon = { x: 0, y: 144 };
 let exitOpen = false;
 const enemies = [
-  { name: 'Gobelin', x: 0, y: -200, spawnX: 0, spawnY: -200, speed: 95, radius: 14, hp: 3, maxHp: 3, charger: false },
-  { name: 'Ogre', x: 220, y: -160, spawnX: 220, spawnY: -160, speed: 80, radius: 14, hp: 2, maxHp: 2, charger: true },
+  { name: 'Gobelin', art: 'goblin', x: 0, y: -200, spawnX: 0, spawnY: -200, speed: 95, radius: 14, hp: 3, maxHp: 3, charger: false },
+  { name: 'Ogre', art: 'ogre', x: 220, y: -160, spawnX: 220, spawnY: -160, speed: 80, radius: 14, hp: 2, maxHp: 2, charger: true },
   { name: 'Troll', art: 'troll', spawnX: 0, spawnY: -220, speed: 65, radius: 24, maxHp: 8, boss: true, active: false }
 ];
 const boss = enemies[2];

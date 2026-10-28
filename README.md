@@ -7,7 +7,7 @@ Prototype du chapitre 1 : un petit donjon en vue du dessus, jouable sur téléph
 ## Jouer
 
 1. Avance depuis l’entrée au sud vers la faux violette pour la manifester gratuitement.
-2. Bats le gobelin (disque rose provisoire) et l’ogre (carré jaune provisoire). Les annonces orange indiquent leurs attaques.
+2. Bats le gobelin bleu et l’ogre rouge. Les annonces orange indiquent leurs attaques.
 3. Affronte le Troll : éloigne-toi du cercle orange ou esquive l’impact.
 4. Après sa défaite, rejoins la porte verte au nord pour sortir.
 
@@ -25,7 +25,7 @@ La vie et le mana ont des barres avec valeurs numériques. Les boutons affichent
 
 Deux images de décor, originales et CC0, sont incluses : `assets/sol-pierre.svg` (dalles) et `assets/mur-pierre.svg` (maçonnerie), environ 1,3 Ko au total. Voir `assets/LICENCE.md`. Les portes, piliers et l’ombre autour de Yarden sont dessinés en Canvas. Si les images échouent à charger, un décor de secours est dessiné ; le jeu et les collisions restent identiques.
 
-Yarden est animée par `yarden-sprite.js` (chargé avant `render.js`) : repos et course du [pack de sprites](docs/art/yarden/README.md), puis marche vers le haut et le bas, coup de faux, esquive, dégâts et défaite (`assets/yarden/`, détails dans `assets/yarden/actions.json`). Les bandes de gauche et de droite sont deux dessins distincts : elles ne sont jamais retournées. Le coup, l’esquive et la réaction aux dégâts suivent la durée réelle de l’action ; l’arc du coup reste le repère de portée. À la défaite, Yarden tombe avant l’affichage du message de fin. Si une image ne charge pas, le jeu retombe sur le repos, la course ou le disque violet. Vers le haut ou le bas, le coup et l’esquive utilisent le dernier côté gauche ou droit. Le Troll, ancien Gardien, a ses sprites (`monster-sprite.js`, `assets/monsters/troll.png` et `monsters.json`) : marche, pose d’annonce poings levés, pose de coup poings au sol, flash blanc quand il est touché, retourné pour regarder Yarden. Le gobelin et l’ogre gardent leurs formes provisoires jusqu’à l’arrivée de leurs images.
+Yarden est animée par `yarden-sprite.js` (chargé avant `render.js`) : repos et course du [pack de sprites](docs/art/yarden/README.md), puis marche vers le haut et le bas, coup de faux, esquive, dégâts et défaite (`assets/yarden/`, détails dans `assets/yarden/actions.json`). Les bandes de gauche et de droite sont deux dessins distincts : elles ne sont jamais retournées. Le coup, l’esquive et la réaction aux dégâts suivent la durée réelle de l’action ; l’arc du coup reste le repère de portée. À la défaite, Yarden tombe avant l’affichage du message de fin. Si une image ne charge pas, le jeu retombe sur le repos, la course ou le disque violet. Vers le haut ou le bas, le coup et l’esquive utilisent le dernier côté gauche ou droit. Les trois monstres ont leurs sprites (`monster-sprite.js`, bandes de `assets/monsters/` décrites dans `monsters.json`) : gobelin, ogre et Troll (ancien Gardien). Chacun a une marche de quatre images, une pose d’annonce et une pose de coup ou de charge calées sur les attaques du jeu, un flash blanc quand il est touché, et regarde Yarden (leurs images sont retournées pour la droite). Si une image ne charge pas, le disque rose, le carré jaune ou le disque violet reviennent. L’araignée de cristal est dessinée mais pas encore dans le jeu.
 
 GitHub Pages publie la racine de `main` après fusion. À chaque changement des scripts, augmente leur numéro `?v=` dans `index.html`, puis actualise la page après publication.
 
