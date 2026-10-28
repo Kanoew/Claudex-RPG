@@ -29,8 +29,8 @@ function game(imageMode) {
     ResizeObserver: class { observe() {} }, requestAnimationFrame() {}
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'yarden-sprite.js', 'monster-sprite.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'yarden-sprite.js', 'monster-sprite.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, loadZone, doorAtPlayer, get currentZone(){return currentZone}, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -439,6 +439,43 @@ const tests = [
     bare.draw();
     assert(bare.calls.some(call => call[0] === 'arc'));
     assert(bare.calls.some(call => call[0] === 'fillRect'));
+  }],
+  ['Zones : le donjon est lu dans des données et se joue à l’identique', () => {
+    const g = game();
+    const same = (a, b) => assert.equal(JSON.stringify(a), JSON.stringify(b));
+    // Mêmes dimensions, mêmes murs et mêmes blocs qu’avant la mise en données.
+    same(g.room, { x: -480, y: -336, width: 960, height: 672 });
+    same(g.walls, [
+      { x: -504, y: -360, width: 1008, height: 24 }, { x: -504, y: 336, width: 1008, height: 24 },
+      { x: -504, y: -336, width: 24, height: 672 }, { x: 480, y: -336, width: 24, height: 672 },
+      { x: -192, y: -96, width: 72, height: 144 }, { x: 120, y: 48, width: 96, height: 72 }
+    ]);
+    assert.equal(g.currentZone.id, 'donjon');
+    // Monstres : mêmes types, positions, points de vie, vitesses et rayons.
+    same(g.enemies.map(e => [e.name, e.x, e.y, e.hp, e.maxHp, e.speed, e.radius, Boolean(e.charger), Boolean(e.boss)]), [
+      ['Gobelin', 0, -200, 3, 3, 95, 14, false, false], ['Ogre', 220, -160, 2, 2, 80, 14, true, false], ['Troll', 0, -220, 8, 8, 65, 24, false, true]
+    ]);
+    assert.equal(g.enemies[2].active, false);
+    assert.equal(g.boss, g.enemies[2]);
+    assert.equal(g.activeEnemies(), g.enemies);
+    assert.equal(g.allEnemies().length, g.enemies.length);
+    // Chargement d’une zone : les références de room et de walls restent valables.
+    const room = g.room, walls = g.walls;
+    g.zones.test = { id: 'test', title: 'TEST', theme: 'pierre', room: { x: -100, y: -80, width: 200, height: 160 }, blocks: [{ x: 0, y: 0, width: 20, height: 20 }], start: { x: 0, y: 0 }, doors: [], enemies: [] };
+    g.loadZone('test');
+    assert.equal(g.room, room);
+    assert.equal(g.walls, walls);
+    assert.equal(walls.length, 5);
+    assert.equal(g.room.width, 200);
+    assert.equal(g.currentZone.id, 'test');
+    assert.equal(g.activeEnemies().length, 0, 'Une zone sans monstres n’en réveille aucun');
+    g.loadZone('donjon');
+    assert.equal(walls.length, 6);
+    assert.equal(g.room.width, 960);
+    // Porte de sortie : fermée tant que le Troll vit, puis détectée devant le mur du nord.
+    const p = armed();
+    Object.assign(p.player, { x: 0, y: -330 });
+    assert.equal(p.doorAtPlayer(), null, 'Porte scellée tant que le Troll vit');
   }]
 ];
 for (const [name, run] of tests) { run(); console.log('OK — ' + name); }

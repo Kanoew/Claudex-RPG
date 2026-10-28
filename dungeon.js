@@ -1,16 +1,29 @@
 'use strict';
 
+// Porte que Yarden touche en ce moment : près du mur de son côté, dans la largeur de la porte.
+function doorAtPlayer() {
+  for (const door of currentZone.doors) {
+    if (door.decorative) continue;
+    if (door.needs === 'exitOpen' && !exitOpen) continue;
+    if (Math.abs(player.x - door.x) > door.half - player.radius) continue;
+    if (door.side === 'north' && player.y <= room.y + 32) return door;
+    if (door.side === 'south' && player.y >= room.y + room.height - 32) return door;
+  }
+  return null;
+}
+
 function updateDungeon() {
-  if (!player.armed) {
+  if (currentZone.id === 'donjon' && !player.armed) {
     if (Math.hypot(player.x - weapon.x, player.y - weapon.y) > 28) return true;
     player.armed = true;
     stage = 'guards';
     updateStatus();
     updateAttackButton();
   }
-  if (stage === 'exit' && exitOpen && Math.abs(player.x) <= 44 - player.radius && player.y <= room.y + 32) {
+  const door = doorAtPlayer();
+  if (door && door.end) {
     stage = 'escaped';
-    finishCombat('Yarden a quitté l’Abysse. Donjon terminé !');
+    finishCombat(door.end);
     updateStatus();
     return true;
   }
@@ -18,12 +31,15 @@ function updateDungeon() {
 }
 
 function drawDungeon(offsetX, offsetY) {
-  drawStoneDoor(offsetX, room.y + offsetY, exitOpen, exitOpen ? 'SORTIE ↑' : 'SCELLÉE');
-  drawStoneDoor(offsetX, room.y + room.height + offsetY - 36, false, 'ENTRÉE');
+  for (const door of currentZone.doors) {
+    const open = !door.needs || exitOpen;
+    const y = door.side === 'north' ? room.y + offsetY : room.y + room.height + offsetY - 36;
+    drawStoneDoor(door.x + offsetX, y, open && !door.decorative, open ? door.label + (door.side === 'north' ? ' ↑' : '') : door.sealed);
+  }
   ctx.font = '12px system-ui';
   ctx.textAlign = 'center';
   ctx.fillStyle = '#eae7f5';
-  if (player.armed) return;
+  if (currentZone.id !== 'donjon' || player.armed) return;
   const x = weapon.x + offsetX, y = weapon.y + offsetY;
   ctx.strokeStyle = '#c5afff';
   ctx.lineWidth = 3;

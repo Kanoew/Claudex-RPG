@@ -71,6 +71,19 @@ function nextWaypoint(enemy) {
 }
 
 
+// Modèles de monstres : une zone n'indique que le type et la position de départ.
+const enemyKinds = {
+  goblin: { name: 'Gobelin', art: 'goblin', speed: 95, radius: 14, maxHp: 3, charger: false },
+  ogre: { name: 'Ogre', art: 'ogre', speed: 80, radius: 14, maxHp: 2, charger: true },
+  troll: { name: 'Troll', art: 'troll', speed: 65, radius: 24, maxHp: 8, boss: true, active: false }
+};
+
+function makeEnemy(spec) {
+  const enemy = { ...enemyKinds[spec.kind], kind: spec.kind, spawnX: spec.x, spawnY: spec.y };
+  resetEnemy(enemy);
+  return enemy;
+}
+
 function resetEnemy(enemy) {
   Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null , sprite: { time: 0, moving: false, face: -1, strike: 0 } });
   if (enemy.boss) enemy.active = false;

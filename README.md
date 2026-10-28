@@ -17,7 +17,7 @@ Yarden a 5 PV et 30 mana. La faux coûte 3 mana, Fauchage 12 ; le mana revient �
 
 ## Fichiers et publication
 
-Ouvre `index.html` directement dans un navigateur récent ou utilise le lien du jeu. Aucun outil de build, paquet à installer ou serveur n’est nécessaire. `enemies.js`, `dungeon.js`, `hud.js`, `yarden-sprite.js`, `monster-sprite.js` et `render.js` sont chargés avant `game.js`. Les règles et les contrôles restent dans `game.js` ; les barres et boutons sont mis à jour par `hud.js`, et le dessin de la salle et des formes provisoires est dans `render.js`.
+Ouvre `index.html` directement dans un navigateur récent ou utilise le lien du jeu. Aucun outil de build, paquet à installer ou serveur n’est nécessaire. `enemies.js`, `dungeon.js`, `hud.js`, `zones.js`, `yarden-sprite.js`, `monster-sprite.js` et `render.js` sont chargés avant `game.js`. Les salles sont des données dans `zones.js` (dimensions, blocs, portes, monstres) ; `loadZone()` remplit la salle courante. Les règles et les contrôles restent dans `game.js` ; les barres et boutons sont mis à jour par `hud.js`, et le dessin de la salle et des formes provisoires est dans `render.js`.
 
 ## Interface et décor
 

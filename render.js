@@ -125,7 +125,7 @@ function draw() {
   ctx.fillStyle = '#b5afca';
   ctx.font = '12px system-ui';
   ctx.textAlign = 'left';
-  ctx.fillText('ABYSSE · SALLE 1', 14, 24);
+  ctx.fillText(currentZone.title, 14, 24);
   if (debugMode) {
     const lines = [
       `stage ${stage} · delay ${bossDelay.toFixed(2)} · pause ${paused} · fin ${combatOver}`,
@@ -136,7 +136,7 @@ function draw() {
     ctx.fillStyle = '#ffd36b';
     lines.forEach((line, i) => ctx.fillText(line, 14, (boss.active ? 84 : 44) + i * 16));
   }
-  for (const enemy of enemies) drawEnemy(enemy, offsetX, offsetY);
+  for (const enemy of activeEnemies()) drawEnemy(enemy, offsetX, offsetY);
   if (attack.remaining > 0) {
     ctx.save();
     ctx.translate(screenX, screenY);
