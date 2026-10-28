@@ -3,6 +3,18 @@
 > Fichier de contexte. À lire EN ENTIER au début de chaque session, par Claude comme par ChatGPT/Codex.
 > Si une consigne de ce fichier contredit une demande orale, on le signale avant de coder.
 
+## Cadre canonique — identité, ton et apparence (précisions du 28 octobre 2026)
+
+Ces consignes de Jordan priment sur les anciennes hypothèses de conception. Le jeu adapte le roman dark fantasy **Le Sang de Tiamat**. Ne pas inventer de lore manquant : demander à Jordan.
+
+- **Un seul personnage, deux noms.** Jordan est son vrai nom dans le roman et sa voix intérieure : ancien boss de donjon millénaire, tué puis réincarné sur Terre en jeune femme humaine par Tiamat. Pour être protégée de ce qui l’a tuée, elle prend la fausse identité **Yarden Weiss, 22 ans**.
+- **Dans le jeu, à l’écran et dans le code : Yarden, elle.** Ne jamais afficher son ancien nom au joueur. L’explication ci-dessus est une note interne de conception, pas un texte à révéler dans la scène. Dans ce document, les mentions de Jordan comme auteur, testeur et propriétaire du projet désignent l’utilisateur.
+- **Ton :** dark fantasy mature et sobre, sans humour lourd. Yarden est froide, observatrice, cynique par petites touches et parle peu.
+- **Visage et cheveux :** yeux bleu-gris, peau pâle, cheveux noirs avec mèches gris-lavande réunis en gros chignon désordonné, lunettes rondes dorées, maquillage violet sombre.
+- **Tenue :** veste noire courte à détails argentés, crop top noir, pantalon cargo noir, bottes épaisses. Aucun collier, aucune boucle d’oreille.
+- **Asymétrie :** un seul gant noir sans doigts, sur la main **gauche anatomique**. Main **droite nue**, avec des plumes tatouées. Ne pas retourner les sprites pour fabriquer l’autre direction.
+- **Arme :** faux manifestée par intention ; « pas de dégâts de départ, juste un effet de coup ». Cette précision est conservée telle quelle ; aucune valeur de combat existante n’est modifiée par cette mise à jour documentaire.
+
 ## 1. Objectif (un mois, test de faisabilité)
 Un seul donjon jouable de bout en bout : Yarden y entre, obtient son arme, affronte des ennemis en temps réel, en sort.
 Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'est trop lourd. Les deux sont un succès.
@@ -74,6 +86,8 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 - Jordan : teste sur téléphone, valide, décide de passer à l'étape suivante
 
 ## 8. Journal (à compléter après chaque étape)
+
+28 octobre 2026 — Cadre canonique de Yarden consigné : identité unique, nom utilisé par le jeu, pronoms, ton et apparence. Anciennes hypothèses de la rencontre et fiche visuelle corrigées. Mise à jour documentaire uniquement ; aucune modification des images ni du combat.
 | Étape | Statut | Notes / bugs connus |
 |---|---|---|
 | 1 | validée par Jordan | Jeu publié sur GitHub Pages ; déplacement testé et jouable sur téléphone. |
@@ -180,7 +194,7 @@ Ces précisions concernent la rencontre du chapitre 2. La bible et le texte publ
 - Le compact affiche une fausse assurance dans les épaules, qui compense son état.
 - Niveaux 3 et 5 au maximum, non éveillés, alcoolisés, « avec une idée fixe ». Ils restent ordinaires, sans allure de prédateurs sophistiqués ni de nouveaux boss.
 - Le texte ne précise ni visage, ni coiffure, ni couleur, ni nom. Toutes ces décisions visuelles restent des propositions, sans valeur canonique avant validation de Jordan.
-- Fin de la scène du texte : Jordan tord le poignet de l’un (« géométrie articulaire ») et dit « Elle est pas intéressée ». Le grand part le premier, le compact suit en marmonnant. Ne pas attribuer automatiquement ce rôle à Yarden. Jordan indique que le lien entre Jordan et Yarden sera expliqué plus tard et demande de le laisser de côté pour l’instant.
+- Fin de la scène du texte : le personnage principal tord le poignet de l’un (« géométrie articulaire ») et dit « Elle est pas intéressée ». Dans l’adaptation, elle se nomme Yarden. Le grand part le premier, le compact suit en marmonnant. Le raccordement jouable de cette scène reste à réaliser, sans réplique supplémentaire inventée.
 
 ### Cadrage et lieu
 Un coin de trottoir sous un lampadaire éteint, dans un cul-de-sac partiel : façade aveugle à gauche, grille fermée à droite. C’est le décor de cette rencontre ; ne pas déplacer toute la ruelle existante pour lui correspondre sans définir le raccordement. Dans une poursuite, garder les hommes génériques, peu détaillés et secondaires à l’image. Ishara concentre l’attention.
@@ -188,11 +202,11 @@ Un coin de trottoir sous un lampadaire éteint, dans un cul-de-sac partiel : fa�
 ### Première proposition de design (à valider)
 Référence de travail dans `docs/art/ruelle/`, sans chargement dans le jeu. Ishara garde sa tenue de soirée. Les hommes ont des palettes discrètes et des silhouettes contrastées : veste bleu-gris trop grande pour le grand, veste brun-charbon pour le compact. Coiffures sombres simples, chaussures et traits génériques sont des choix de travail. La couleur des yeux et les chaussures d’Ishara, non précisées par le lore fourni, restent elles aussi provisoires. Pas de noms ajoutés, pas d’arme pour les hommes, pas de tenue de combat ni d’effet magique pour Ishara.
 
-Jordan demande de laisser le lien Jordan/Yarden de côté jusqu’à la fourniture du lore correspondant. Le travail continue sur les mouvements réutilisables d’Ishara, qui restera présente dans la suite de l’histoire. Les deux passants actuels ne sont pas transformés en acteurs de cette rencontre et aucune nouvelle réplique de scène n’est écrite.
+Le lien entre les deux noms est désormais précisé dans le cadre canonique en tête de document. Le travail continue sur les mouvements réutilisables d’Ishara, qui restera présente dans la suite de l’histoire. Les deux passants actuels ne sont pas transformés en acteurs de cette rencontre et aucune nouvelle réplique de scène n’est écrite.
 
 ### Mouvements préparés pour Ishara
 Premier pack de soirée dans `assets/npcs/ishara/soiree/` : repos avec respiration et clignement, marche dans les quatre directions et course à gauche/droite. Sept bandes transparentes de quatre images (28 cases de 128 × 160, ancrage 64 × 140, environ 71 Kio pour les PNG), avec manifeste et aperçu dans `docs/art/ruelle/ishara.html`. Les directions ont été dessinées séparément, sans miroir. Le sac à gauche anatomique est un choix de continuité visuelle encore à valider ; son côté n’est pas fixé par le lore fourni.
 
-Ces ressources préparent sa présence dans la suite de l’histoire, sans lui attribuer le rôle de Jordan ou de Yarden et sans déclencher la rencontre. Aspect, cou sans accessoire non canonique, raccords des poses et détails asymétriques restent à valider avant intégration. La course de face/de dos et la tenue de combat ne sont pas encore préparées. Aucun changement du comportement du jeu dans cette livraison de design et de mouvements.
+Ces ressources préparent sa présence dans la suite de l’histoire, sans lui attribuer le rôle de Yarden et sans déclencher la rencontre. Aspect, cou sans accessoire non canonique, raccords des poses et détails asymétriques restent à valider avant intégration. La course de face/de dos et la tenue de combat ne sont pas encore préparées. Aucun changement du comportement du jeu dans cette livraison de design et de mouvements.
 
 

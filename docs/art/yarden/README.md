@@ -36,7 +36,11 @@ Les seize regards tournent dans le sens horaire, en coordonnées écran : 0° ha
 
 ## Identité à conserver
 
-Yarden porte les lunettes rondes dorées, le chignon noir à mèches lavande-gris, une veste courte et un pantalon cargo noirs, des boucles argentées. Le gant noir est sur sa **main gauche anatomique**, les tatouages de plumes sur le bras et la main **droits**, laissés nus. L’accent violet est sur son flanc gauche. Pas de collier, d’ear cuff ni d’arme dans ces sprites.
+Le [cadre canonique de `PROJECT.md`](../../../PROJECT.md) prime sur les anciennes références. Dans le jeu et le code : **Yarden**, jeune femme, **elle** ; identité humaine Yarden Weiss, 22 ans. Ton mature et sobre : froide, observatrice, peu bavarde, cynisme discret.
+
+Yeux bleu-gris, peau pâle, cheveux noirs à mèches gris-lavande en gros chignon désordonné, lunettes rondes dorées et maquillage violet sombre. Veste noire courte à détails argentés, crop top noir, pantalon cargo noir, bottes épaisses. **Aucun collier, aucune boucle d’oreille.** Un seul gant noir sans doigts sur la **main gauche anatomique** ; main **droite nue**, avec des plumes tatouées. L’accent violet du flanc gauche des sprites existants reste un détail de leur référence antérieure.
+
+La faux est manifestée par intention. Les anciennes planches restent des ressources de travail : elles ne remplacent pas ces consignes et ne sont pas redessinées par cette mise à jour documentaire. Demander à Jordan si une information de design manque.
 
 Ne pas retourner horizontalement une bande pour fabriquer l’autre sens : cela inverse le gant, les tatouages et l’accent du flanc. Les deux courses ont été préparées séparément.
 

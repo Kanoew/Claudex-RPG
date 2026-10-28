@@ -16,7 +16,7 @@ Le physique des hommes est proposé, pas canonisé : grand plus longiligne en ve
 
 Le lieu prévu est un coin de trottoir sous un lampadaire éteint, avec façade aveugle à gauche et grille fermée à droite. Les révélations du chapitre 3 et la bénédiction d’Ishara restent des informations de conception et ne sont pas annoncées par cette illustration de rue.
 
-Jordan demande de laisser le lien Jordan/Yarden de côté pour l’instant : le lore correspondant sera fourni plus tard. Le travail se concentre sur les mouvements réutilisables d’Ishara pour sa présence future dans l’histoire. Les deux passants présents dans le jeu restent inchangés pendant cette préparation, et aucune intervention narrative n’est inventée.
+Le cadre canonique de `PROJECT.md` précise désormais que les deux noms désignent un seul personnage : dans le jeu, elle se nomme Yarden. Le travail se concentre sur les mouvements réutilisables d’Ishara pour sa présence future dans l’histoire. Les deux passants présents dans le jeu restent inchangés pendant cette préparation, et aucune intervention narrative n’est inventée.
 
 ## Mouvements d’Ishara — premier pack
 
@@ -36,6 +36,6 @@ Ce pack conserve uniquement la **tenue de soirée**. Le côté gauche du sac est
 
 La découpe utilise un grossissement uniforme par bande et une ligne de sol commune ; les courses reprennent le grossissement de la marche correspondante corrigé du format de la source. La pose aérienne de course garde son élévation. Aucun miroir ni recadrage à la taille de chaque silhouette n’est utilisé. Les durées d’aperçu sont provisoires, à synchroniser avec le déplacement futur.
 
-Il n’y a pas encore de course de face ou de dos, de tenue de combat ni de dialogue raccordé. L’organisation par tenue permet d’ajouter ces ressources plus tard sans changer l’identité d’Ishara ni inventer le lien Jordan/Yarden.
+Il n’y a pas encore de course de face ou de dos, de tenue de combat ni de dialogue raccordé. L’organisation par tenue permet d’ajouter ces ressources plus tard sans changer l’identité d’Ishara ni inventer de lore supplémentaire.
 
 Vérifications de préparation : les 28 cases ont les dimensions et marges transparentes prévues ; les deux courses conservent l’élévation de leur pose aérienne. L’aperçu charge les sept bandes dans Chromium sans exception JavaScript ; la lecture, la pause stable et l’avance image par image ont été contrôlées. Cela ne vaut pas validation du dessin ni essai des déplacements sur Android.
