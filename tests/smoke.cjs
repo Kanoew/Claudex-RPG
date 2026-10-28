@@ -21,7 +21,7 @@ function game(imageMode) {
     };
   }
   const calls = [];
-  elements.game.getContext = () => new Proxy({}, { get: (_, name) => name === 'createRadialGradient' ? () => ({ addColorStop() {} }) : name === 'createPattern' ? () => { patterns++; return {}; } : (...args) => { calls.push([name, ...args]); } });
+  elements.game.getContext = () => new Proxy({}, { get: (_, name) => name === 'createRadialGradient' || name === 'createLinearGradient' ? () => ({ addColorStop() {} }) : name === 'createPattern' ? () => { patterns++; return {}; } : (...args) => { calls.push([name, ...args]); } });
   const document = { hidden: false, getElementById: id => elements[id], addEventListener: (name, fn) => (listeners['document:' + name] ??= []).push(fn) };
   const context = vm.createContext({
     document, window: { devicePixelRatio: 1, addEventListener: (name, fn) => (listeners['window:' + name] ??= []).push(fn) },
@@ -30,7 +30,7 @@ function game(imageMode) {
   });
   // Même ordre et portées globales que les scripts defer de la page.
   for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'yarden-sprite.js', 'monster-sprite.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, loadZone, doorAtPlayer, enterZone, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -181,8 +181,8 @@ const tests = [
     for (let i = 0; i < 4; i++) g.update(.05);
     assert(!g.over, 'La sortie du donjon mène dehors, elle ne termine plus la partie');
     assert.equal(g.currentZone.id, 'exterieur');
-    // Au bout du sentier, au nord de la zone extérieure : fin du prototype.
-    Object.assign(g.player, { x: 0, y: -340 });
+    // Au bout de la ruelle, côté rue, au nord de la zone extérieure : fin du prototype.
+    Object.assign(g.player, { x: 0, y: -495 });
     for (let i = 0; i < 4; i++) g.update(.05);
     assert(g.over && g.stage === 'escaped');
     assert(g.elements['result-text'].textContent.includes('Fin du prototype'));
@@ -485,26 +485,29 @@ const tests = [
     Object.assign(p.player, { x: 0, y: -330 });
     assert.equal(p.doorAtPlayer(), null, 'Porte scellée tant que le Troll vit');
   }],
-  ['Extérieur : données, chemin libre, passages, monstres éveillés de près et fondu', () => {
+  ['Ruelle : données, chemin libre, passages, aucune menace et fondu', () => {
     const ext = game().zones.exterieur;
-    // Rien ne bouche les portes ni les points d'arrivée, et les gobelins ne naissent pas dans un rocher.
+    assert.equal(ext.theme, 'ruelle');
+    assert.equal(ext.enemies.length, 0, 'Pas de monstre dehors : les humains ne voient pas la faille, rien n’en sort');
+    // Rien ne bouche les portes ni les points d'arrivée, et les obstacles restent dans la ruelle.
     const hits = (x, y, margin) => ext.blocks.some(b => x > b.x - margin && x < b.x + b.width + margin && y > b.y - margin && y < b.y + b.height + margin);
     assert.equal(hits(0, ext.room.y + ext.room.height - 90, 30), false);
     assert.equal(hits(0, ext.room.y + 90, 30), false);
-    for (const spec of ext.enemies) assert.equal(hits(spec.x, spec.y, 30), false);
-    assert(ext.blocks.every(b => b.x > ext.room.x && b.x + b.width < ext.room.x + ext.room.width && b.y > ext.room.y && b.y + b.height < ext.room.y + ext.room.height));
-    assert(ext.props.length >= 60 && ext.props.every(p => !hits(p.x, p.y, 8)));
-    // Il existe un chemin de la grotte au sentier pour un disque de la taille de Yarden.
+    assert(ext.blocks.every(b => b.x >= ext.room.x && b.x + b.width <= ext.room.x + ext.room.width && b.y > ext.room.y && b.y + b.height < ext.room.y + ext.room.height));
+    assert(ext.blocks.every(b => ['benne', 'caisses', 'poubelles', 'scooter'].includes(b.kind)));
+    assert(ext.props.filter(p => p.kind === 'lampe').length === 3);
+    assert(ext.props.length >= 60 && ext.props.filter(p => p.kind !== 'lampe').every(p => !hits(p.x, p.y, 8)));
+    // Il existe un chemin de la faille à la rue pour un disque de la taille de Yarden.
     const g = game();
     g.loadZone('exterieur');
     const cell = 8, r = g.room;
     const cols = Math.ceil(r.width / cell), rows = Math.ceil(r.height / cell);
     const free = (cx, cy) => {
       const x = r.x + cx * cell, y = r.y + cy * cell;
-      return g.walls.every(w => x > w.x - 13 && x < w.x + w.width + 13 && y > w.y - 13 && y < w.y + w.height + 13 ? false : true);
+      return !g.walls.some(w => x > w.x - 13 && x < w.x + w.width + 13 && y > w.y - 13 && y < w.y + w.height + 13);
     };
-    const start = [Math.round((0 - r.x) / cell), Math.round((r.y + r.height - 90 - r.y) / cell)];
-    const goal = [Math.round((0 - r.x) / cell), Math.round((-360 - r.y) / cell)];
+    const start = [Math.round((0 - r.x) / cell), Math.round((r.height - 90) / cell)];
+    const goal = [Math.round((0 - r.x) / cell), Math.round((-495 - r.y) / cell)];
     const seen = new Set([start.join()]), queue = [start];
     let reached = false;
     while (queue.length && !reached) {
@@ -516,8 +519,8 @@ const tests = [
         seen.add(key); queue.push([nx, ny]);
       }
     }
-    assert(reached, 'Le sentier est accessible depuis la grotte');
-    // Sortie du donjon : arrivée devant la grotte, fondu, monstres de la zone seulement.
+    assert(reached, 'La rue est accessible depuis la faille');
+    // Sortie du donjon : arrivée devant la faille, fondu, aucun monstre.
     const s = armed();
     s.enemies[0].hp = s.enemies[1].hp = 0;
     s.update(.01); s.update(1.2);
@@ -527,29 +530,21 @@ const tests = [
     const bossBefore = JSON.stringify([s.boss.x, s.boss.y]);
     s.enterZone('exterieur', 'south');
     assert.equal(s.currentZone.id, 'exterieur');
-    assert.equal(s.room.width, 1200);
+    assert.equal(s.room.width, 400);
     assert.equal(s.walls.length, 4 + ext.blocks.length);
-    assert.equal(JSON.stringify([s.player.x, s.player.y]), JSON.stringify([0, 310]));
+    assert.equal(JSON.stringify([s.player.x, s.player.y]), JSON.stringify([0, 430]));
     assert(s.zoneFade > .3);
     s.update(.5);
     assert.equal(s.zoneFade, 0);
-    assert.equal(s.activeEnemies().length, 2);
+    assert.equal(s.activeEnemies().length, 0);
     assert.equal(s.doorAtPlayer(), null, 'Arrivée à bonne distance de la porte');
-    assert.equal(s.elements.opponents.textContent, 'Gobelins 2/2');
-    assert(s.elements.objective.textContent.includes('sentier'));
-    // Gobelins : immobiles loin de Yarden, éveillés dès qu'elle est à moins de 320 px, puis ils la poursuivent.
-    const [a, b] = s.zoneEnemies.exterieur;
-    const far = JSON.stringify([a.x, a.y, b.x, b.y]);
-    for (let i = 0; i < 10; i++) s.update(.05);
-    assert.equal(JSON.stringify([a.x, a.y, b.x, b.y]), far, 'Loin de Yarden, ils attendent');
-    Object.assign(s.player, { x: a.x + 200, y: a.y + 60 });
-    for (let i = 0; i < 10; i++) s.update(.05);
-    assert(a.engaged && (a.x !== -250 || a.y !== -290), 'À moins de 320 px, le gobelin se réveille et avance');
-    assert.equal(b.engaged, false);
+    assert.equal(s.elements.opponents.textContent, 'Ruelle calme');
+    assert(s.elements.objective.textContent.includes('rue'));
     // Les monstres du donjon ne bougent pas pendant que Yarden est dehors.
+    for (let i = 0; i < 10; i++) s.update(.05);
     assert.equal(JSON.stringify([s.boss.x, s.boss.y]), bossBefore);
-    // Retour par la grotte : arrivée devant la porte nord du donjon, porte restée ouverte, monstres vaincus.
-    Object.assign(s.player, { x: 0, y: 380 });
+    // Retour par la faille : arrivée devant la porte nord du donjon, porte restée ouverte, monstres vaincus.
+    Object.assign(s.player, { x: 0, y: 500 });
     s.update(.02);
     assert.equal(s.currentZone.id, 'donjon');
     assert.equal(JSON.stringify([s.player.x, s.player.y]), JSON.stringify([0, -246]));
@@ -557,26 +552,33 @@ const tests = [
     assert.equal(s.activeEnemies().length, 3);
     assert(s.activeEnemies().every(enemy => enemy.hp === 0));
     assert.equal(s.stage, 'exit');
-    // Dessin des deux zones et des deux portes sans modifier le monde.
-    for (const id of ['donjon', 'exterieur']) {
-      s.loadZone(id);
-      const before = JSON.stringify({ p: s.player, w: s.walls });
-      s.calls.length = 0;
-      s.draw();
-      assert.equal(JSON.stringify({ p: s.player, w: s.walls }), before);
-    }
+    // Dessin des deux zones, avec ou sans images, sans modifier le monde.
     for (const mode of ['loaded', 'error', undefined]) {
       const d = game(mode);
-      d.loadZone('exterieur');
-      d.calls.length = 0;
-      d.draw();
-      assert(d.calls.filter(call => call[0] === 'arcTo').length >= 4 * ext.blocks.length, 'Rochers dessinés dans tous les cas');
+      for (const id of ['donjon', 'exterieur', 'donjon']) {
+        d.loadZone(id);
+        const before = JSON.stringify({ p: d.player, w: d.walls });
+        d.draw();
+        assert.equal(JSON.stringify({ p: d.player, w: d.walls }), before);
+      }
     }
-    // Recommencer depuis l'extérieur ramène au donjon et réveille les gobelins endormis.
+    // Un monstre à éveil limité reste immobile loin de Yarden, puis la poursuit définitivement (sert aux futures zones).
+    const w = armed();
+    const sleeper = w.makeEnemy({ kind: 'goblin', x: 0, y: -300, aggro: 320 });
+    Object.assign(w.player, { x: 0, y: 100 });
+    w.updateEnemy(sleeper, .5);
+    assert.equal(JSON.stringify([sleeper.x, sleeper.y]), JSON.stringify([0, -300]));
+    Object.assign(w.player, { x: 0, y: -100 });
+    w.updateEnemy(sleeper, .5);
+    assert(sleeper.engaged && sleeper.y > -300);
+    Object.assign(w.player, { x: 0, y: 300 });
+    const before = sleeper.y;
+    w.updateEnemy(sleeper, .5);
+    assert(sleeper.y !== before, 'Une fois éveillé, il continue même loin');
+    // Recommencer depuis l'extérieur ramène au donjon.
     s.loadZone('exterieur');
     s.fire('retry:click');
     assert.equal(s.currentZone.id, 'donjon');
-    assert(s.zoneEnemies.exterieur.every(enemy => enemy.hp === enemy.maxHp && !enemy.engaged));
   }]
 ];
 for (const [name, run] of tests) { run(); console.log('OK — ' + name); }

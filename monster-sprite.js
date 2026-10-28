@@ -19,7 +19,7 @@ function loadMonsterArt() {
     const image = new Image();
     image.onload = () => { monsterArt.strips[name] = image; };
     image.onerror = () => { monsterArt.strips[name] = null; };
-    image.src = `assets/monsters/${name}.png?v=28`;
+    image.src = `assets/monsters/${name}.png?v=29`;
   }
 }
 
