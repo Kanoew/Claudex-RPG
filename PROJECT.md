@@ -160,4 +160,34 @@ Limites de ce premier raccordement : pas de système d’inventaire, pas de poud
 | Deuxième salle et bataille | première version jouable, à relire | Vingt scénarios logiques passent, dont venin continu/murs/esquive, territoire, récit figé, ruse et réveil, reprise de l’antre. Chromium charge les images et traverse le récit, la ruse, l’incapacitation et le réveil sans exception JavaScript ; affichage contrôlé en portrait et paysage. Cela ne remplace pas Android. |
 | Deux habitants de la ruelle | emplacements et silhouettes provisoires | Identités et dialogues encore à fournir ; aucun nouveau rôle canonique attribué. |
 
+## 11. Ruelle — Ishara et les deux hommes (précisions de Jordan)
+
+Ces précisions concernent la rencontre du chapitre 2. La bible et le texte publié restent les références. Elles remplacent l’hypothèse de deux simples passants pour la conception de cette scène : **Ishara et deux hommes anonymes** sont trois personnages distincts. Le jeu affiche encore les deux silhouettes provisoires de la section 10 ; leur remplacement et la scène ne sont pas encore raccordés.
+
+### Ishara, au moment de la rencontre
+- Niveau 11, éveillée depuis environ six mois, quelques runs en groupe, aucune guilde.
+- Joyeuse, directe et bavarde, avec une prudence réelle derrière son énergie ouverte. Elle évalue vite, n’est pas naïve et respecte les limites posées.
+- Elle court depuis un moment, essoufflée. Sa peur est visible dans son état et son regard, sans être formulée dans ses paroles. Elle s’excuse en passant et part dans la direction opposée à la fête.
+- Tenue de soirée : courte robe noire à fines bretelles, ourlet haut, longues jambes ; cheveux mi-longs châtain foncé légèrement défaits ; petites boucles d’oreilles argentées ; sac à bandoulière compact, serré trop fort à l’arrêt.
+- Maquillage légèrement abîmé : eyeliner, rouge à lèvres un peu étalé à un coin de la bouche, mascara descendu d’environ un millimètre sous l’œil droit anatomique. Les yeux ne sourient pas, même quand la bouche s’ouvre.
+- Elle habite au troisième étage d’un appartement du quartier étudiant, jamais Sous-gare. Sa colocataire Céleste est absente à ce stade.
+- La tenue de combat est réservée à plus tard : jean sombre dans des boots à semelle épaisse, blouson léger sur t-shirt uni sombre, petit sac à dos, queue haute sans mèches libres, courte dague en acier renforcé de mana à la ceinture. Ne pas utiliser cette tenue pour la rencontre de rue.
+
+**Informations de conception, à ne pas révéler dans les textes ou effets de cette scène :** sa bénédiction de support défensif passif apporte de la résilience dans un rayon de 5 m, avec un léger shimmer doré, et n’est pas encore déclarée. Son « bon instinct pour les gens » est une corde de témoin : quelqu’un regarde par ses yeux, révélation du chapitre 3. Cela la pousse à faire confiance à Jordan et à l’héberger. Ne pas ajouter de symbole dans ses yeux ni d’annonce de ce secret ; la première référence visuelle de rue reste sans effet de bénédiction.
+
+### Les deux hommes anonymes
+- Le grand porte une veste de club trop grande ; sa démarche tangue légèrement à droite.
+- Le compact affiche une fausse assurance dans les épaules, qui compense son état.
+- Niveaux 3 et 5 au maximum, non éveillés, alcoolisés, « avec une idée fixe ». Ils restent ordinaires, sans allure de prédateurs sophistiqués ni de nouveaux boss.
+- Le texte ne précise ni visage, ni coiffure, ni couleur, ni nom. Toutes ces décisions visuelles restent des propositions, sans valeur canonique avant validation de Jordan.
+- Fin de la scène du texte : Jordan tord le poignet de l’un (« géométrie articulaire ») et dit « Elle est pas intéressée ». Le grand part le premier, le compact suit en marmonnant. Ne pas attribuer automatiquement ce rôle à Yarden : l’adaptation du protagoniste reste à préciser.
+
+### Cadrage et lieu
+Un coin de trottoir sous un lampadaire éteint, dans un cul-de-sac partiel : façade aveugle à gauche, grille fermée à droite. C’est le décor de cette rencontre ; ne pas déplacer toute la ruelle existante pour lui correspondre sans définir le raccordement. Dans une poursuite, garder les hommes génériques, peu détaillés et secondaires à l’image. Ishara concentre l’attention.
+
+### Première proposition de design (à valider)
+Référence de travail dans `docs/art/ruelle/`, sans chargement dans le jeu. Ishara garde sa tenue de soirée. Les hommes ont des palettes discrètes et des silhouettes contrastées : veste bleu-gris trop grande pour le grand, veste brun-charbon pour le compact. Coiffures sombres simples, chaussures et traits génériques sont des choix de travail. La couleur des yeux et les chaussures d’Ishara, non précisées par le lore fourni, restent elles aussi provisoires. Pas de noms ajoutés, pas d’arme pour les hommes, pas de tenue de combat ni d’effet magique pour Ishara.
+
+Le raccordement attend la décision sur le rôle de Jordan/Yarden. Les deux passants actuels n’ont pas été transformés en acteurs de cette rencontre et aucune nouvelle réplique de scène n’a été écrite.
+
 
