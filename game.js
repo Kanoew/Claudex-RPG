@@ -20,7 +20,7 @@ const weapon = { x: 0, y: 144 };
 let exitOpen = false;
 const enemies = zones.donjon.enemies.map(makeEnemy);
 // Monstres de chaque zone ; seuls ceux de la zone courante bougent, se dessinent et reçoivent des coups.
-const zoneEnemies = { donjon: enemies };
+const zoneEnemies = { donjon: enemies, exterieur: zones.exterieur.enemies.map(makeEnemy) };
 const activeEnemies = () => zoneEnemies[currentZone.id] || [];
 const allEnemies = () => Object.values(zoneEnemies).flat();
 const boss = enemies[2];
@@ -30,6 +30,7 @@ let paused = false;
 let elapsed = 0;
 let stage = 'entry';
 let bossDelay = 0;
+let zoneFade = 0;
 // Remplis par loadZone() à partir de la zone courante (voir zones.js).
 const room = {};
 const walls = [];
@@ -287,6 +288,7 @@ retryButton.addEventListener('click', () => {
   elapsed = 0;
   result.hidden = true;
   resultDelay = 0;
+  zoneFade = 0;
   resetYardenSprite();
   retryButton.blur();
   updateStatus();
@@ -305,6 +307,7 @@ function update(seconds) {
   }
   if (combatOver || paused || document.hidden) return;
   elapsed += seconds;
+  zoneFade = Math.max(0, zoneFade - seconds);
   // Pendant l'apparition du Troll, Yarden peut bouger ; seuls les coups et les ennemis attendent.
   const appearing = bossDelay > 0;
   if (appearing) bossDelay = Math.max(0, bossDelay - seconds);

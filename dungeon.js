@@ -12,6 +12,20 @@ function doorAtPlayer() {
   return null;
 }
 
+// Passage d'une zone à l'autre : Yarden arrive devant la porte d'en face, à bonne distance pour ne pas la retraverser.
+function enterZone(id, arrival) {
+  loadZone(id);
+  const door = currentZone.doors.find(item => item.side === arrival);
+  player.x = door.x;
+  player.y = arrival === 'south' ? room.y + room.height - 90 : room.y + 90;
+  // On coupe le coup et l'esquive en cours, mais pas le joystick : le pouce est peut-être encore posé.
+  attack.remaining = 0;
+  dodge.remaining = 0;
+  zoneFade = .4;
+  updateStatus();
+  updateAttackButton();
+}
+
 function updateDungeon() {
   if (currentZone.id === 'donjon' && !player.armed) {
     if (Math.hypot(player.x - weapon.x, player.y - weapon.y) > 28) return true;
@@ -21,6 +35,10 @@ function updateDungeon() {
     updateAttackButton();
   }
   const door = doorAtPlayer();
+  if (door && door.to) {
+    enterZone(door.to, door.arrive);
+    return true;
+  }
   if (door && door.end) {
     stage = 'escaped';
     finishCombat(door.end);
@@ -34,7 +52,10 @@ function drawDungeon(offsetX, offsetY) {
   for (const door of currentZone.doors) {
     const open = !door.needs || exitOpen;
     const y = door.side === 'north' ? room.y + offsetY : room.y + room.height + offsetY - 36;
-    drawStoneDoor(door.x + offsetX, y, open && !door.decorative, open ? door.label + (door.side === 'north' ? ' ↑' : '') : door.sealed);
+    if (currentZone.theme === 'dehors') {
+      if (door.side === 'south') drawCaveMouth(door.x + offsetX, y, door.label);
+      else drawPathGate(door.x + offsetX, y, door.label);
+    } else drawStoneDoor(door.x + offsetX, y, open && !door.decorative, open ? door.label + (door.side === 'north' ? ' ↑' : '') : door.sealed);
   }
   ctx.font = '12px system-ui';
   ctx.textAlign = 'center';
