@@ -20,7 +20,8 @@ function game(imageMode) {
       hasPointerCapture: () => false, setPointerCapture() {}, releasePointerCapture() {}
     };
   }
-  elements.game.getContext = () => new Proxy({}, { get: (_, name) => name === 'createRadialGradient' ? () => ({ addColorStop() {} }) : name === 'createPattern' ? () => { patterns++; return {}; } : () => {} });
+  const calls = [];
+  elements.game.getContext = () => new Proxy({}, { get: (_, name) => name === 'createRadialGradient' ? () => ({ addColorStop() {} }) : name === 'createPattern' ? () => { patterns++; return {}; } : (...args) => { calls.push([name, ...args]); } });
   const document = { hidden: false, getElementById: id => elements[id], addEventListener: (name, fn) => (listeners['document:' + name] ??= []).push(fn) };
   const context = vm.createContext({
     document, window: { devicePixelRatio: 1, addEventListener: (name, fn) => (listeners['window:' + name] ??= []).push(fn) },
@@ -28,9 +29,9 @@ function game(imageMode) {
     ResizeObserver: class { observe() {} }, requestAnimationFrame() {}
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
-  return Object.assign(state, { elements, document, patterns, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'yarden-sprite.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, yardenSprite, yardenArt, yardenFrame, yardenCell, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed() {
   const g = game();
@@ -231,6 +232,48 @@ const tests = [
     g.update(.01);
     assert.equal(g.stage, 'exit');
     assert.equal(g.input.pointerId, 1);
+  }],
+  ['Sprite de Yarden : animation, côté de course, secours et zone de collision', () => {
+    // Durées du manifeste : repos de 6 images, courses de 8 images.
+    const g = game('loaded');
+    assert.equal(g.yardenFrame('idle', 0), 0);
+    assert.equal(g.yardenFrame('idle', .29), 1);
+    assert.equal(g.yardenFrame('idle', 1.1), 0);
+    assert.equal(g.yardenFrame('running-left', .84), 7);
+    assert.equal(g.yardenFrame('running-right', 1.06), 0);
+    // Les trois bandes chargées : le sprite est dessiné sans retournement.
+    assert(['idle', 'running-right', 'running-left'].every(name => g.yardenArt.strips[name]));
+    const hitbox = JSON.stringify([g.player.x, g.player.y, g.player.radius]);
+    g.calls.length = 0;
+    g.draw();
+    const sprite = g.calls.filter(call => call[0] === 'drawImage');
+    assert.equal(sprite.length, 1);
+    assert.deepEqual(sprite[0].slice(2, 6), [0, 0, 96, 104]);
+    assert(!g.calls.some(call => ['scale', 'transform'].includes(call[0])), 'Aucun retournement du sprite');
+    assert.equal(JSON.stringify([g.player.x, g.player.y, g.player.radius]), hitbox);
+    // Côté de course : droite, gauche, puis montée qui garde la gauche.
+    const g2 = armed();
+    g2.keys.add('d'); g2.update(.05);
+    assert.equal(g2.yardenSprite.clip, 'running-right');
+    g2.keys.delete('d'); g2.keys.add('a'); g2.update(.05);
+    assert.equal(g2.yardenSprite.clip, 'running-left');
+    g2.keys.delete('a'); g2.keys.add('w'); g2.update(.05);
+    assert.equal(g2.yardenSprite.clip, 'running-left');
+    g2.keys.delete('w'); g2.update(.05);
+    assert.equal(g2.yardenSprite.clip, 'idle');
+    // Temps figé en pause et pendant la défaite.
+    const time = g2.yardenSprite.time;
+    g2.fire('window:blur');
+    g2.update(1);
+    assert.equal(g2.yardenSprite.time, time);
+    // Images absentes : disque de secours, aucune image dessinée.
+    for (const mode of ['error', undefined]) {
+      const bare = game(mode);
+      bare.calls.length = 0;
+      bare.draw();
+      assert(!bare.calls.some(call => call[0] === 'drawImage'));
+      assert(bare.calls.some(call => call[0] === 'arc'));
+    }
   }]
 ];
 for (const [name, run] of tests) { run(); console.log('OK — ' + name); }

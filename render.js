@@ -168,17 +168,23 @@ function draw() {
     ctx.fill();
     ctx.restore();
   }
-  ctx.fillStyle = dodge.remaining > 0 ? '#8affc1' : player.flash > 0 ? '#fff' : '#c5afff';
-  ctx.beginPath();
-  ctx.arc(screenX, screenY, player.radius, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = '#fff';
-  ctx.beginPath();
-  ctx.arc(screenX + facing.x * 7, screenY + facing.y * 7, 3, 0, Math.PI * 2);
-  ctx.fill();
+  let labelY = screenY - 23;
+  const spriteTop = drawYardenSprite(screenX, screenY);
+  if (spriteTop !== null) labelY = spriteTop - 4;
+  else {
+    // Disque de secours si les images de Yarden ne sont pas chargées.
+    ctx.fillStyle = dodge.remaining > 0 ? '#8affc1' : player.flash > 0 ? '#fff' : '#c5afff';
+    ctx.beginPath();
+    ctx.arc(screenX, screenY, player.radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(screenX + facing.x * 7, screenY + facing.y * 7, 3, 0, Math.PI * 2);
+    ctx.fill();
+  }
   ctx.fillStyle = '#eae7f5';
   ctx.textAlign = 'center';
-  ctx.fillText('Yarden', screenX, screenY - 23);
+  ctx.fillText('Yarden', screenX, labelY);
   drawBossMarker(offsetX, offsetY);
 }
 
