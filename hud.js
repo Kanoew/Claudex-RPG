@@ -24,9 +24,9 @@ function updateHud() {
   document.getElementById('boss-panel').hidden = !bossVisible;
   hudMeter('boss-meter', boss.hp, boss.maxHp);
   hudText('boss-value', `${boss.hp} / ${boss.maxHp}`);
-  hudText('boss-state', bossDelay > 0 ? 'APPARITION' : boss.windup > 0 ? 'ÉCARTE-TOI' : 'GARDIEN');
-  hudText('opponents', stage === 'guards' ? `Rôdeur ${enemies[0].hp}/3 · Chargeur ${enemies[1].hp}/2` : stage === 'entry' ? 'Chapitre 1' : stage === 'boss' ? 'Gardien de l’Abysse' : 'Donjon parcouru');
-  const goal = paused && !combatOver ? 'En pause — reviens au jeu' : !player.armed ? 'Rejoins la faux violette ↑' : bossDelay > 0 ? 'Le Gardien apparaît' : stage === 'guards' ? 'Vaincs les deux gardes' : stage === 'boss' ? 'Vaincs le Gardien' : stage === 'exit' ? 'Rejoins la porte verte ↑' : 'Tu as quitté l’Abysse';
+  hudText('boss-state', bossDelay > 0 ? 'APPARITION' : boss.windup > 0 ? 'ÉCARTE-TOI' : 'TROLL');
+  hudText('opponents', stage === 'guards' ? `Gobelin ${enemies[0].hp}/3 · Ogre ${enemies[1].hp}/2` : stage === 'entry' ? 'Chapitre 1' : stage === 'boss' ? 'Le Troll de l’Abysse' : 'Donjon parcouru');
+  const goal = paused && !combatOver ? 'En pause — reviens au jeu' : !player.armed ? 'Rejoins la faux violette ↑' : bossDelay > 0 ? 'Le Troll apparaît' : stage === 'guards' ? 'Vaincs le gobelin et l’ogre' : stage === 'boss' ? 'Vaincs le Troll' : stage === 'exit' ? 'Rejoins la porte verte ↑' : 'Tu as quitté l’Abysse';
   hudText('objective', goal);
 }
 

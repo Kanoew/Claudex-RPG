@@ -65,12 +65,13 @@
     }
     @media (orientation: landscape) and (max-width: 750px) { .resources { max-width: 55%; } }
   </style>
-  <script src="enemies.js?v=24" defer></script>
-  <script src="dungeon.js?v=24" defer></script>
-  <script src="hud.js?v=24" defer></script>
-  <script src="yarden-sprite.js?v=24" defer></script>
-  <script src="render.js?v=24" defer></script>
-  <script src="game.js?v=24" defer></script>
+  <script src="enemies.js?v=26" defer></script>
+  <script src="dungeon.js?v=26" defer></script>
+  <script src="hud.js?v=26" defer></script>
+  <script src="yarden-sprite.js?v=26" defer></script>
+  <script src="monster-sprite.js?v=26" defer></script>
+  <script src="render.js?v=26" defer></script>
+  <script src="game.js?v=26" defer></script>
 </head>
 <body>
   <main>
@@ -83,13 +84,13 @@
       <div id="status" class="sr-only"></div><div id="objective" role="status"></div>
     </header>
     <div id="view">
-      <canvas id="game" aria-label="Prends la faux, affronte les deux gardes et le Gardien, puis rejoins la porte verte au nord. Orange : attaque annoncée ; vert : esquive.">Votre navigateur doit prendre en charge Canvas.</canvas>
-      <div id="boss-panel" hidden><div class="meter-label"><span id="boss-state">GARDIEN</span><span id="boss-value">8 / 8</span></div><div class="meter" id="boss-meter" role="progressbar" aria-label="Points de vie du Gardien" aria-valuemin="0" aria-valuemax="8" aria-valuenow="8"></div></div>
+      <canvas id="game" aria-label="Prends la faux, affronte le gobelin, l’ogre et le Troll, puis rejoins la porte verte au nord. Orange : attaque annoncée ; vert : esquive.">Votre navigateur doit prendre en charge Canvas.</canvas>
+      <div id="boss-panel" hidden><div class="meter-label"><span id="boss-state">TROLL</span><span id="boss-value">8 / 8</span></div><div class="meter" id="boss-meter" role="progressbar" aria-label="Points de vie du Gardien" aria-valuemin="0" aria-valuemax="8" aria-valuenow="8"></div></div>
       <div id="result" hidden><strong id="result-text" role="status"></strong><p id="result-details"></p><button id="retry" type="button">Recommencer le donjon</button></div>
     </div>
     <div id="controls">
       <div id="joystick" aria-label="Joystick tactile de déplacement"><div id="stick"></div></div>
-      <div id="help"><strong>L’ABYSSE · CHAPITRE 1</strong>Prends la faux, vaincs les gardes et le Gardien, puis trouve la sortie.<br>Flèches / ZQSD / WASD · Espace · E · Maj</div>
+      <div id="help"><strong>L’ABYSSE · CHAPITRE 1</strong>Prends la faux, vaincs le gobelin, l’ogre et le Troll, puis trouve la sortie.<br>Flèches / ZQSD / WASD · Espace · E · Maj</div>
       <div id="actions">
         <button id="attack" type="button" aria-label="Faux, 3 mana" aria-disabled="true">Faux<small id="attack-hint">À récupérer</small></button>
         <button id="skill" type="button" aria-label="Fauchage, deux dégâts, 12 mana" aria-disabled="true">Fauchage<small id="skill-hint">À récupérer</small></button>

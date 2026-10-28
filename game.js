@@ -19,9 +19,9 @@ const player = { x: 0, y: 240, speed: 180, radius: 13, hp: 5, maxHp: 5, flash: 0
 const weapon = { x: 0, y: 144 };
 let exitOpen = false;
 const enemies = [
-  { name: 'Rôdeur', x: 0, y: -200, spawnX: 0, spawnY: -200, speed: 95, radius: 14, hp: 3, maxHp: 3, charger: false },
-  { name: 'Chargeur', x: 220, y: -160, spawnX: 220, spawnY: -160, speed: 80, radius: 14, hp: 2, maxHp: 2, charger: true },
-  { name: 'Gardien', spawnX: 0, spawnY: -220, speed: 65, radius: 24, maxHp: 8, boss: true, active: false }
+  { name: 'Gobelin', art: 'goblin', x: 0, y: -200, spawnX: 0, spawnY: -200, speed: 95, radius: 14, hp: 3, maxHp: 3, charger: false },
+  { name: 'Ogre', art: 'ogre', x: 220, y: -160, spawnX: 220, spawnY: -160, speed: 80, radius: 14, hp: 2, maxHp: 2, charger: true },
+  { name: 'Troll', art: 'troll', spawnX: 0, spawnY: -220, speed: 65, radius: 24, maxHp: 8, boss: true, active: false }
 ];
 const boss = enemies[2];
 for (const enemy of enemies) resetEnemy(enemy);
@@ -312,7 +312,7 @@ function update(seconds) {
   }
   if (combatOver || paused || document.hidden) return;
   elapsed += seconds;
-  // Pendant l'apparition du Gardien, Yarden peut bouger ; seuls les coups et les ennemis attendent.
+  // Pendant l'apparition du Troll, Yarden peut bouger ; seuls les coups et les ennemis attendent.
   const appearing = bossDelay > 0;
   if (appearing) bossDelay = Math.max(0, bossDelay - seconds);
   dodge.cooldown = Math.max(0, dodge.cooldown - seconds);
@@ -383,4 +383,5 @@ updateStatus();
 updateAttackButton();
 loadRoomArt();
 loadYardenArt();
+loadMonsterArt();
 requestAnimationFrame(frame);

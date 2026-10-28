@@ -29,8 +29,8 @@ function game(imageMode) {
     ResizeObserver: class { observe() {} }, requestAnimationFrame() {}
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'yarden-sprite.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'yarden-sprite.js', 'monster-sprite.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -40,8 +40,8 @@ function armed(mode) {
   assert(g.player.armed);
   return g;
 }
-function bossFight() {
-  const g = armed();
+function bossFight(mode) {
+  const g = armed(mode);
   g.enemies[0].hp = 0;
   g.enemies[1].hp = 0;
   g.update(.01);
@@ -67,7 +67,7 @@ const tests = [
       assert.equal(JSON.stringify({ player: g.player, enemies: g.enemies, walls: g.walls }), before);
     }
   }],
-  ['Barres lisibles et repère du Gardien dès l’apparition', () => {
+  ['Barres lisibles et repère du Troll dès l’apparition', () => {
     const g = armed();
     g.hurtPlayer();
     assert.equal(g.elements['hp-value'].textContent, '4 / 5');
@@ -148,7 +148,7 @@ const tests = [
     for (let i = 0; i < 1200; i++) { g.updateEnemy(e, .016); solid(g, e); }
     assert(Math.hypot(e.x, e.y) < 160);
   }],
-  ['Gardien : apparition, annonce, mi-vie, dégâts et esquive', () => {
+  ['Troll : apparition, annonce, mi-vie, dégâts et esquive', () => {
     const g = bossFight();
     assert(g.boss.active);
     Object.assign(g.boss, { x: 0, y: g.player.y - 80 });
@@ -211,7 +211,7 @@ const tests = [
     assert.equal(g.player.hp, 5);
     g.draw();
   }],
-  ['Joystick maintenu pendant l’apparition du Gardien et après sa défaite', () => {
+  ['Joystick maintenu pendant l’apparition du Troll et après sa défaite', () => {
     const g = armed();
     const touch = { pointerId: 1, pointerType: 'touch', clientX: 300, clientY: 66, preventDefault() {} };
     g.fire('joystick:pointerdown', touch);
@@ -246,10 +246,12 @@ const tests = [
     const hitbox = JSON.stringify([g.player.x, g.player.y, g.player.radius]);
     g.calls.length = 0;
     g.draw();
-    const sprite = g.calls.filter(call => call[0] === 'drawImage');
+    // Les monstres dessinés avant Yarden peuvent se retourner ; elle, jamais.
+    const sprite = g.calls.filter(call => call[0] === 'drawImage' && call[4] === 96 && call[5] === 104);
     assert.equal(sprite.length, 1);
     assert.deepEqual(sprite[0].slice(2, 6), [0, 0, 96, 104]);
-    assert(!g.calls.some(call => ['scale', 'transform'].includes(call[0])), 'Aucun retournement du sprite');
+    const afterShadow = g.calls.slice(g.calls.map(call => call[0]).lastIndexOf('ellipse'));
+    assert(!afterShadow.some(call => ['scale', 'transform'].includes(call[0])), 'Aucun retournement du sprite de Yarden');
     assert.equal(JSON.stringify([g.player.x, g.player.y, g.player.radius]), hitbox);
     // Côté de course, marche verticale, puis retour à la course latérale.
     const g2 = armed('loaded');
@@ -303,7 +305,7 @@ const tests = [
     g.calls.length = 0;
     g.draw();
     assert(!g.calls.some(call => call[0] === 'quadraticCurveTo'), 'La faux dessinée par le jeu disparaît quand le sprite la porte');
-    assert.equal(g.calls.filter(call => call[0] === 'drawImage').length, 1);
+    assert.equal(g.calls.filter(call => call[0] === 'drawImage' && call[4] === 211 && call[5] === 148).length, 1);
     // Esquive vers la gauche.
     const d = armed('loaded');
     d.keys.add('a');
@@ -346,6 +348,97 @@ const tests = [
     m.hurtPlayer(5);
     assert.equal(m.yardenPose().clip, 'idle');
     m.draw();
+  }],
+  ['Troll : sprite de marche, annonce, coup, retournement et repli sur le disque', () => {
+    const g = bossFight('loaded');
+    const troll = g.boss;
+    assert.equal(troll.art, 'troll');
+    assert.equal(g.monsterArt.strips.troll !== undefined, true);
+    // Au repos : première image de marche ; en marche : les quatre images à tour de rôle.
+    troll.windup = 0; troll.charge = 0; troll.sprite.strike = 0; troll.sprite.moving = false;
+    assert.equal(g.monsterPose(troll).frame, 0);
+    troll.sprite.moving = true;
+    const walk = [0, .14, .27, .4, .53].map(time => { troll.sprite.time = time; return g.monsterPose(troll).frame; });
+    assert.deepEqual(walk, [0, 1, 2, 3, 0]);
+    // Annonce : poings levés ; coup : poings au sol ; le coup est prioritaire.
+    troll.windup = .5;
+    assert.equal(g.monsterPose(troll).frame, 4);
+    troll.sprite.strike = .2;
+    assert.equal(g.monsterPose(troll).frame, 5);
+    troll.windup = 0; troll.sprite.strike = 0;
+    // Fin de l'annonce : la pose de coup démarre, même si Yarden est esquivée ou hors de portée.
+    Object.assign(g.player, { x: troll.x + 400, y: troll.y });
+    troll.windup = .01; troll.cooldown = 5;
+    g.updateEnemy(troll, .02);
+    assert(troll.sprite.strike > .25, 'Pose de coup après la fin de l’annonce');
+    assert.equal(g.monsterPose(troll).frame, 5);
+    // Regard et retournement : Yarden à droite, le sprite est retourné ; à gauche, il ne l'est pas.
+    for (const [dx, flipped] of [[300, true], [-300, false]]) {
+      troll.windup = 0; troll.sprite.strike = 0; troll.flash = 0;
+      Object.assign(g.player, { x: troll.x + dx, y: troll.y });
+      g.updateEnemy(troll, .02);
+      g.calls.length = 0;
+      g.draw();
+      assert.equal(g.calls.some(call => call[0] === 'scale' && call[1] === -1), flipped);
+      assert.equal(g.calls.filter(call => call[0] === 'drawImage').length >= 2, true);
+    }
+    // Collision et zone d'attaque du boss inchangées.
+    assert.equal(troll.radius, 24);
+    assert.equal(troll.maxHp, 8);
+    // Image absente : disque violet de secours et barre de vie à sa place d'origine.
+    const bare = bossFight('error');
+    assert.equal(bare.monsterPose(bare.boss), null);
+    bare.calls.length = 0;
+    bare.draw();
+    assert(bare.calls.some(call => call[0] === 'arc'));
+    assert(!bare.calls.some(call => call[0] === 'scale' && call[1] === -1));
+    // Noms affichés : gobelin, ogre et Troll.
+    const named = armed('loaded');
+    assert.equal(JSON.stringify(named.enemies.map(enemy => enemy.name)), JSON.stringify(['Gobelin', 'Ogre', 'Troll']));
+  }],
+  ['Gobelin et ogre : sprites, annonce, coup, charge et repli sur les formes provisoires', () => {
+    const g = armed('loaded');
+    const [goblin, ogre] = g.enemies;
+    assert.equal(goblin.art, 'goblin');
+    assert.equal(ogre.art, 'ogre');
+    for (const enemy of [goblin, ogre]) {
+      assert(g.monsterArt.strips[enemy.art], 'Bande chargée');
+      Object.assign(enemy.sprite, { moving: false, strike: 0, time: 0 });
+      enemy.windup = 0; enemy.charge = 0;
+      assert.equal(g.monsterPose(enemy).frame, 0);
+      enemy.sprite.moving = true;
+      const step = g.monsterClips[enemy.art].walkSeconds;
+      const frames = [0, 1, 2, 3, 4].map(k => { enemy.sprite.time = step * k + step / 2; return g.monsterPose(enemy).frame; });
+      assert.equal(JSON.stringify(frames), JSON.stringify([0, 1, 2, 3, 0]));
+      enemy.windup = .3;
+      assert.equal(g.monsterPose(enemy).frame, 4, 'Pose d’annonce');
+      enemy.windup = 0;
+    }
+    // Ogre : la pose de charge dure tant que la charge dure, puis il reprend sa marche.
+    ogre.charge = .2;
+    assert.equal(g.monsterPose(ogre).frame, 5);
+    ogre.charge = 0;
+    assert.notEqual(g.monsterPose(ogre).frame, 5);
+    // Gobelin : le coup de dague s'affiche après la fin de l'annonce, qu'il touche ou non.
+    Object.assign(g.player, { x: goblin.x + 300, y: goblin.y });
+    goblin.windup = .01; goblin.cooldown = 5;
+    g.updateEnemy(goblin, .02);
+    assert(goblin.sprite.strike > .15);
+    assert.equal(g.monsterPose(goblin).frame, 5);
+    // Collisions, points de vie et vitesses inchangés.
+    assert.equal(JSON.stringify([goblin.radius, goblin.maxHp, goblin.speed, ogre.radius, ogre.maxHp, ogre.speed]), JSON.stringify([14, 3, 95, 14, 2, 80]));
+    // Gobelin, ogre et Yarden : trois images de personnage sont dessinées.
+    g.calls.length = 0;
+    g.draw();
+    assert.equal(g.calls.filter(call => call[0] === 'drawImage').length >= 3, true);
+    // Sans image : retour aux formes provisoires (disque rose, carré jaune) et aux barres de vie.
+    const bare = armed('error');
+    assert.equal(bare.monsterPose(bare.enemies[0]), null);
+    assert.equal(bare.monsterPose(bare.enemies[1]), null);
+    bare.calls.length = 0;
+    bare.draw();
+    assert(bare.calls.some(call => call[0] === 'arc'));
+    assert(bare.calls.some(call => call[0] === 'fillRect'));
   }]
 ];
 for (const [name, run] of tests) { run(); console.log('OK — ' + name); }

@@ -1,0 +1,102 @@
+{
+  "name": "Monstres du Chapitre 1",
+  "version": 1,
+  "note": "Une bande par monstre, cases égales, centre de masse et sol alignés. Les monstres sont dessinés tournés vers la gauche : le jeu retourne l'image pour la droite, car aucun détail asymétrique n'est canon pour eux. La hauteur debout est donnée en pixels d'export, au même grossissement que les sprites de Yarden (Yarden debout : environ 99 px, affichée à l'échelle 0,62). Tailles par rapport à Yarden (1,0) : gobelin 0,9, ogre 1,25, troll environ 2,0.",
+  "monsters": {
+    "troll": {
+      "file": "troll.png",
+      "role": "Boss de fin de donjon (ancien Gardien)",
+      "canon": "niveau 32, environ trois mètres, pierre vivante, peau grise, yeux jaunes, poing et coude en arc large, charge brute ; cristal noir dans le décor",
+      "cell": {
+        "width": 208,
+        "height": 262
+      },
+      "anchor": {
+        "x": 104,
+        "y": 258
+      },
+      "standHeight": 194,
+      "reachHeight": 252,
+      "frames": {
+        "walk": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "windup": 4,
+        "strike": 5
+      },
+      "source": {
+        "file": "bande fournie par Jordan, 6 images",
+        "sha256": "76f509c073638d8397a7032849aececa85f4d643da71a658fb77f195e444eb00",
+        "scale": 0.5065
+      }
+    },
+    "goblin": {
+      "file": "goblin.png",
+      "role": "Petit ennemi qui poursuit (ancien Rôdeur)",
+      "canon": "éclaireur de niveau 8 à 12, en groupes de quatre à six",
+      "cell": {
+        "width": 130,
+        "height": 94
+      },
+      "anchor": {
+        "x": 65,
+        "y": 90
+      },
+      "standHeight": 89,
+      "reachHeight": 89,
+      "frames": {
+        "walk": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "windup": 4,
+        "strike": 5
+      },
+      "design": "choix de design provisoire : le canon ne précise pas son physique (peau bleu-gris, dague)",
+      "source": {
+        "file": "enemies-six-poses.zip",
+        "sha256": "b16e9b5f7b47f79567caa88f0ba8eae9df4a3a95680215f3e5a9a52f6caad026",
+        "scale": 0.26
+      }
+    },
+    "ogre": {
+      "file": "ogre.png",
+      "role": "Ennemi qui charge (ancien Chargeur)",
+      "canon": "un des ogres jumeaux, niveau 25 ; le canon ne donne ni taille, ni peau, ni arme",
+      "cell": {
+        "width": 170,
+        "height": 127
+      },
+      "anchor": {
+        "x": 85,
+        "y": 123
+      },
+      "standHeight": 124,
+      "reachHeight": 124,
+      "frames": {
+        "walk": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "windup": 4,
+        "strike": "5 : charge, affichée tant que la charge dure"
+      },
+      "design": "choix de design provisoire : peau rouge brique, pagne",
+      "source": {
+        "file": "enemies-six-poses.zip",
+        "sha256": "b16e9b5f7b47f79567caa88f0ba8eae9df4a3a95680215f3e5a9a52f6caad026",
+        "scale": 0.354
+      }
+    }
+  },
+  "prevus": {
+    "araignee-de-cristal": "niveau 41, huit pattes, huit yeux à paupières de cristal, carapace de cristal : réservée pour plus tard (venin à distance, mécanique absente du jeu)."
+  }
+}

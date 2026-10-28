@@ -72,7 +72,7 @@ function nextWaypoint(enemy) {
 
 
 function resetEnemy(enemy) {
-  Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null });
+  Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null , sprite: { time: 0, moving: false, face: -1, strike: 0 } });
   if (enemy.boss) enemy.active = false;
 }
 
@@ -89,6 +89,12 @@ function hurtPlayer(damage = 1) {
 }
 
 function updateEnemy(enemy, seconds) {
+  const x = enemy.x, y = enemy.y;
+  stepEnemy(enemy, seconds);
+  updateMonsterSprite(enemy, seconds, Math.hypot(enemy.x - x, enemy.y - y));
+}
+
+function stepEnemy(enemy, seconds) {
   if (enemy.hp <= 0 || (enemy.boss && !enemy.active)) return;
   enemy.cooldown = Math.max(0, enemy.cooldown - seconds);
   const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
@@ -114,7 +120,10 @@ function updateEnemy(enemy, seconds) {
     enemy.windup = Math.max(0, enemy.windup - seconds);
     if (enemy.windup === 0) {
       if (enemy.charger) { enemy.charge = .32; enemy.chargeHit = false; }
-      else if (distance <= reach && clearPath(enemy, player)) hurtPlayer(enemy.boss ? 2 : 1);
+      else {
+        enemy.sprite.strike = enemy.art ? monsterClips[enemy.art].strikeSeconds : 0;
+        if (distance <= reach && clearPath(enemy, player)) hurtPlayer(enemy.boss ? 2 : 1);
+      }
     }
     return;
   }
@@ -157,20 +166,25 @@ function drawEnemy(enemy, offsetX, offsetY) {
     } else ctx.arc(ex, ey, enemy.boss ? 105 : enemy.radius + player.radius + 8, 0, Math.PI * 2);
     ctx.stroke();
   }
-  ctx.fillStyle = enemy.flash > 0 ? '#fff' : enemy.windup > 0 ? '#ffb86b' : enemy.boss ? '#b187ef' : enemy.charger ? '#e7c567' : '#df6c82';
-  if (enemy.charger) ctx.fillRect(ex - enemy.radius, ey - enemy.radius, enemy.radius * 2, enemy.radius * 2);
-  else {
-    ctx.beginPath();
-    ctx.arc(ex, ey, enemy.radius, 0, Math.PI * 2);
-    ctx.fill();
+  // Sprite du monstre s'il est chargé ; sinon la forme provisoire (disque ou carré de couleur).
+  const spriteTop = drawMonsterSprite(enemy, ex, ey);
+  if (spriteTop === null) {
+    ctx.fillStyle = enemy.flash > 0 ? '#fff' : enemy.windup > 0 ? '#ffb86b' : enemy.boss ? '#b187ef' : enemy.charger ? '#e7c567' : '#df6c82';
+    if (enemy.charger) ctx.fillRect(ex - enemy.radius, ey - enemy.radius, enemy.radius * 2, enemy.radius * 2);
+    else {
+      ctx.beginPath();
+      ctx.arc(ex, ey, enemy.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
+  const barY = (spriteTop === null ? ey - enemy.radius : spriteTop) - 11;
   ctx.fillStyle = '#302633';
-  ctx.fillRect(ex - 20, ey - enemy.radius - 11, 40, 5);
+  ctx.fillRect(ex - 20, barY, 40, 5);
   ctx.fillStyle = enemy.charger ? '#e7c567' : '#df6c82';
-  ctx.fillRect(ex - 20, ey - enemy.radius - 11, 40 * enemy.hp / enemy.maxHp, 5);
+  ctx.fillRect(ex - 20, barY, 40 * enemy.hp / enemy.maxHp, 5);
   if (enemy.boss) {
     ctx.fillStyle = '#eae7f5';
     ctx.textAlign = 'center';
-    ctx.fillText('GARDIEN', ex, ey - enemy.radius - 20);
+    ctx.fillText('TROLL', ex, barY - 9);
   }
 }
