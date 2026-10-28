@@ -30,11 +30,11 @@ function game(imageMode) {
   });
   // Même ordre et portées globales que les scripts defer de la page.
   for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'yarden-sprite.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, yardenSprite, yardenArt, yardenFrame, yardenCell, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
-function armed() {
-  const g = game();
+function armed(mode) {
+  const g = game(mode);
   g.player.y = 144;
   g.update(.01);
   assert(g.player.armed);
@@ -233,16 +233,16 @@ const tests = [
     assert.equal(g.stage, 'exit');
     assert.equal(g.input.pointerId, 1);
   }],
-  ['Sprite de Yarden : animation, côté de course, secours et zone de collision', () => {
+  ['Sprite de Yarden : course, marche verticale, dessin sans retournement et disque de secours', () => {
     // Durées du manifeste : repos de 6 images, courses de 8 images.
     const g = game('loaded');
     assert.equal(g.yardenFrame('idle', 0), 0);
     assert.equal(g.yardenFrame('idle', .29), 1);
     assert.equal(g.yardenFrame('idle', 1.1), 0);
     assert.equal(g.yardenFrame('running-left', .84), 7);
-    assert.equal(g.yardenFrame('running-right', 1.06), 0);
-    // Les trois bandes chargées : le sprite est dessiné sans retournement.
-    assert(['idle', 'running-right', 'running-left'].every(name => g.yardenArt.strips[name]));
+    assert.equal(g.yardenFrame('walk-down', .89), 0);
+    // Toutes les bandes chargées : une seule image dessinée, sans retournement, collisions inchangées.
+    assert(Object.keys(g.yardenArt.strips).length === 11 && Object.values(g.yardenArt.strips).every(Boolean));
     const hitbox = JSON.stringify([g.player.x, g.player.y, g.player.radius]);
     g.calls.length = 0;
     g.draw();
@@ -251,29 +251,101 @@ const tests = [
     assert.deepEqual(sprite[0].slice(2, 6), [0, 0, 96, 104]);
     assert(!g.calls.some(call => ['scale', 'transform'].includes(call[0])), 'Aucun retournement du sprite');
     assert.equal(JSON.stringify([g.player.x, g.player.y, g.player.radius]), hitbox);
-    // Côté de course : droite, gauche, puis montée qui garde la gauche.
-    const g2 = armed();
+    // Côté de course, marche verticale, puis retour à la course latérale.
+    const g2 = armed('loaded');
+    const clip = () => g2.yardenPose().clip;
     g2.keys.add('d'); g2.update(.05);
-    assert.equal(g2.yardenSprite.clip, 'running-right');
+    assert.equal(clip(), 'running-right');
     g2.keys.delete('d'); g2.keys.add('a'); g2.update(.05);
-    assert.equal(g2.yardenSprite.clip, 'running-left');
+    assert.equal(clip(), 'running-left');
     g2.keys.delete('a'); g2.keys.add('w'); g2.update(.05);
-    assert.equal(g2.yardenSprite.clip, 'running-left');
-    g2.keys.delete('w'); g2.update(.05);
-    assert.equal(g2.yardenSprite.clip, 'idle');
-    // Temps figé en pause et pendant la défaite.
+    assert.equal(clip(), 'walk-up');
+    g2.keys.delete('w'); g2.keys.add('s'); g2.update(.05);
+    assert.equal(clip(), 'walk-down');
+    g2.keys.add('d'); g2.update(.05);
+    assert.equal(clip(), 'walk-down', 'La diagonale franche ne fait pas osciller le sprite');
+    g2.keys.delete('s'); g2.update(.05);
+    assert.equal(clip(), 'running-right');
+    g2.keys.delete('d'); g2.update(.05);
+    assert.equal(clip(), 'idle');
+    // Temps figé en pause.
     const time = g2.yardenSprite.time;
     g2.fire('window:blur');
     g2.update(1);
     assert.equal(g2.yardenSprite.time, time);
-    // Images absentes : disque de secours, aucune image dessinée.
+    // Images absentes : disque de secours, aucune image, faux provisoire dessinée pendant le coup.
     for (const mode of ['error', undefined]) {
-      const bare = game(mode);
+      const bare = armed(mode);
+      bare.startAttack();
       bare.calls.length = 0;
       bare.draw();
       assert(!bare.calls.some(call => call[0] === 'drawImage'));
       assert(bare.calls.some(call => call[0] === 'arc'));
+      assert(bare.calls.some(call => call[0] === 'quadraticCurveTo'), 'Faux provisoire sans sprite');
     }
+  }],
+  ['Sprite de Yarden : faux, esquive, dégâts et défaite calés sur le jeu', () => {
+    // Faux vers la droite : images 0 à 5 sur la durée du coup, impact aux images 3 et 4.
+    const g = armed('loaded');
+    g.startAttack();
+    assert.deepEqual([g.yardenPose().clip, g.yardenPose().frame], ['scythe-right', 0]);
+    g.update(.11);
+    assert.deepEqual([g.yardenPose().clip, g.yardenPose().frame], ['scythe-right', 3]);
+    g.update(.12);
+    assert.notEqual(g.yardenPose().clip, 'scythe-right');
+    g.calls.length = 0;
+    g.startAttack(true);
+    assert.equal(g.attack.remaining, 0, 'Pas de second coup pendant la récupération');
+    g.update(.5);
+    g.keys.add('a'); g.update(.05); g.keys.delete('a');
+    g.startAttack(true);
+    assert.equal(g.yardenPose().clip, 'scythe-left');
+    g.calls.length = 0;
+    g.draw();
+    assert(!g.calls.some(call => call[0] === 'quadraticCurveTo'), 'La faux dessinée par le jeu disparaît quand le sprite la porte');
+    assert.equal(g.calls.filter(call => call[0] === 'drawImage').length, 1);
+    // Esquive vers la gauche.
+    const d = armed('loaded');
+    d.keys.add('a');
+    d.startDodge();
+    assert.equal(d.yardenPose().clip, 'dash-left');
+    d.update(.1);
+    assert.equal(d.yardenPose().frame, 3);
+    // Dégâts : réaction courte, sans effet sur la logique de combat.
+    const h = armed('loaded');
+    h.hurtPlayer();
+    assert.deepEqual([h.yardenPose().clip, h.yardenPose().frame], ['hurt', 0]);
+    assert.equal(h.player.hp, 4);
+    h.update(.31);
+    assert.equal(h.yardenPose().clip, 'idle');
+    // Défaite : elle tombe, reste au sol, puis le message apparaît.
+    const f = armed('loaded');
+    f.hurtPlayer(5);
+    assert(f.over);
+    assert.equal(f.elements.result.hidden, true);
+    assert.deepEqual([f.yardenPose().clip, f.yardenPose().frame], ['defeat', 0]);
+    const elapsed = f.elapsed;
+    f.update(.5);
+    assert.equal(f.yardenPose().clip, 'defeat');
+    assert(f.yardenPose().frame > 0 && f.yardenPose().frame < 5);
+    assert.equal(f.elements.result.hidden, true);
+    f.update(.6);
+    assert.equal(f.yardenPose().frame, 5);
+    assert.equal(f.player.flash, 0, 'Le flash blanc ne reste pas collé sur Yarden à terre');
+    assert.equal(f.elements.result.hidden, false);
+    assert.equal(f.elapsed, elapsed, 'Le chronomètre reste figé pendant la chute');
+    f.fire('retry:click');
+    assert.equal(f.elements.result.hidden, true);
+    assert.equal(f.yardenPose().clip, 'idle');
+    // Une bande absente retombe sur une pose existante, la défaite sur le disque.
+    const m = armed('loaded');
+    m.yardenArt.strips['scythe-right'] = null;
+    m.startAttack();
+    assert.equal(m.yardenPose().clip, 'idle');
+    m.yardenArt.strips.defeat = null;
+    m.hurtPlayer(5);
+    assert.equal(m.yardenPose().clip, 'idle');
+    m.draw();
   }]
 ];
 for (const [name, run] of tests) { run(); console.log('OK — ' + name); }

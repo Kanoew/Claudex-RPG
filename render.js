@@ -150,22 +150,24 @@ function draw() {
     ctx.strokeStyle = attack.empowered ? '#70ddff' : '#c5afff';
     ctx.lineWidth = 2;
     ctx.stroke();
-    // Faux provisoire en formes simples, animée à travers la zone du coup.
-    const progress = 1 - attack.remaining / attack.duration;
-    ctx.rotate(-attack.halfAngle + progress * attack.halfAngle * 2);
-    ctx.strokeStyle = '#eae7f5';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(10, 0);
-    ctx.lineTo(58, 0);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(58, -5);
-    ctx.quadraticCurveTo(80, 4, 53, 27);
-    ctx.lineTo(62, 7);
-    ctx.closePath();
-    ctx.fillStyle = '#eae7f5';
-    ctx.fill();
+    // Faux provisoire en formes simples, seulement si les images de Yarden manquent : sinon c'est le sprite qui la porte.
+    if (!yardenSpriteActive()) {
+      const progress = 1 - attack.remaining / attack.duration;
+      ctx.rotate(-attack.halfAngle + progress * attack.halfAngle * 2);
+      ctx.strokeStyle = '#eae7f5';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(10, 0);
+      ctx.lineTo(58, 0);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(58, -5);
+      ctx.quadraticCurveTo(80, 4, 53, 27);
+      ctx.lineTo(62, 7);
+      ctx.closePath();
+      ctx.fillStyle = '#eae7f5';
+      ctx.fill();
+    }
     ctx.restore();
   }
   let labelY = screenY - 23;

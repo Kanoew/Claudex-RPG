@@ -1,0 +1,98 @@
+{
+  "name": "Yarden — actions",
+  "version": 2,
+  "cell": {
+    "width": 211,
+    "height": 148
+  },
+  "note": "Cases de 211 × 148 px au même grossissement que les bandes de assets/yarden/animations.json (personnage debout d'environ 99 px). Le point au sol (anchor) est le centre des pieds ; il reste fixe dans chaque bande. Ne pas retourner une bande : le gant, les tatouages et la marque du flanc sont asymétriques. Les durées sont calées par yarden-sprite.js sur la durée de l'action de jeu.",
+  "source": {
+    "archive": "yarden-animation-v2.zip",
+    "sha256": "2de1bc9ce74d5d1768fbdd25cd82ae61597f66705c5decb84de4f7b303c78116",
+    "cell": "640 × 448 px",
+    "reduction": 0.33,
+    "seuilTransparence": "pixels dont l'opacité est inférieure ou égale à 24 sur 255 remis à zéro"
+  },
+  "animations": {
+    "walk-down": {
+      "file": "walk-down.png",
+      "label": "Marche vers le bas, de face",
+      "frames": 8,
+      "anchor": {
+        "x": 105.6,
+        "y": 132
+      },
+      "loop": true
+    },
+    "walk-up": {
+      "file": "walk-up.png",
+      "label": "Marche vers le haut, de dos",
+      "frames": 8,
+      "anchor": {
+        "x": 105.6,
+        "y": 132
+      },
+      "loop": true
+    },
+    "scythe-right": {
+      "file": "scythe-right.png",
+      "label": "Coup de faux vers la droite",
+      "frames": 6,
+      "anchor": {
+        "x": 84.5,
+        "y": 132
+      },
+      "loop": false
+    },
+    "scythe-left": {
+      "file": "scythe-left.png",
+      "label": "Coup de faux vers la gauche",
+      "frames": 6,
+      "anchor": {
+        "x": 126.7,
+        "y": 132
+      },
+      "loop": false
+    },
+    "dash-right": {
+      "file": "dash-right.png",
+      "label": "Esquive vers la droite",
+      "frames": 6,
+      "anchor": {
+        "x": 105.6,
+        "y": 132
+      },
+      "loop": false
+    },
+    "dash-left": {
+      "file": "dash-left.png",
+      "label": "Esquive vers la gauche",
+      "frames": 6,
+      "anchor": {
+        "x": 105.6,
+        "y": 132
+      },
+      "loop": false
+    },
+    "hurt": {
+      "file": "hurt.png",
+      "label": "Dégâts reçus",
+      "frames": 6,
+      "anchor": {
+        "x": 105.6,
+        "y": 132
+      },
+      "loop": false
+    },
+    "defeat": {
+      "file": "defeat.png",
+      "label": "Défaite, reste sur la dernière image",
+      "frames": 6,
+      "anchor": {
+        "x": 105.6,
+        "y": 132
+      },
+      "loop": false
+    }
+  }
+}
