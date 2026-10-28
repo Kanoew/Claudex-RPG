@@ -327,6 +327,7 @@ function update(seconds) {
     movePlayer(x * player.speed * seconds, y * player.speed * seconds);
     if (length > 0) facing = { x: x / Math.hypot(x, y), y: y / Math.hypot(x, y) };
   }
+  updateYardenSprite(seconds, dodge.remaining > 0 ? dodge.x : x, dodge.remaining > 0 || length > 0);
   if (updateDungeon()) {
     dodge.remaining = Math.max(0, dodge.remaining - seconds);
     return;
@@ -368,4 +369,5 @@ resize();
 updateStatus();
 updateAttackButton();
 loadRoomArt();
+loadYardenArt();
 requestAnimationFrame(frame);

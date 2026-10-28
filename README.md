@@ -17,7 +17,7 @@ Yarden a 5 PV et 30 mana. La faux coûte 3 mana, Fauchage 12 ; le mana revient �
 
 ## Fichiers et publication
 
-Ouvre `index.html` directement dans un navigateur récent ou utilise le lien du jeu. Aucun outil de build, paquet à installer ou serveur n’est nécessaire. `enemies.js`, `dungeon.js`, `hud.js` et `render.js` sont chargés avant `game.js`. Les règles et les contrôles restent dans `game.js` ; les barres et boutons sont mis à jour par `hud.js`, et le dessin de la salle et des formes provisoires est dans `render.js`.
+Ouvre `index.html` directement dans un navigateur récent ou utilise le lien du jeu. Aucun outil de build, paquet à installer ou serveur n’est nécessaire. `enemies.js`, `dungeon.js`, `hud.js`, `yarden-sprite.js` et `render.js` sont chargés avant `game.js`. Les règles et les contrôles restent dans `game.js` ; les barres et boutons sont mis à jour par `hud.js`, et le dessin de la salle et des formes provisoires est dans `render.js`.
 
 ## Interface et décor
 
@@ -25,7 +25,7 @@ La vie et le mana ont des barres avec valeurs numériques. Les boutons affichent
 
 Deux images de décor, originales et CC0, sont incluses : `assets/sol-pierre.svg` (dalles) et `assets/mur-pierre.svg` (maçonnerie), environ 1,3 Ko au total. Voir `assets/LICENCE.md`. Les portes, piliers et l’ombre autour de Yarden sont dessinés en Canvas. Si les images échouent à charger, un décor de secours est dessiné ; le jeu et les collisions restent identiques.
 
-Yarden et les ennemis gardent leurs formes provisoires dans le jeu. Le [pack de sprites de Yarden](docs/art/yarden/README.md) prépare l’étape 13 : bandes PNG légères (environ 208 Ko), planche source, GIF, vidéo, manifeste des images et [aperçu animé séparé](docs/art/yarden/index.html). L’intégration dans `render.js`, les directions de marche manquantes et le coup de faux restent pour la prochaine session. Les ennemis restent à l’étape 14.
+Yarden utilise les bandes `idle`, `running-right` et `running-left` du [pack de sprites](docs/art/yarden/README.md) (`assets/yarden/`, cases de 96 × 104). Le code d’animation est dans `yarden-sprite.js`, chargé avant `render.js`. Si une image ne charge pas, le disque violet reste affiché. Il n’y a pas encore de marche vers le haut ni vers le bas : Yarden garde alors la dernière course gauche ou droite. Le coup de faux reste l’arc dessiné par le jeu. Les ennemis gardent leurs formes provisoires jusqu’à l’étape 14.
 
 GitHub Pages publie la racine de `main` après fusion. À chaque changement des scripts, augmente leur numéro `?v=` dans `index.html`, puis actualise la page après publication.
 
