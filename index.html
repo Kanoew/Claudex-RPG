@@ -47,6 +47,11 @@
     #actions #dodge small { margin: 0; }
     #actions button.recovering { background: #20252d; color: #a5acb9; border-color: #4c5461; }
     #actions button.recovering small { color: #a5acb9; }
+    #actions #interact { grid-column: 1 / -1; height: 38px; border-color: #a6cadf; background: #263746; }
+    #actions button[hidden] { display: none; }
+    #story-panel:not([hidden]) { position: absolute; inset: 0; display: grid; align-content: end; gap: 16px; padding: 24px; background: #10141ab8; z-index: 2; }
+    #story-text { padding: 18px; margin: 0; background: #151c2cf5; border: 1px solid #a6cadf; border-radius: 7px; font-size: 16px; line-height: 1.6; }
+    #story-next { min-height: 48px; padding: 10px; background: #35455c; color: white; border: 1px solid #a6cadf; border-radius: 7px; font: inherit; }
     button:focus-visible { outline: 3px solid #fff1c2; outline-offset: 3px; }
     button:active { filter: brightness(1.2); }
     @media (max-width: 650px) { #help { display: none; } }
@@ -65,14 +70,16 @@
     }
     @media (orientation: landscape) and (max-width: 750px) { .resources { max-width: 55%; } }
   </style>
-  <script src="enemies.js?v=29" defer></script>
-  <script src="dungeon.js?v=29" defer></script>
-  <script src="hud.js?v=29" defer></script>
-  <script src="zones.js?v=29" defer></script>
-  <script src="yarden-sprite.js?v=29" defer></script>
-  <script src="monster-sprite.js?v=29" defer></script>
-  <script src="render.js?v=29" defer></script>
-  <script src="game.js?v=29" defer></script>
+  <script src="enemies.js?v=30" defer></script>
+  <script src="dungeon.js?v=30" defer></script>
+  <script src="hud.js?v=30" defer></script>
+  <script src="zones.js?v=30" defer></script>
+  <script src="yarden-sprite.js?v=30" defer></script>
+  <script src="monster-sprite.js?v=30" defer></script>
+  <script src="encounter.js?v=30" defer></script>
+  <script src="npc.js?v=30" defer></script>
+  <script src="render.js?v=30" defer></script>
+  <script src="game.js?v=30" defer></script>
 </head>
 <body>
   <main>
@@ -85,9 +92,10 @@
       <div id="status" class="sr-only"></div><div id="objective" role="status"></div>
     </header>
     <div id="view">
-      <canvas id="game" aria-label="Prends la faux, affronte le gobelin, l’ogre et le Troll, puis rejoins la porte verte au nord. Orange : attaque annoncée ; vert : esquive.">Votre navigateur doit prendre en charge Canvas.</canvas>
+      <canvas id="game" tabindex="-1" aria-label="Prends la faux, affronte les monstres, puis traverse l’antre de l’araignée. Orange : attaque annoncée ; vert : esquive.">Votre navigateur doit prendre en charge Canvas.</canvas>
       <div id="boss-panel" hidden><div class="meter-label"><span id="boss-state">TROLL</span><span id="boss-value">8 / 8</span></div><div class="meter" id="boss-meter" role="progressbar" aria-label="Points de vie du Gardien" aria-valuemin="0" aria-valuemax="8" aria-valuenow="8"></div></div>
       <div id="result" hidden><strong id="result-text" role="status"></strong><p id="result-details"></p><button id="retry" type="button">Recommencer le donjon</button></div>
+      <div id="story-panel" role="dialog" aria-modal="true" aria-labelledby="story-text" hidden><p id="story-text"></p><button id="story-next" type="button">Continuer</button></div>
     </div>
     <div id="controls">
       <div id="joystick" aria-label="Joystick tactile de déplacement"><div id="stick"></div></div>
@@ -96,6 +104,7 @@
         <button id="attack" type="button" aria-label="Faux, 3 mana" aria-disabled="true">Faux<small id="attack-hint">À récupérer</small></button>
         <button id="skill" type="button" aria-label="Fauchage, deux dégâts, 12 mana" aria-disabled="true">Fauchage<small id="skill-hint">À récupérer</small></button>
         <button id="dodge" type="button" aria-label="Esquive gratuite" aria-disabled="false">Esquive<small id="dodge-hint">Gratuite · Maj</small></button>
+        <button id="interact" type="button" aria-label="Utiliser le cristal noir, touche F" aria-disabled="true" hidden>Cristal · F</button>
       </div>
     </div>
   </main>

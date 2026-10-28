@@ -94,9 +94,34 @@
         "sha256": "b16e9b5f7b47f79567caa88f0ba8eae9df4a3a95680215f3e5a9a52f6caad026",
         "scale": 0.354
       }
+    },
+    "spider": {
+      "file": "spider.png",
+      "role": "Antre, deuxième salle : ruse puis incapacitation, pas une mort",
+      "canon": "Araignée de cristal, huit pattes, huit yeux, fil de venin à distance, territoriale.",
+      "cell": {
+        "width": 224,
+        "height": 168
+      },
+      "anchor": {
+        "x": 112,
+        "y": 158
+      },
+      "frames": {
+        "walk": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "windup": 4,
+        "strike": 5,
+        "hurt": 6,
+        "blinded": 7,
+        "incapacitated": 8
+      },
+      "prototype": "Venin annoncé 0,9 s, ralentissement temporaire de 3 s. Cristal noir puis Fauchage pendant 5 s d’aveuglement. Interprétation jouable simplifiée du canon."
     }
   },
-  "prevus": {
-    "araignee-de-cristal": "niveau 41, huit pattes, huit yeux à paupières de cristal, carapace de cristal : réservée pour plus tard (venin à distance, mécanique absente du jeu)."
-  }
+  "prevus": {}
 }

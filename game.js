@@ -1,6 +1,6 @@
 'use strict';
 
-// Une salle fixe ; la caméra suit Yarden sur les petits écrans.
+// La caméra suit Yarden dans la zone courante sur les petits écrans.
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const joystick = document.getElementById('joystick');
@@ -20,7 +20,7 @@ const weapon = { x: 0, y: 144 };
 let exitOpen = false;
 const enemies = zones.donjon.enemies.map(makeEnemy);
 // Monstres de chaque zone ; seuls ceux de la zone courante bougent, se dessinent et reçoivent des coups.
-const zoneEnemies = { donjon: enemies, exterieur: zones.exterieur.enemies.map(makeEnemy) };
+const zoneEnemies = Object.fromEntries(Object.entries(zones).map(([id, zone]) => [id, id === 'donjon' ? enemies : zone.enemies.map(makeEnemy)]));
 const activeEnemies = () => zoneEnemies[currentZone.id] || [];
 const allEnemies = () => Object.values(zoneEnemies).flat();
 const boss = enemies[2];
@@ -46,7 +46,7 @@ const attack = { remaining: 0, cooldown: 0, duration: .22, recovery: .45, range:
 
 function startAttack(empowered = false) {
   const cost = empowered ? skill.cost : 3;
-  if (!player.armed || paused || combatOver || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
+  if (!player.armed || paused || combatOver || encounterBlocksMovement() || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
   player.mana -= cost;
   if (empowered) skill.cooldown = skill.recovery;
   Object.assign(attack, { empowered, damage: empowered ? 2 : 1, duration: empowered ? .3 : .22, recovery: empowered ? .8 : .45, range: empowered ? 110 : 72 });
@@ -59,19 +59,24 @@ function startAttack(empowered = false) {
 }
 
 function updateAttackButton() {
-  const recovering = paused || !player.armed || combatOver || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || player.mana < 3;
+  const blocked = paused || combatOver || encounterBlocksMovement();
+  const recovering = blocked || !player.armed || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || player.mana < 3;
   attackButton.classList.toggle('recovering', recovering);
   attackButton.setAttribute('aria-disabled', String(recovering));
-  const unavailable = paused || !player.armed || combatOver || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || skill.cooldown > 0 || player.mana < skill.cost;
+  const unavailable = blocked || !player.armed || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || skill.cooldown > 0 || player.mana < skill.cost;
   skillButton.classList.toggle('recovering', unavailable);
   skillButton.setAttribute('aria-disabled', String(unavailable));
-  dodgeButton.classList.toggle('recovering', paused || combatOver || bossDelay > 0 || dodge.cooldown > 0);
-  dodgeButton.setAttribute('aria-disabled', String(paused || combatOver || bossDelay > 0 || dodge.cooldown > 0));
+  dodgeButton.classList.toggle('recovering', blocked || bossDelay > 0 || dodge.cooldown > 0);
+  dodgeButton.setAttribute('aria-disabled', String(blocked || bossDelay > 0 || dodge.cooldown > 0));
+  const interact = document.getElementById('interact');
+  interact.hidden = currentZone.id !== 'antre';
+  interact.classList.toggle('recovering', !canUseCrystal());
+  interact.setAttribute('aria-disabled', String(!canUseCrystal()));
   updateButtonHints();
 }
 
 function startDodge() {
-  if (paused || combatOver || bossDelay > 0 || document.hidden || dodge.cooldown > 0) return;
+  if (paused || combatOver || encounterBlocksMovement() || bossDelay > 0 || document.hidden || dodge.cooldown > 0) return;
   let x = input.pointerId === null ? Number(keys.has('d') || keys.has('arrowright')) - Number(keys.has('q') || keys.has('a') || keys.has('arrowleft')) : input.x;
   let y = input.pointerId === null ? Number(keys.has('s') || keys.has('arrowdown')) - Number(keys.has('z') || keys.has('w') || keys.has('arrowup')) : input.y;
   const length = Math.hypot(x, y);
@@ -132,6 +137,7 @@ function resize() {
 new ResizeObserver(resize).observe(canvas);
 
 function moveStick(event) {
+  if (encounterBlocksMovement()) return;
   const rect = joystick.getBoundingClientRect();
   const limit = (rect.width - stick.offsetWidth) / 2 - 4;
   const dx = event.clientX - rect.left - rect.width / 2;
@@ -157,7 +163,7 @@ function releaseStick() {
 }
 
 joystick.addEventListener('pointerdown', event => {
-  if (input.pointerId !== null || (event.pointerType === 'mouse' && event.button !== 0)) return;
+  if (encounterBlocksMovement() || input.pointerId !== null || (event.pointerType === 'mouse' && event.button !== 0)) return;
   event.preventDefault();
   input.pointerId = event.pointerId;
   joystick.setPointerCapture(event.pointerId);
@@ -172,6 +178,19 @@ for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) {
   });
 }
 window.addEventListener('keydown', event => {
+  if (story.active) {
+    if (event.key === 'Tab') { event.preventDefault(); document.getElementById('story-next').focus(); }
+    if (['Enter', 'Space'].includes(event.code)) {
+      event.preventDefault();
+      if (!event.repeat) advanceStory();
+    }
+    return;
+  }
+  if (event.code === 'KeyF') {
+    event.preventDefault();
+    if (!event.repeat) useCrystal();
+    return;
+  }
   if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
     event.preventDefault();
     if (!event.repeat) startDodge();
@@ -265,13 +284,16 @@ function finishCombat(message, delay = 0) {
   resetInput();
   for (const enemy of allEnemies()) { enemy.windup = 0; enemy.charge = 0; }
   resultText.textContent = message;
+  retryButton.textContent = currentZone.id === 'antre' ? 'Reprendre l’antre' : 'Recommencer le donjon';
   resultDetails.textContent = `Temps de jeu : ${Math.floor(elapsed)} s · PV restants : ${player.hp}/${player.maxHp}`;
   result.hidden = delay > 0;
   updateAttackButton();
 }
 
 retryButton.addEventListener('click', () => {
+  if (currentZone.id === 'antre' && !encounter.complete) { retryAntre(); return; }
   resetInput();
+  resetEncounter();
   loadZone('donjon');
   Object.assign(player, { x: zones.donjon.start.x, y: zones.donjon.start.y, hp: player.maxHp, flash: 0, mana: player.maxMana, armed: false });
   for (const enemy of allEnemies()) resetEnemy(enemy);
@@ -305,9 +327,11 @@ function update(seconds) {
       if (resultDelay === 0) result.hidden = false;
     }
   }
-  if (combatOver || paused || document.hidden) return;
+  if (combatOver || paused || document.hidden || story.active) return;
   elapsed += seconds;
   zoneFade = Math.max(0, zoneFade - seconds);
+  updateEncounter(seconds);
+  if (combatOver || encounterBlocksMovement()) { updateStatus(); updateAttackButton(); return; }
   // Pendant l'apparition du Troll, Yarden peut bouger ; seuls les coups et les ennemis attendent.
   const appearing = bossDelay > 0;
   if (appearing) bossDelay = Math.max(0, bossDelay - seconds);
@@ -333,7 +357,8 @@ function update(seconds) {
     movePlayer(dodge.x * dodge.speed * time, dodge.y * dodge.speed * time);
     facing = { x: dodge.x, y: dodge.y };
   } else {
-    movePlayer(x * player.speed * seconds, y * player.speed * seconds);
+    const speed = player.speed * (currentZone.id === 'antre' && encounter.slow > 0 ? .7 : 1);
+    movePlayer(x * speed * seconds, y * speed * seconds);
     if (length > 0) facing = { x: x / Math.hypot(x, y), y: y / Math.hypot(x, y) };
   }
   updateYardenSprite(seconds, dodge.remaining > 0 ? dodge.x : x, dodge.remaining > 0 ? dodge.y : y, dodge.remaining > 0 || length > 0);
@@ -345,6 +370,7 @@ function update(seconds) {
   for (const enemy of activeEnemies()) {
     if ((enemy.boss && !enemy.active) || enemy.hp <= 0 || attack.hits.has(enemy) || !attackHitsCircle(enemy) || !clearPath(player, enemy)) continue;
     attack.hits.add(enemy);
+    if (enemy.ranged) { hitSpider(attack.empowered); continue; }
     enemy.hp = Math.max(0, enemy.hp - attack.damage);
     enemy.flash = .2;
     updateStatus();
@@ -381,3 +407,12 @@ loadRoomArt();
 loadYardenArt();
 loadMonsterArt();
 requestAnimationFrame(frame);
+
+document.getElementById('story-next').addEventListener('click', advanceStory);
+const interactButton = document.getElementById('interact');
+interactButton.addEventListener('pointerdown', event => {
+  if (event.pointerType === 'mouse' && event.button !== 0) return;
+  event.preventDefault();
+  useCrystal();
+});
+interactButton.addEventListener('click', event => { if (event.detail === 0) useCrystal(); });

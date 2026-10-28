@@ -75,7 +75,8 @@ function nextWaypoint(enemy) {
 const enemyKinds = {
   goblin: { name: 'Gobelin', art: 'goblin', speed: 95, radius: 14, maxHp: 3, charger: false },
   ogre: { name: 'Ogre', art: 'ogre', speed: 80, radius: 14, maxHp: 2, charger: true },
-  troll: { name: 'Troll', art: 'troll', speed: 65, radius: 24, maxHp: 8, boss: true, active: false }
+  troll: { name: 'Troll', art: 'troll', speed: 65, radius: 24, maxHp: 8, boss: true, active: false },
+  spider: { name: 'Araignée de cristal', art: 'spider', speed: 145, radius: 28, maxHp: 12, ranged: true }
 };
 
 function makeEnemy(spec) {
@@ -85,7 +86,7 @@ function makeEnemy(spec) {
 }
 
 function resetEnemy(enemy) {
-  Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null, engaged: false, sprite: { time: 0, moving: false, face: -1, strike: 0 } });
+  Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null, engaged: false, incapacitated: false, sprite: { time: 0, moving: false, face: -1, strike: 0 } });
   if (enemy.boss) enemy.active = false;
 }
 
@@ -109,6 +110,7 @@ function updateEnemy(enemy, seconds) {
 
 function stepEnemy(enemy, seconds) {
   if (enemy.hp <= 0 || (enemy.boss && !enemy.active)) return;
+  if (enemy.ranged) { stepSpider(enemy, seconds); return; }
   enemy.cooldown = Math.max(0, enemy.cooldown - seconds);
   const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
   // Un monstre dont l'éveil est limité reste immobile jusqu'à ce que Yarden s'approche, puis ne s'arrête plus.
@@ -174,7 +176,7 @@ function stepEnemy(enemy, seconds) {
 function drawEnemy(enemy, offsetX, offsetY) {
   if (enemy.hp <= 0 || (enemy.boss && !enemy.active)) return;
   const ex = enemy.x + offsetX, ey = enemy.y + offsetY;
-  if (enemy.windup > 0) {
+  if (enemy.windup > 0 && !enemy.ranged) {
     ctx.strokeStyle = '#ffb86b';
     ctx.lineWidth = 3;
     ctx.beginPath();

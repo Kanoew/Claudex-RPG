@@ -1,5 +1,13 @@
 # Bilan du prototype — Chapitre 1
 
+## Point actuel — antre de l’araignée
+
+Les sections historiques ci-dessous décrivent le prototype initial. Le jeu comprend désormais les sprites de Yarden et des monstres, la ruelle d’Helvara, et une première version de l’antre après le Troll. Jordan confirme le fonctionnement sur son Android ; aucune fréquence d’images n’a été mesurée.
+
+L’antre ajoute le tir de venin annoncé, les piliers protecteurs, un cristal noir qui ouvre une fenêtre de ruse, l’incapacitation vivante de l’araignée et le réveil dans la ruelle. Deux silhouettes de passants sont provisoires, sans dialogue. Le combat est une adaptation simplifiée du canon, détaillée dans `PROJECT.md`, section 10.
+
+Vingt scénarios logiques passent. Un essai dans Chromium vérifie les images, le récit au clavier, la ruse, la transition et le réveil sans exception JavaScript ; les formats portrait et paysage sont contrôlés. La jouabilité du nouveau combat, son équilibrage et ses images restent à tester sur téléphone. Aucun basculement vers Godot n’a été entrepris.
+
 ## État
 
 Les dix étapes sont implémentées. La boucle du donjon est raccordée : entrée, prise gratuite de la faux, deux gardes, boss, porte et écran de fin. La validation finale sur Android reste à faire après relecture et fusion.
