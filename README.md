@@ -6,7 +6,7 @@ Prototype du chapitre 1 : un petit donjon en vue du dessus, jouable sur téléph
 
 ## Jouer
 
-0. Le jeu s’ouvre dans la ruelle d’Helvara : lis le réveil de Yarden, puis marche jusqu’à la faille, qui l’aspire dans l’Abysse. La vie, le mana et les actions n’apparaissent qu’à partir de là. Ajoute `?skip` à la fin du lien pour commencer directement dans le donjon.
+0. L’écran titre propose Commencer ou Continuer si une sauvegarde existe. Le bouton Pause ou Échap suspend le jeu ; le menu permet de revenir au dernier point de passage. La sauvegarde reste dans ce navigateur. Le jeu s’ouvre dans la ruelle d’Helvara : lis le réveil de Yarden, puis marche jusqu’à la faille, qui l’aspire dans l’Abysse. La vie, le mana et les actions n’apparaissent qu’à partir de là. Ajoute `?skip` à la fin du lien pour commencer directement dans le donjon.
 1. Avance depuis l’entrée au sud vers la faux violette pour la manifester gratuitement.
 2. Bats le gobelin bleu et l’ogre rouge. Les annonces orange indiquent leurs attaques.
 3. Affronte le Troll : éloigne-toi du cercle orange ou esquive l’impact.

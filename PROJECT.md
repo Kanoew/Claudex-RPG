@@ -198,11 +198,11 @@ Limites de ce premier raccordement : pas de système d’inventaire, pas de poud
 |---|---|---|
 | Actions de l’araignée | préparées et raccordées | Bande transparente de neuf cases : quatre marches, préparation, tir, dégâts, aveuglement, incapacitation. Découpe et repère au sol dans `assets/monsters/monsters.json`. Aspect et continuité à valider sur téléphone. |
 | Deuxième salle et bataille | première version jouable, à relire | Vingt scénarios logiques passent, dont venin continu/murs/esquive, territoire, récit figé, ruse et réveil, reprise de l’antre. Chromium charge les images et traverse le récit, la ruse, l’incapacitation et le réveil sans exception JavaScript ; affichage contrôlé en portrait et paysage. Cela ne remplace pas Android. |
-| Deux habitants de la ruelle | emplacements et silhouettes provisoires | Identités et dialogues encore à fournir ; aucun nouveau rôle canonique attribué. |
+| Rencontre de la ruelle | intégrée, à valider sur Android | Ishara et deux hommes anonymes dans `scene.js` ; sources complémentaires de mouvement et de repos encore à raccorder. |
 
 ## 11. Ruelle — Ishara et les deux hommes (précisions de Jordan)
 
-Ces précisions concernent la rencontre du chapitre 2. La bible et le texte publié restent les références. Elles remplacent l’hypothèse de deux simples passants pour la conception de cette scène : **Ishara et deux hommes anonymes** sont trois personnages distincts. Le jeu affiche encore les deux silhouettes provisoires de la section 10 ; leur remplacement et la scène ne sont pas encore raccordés.
+Ces précisions concernent la rencontre du chapitre 2. La bible et le texte publié restent les références. Elles remplacent l’hypothèse de deux simples passants pour la conception de cette scène : **Ishara et deux hommes anonymes** sont trois personnages distincts. La scène est désormais raccordée dans `scene.js` (étape 16b). Les sources complémentaires de course verticale et de pose immobile ne sont pas encore exportées pour le jeu.
 
 ### Ishara, au moment de la rencontre
 - Niveau 11, éveillée depuis environ six mois, quelques runs en groupe, aucune guilde.
@@ -228,12 +228,12 @@ Un coin de trottoir sous un lampadaire éteint, dans un cul-de-sac partiel : fa�
 ### Première proposition de design (à valider)
 Référence de travail dans `docs/art/ruelle/`, sans chargement dans le jeu. Ishara garde sa tenue de soirée. Les hommes ont des palettes discrètes et des silhouettes contrastées : veste bleu-gris trop grande pour le grand, veste brun-charbon pour le compact. Coiffures sombres simples, chaussures et traits génériques sont des choix de travail. La couleur des yeux et les chaussures d’Ishara, non précisées par le lore fourni, restent elles aussi provisoires. Pas de noms ajoutés, pas d’arme pour les hommes, pas de tenue de combat ni d’effet magique pour Ishara.
 
-Le lien entre les deux noms est désormais précisé dans le cadre canonique en tête de document. Le travail continue sur les mouvements réutilisables d’Ishara, qui restera présente dans la suite de l’histoire. Les deux passants actuels ne sont pas transformés en acteurs de cette rencontre et aucune nouvelle réplique de scène n’est écrite.
+Le lien entre les deux noms est désormais précisé dans le cadre canonique en tête de document. Le travail continue sur les mouvements réutilisables d’Ishara, qui restera présente dans la suite de l’histoire. La scène a depuis été intégrée à l’étape 16b ; ne pas ajouter de nouvelle réplique au canon fourni.
 
 ### Version chibi d'Ishara et deux hommes (29 octobre 2026)
 Ishara est passée en **chibi**, comme Yarden (règle de style en tête de document). Nouveau pack dans `assets/npcs/ishara/chibi/` : sept bandes de quatre cases de 86 × 115 px, ancrées en (43, 111), même grossissement pour toutes, hauteur debout d'environ 1,05 fois Yarden, environ 65 Ko avec le manifeste `animations.json`. Les directions sont dessinées séparément. Le pack semi-réaliste ci-dessous est remplacé et gardé en attendant la validation de Jordan ; ne plus s'en servir.
 
-Les **deux hommes** sont dans `assets/npcs/hommes/` (`grand.png` et `compact.png`, cases de 134 × 151 px, ancrées en (67, 147), quatre pas de marche vers la gauche et un recul déséquilibré, manifeste `hommes.json`). Ils sont semi-réalistes et simples, sans nom ni arme ; le grand mesure environ 1,4 fois Yarden et le compact environ 1,17. Ils peuvent être retournés. Les sources vertes des deux hommes et d'Ishara sont conservées dans `docs/art/ruelle/hommes/` et `docs/art/ruelle/chibi/` (environ 16 Mo) : décision de Jordan, pour retrouver les originaux depuis le dépôt si son dossier local est perdu. Ni Ishara chibi ni les hommes ne sont encore branchés dans le jeu : les deux silhouettes provisoires de la ruelle restent en place et la scène du chapitre 2 n'est pas raccordée.
+Les **deux hommes** sont dans `assets/npcs/hommes/` (`grand.png` et `compact.png`, cases de 134 × 151 px, ancrées en (67, 147), quatre pas de marche vers la gauche et un recul déséquilibré, manifeste `hommes.json`). Ils sont semi-réalistes et simples, sans nom ni arme ; le grand mesure environ 1,4 fois Yarden et le compact environ 1,17. Ils peuvent être retournés. Les sources vertes des deux hommes et d'Ishara sont conservées dans `docs/art/ruelle/hommes/` et `docs/art/ruelle/chibi/` (environ 16 Mo) : décision de Jordan, pour retrouver les originaux depuis le dépôt si son dossier local est perdu. Ishara chibi et les deux hommes sont branchés dans `scene.js` depuis l’étape 16b. Les nouvelles courses verticales et poses immobiles restent à exporter et à raccorder.
 
 ### Mouvements préparés pour Ishara
 Premier pack de soirée dans `assets/npcs/ishara/soiree/` : repos avec respiration et clignement, marche dans les quatre directions et course à gauche/droite. Sept bandes transparentes de quatre images (28 cases de 128 × 160, ancrage 64 × 140, environ 71 Kio pour les PNG), avec manifeste et aperçu dans `docs/art/ruelle/ishara.html`. Les directions ont été dessinées séparément, sans miroir. Le sac à gauche anatomique est un choix de continuité visuelle encore à valider ; son côté n’est pas fixé par le lore fourni.
@@ -275,3 +275,11 @@ Réponses de Jordan : les reflets restent en blanc bleuté très pâle ; les col
 **Abysse du run.** Décor exact non retrouvé. Règle du monde pour un Abysse sous le niveau 20 : une salle plate, des obstacles neutres, un élément d'ambiance, aucune protection sur les carcasses. Référence seulement, pas décor du chapitre 2 : l'Abysse du chapitre 8 est une salle plate, piliers, lumière verte, plafond à quatre mètres.
 
 **Comptoir de la rue Marterey.** Le comptoir au noir de Rémi, avec une ardoise à la craie. Aucun autre détail fourni.
+
+## 15. Suite D — miroir et tatouages (confirmation du 29 octobre 2026)
+
+Jordan demande un **portrait rapproché du visage** de Yarden, pas une illustration de salle de bain ou de reflet. Ressource transparente préparée dans `docs/art/yarden/miroir/visage.png` : visage de face, yeux bleu-gris, lunettes dorées, cheveux et maquillage selon la fiche visuelle. Elle ne contient ni faux ni tatouages ajoutés au visage. Pas de nouvelle scène écrite : dans l’état actuel, le jeu se termine encore à la rencontre avec Ishara. Le miroir et les tatouages viendront dans la continuité de l’appartement selon la section 14.
+
+**Règle de combat confirmée par Jordan : l’invocation ET le coup de base sont gratuits.** Fauchage conserve son coût de 20 mana. La gratuité ne retire ni la récupération entre les coups ni les règles de dégâts existantes. Le vecteur d’invocation reste les tatouages ; ne pas inventer de mécanisme de tatouage ou de révélation de Tiamat supplémentaire.
+
+Relecture de l’état actuel dans `BILAN.md`, avec les limites de vérification.
