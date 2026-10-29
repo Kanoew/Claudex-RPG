@@ -95,6 +95,8 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 
 ## 8. Journal (à compléter après chaque étape)
 
+29 octobre 2026 — Relecture : reprise depuis le menu corrigée (monstres, PV/mana, états et récupérations reconstruits avant le point de passage), récit et cristal bloqués sous Pause. Trente scénarios logiques passent, dont deux régressions nouvelles. Scripts concernés en `?v=40`.
+
 29 octobre 2026 — Saut de joie demandé pour Yarden : bande de huit cases égales de face, poing gauche ganté levé et yeux fermés souriants au sommet, sans miroir ni confettis, dans `docs/art/yarden/celebration/`. Source verte conservée, ancrage commun et durées dans `animations.json` (820 ms, lecture unique puis repos). Aucun raccordement au moteur ni changement des particules ; export transparent léger à préparer avant intégration.
 
 29 octobre 2026 — Complément visuel : courses de face et de dos d’Ishara chibi, quatre images chacune, et une pose immobile gauche par homme. Sources vertes, manifestes et aperçus dans `docs/art/ruelle/chibi/` et `docs/art/ruelle/hommes/`. La scène `scene.js` est déjà présente sur main ; cette livraison ne modifie pas son déroulement et ne raccorde pas encore ces quatre nouvelles ressources. Les exports transparents et leur raccordement restent à réaliser.

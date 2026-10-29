@@ -902,6 +902,63 @@ const tests = [
     assert.equal(m.saveCheckpoint('abysse'), false);
     assert.equal(m.readSave(), null);
   }],
+  ['Pause : le récit et le cristal ne changent pas sous le menu', () => {
+    const g = game(undefined, true);
+    const text = g.elements['story-text'].textContent;
+    const lines = g.story.lines.length;
+    g.openMenu('pause');
+    g.advanceStory();
+    g.fire('window:keydown', { key: 'Enter', code: 'Enter', preventDefault() {} });
+    assert.equal(g.elements['story-text'].textContent, text);
+    assert.equal(g.story.lines.length, lines);
+    g.closeMenu(); g.advanceStory();
+    assert.equal(g.story.lines.length, lines - 1);
+    const h = beginSpider(armed());
+    Object.assign(h.player, h.zones.antre.crystal);
+    h.encounter.projectiles.push({ x: 0, y: 0, dx: 1, dy: 0, life: 1 });
+    h.openMenu('pause');
+    assert(!h.canUseCrystal());
+    h.useCrystal();
+    h.fire('window:keydown', { key: 'f', code: 'KeyF', preventDefault() {} });
+    assert.equal(h.encounter.phase, 'combat');
+    assert.equal(h.encounter.projectiles.length, 1);
+    h.closeMenu(); h.useCrystal();
+    assert.equal(h.encounter.phase, 'blinded');
+  }],
+  ['Sauvegarde : retour au point de passage dans la même partie', () => {
+    for (const checkpoint of ['abysse', 'antre', 'rue']) {
+      const g = armed('loaded');
+      g.update(2);
+      g.saveCheckpoint(checkpoint);
+      const savedTime = g.readSave().elapsed;
+      for (const enemy of g.allEnemies()) { enemy.hp = 0; enemy.windup = .5; }
+      g.zoneEnemies.antre[0].incapacitated = true;
+      Object.assign(g.player, { hp: 1, mana: 1 });
+      Object.assign(g.attack, { remaining: .2, cooldown: .4 });
+      g.skill.cooldown = 2;
+      g.dodge.cooldown = 1;
+      g.yardenSprite.defeated = true;
+      g.openMenu('pause');
+      g.fire('menu-restart:click');
+      assert(!g.menu.open && !g.over && !g.story.active && !g.scene.active);
+      assert.equal(g.elapsed, savedTime);
+      assert.equal(g.player.hp, checkpoint === 'rue' ? 7 : 5);
+      assert.equal(g.player.mana, checkpoint === 'rue' ? 40 : 30);
+      assert.equal(g.attack.remaining, 0);
+      assert.equal(g.attack.cooldown, 0);
+      assert.equal(g.skill.cooldown, 0);
+      assert.equal(g.dodge.cooldown, 0);
+      assert(!g.yardenSprite.defeated);
+      assert.equal(g.currentZone.id, {abysse: 'donjon', antre: 'antre', rue: 'exterieur'}[checkpoint]);
+      assert.equal(g.player.armed, checkpoint !== 'abysse');
+      assert.equal(g.enemies[0].hp, checkpoint === 'abysse' ? 3 : 0);
+      assert.equal(g.boss.hp, checkpoint === 'abysse' ? 8 : 0);
+      assert.equal(g.stage, checkpoint === 'abysse' ? 'entry' : 'exit');
+      assert.equal(g.zoneEnemies.antre[0].hp, checkpoint === 'rue' ? 1 : 12);
+      assert.equal(g.zoneEnemies.antre[0].incapacitated, checkpoint === 'rue');
+      assert.equal(g.encounter.phase, checkpoint === 'rue' ? 'complete' : 'waiting');
+    }
+  }],
   ['Antre : reprendre après une mort réinitialise le combat sans refaire le Troll', () => {
     const g = beginSpider(armed());
     g.enemies[0].hp = g.enemies[1].hp = g.boss.hp = 0;

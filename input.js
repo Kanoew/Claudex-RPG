@@ -55,6 +55,7 @@ for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) {
   });
 }
 window.addEventListener('keydown', event => {
+  if (menu.open) return;
   if (story.active) {
     if (event.key === 'Tab') { event.preventDefault(); document.getElementById('story-next').focus(); }
     if (['Enter', 'Space'].includes(event.code)) {
