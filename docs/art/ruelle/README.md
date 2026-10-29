@@ -1,5 +1,7 @@
 # Rencontre dans la ruelle — proposition de design
 
+> **Mise à jour du 29 octobre 2026 :** Ishara est maintenant en chibi (`assets/npcs/ishara/chibi/`), comme Yarden, et les deux hommes sont dans `assets/npcs/hommes/`. Le pack semi-réaliste décrit plus bas (`assets/npcs/ishara/soiree/`) est remplacé : il est gardé jusqu'à validation et ne doit plus servir.
+
 Voir la section 11 de `PROJECT.md` pour les précisions de Jordan et les limites entre canon, choix visuels et révélations ultérieures.
 
 La planche de référence présente, de gauche à droite : **le grand**, **Ishara**, **le compact**. Elle sert à valider les personnages avant de préparer leurs animations et de remplacer les silhouettes du jeu. Elle n’est pas chargée pendant une partie.
