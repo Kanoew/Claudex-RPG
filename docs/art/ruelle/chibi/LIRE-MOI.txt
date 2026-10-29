@@ -1,9 +1,0 @@
-Ishara — mouvements chibi v2
-
-Ouvrir index.html dans un navigateur après extraction du dossier complet.
-Sept bandes de quatre images : repos, quatre marches, deux courses.
-Cases : 543 × 724 px ; bande : 2172 × 724 px.
-Durées dans animations.json, à ajuster à la vitesse de déplacement future.
-Fond vert opaque avec variations : pas de transparence prête pour le jeu.
-Sources de travail ; contrôler raccords, pieds, sac et maquillage avant intégration.
-Aucun changement de la ruelle du jeu dans cette livraison.
