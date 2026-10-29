@@ -95,6 +95,8 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 
 ## 8. Journal (à compléter après chaque étape)
 
+29 octobre 2026 — Onze portraits de dialogue dans `docs/art/portraits-dialogue/` : quatre expressions de Yarden aux yeux violets, trois d’Ishara et deux pour chaque inconnu. Fichiers individuels 256 × 256 et bandes par personnage, fond vert opaque, aucun miroir ni portrait de Tiamat. Les durées du manifeste servent à feuilleter les expressions statiques dans l’aperçu. Les quatre packs complémentaires totalisent 55 cases ; dimensions, durées, ancrages, marges et vert des exports contrôlés, quatre aperçus vérifiés dans le navigateur. Aucun changement du moteur ; détourage et intégration restent à réaliser.
+
 29 octobre 2026 — Deux danseurs de fête en chibi dans `docs/art/ruelle/danseurs/` : six poses de face chacun, boucle douce, cases 128 × 148 et ancrage (64,132), hauteur debout visée de 100 px. Tenues validées : fille en robe rouge aux cheveux noirs attachés ; garçon en t-shirt pêche, pantalon brun et cheveux noirs courts. Sources vertes, manifeste et aperçu, sans raccordement au moteur.
 
 29 octobre 2026 — Livraison des deux hommes en chibi dans `docs/art/ruelle/hommes-chibi/` : repos et marche gauche pour chacun, poignet retourné et recul pour Inconnu 2, soit quinze images. Cases 211 × 148, ancrage (105,132), échelle debout de 100–104 px. Fond vert opaque, sources, manifeste et aperçu ; miroir autorisé pour ces figurants anonymes. Aucun changement de la scène jouable.
