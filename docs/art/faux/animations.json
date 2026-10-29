@@ -121,7 +121,9 @@
       "pivot": {
         "x": 0,
         "y": 150
-      }
+      },
+      "exportRadiusCorrectionScale": 1.203978027137012,
+      "measuredVisualRadiusPx": 143.68
     }
   },
   "notes": [
