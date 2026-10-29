@@ -10,3 +10,6 @@ Le manifeste fournit les rectangles de chaque pose : la répartition ne forme pa
 Réduire les deux sources au même facteur et aligner leurs repères de sol. Le grand doit mesurer environ 1,4 fois Yarden.
 Raccords des quatre pas et subtilité du déhanchement à valider avant export définitif.
 Aucune modification de la ruelle jouable dans cette livraison.
+
+Complément : grand-idle.png et compact-idle.png, une pose immobile chacun.
+Leur grossissement source est différent des bandes ; ajuster à la hauteur du personnage déjà exporté, avec les repères du manifeste.

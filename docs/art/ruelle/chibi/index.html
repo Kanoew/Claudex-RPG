@@ -6,15 +6,15 @@
 <style>
 body{margin:0;padding:20px;background:#17181e;color:#eee;font:16px system-ui}h1{font-size:24px}button,input{font:inherit}button{padding:8px;margin:4px}section{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}article{background:#252731;border-radius:10px;padding:12px}canvas{display:block;width:100%;max-width:272px;margin:auto;height:auto}a{color:#bcd6ff}.controls{position:sticky;top:0;background:#17181e;padding:8px 0}small{display:block}
 </style>
-<h1>Ishara — sept animations chibi</h1>
+<h1>Ishara — neuf animations chibi</h1>
 <p>Quatre images par bande. Fond vert opaque. Planches de travail : aucune intégration au jeu dans ce pack.</p>
 <div class="controls"><button id="play">Pause</button><button id="next">Image suivante</button><button id="restart">Recommencer</button><label>Vitesse <input id="speed" type="range" min="25" max="200" value="100"> <span id="speedValue">100 %</span></label></div>
 <section id="clips"></section>
 <p>Ouvrir chaque PNG pour voir la bande complète. Les cadences sont provisoires ; vérifier les raccords et les détails asymétriques avant export pour le jeu.</p>
-<script src="animations-data.js"></script>
+<script src="animations-data.js?v=3"></script>
 <script>
 'use strict';
-const names = {'idle':'Repos','walk-left':'Marche gauche','walk-right':'Marche droite','walk-up':'Marche de dos','walk-down':'Marche de face','run-left':'Course gauche','run-right':'Course droite'};
+const names = {'idle':'Repos','walk-left':'Marche gauche','walk-right':'Marche droite','walk-up':'Marche de dos','walk-down':'Marche de face','run-left':'Course gauche','run-right':'Course droite','run-up':'Course de dos','run-down':'Course de face'};
 const panels = [];
 let playing = true, last = null;
 for (const [name, clip] of Object.entries(window.ISHARA_CHIBI.animations)) {

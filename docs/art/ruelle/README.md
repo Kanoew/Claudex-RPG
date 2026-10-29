@@ -53,3 +53,11 @@ Le fond fourni est vert opaque, avec de légères variations de couleur : il n�
 ## Sources des deux hommes — conservées
 
 Les sources sur fond vert des deux hommes sont gardées dans [`hommes/`](hommes/index.html) (`grand.png`, `compact.png`, manifeste `animations.json`, aperçu `index.html`), pour pouvoir les retrouver depuis le dépôt si le dossier d'origine est perdu. Les versions légères prêtes pour le jeu sont dans `assets/npcs/hommes/`. Ces sources ne sont pas chargées par le jeu. Même chose pour Ishara : ses sources vertes sont dans [`chibi/`](chibi/index.html) et la version légère dans `assets/npcs/ishara/chibi/`.
+
+## Complément — courses verticales et poses immobiles
+
+Ishara dispose maintenant de deux courses supplémentaires de quatre images, `chibi/run-up.png` et `chibi/run-down.png`, dessinées séparément. [L’aperçu chibi](chibi/index.html) présente désormais neuf animations. Les phases aériennes gardent leurs pieds levés ; ne pas aligner le bas de chaque silhouette indépendamment au futur export. Sac à gauche anatomique, mascara sous l’œil droit, tenue de soirée, sans tour de cou ni effet de bénédiction. Contrôler ces détails et les raccords avant export.
+
+[Les hommes](hommes/index.html) ont chacun une pose immobile séparée, `grand-idle.png` et `compact-idle.png`, face à gauche, les deux pieds posés, mains relâchées. Leur grossissement dans les sources individuelles diffère de celui des bandes : le manifeste fournit les limites de silhouette et les hauteurs visées (Yarden = 1, grand = 1,4, compact = 1,17). Réduire chaque pose à la hauteur debout du personnage déjà exporté, puis reprendre son ancrage de jeu.
+
+La scène de ruelle existe désormais dans `scene.js`. Ce complément fournit uniquement les nouvelles sources vertes et leurs aperçus ; il ne modifie ni la scène ni les PNG transparents existants. Le fond présente des variations de vert et doit encore être détouré.
