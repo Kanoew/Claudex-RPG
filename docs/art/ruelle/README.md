@@ -39,3 +39,11 @@ La découpe utilise un grossissement uniforme par bande et une ligne de sol comm
 Il n’y a pas encore de course de face ou de dos, de tenue de combat ni de dialogue raccordé. L’organisation par tenue permet d’ajouter ces ressources plus tard sans changer l’identité d’Ishara ni inventer de lore supplémentaire.
 
 Vérifications de préparation : les 28 cases ont les dimensions et marges transparentes prévues ; les deux courses conservent l’élévation de leur pose aérienne. L’aperçu charge les sept bandes dans Chromium sans exception JavaScript ; la lecture, la pause stable et l’avance image par image ont été contrôlées. Cela ne vaut pas validation du dessin ni essai des déplacements sur Android.
+
+## Reprise chibi — 29 octobre 2026
+
+Le repos chibi approuvé par Jordan sert désormais de référence pour [le nouveau pack et son aperçu](chibi/index.html) : sept bandes, quatre images chacune. Marche gauche/droite/de face/de dos, course gauche/droite et repos avec clignement. Les directions ont été générées séparément, sans miroir. Ce dossier conserve les sources sur fond vert ; les anciens PNG transparents du premier pack restent distincts.
+
+Les bandes font 2172 × 724 px : quatre cases de 543 × 724. `animations.json` décrit le découpage et les cadences provisoires. Ouvrir `chibi/index.html` pour lire, ralentir, mettre en pause ou avancer les sept animations image par image. Les grandes sources ne sont pas chargées par le jeu.
+
+Le fond fourni est vert opaque, avec de légères variations de couleur : il n’est pas exactement #00FF00 partout. Un détourage et un export léger restent nécessaires avant intégration. Vérifier aussi les raccords des pas, l’alignement des pieds, le sac à gauche anatomique et le mascara sous l’œil droit : la génération ne garantit pas leur constance dans toutes les vues. Cette livraison fournit les animations de travail, sans mise en scène ni modification de la ruelle jouable.
