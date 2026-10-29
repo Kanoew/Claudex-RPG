@@ -18,6 +18,7 @@ const levelUpConfetti = [];
 
 function startLevelUp() {
   Object.assign(player, levelStats);
+  playerLevel = levelUp.level;
   player.hp = player.maxHp;
   player.mana = player.maxMana;
   Object.assign(levelUp, { time: 0, active: true });
@@ -28,6 +29,7 @@ function startLevelUp() {
 }
 
 function resetLevelUp() {
+  playerLevel = 1;
   resetStats();
   Object.assign(player, baseStats);
   levelUp.active = false;

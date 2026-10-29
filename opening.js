@@ -13,17 +13,13 @@ function openingScript() {
       'Helvara, de nuit. Yarden se réveille dans une ruelle, adossée à un mur de briques.',
       'Plus loin, une fête bat son plein : musique, rires. Personne ne la remarque.',
       'Niveau 1. Un corps plus petit, une voix plus haute. Ses souvenirs de combat sont en morceaux.',
-      'Tiamat (voix intérieure) : « Réveillée. Ne cherche pas derrière toi, je suis partout. »'
+      'Tiamat (voix intérieure) : « Réveillée ? Ne cherche pas derrière toi, je suis partout. »'
     ] },
     { camera: { x: openingRift.x, y: openingRift.y - 120 } },
     { wait: .9 },
     { run: () => { riftShown = true; riftOpenedAt = mirrorNow(); updateStatus(); } },
     { wait: 1.6 },
-    { say: [
-      'Dans le mur de briques, une faille s’ouvre. Une déchirure verticale, comme une bouche, aux bords d’un bleu profond. Elle aspire l’air avec un bruit sourd.',
-      'Personne d’autre ne la voit.',
-      'Tiamat : « C’est moi qui l’ai ouverte. La traverser sera ton choix. »'
-    ] },
+    { say: ['Tiamat : « C’est moi qui l’ai ouverte. La traverser sera ton choix. »'] },
     { camera: null },
     { until: () => Math.hypot(player.x - openingRift.x, player.y - openingRift.y) < 100 },
     { moves: [{ id: 'yarden', path: [{ x: openingRift.x, y: openingRift.y - 10 }], speed: 150 }] },
