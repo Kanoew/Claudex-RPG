@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ishara — animations chibi</title>
+<style>
+body{margin:0;padding:20px;background:#17181e;color:#eee;font:16px system-ui}h1{font-size:24px}button,input{font:inherit}button{padding:8px;margin:4px}section{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}article{background:#252731;border-radius:10px;padding:12px}canvas{display:block;width:100%;max-width:272px;margin:auto;height:auto}a{color:#bcd6ff}.controls{position:sticky;top:0;background:#17181e;padding:8px 0}small{display:block}
+</style>
+<h1>Ishara — sept animations chibi</h1>
+<p>Quatre images par bande. Fond vert opaque. Planches de travail : aucune intégration au jeu dans ce pack.</p>
+<div class="controls"><button id="play">Pause</button><button id="next">Image suivante</button><button id="restart">Recommencer</button><label>Vitesse <input id="speed" type="range" min="25" max="200" value="100"> <span id="speedValue">100 %</span></label></div>
+<section id="clips"></section>
+<p>Ouvrir chaque PNG pour voir la bande complète. Les cadences sont provisoires ; vérifier les raccords et les détails asymétriques avant export pour le jeu.</p>
+<script src="animations-data.js"></script>
+<script>
+'use strict';
+const names = {'idle':'Repos','walk-left':'Marche gauche','walk-right':'Marche droite','walk-up':'Marche de dos','walk-down':'Marche de face','run-left':'Course gauche','run-right':'Course droite'};
+const panels = [];
+let playing = true, last = null;
+for (const [name, clip] of Object.entries(window.ISHARA_CHIBI.animations)) {
+  const article = document.createElement('article');
+  const title = document.createElement('h2'); title.textContent = names[name]; article.append(title);
+  const canvas = document.createElement('canvas'); canvas.width = 272; canvas.height = 362; article.append(canvas);
+  const label = document.createElement('small'); article.append(label);
+  const link = document.createElement('a'); link.href = clip.file; link.textContent = 'Bande PNG'; article.append(link);
+  document.getElementById('clips').append(article);
+  const img = new Image();
+  const panel = {clip,img,ctx:canvas.getContext('2d'),canvas,label,frame:0,elapsed:0};
+  panels.push(panel);
+  img.onload = () => draw(panel);
+  img.onerror = () => { label.textContent = 'Image introuvable'; };
+  img.src = clip.file;
+}
+function draw(p) {
+  if (!p.img.naturalWidth) return;
+  const [w,h] = p.clip.cell;
+  p.ctx.clearRect(0,0,p.canvas.width,p.canvas.height);
+  p.ctx.drawImage(p.img,p.frame*w,0,w,h,0,0,p.canvas.width,p.canvas.height);
+  p.label.textContent = `Image ${p.frame+1} / 4`;
+}
+document.getElementById('play').onclick = () => {
+  playing = !playing; last = null;
+  document.getElementById('play').textContent = playing ? 'Pause' : 'Lire';
+};
+document.getElementById('next').onclick = () => {
+  playing = false; document.getElementById('play').textContent = 'Lire';
+  for (const p of panels) { p.frame = (p.frame+1)%4; p.elapsed = 0; draw(p); }
+};
+document.getElementById('restart').onclick = () => {
+  for (const p of panels) { p.frame = 0; p.elapsed = 0; draw(p); }
+};
+document.getElementById('speed').oninput = e => { document.getElementById('speedValue').textContent = e.target.value+' %'; };
+document.addEventListener('visibilitychange', () => { last = null; });
+function tick(now) {
+  const dt = last === null ? 0 : Math.min(now-last,100);
+  last = now;
+  if (playing && !document.hidden) for (const p of panels) {
+    p.elapsed += dt*Number(document.getElementById('speed').value)/100;
+    while (p.elapsed >= p.clip.durationsMs[p.frame]) {
+      p.elapsed -= p.clip.durationsMs[p.frame]; p.frame = (p.frame+1)%4;
+    }
+    draw(p);
+  }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+</script>
+</html>
