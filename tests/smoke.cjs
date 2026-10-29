@@ -740,13 +740,18 @@ const tests = [
     g.update(.05);
     assert(g.scene.active);
     const said = [];
+    let cardSeen = null;
     for (let guard = 0; guard < 20000 && !g.over; guard++) {
       if (g.story.active) { said.push(g.elements['story-text'].textContent); g.advanceStory(); continue; }
       if (g.stats.open) { g.closeStats(); continue; }
       g.update(.05);
+      if (g.scene.card) cardSeen = g.scene.card.text;
       if (guard % 40 === 0) g.draw();
     }
     assert(g.over && g.scene.done && !g.scene.active, 'La scène se termine');
+    assert.equal(cardSeen, 'Dans le métro');
+    assert(said.some(line => line.includes('Éveillés')) && said.some(line => line.includes('Tu aurais pu entrer')));
+    assert(said.every(line => !/donjon/i.test(line)), 'Ishara et le récit disent faille et Abysse, jamais donjon');
     assert(said.some(line => line.includes('Pardon, désolée')));
     assert(said.some(line => line.includes('Géométrie articulaire')));
     assert(said.every(line => !/sang|faux|mana/i.test(line)), 'Ni faux, ni mana, ni sang');

@@ -423,6 +423,7 @@ function draw() {
   drawLevelUp(screenX, screenY);
   drawBossMarker(offsetX, offsetY);
   ctx.restore();
+  drawSceneCard();
   if (zoneFade > 0) {
     // Fondu depuis le noir quand Yarden arrive dans une nouvelle zone.
     ctx.fillStyle = `rgba(14, 15, 25, ${Math.min(1, zoneFade / .4)})`;

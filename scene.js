@@ -6,7 +6,7 @@
 // La scène se joue dans la moitié sud de la ruelle (côté faille, à l'opposé de la fête) : lampadaire éteint,
 // façade sans fenêtre à gauche, grille fermée à droite. Aucune faux, aucun mana, aucune autre violence que le poignet.
 // `free` : une étape « until » rend la main à Yarden jusqu'à ce que sa condition soit vraie.
-const scene = { active: false, free: false, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
+const scene = { active: false, free: false, card: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
 const sceneActors = {};
 const sceneArt = { strips: {} };
 const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, hommes: { cell: [134, 151], anchor: [67, 147] } };
@@ -77,7 +77,19 @@ function sceneScript() {
     { say: ['Le grand est parti en premier, sans courir. Le compact l’a suivi en marmonnant.', 'Yarden les reclasse en non-menace.'] },
     { moves: [move('ishara', [[180, 420]], 70), move('yarden', [[105, 395]], 70)] },
     { say: ['Ishara, adossée à la grille, bras croisés, desserre les mains du sac et souffle.', 'Ishara : « T’as fait quoi exactement ? »', 'Yarden : « Géométrie articulaire. »', 'Ishara se présente. Yarden donne son nom.', 'Ishara lui propose un lit en trop. Yarden accepte.'] },
-    { end: 'Ishara propose un lit en trop. Yarden accepte. Fin du prototype !' }
+    // Le trajet : Ishara explique le monde en marchant (sens des mots du canon de Jordan, répliques courtes à ajuster).
+    // Elle dit « faille » et « Abysse », jamais « donjon » (ce mot est celui de Valstygheim, donc de Yarden et de Tiamat).
+    { moves: [move('ishara', [[70, 400], [30, 330], [30, 120]], 80), move('yarden', [[70, 400], [30, 340], [0, 150]], 80, { delay: .6 })] },
+    { say: ['Ishara : « Un niveau, tout le monde en a un. Mais nous, on peut le voir. »', 'Yarden : « D’accord. »', 'Ishara : « Ceux qui voient, on les appelle les Éveillés. »', 'Yarden : « Je vois. »'] },
+    { moves: [move('ishara', [[30, -90]], 80), move('yarden', [[0, -60]], 80, { delay: .6 })] },
+    { say: ['Ishara : « Une faille, c’est une porte. Les gens normaux passent à côté sans la voir. »', 'Yarden : « Continue. »', 'Ishara : « Dedans, c’est un autre endroit. Le temps y va un peu de travers. »', 'Ishara : « T’as fui quelque chose ? »', 'Yarden : « On pourrait dire ça. »', 'Ishara : « Tu veux en parler ? »', 'Yarden : « Non. »'] },
+    { moves: [move('ishara', [[30, -290]], 80), move('yarden', [[0, -260]], 80, { delay: .6 })] },
+    { say: ['Ishara : « Ce qu’on ramène, ça se revend. C’est comme ça que je paye mon loyer. »', 'Yarden : « D’accord. »'] },
+    { moves: [move('ishara', [[30, -430]], 80), move('yarden', [[0, -420]], 80, { delay: .5 })] },
+    { say: ['Au bout de la ruelle, la fête de la résidence étudiante : musique, rires, de la chaleur. Yarden s’arrête.', 'Tiamat (voix intérieure) : « Tu aurais pu entrer. »', 'Tiamat : « La chaleur humaine… »', 'Tiamat : « Bien. »', 'Ishara l’attend un peu plus loin, sans rien demander.'] },
+    { card: 'Dans le métro', seconds: 2.4 },
+    { say: ['Yarden découvre le métro : ce fut une expérience.', 'Elle reste debout près de la porte, le dos contre la paroi. Ishara regarde son téléphone. Elles ne parlent pas, mais c’est confortable.'] },
+    { end: 'Devant l’immeuble d’Ishara, haussmannien et un peu fatigué. Fin du prototype !' }
   ];
 }
 
@@ -90,7 +102,7 @@ function startScene(steps = sceneScript()) {
 }
 
 function resetScene() {
-  Object.assign(scene, { active: false, free: false, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
+  Object.assign(scene, { active: false, free: false, card: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
   for (const id of Object.keys(sceneActors)) delete sceneActors[id];
 }
 
@@ -115,6 +127,7 @@ function nextSceneStep() {
     }
     if (step.wait !== undefined) return;
     if (step.until) { scene.free = true; return; }
+    if (step.card) { scene.card = { text: step.card, time: 0 }; return; }
     if (step.spawn) {
       const [id, kind, x, y, extra] = step.spawn;
       sceneActor(id, kind, x, y, extra);
@@ -181,7 +194,10 @@ function updateScene(seconds) {
   const step = scene.current;
   if (!step) return;
   if (step.moves && !Object.keys(scene.motions).length) nextSceneStep();
-  else if (step.until) {
+  else if (step.card) {
+    scene.card.time += seconds;
+    if (scene.card.time >= step.seconds) { scene.card = null; nextSceneStep(); }
+  } else if (step.until) {
     if (step.until()) { scene.free = false; nextSceneStep(); }
   } else if (step.wait !== undefined) {
     scene.timer += seconds;
@@ -235,4 +251,20 @@ function drawSceneActors(offsetX, offsetY, front) {
     ctx.drawImage(pose.strip, pose.frame * width, 0, width, height, -anchorX * scale, groundY - anchorY * scale, width * scale, height * scale);
     ctx.restore();
   }
+}
+
+// Carte de transition plein écran (« Dans le métro ») : fondu d'entrée et de sortie.
+function drawSceneCard() {
+  const card = scene.card, step = scene.current;
+  if (!card || !step) return;
+  const edge = .4, alpha = Math.max(0, Math.min(1, card.time / edge, (step.seconds - card.time) / edge));
+  ctx.save();
+  ctx.fillStyle = `rgba(8, 10, 16, ${Math.min(1, alpha * 1.4)})`;
+  ctx.fillRect(0, 0, width, height);
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = '#e7dcff';
+  ctx.font = 'italic 24px Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(card.text, width / 2, height / 2);
+  ctx.restore();
 }
