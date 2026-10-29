@@ -3,7 +3,7 @@
 // Première version jouable de l'antre : le venin, la ruse et le réveil sont
 // séparés de la progression du premier donjon. L'araignée est immobilisée, pas tuée.
 const encounter = { phase: 'waiting', elapsed: 0, blind: 0, slow: 0, fall: 0, projectiles: [], complete: false };
-const story = { active: false, lines: [], done: null };
+const story = { active: false, lines: [], done: null, current: '' };
 const spiderEnemy = () => zoneEnemies.antre[0];
 
 function showStory(lines, done) {
@@ -12,7 +12,7 @@ function showStory(lines, done) {
   story.lines = [...lines];
   story.done = done;
   document.getElementById('story-panel').hidden = false;
-  document.getElementById('story-text').textContent = story.lines.shift();
+  showStoryLine(story.lines.shift());
   document.getElementById('story-next').focus();
   updateAttackButton();
 }
@@ -20,7 +20,7 @@ function showStory(lines, done) {
 function advanceStory() {
   if (!story.active || menu.open || paused || document.hidden) return;
   if (story.lines.length) {
-    document.getElementById('story-text').textContent = story.lines.shift();
+    showStoryLine(story.lines.shift());
     return;
   }
   const done = story.done;

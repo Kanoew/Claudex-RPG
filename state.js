@@ -10,7 +10,7 @@ const attackButton = document.getElementById('attack');
 const skillButton = document.getElementById('skill');
 const dodgeButton = document.getElementById('dodge');
 const dodge = { remaining: 0, cooldown: 0, duration: .2, recovery: 1.1, speed: 500, x: 0, y: -1 };
-const skill = { cost: 20, cooldown: 0, recovery: 2.5 };
+const skill = { cost: 20, cooldown: 0, recovery: 3 };
 const status = document.getElementById('status');
 const result = document.getElementById('result');
 const resultText = document.getElementById('result-text');
@@ -38,6 +38,8 @@ let abyssReached = true;
 let credits = 0;
 // Faux avant l'ouverture de la faille dans la ruelle du chapitre 1.
 let riftShown = true;
+// Moment (en secondes) où la faille de la ruelle s'est ouverte : elle grandit depuis ce moment.
+let riftOpenedAt = 0;
 // Remplis par loadZone() à partir de la zone courante (voir zones.js).
 const room = {};
 const walls = [];
@@ -49,4 +51,4 @@ let width = 0;
 let height = 0;
 let lastTime = null;
 let facing = { x: 0, y: -1 };
-const attack = { remaining: 0, cooldown: 0, duration: .22, recovery: .45, range: 72, halfAngle: Math.PI / 3, angle: 0, hits: new Set() };
+const attack = { remaining: 0, cooldown: 0, duration: .22, recovery: .5, range: 72, halfAngle: Math.PI / 3, angle: 0, hits: new Set() };

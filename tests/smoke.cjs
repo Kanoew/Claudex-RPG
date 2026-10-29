@@ -12,7 +12,7 @@ function game(imageMode, keepOpening, store) {
   const listeners = {};
   const elements = {};
   let patterns = 0;
-  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-music', 'menu-effects', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close']) {
+  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-card', 'story-portrait', 'story-name', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-music', 'menu-effects', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close']) {
     elements[id] = {
       hidden: id === 'result', style: { setProperty(name, value) { this[name] = value; } }, offsetWidth: 54, textContent: '', attributes: {},
       classList: { toggle() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {}, focus() {},
@@ -40,7 +40,7 @@ function game(imageMode, keepOpening, store) {
     localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'dialogue.js', 'metro.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'render-quartier.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
   const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
@@ -146,7 +146,7 @@ const tests = [
     g.update(0);
     assert(g.player.armed && g.player.mana === 0, 'L’invocation reste gratuite à zéro mana');
     assert.equal(g.elements.attack.attributes['aria-disabled'], 'false');
-    assert.equal(g.elements['attack-hint'].textContent, 'Gratuite · Espace');
+    assert.equal(g.elements['attack-hint'].textContent, 'Espace');
     Object.assign(g.enemies[0], { x: 0, y: g.player.y - 50, speed: 0 });
     g.startAttack();
     assert(g.attack.remaining > 0);
@@ -253,7 +253,7 @@ const tests = [
     Object.assign(g.player, { x: 0, y: -45 });
     g.update(.05);
     for (let guard = 0; guard < 20000 && !(g.currentZone.id === 'appartement' && !g.scene.active); guard++) {
-      if (g.story.active) g.advanceStory(); else if (g.stats.open) g.closeStats(); else g.update(.05);
+      if (g.story.active) g.advanceStory(); else if (g.stats.open) g.closeStats(); else { if (g.scene.free && g.currentZone.id === 'quartier') Object.assign(g.player, { x: 0, y: -50 }); g.update(.05); }
     }
     assert.equal(g.currentZone.id, 'appartement');
     // Chez Ishara : première nuit, matin, puis le miroir, où le prototype s'arrête pour l'instant.
@@ -760,21 +760,24 @@ const tests = [
     g.update(.05);
     assert(g.scene.active);
     const said = [];
-    let cardSeen = null;
+    let metroSeen = false;
     for (let guard = 0; guard < 20000 && !(g.currentZone.id === 'appartement' && !g.scene.active); guard++) {
-      if (g.story.active) { said.push(g.elements['story-text'].textContent); g.advanceStory(); continue; }
+      if (g.story.active) { said.push(g.story.current); if (g.scene.metro) { metroSeen = true; g.draw(); } g.advanceStory(); continue; }
       if (g.stats.open) { g.closeStats(); continue; }
+      if (g.scene.free && g.currentZone.id === 'quartier') Object.assign(g.player, { x: 0, y: -50 });
       g.update(.05);
-      if (g.scene.card) cardSeen = g.scene.card.text;
+      if (g.scene.metro) metroSeen = true;
       if (guard % 40 === 0) g.draw();
     }
     assert(g.scene.done && !g.scene.active && g.currentZone.id === 'appartement', 'La scène mène à l’appartement');
     assert(said.some(line => line.includes('Troisième étage')));
-    assert.equal(cardSeen, 'Dans le métro');
+    assert(metroSeen, 'Le métro est montré');
     assert(said.some(line => line.includes('Éveillés')) && said.some(line => line.includes('Tu aurais pu entrer')));
     assert(said.every(line => !/donjon/i.test(line)), 'Ishara et le récit disent faille et Abysse, jamais donjon');
     assert(said.some(line => line.includes('Pardon, désolée')));
-    assert(said.some(line => line.includes('Géométrie articulaire')));
+    assert(said.some(line => line.startsWith('Inconnu 1 :')) && said.some(line => line.startsWith('Inconnu 2 :')), 'Inconnu 1 et Inconnu 2');
+    assert(said.every(line => !/grand|compact/i.test(line)));
+    assert(said.some(line => line.includes('Self-défense')));
     assert(said.every(line => !/sang|faux|mana/i.test(line)), 'Ni faux, ni mana, ni sang');
     assert(said.indexOf(said.find(l => l.includes('Hé.'))) < said.indexOf(said.find(l => l.includes('Aïe'))));
     assert.equal(Object.keys(g.sceneActors).length, 1, 'Seule Ishara reste');
@@ -834,28 +837,26 @@ const tests = [
     while (g.story.active) g.advanceStory();
     assert(!g.scene.active);
   }],
-  ['Miroir : texte adapté, portrait, dragon et collier dessinés puis dissous', () => {
+  ['Miroir : texte court adapté, portrait, ni dragon ni collier', () => {
     const g = armed('loaded');
     winSpider(g);
     g.levelUp.active = false;
     g.enterApartment('matin');
-    g.loadSceneArt();
     Object.assign(g.player, { x: 290, y: 28 });
     g.useInteract();
     const said = [];
-    const flags = [];
+    let framed = false;
     for (let guard = 0; guard < 600 && !g.over; guard++) {
-      if (g.story.active) { said.push(g.elements['story-text'].textContent); if (g.scene.mirror) flags.push([g.scene.mirror.cuff, g.scene.mirror.cuffFrom !== null, g.scene.mirror.pendant, g.scene.mirror.pendantFrom !== null].join()); g.draw(); g.advanceStory(); } else g.update(.05);
+      if (g.story.active) { said.push(g.story.current); if (g.scene.mirror) { framed = true; g.draw(); } g.advanceStory(); } else g.update(.05);
     }
-    assert(g.over && g.scene.mirror === null);
+    assert(g.over && g.scene.mirror === null && framed);
     const all = said.join('\n');
     assert(all.includes('Yarden : « ...C’est acceptable. »'));
-    assert(all.includes('Elle détesta ça avec méthode.'));
-    assert(all.includes('Des yeux violets'), 'Yeux violets dans la version jeu');
-    for (const banned of ['Jordan', 'bleu-gris', 'septum', 'piercing', 'Angel']) assert(!all.includes(banned), banned);
-    assert(!/\bil (s’approcha|tourna|chercha|emprunta|détesta|fronça|toucha)/i.test(all), 'Au féminin');
-    assert(flags.includes('true,false,false,false') && flags.includes('true,true,false,false'), 'Le dragon apparaît puis se dissout');
-    assert(flags.some(f => f.endsWith('true,false')) && flags.some(f => f.endsWith('true,true')), 'Le collier apparaît puis se dissout');
+    assert(all.includes('des yeux violets'), 'Yeux violets dans la version jeu');
+    for (const banned of ['Jordan', 'bleu-gris', 'septum', 'piercing', 'Angel', 'ear cuff', 'dragon', 'collier', 'chaîne']) assert(!all.includes(banned), banned);
+    assert(!all.includes('—') && !all.includes('–'), 'Pas de tiret cadratin');
+    assert(said.length <= 22, 'Scène courte');
+    assert.equal(said.filter(line => /^Tiamat : /.test(line)).length, 4);
   }],
   ['Scène de la rue : Yarden fige ses actions, reprise remet la scène à zéro', () => {
     const g = armed('loaded');
@@ -890,8 +891,10 @@ const tests = [
     assert.equal(g.elements.objective.textContent, 'Écoute');
     g.draw();
     const lines = [];
-    const next = () => { lines.push(g.elements['story-text'].textContent); g.advanceStory(); };
+    const next = () => { lines.push(g.story.current); g.advanceStory(); };
     for (let i = 0; i < 4; i++) next();
+    assert(!g.story.active && !g.riftShown, 'La caméra va regarder la faille avant qu’elle s’ouvre');
+    for (let i = 0; i < 120 && !g.story.active; i++) g.update(.05);
     assert(g.riftShown && g.story.active);
     for (let i = 0; i < 3; i++) next();
     assert(!g.story.active && g.scene.free, 'Le joueur marche librement jusqu’à la faille');
@@ -1045,12 +1048,12 @@ const tests = [
   }],
   ['Pause : le récit et le cristal ne changent pas sous le menu', () => {
     const g = game(undefined, true);
-    const text = g.elements['story-text'].textContent;
+    const text = g.story.current;
     const lines = g.story.lines.length;
     g.openMenu('pause');
     g.advanceStory();
     g.fire('window:keydown', { key: 'Enter', code: 'Enter', preventDefault() {} });
-    assert.equal(g.elements['story-text'].textContent, text);
+    assert.equal(g.story.current, text);
     assert.equal(g.story.lines.length, lines);
     g.closeMenu(); g.advanceStory();
     assert.equal(g.story.lines.length, lines - 1);

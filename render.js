@@ -176,6 +176,7 @@ function drawRoom(offsetX, offsetY) {
   const outdoors = currentZone.theme === 'ruelle';
   const crystal = currentZone.theme === 'cristal';
   const indoor = currentZone.theme === 'appart';
+  const street = currentZone.theme === 'quartier';
   const floorArt = crystal ? null : outdoors ? roomArt.asphalt : roomArt.floor;
   const wallArt = crystal ? null : outdoors ? roomArt.brick : roomArt.wall;
   if (outdoors) drawFacades(offsetX, offsetY);
@@ -183,7 +184,9 @@ function drawRoom(offsetX, offsetY) {
   ctx.beginPath();
   ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
   ctx.clip();
-  if (indoor) {
+  if (street) {
+    drawQuartierFloor(offsetX, offsetY);
+  } else if (indoor) {
     drawAppartFloor(offsetX, offsetY);
   } else if (crystal) {
     drawAntreFloor(offsetX, offsetY);
@@ -221,6 +224,7 @@ function drawRoom(offsetX, offsetY) {
     const x = wall.x + offsetX, y = wall.y + offsetY;
     if (crystal) { drawAntreSolid(wall, x, y, index >= 4); return; }
     if (indoor) { drawAppartSolid(wall, x, y, index); return; }
+    if (street) { drawQuartierSolid(wall, x, y, index); return; }
     ctx.save();
     if (outdoors && index >= 4) {
       ctx.restore();
@@ -257,7 +261,7 @@ function drawRoomShade(x, y) {
   ctx.save();
   const radius = Math.max(240, Math.min(440, Math.hypot(width, height) * .65));
   const shade = ctx.createRadialGradient(x, y, 85, x, y, radius);
-  const tint = currentZone.theme === 'appart' ? ['#2a160a00', '#2a160a14', '#2a160a58'] : currentZone.theme === 'ruelle' ? ['#050a1800', '#050a1838', '#050a18b4'] : ['#07101b00', '#07101b28', '#07101ba8'];
+  const tint = currentZone.theme === 'quartier' ? ['#0a0a1400', '#0a0a1424', '#0a0a1470'] : currentZone.theme === 'appart' ? ['#2a160a00', '#2a160a14', '#2a160a58'] : currentZone.theme === 'ruelle' ? ['#050a1800', '#050a1838', '#050a18b4'] : ['#07101b00', '#07101b28', '#07101ba8'];
   shade.addColorStop(0, tint[0]);
   shade.addColorStop(.6, tint[1]);
   shade.addColorStop(1, tint[2]);
@@ -295,16 +299,19 @@ function drawStoneDoor(x, y, open, label) {
 
 // La faille : une déchirure verticale en forme de bouche, aux bords d'un bleu profond, qui ramène dans l'Abysse.
 function drawFaille(x, y, label) {
+  // La faille s'ouvre en grandissant, ses bords ondulent, et des éclats bleus sont aspirés vers son centre.
+  const now = mirrorNow(), grow = Math.min(1, Math.max(.05, (now - riftOpenedAt) / 1.3));
+  const wave = Math.sin(now * 3.2) * 4 * grow, wide = 30 * grow;
   ctx.save();
-  const glow = ctx.createRadialGradient(x, y - 20, 8, x, y - 20, 120);
+  const glow = ctx.createRadialGradient(x, y - 20, 8, x, y - 20, 120 * (.6 + grow * .4));
   glow.addColorStop(0, '#2f6bff55');
   glow.addColorStop(1, '#2f6bff00');
   ctx.fillStyle = glow;
   ctx.fillRect(x - 120, y - 140, 240, 240);
   ctx.beginPath();
-  ctx.moveTo(x, y - 62);
-  ctx.bezierCurveTo(x + 30, y - 40, x + 30, y + 6, x, y + 34);
-  ctx.bezierCurveTo(x - 30, y + 6, x - 30, y - 40, x, y - 62);
+  ctx.moveTo(x, y - 62 * grow);
+  ctx.bezierCurveTo(x + wide + wave, y - 40 * grow, x + wide - wave, y + 6 * grow, x, y + 34 * grow);
+  ctx.bezierCurveTo(x - wide - wave, y + 6 * grow, x - wide + wave, y - 40 * grow, x, y - 62 * grow);
   ctx.closePath();
   ctx.fillStyle = '#02040b';
   ctx.fill();
@@ -314,6 +321,13 @@ function drawFaille(x, y, label) {
   ctx.strokeStyle = '#a8ccff';
   ctx.lineWidth = 1;
   ctx.stroke();
+  ctx.fillStyle = '#cfe6ff';
+  for (let i = 0; i < 14; i++) {
+    const phase = (now * .6 + i * .137) % 1, angle = i * 2.4 + now * .3, distance = (1 - phase) * 90 * grow;
+    ctx.globalAlpha = phase * .9;
+    ctx.fillRect(x + Math.cos(angle) * distance * .8 - 1, y - 14 + Math.sin(angle) * distance - 1, 2.4, 2.4);
+  }
+  ctx.globalAlpha = 1;
   ctx.fillStyle = '#111924e6';
   ctx.fillRect(x - 40, y + 36, 80, 17);
   ctx.fillStyle = '#cfe1ff';
@@ -346,10 +360,11 @@ function draw() {
   const centerX = width / 2;
   const centerY = height / 2;
   // La caméra laisse d’abord bouger Yarden, puis accompagne son déplacement.
-  const screenX = Math.max(width * .3, Math.min(width * .7, centerX + player.x));
-  const screenY = Math.max(height * .3, Math.min(height * .7, centerY + player.y));
-  const offsetX = screenX - player.x;
-  const offsetY = screenY - player.y;
+  const focus = cameraFocus();
+  const offsetX = Math.max(width * .3, Math.min(width * .7, centerX + focus.x)) - focus.x;
+  const offsetY = Math.max(height * .3, Math.min(height * .7, centerY + focus.y)) - focus.y;
+  const screenX = player.x + offsetX;
+  const screenY = player.y + offsetY;
   ctx.save();
   const shake = antreShake();
   ctx.translate(shake.x, shake.y);
@@ -429,6 +444,7 @@ function draw() {
   drawBossMarker(offsetX, offsetY);
   ctx.restore();
   drawSceneMirror();
+  drawSceneMetro();
   drawSceneCard();
   if (zoneFade > 0) {
     // Fondu depuis le noir quand Yarden arrive dans une nouvelle zone.

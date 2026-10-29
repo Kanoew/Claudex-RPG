@@ -7,7 +7,7 @@ function startAttack(empowered = false) {
   if (!player.armed || paused || combatOver || encounterBlocksMovement() || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
   player.mana -= cost;
   if (empowered) skill.cooldown = skill.recovery;
-  Object.assign(attack, { empowered, damage: empowered ? 2 : 1, duration: empowered ? .3 : .22, recovery: empowered ? .8 : .45, range: empowered ? 110 : 72 });
+  Object.assign(attack, { empowered, damage: empowered ? 2 : 1, duration: empowered ? .3 : .22, recovery: empowered ? .8 : .5, range: empowered ? 110 : 72 });
   attack.angle = Math.atan2(facing.y, facing.x);
   attack.remaining = attack.duration;
   attack.cooldown = attack.recovery;

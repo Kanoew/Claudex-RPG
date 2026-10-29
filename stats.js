@@ -12,7 +12,7 @@ function statsText() {
     `FOR ${yardenStats.FOR}   DEX ${yardenStats.DEX}   AGI ${yardenStats.AGI}   VIT ${yardenStats.VIT}`,
     `INT : ${yardenStats.INT}`,
     `Vie ${player.maxHp}   ·   Mana ${player.maxMana}`,
-    `Faux : appel gratuit, coup ${3} mana, Fauchage ${skill.cost} mana`,
+    `Faux : appel gratuit, Fauchage ${skill.cost} mana`,
     `Crédits : ${credits}`,
     'Identité administrative : aucune'
   ].join('\n');
