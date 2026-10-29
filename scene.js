@@ -89,7 +89,9 @@ function sceneScript() {
     { say: ['Au bout de la ruelle, la fête de la résidence étudiante : musique, rires, de la chaleur. Yarden s’arrête.', 'Tiamat (voix intérieure) : « Tu aurais pu entrer. »', 'Tiamat : « La chaleur humaine… »', 'Tiamat : « Bien. »', 'Ishara l’attend un peu plus loin, sans rien demander.'] },
     { card: 'Dans le métro', seconds: 2.4 },
     { say: ['Yarden découvre le métro : ce fut une expérience.', 'Elle reste debout près de la porte, le dos contre la paroi. Ishara regarde son téléphone. Elles ne parlent pas, mais c’est confortable.'] },
-    { end: 'Devant l’immeuble d’Ishara, haussmannien et un peu fatigué. Fin du prototype !' }
+    { say: ['Devant l’immeuble d’Ishara : haussmannien, un peu fatigué, la façade encore belle.'] },
+    { run: () => { enterApartment('arrive'); scene.done = true; } },
+    ...apartmentArrivalSteps()
   ];
 }
 
@@ -139,6 +141,8 @@ function nextSceneStep() {
       step.run();
     } else if (step.finish) {
       scene.active = false;
+      updateStatus();
+      updateAttackButton();
       return;
     } else if (step.end) {
       scene.active = false;

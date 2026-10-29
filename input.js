@@ -66,7 +66,7 @@ window.addEventListener('keydown', event => {
   }
   if (event.code === 'KeyF') {
     event.preventDefault();
-    if (!event.repeat) useCrystal();
+    if (!event.repeat) useInteract();
     return;
   }
   if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {

@@ -37,6 +37,7 @@ function resetDungeonRun() {
   resetInput();
   resetEncounter();
   resetScene();
+  resetApartment();
   resetLevelUp();
   loadZone('donjon');
   abyssReached = true;
@@ -171,6 +172,6 @@ const interactButton = document.getElementById('interact');
 interactButton.addEventListener('pointerdown', event => {
   if (event.pointerType === 'mouse' && event.button !== 0) return;
   event.preventDefault();
-  useCrystal();
+  useInteract();
 });
-interactButton.addEventListener('click', event => { if (event.detail === 0) useCrystal(); });
+interactButton.addEventListener('click', event => { if (event.detail === 0) useInteract(); });

@@ -27,9 +27,10 @@ function updateAttackButton() {
   dodgeButton.classList.toggle('recovering', blocked || bossDelay > 0 || dodge.cooldown > 0);
   dodgeButton.setAttribute('aria-disabled', String(blocked || bossDelay > 0 || dodge.cooldown > 0));
   const interact = document.getElementById('interact');
-  interact.hidden = currentZone.id !== 'antre';
-  interact.classList.toggle('recovering', !canUseCrystal());
-  interact.setAttribute('aria-disabled', String(!canUseCrystal()));
+  interact.hidden = !hasInteract();
+  interact.textContent = currentZone.id === 'antre' ? 'Cristal · F' : 'Examiner · F';
+  interact.classList.toggle('recovering', !canInteract());
+  interact.setAttribute('aria-disabled', String(!canInteract()));
   updateButtonHints();
 }
 
