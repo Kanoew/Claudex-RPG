@@ -6,7 +6,7 @@ const menu = { open: false, kind: 'title', confirm: null };
 const menuPanel = document.getElementById('menu-panel');
 const menuButtons = {
   continue: document.getElementById('menu-continue'), new: document.getElementById('menu-new'), resume: document.getElementById('menu-resume'),
-  restart: document.getElementById('menu-restart'), stats: document.getElementById('menu-stats')
+  restart: document.getElementById('menu-restart'), sound: document.getElementById('menu-sound'), stats: document.getElementById('menu-stats')
 };
 
 function menuLabelFor(save) {
@@ -36,6 +36,8 @@ function openMenu(kind) {
   menuButtons.restart.hidden = kind !== 'pause' || !save;
   menuButtons.restart.textContent = 'Revenir au dernier point de passage';
   menuButtons.stats.hidden = kind !== 'pause' || !stats.unlocked;
+  menuButtons.sound.textContent = soundLabel();
+  syncMusic();
   menuPanel.hidden = false;
   (kind === 'title' ? (save ? menuButtons.continue : menuButtons.new) : menuButtons.resume).focus();
   updateAttackButton();
@@ -72,6 +74,7 @@ menuButtons.continue.addEventListener('click', menuContinue);
 menuButtons.new.addEventListener('click', menuNewGame);
 menuButtons.resume.addEventListener('click', closeMenu);
 menuButtons.restart.addEventListener('click', menuContinue);
+menuButtons.sound.addEventListener('click', () => { setSound(!audio.enabled); menuButtons.sound.textContent = soundLabel(); });
 menuButtons.stats.addEventListener('click', () => { menuPanel.hidden = true; openStats(() => { menuPanel.hidden = false; menuButtons.stats.focus(); }); });
 const pauseButton = document.getElementById('pause-button');
 pauseButton.addEventListener('click', () => { if (!menu.open && !combatOver) openMenu('pause'); else if (menu.open && menu.kind === 'pause') closeMenu(); });

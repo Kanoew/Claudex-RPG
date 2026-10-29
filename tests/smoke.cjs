@@ -8,10 +8,11 @@ const vm = require('node:vm');
 const root = path.join(__dirname, '..');
 
 function game(imageMode, keepOpening, store) {
+  const audioLog = { contexts: 0, started: 0, timers: [] };
   const listeners = {};
   const elements = {};
   let patterns = 0;
-  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close']) {
+  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-sound', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close']) {
     elements[id] = {
       hidden: id === 'result', style: { setProperty(name, value) { this[name] = value; } }, offsetWidth: 54, textContent: '', attributes: {},
       classList: { toggle() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {}, focus() {},
@@ -26,14 +27,23 @@ function game(imageMode, keepOpening, store) {
   const context = vm.createContext({
     document, window: { devicePixelRatio: 1, addEventListener: (name, fn) => (listeners['window:' + name] ??= []).push(fn) },
     Image: imageMode ? class { set src(value) { if (imageMode === 'error') this.onerror(); else this.onload(); } } : undefined,
-    ResizeObserver: class { observe() {} }, requestAnimationFrame() {},
+    ResizeObserver: class { observe() {} }, requestAnimationFrame() {}, setInterval: fn => { audioLog.timers.push(fn); return 1; },
+    AudioContext: class {
+      constructor() { this.currentTime = 0; this.state = 'running'; this.destination = {}; audioLog.contexts++; }
+      createGain() { const param = () => ({ value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} }); return { gain: param(), connect() {} }; }
+      createOscillator() { const f = { value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} }; return { type: '', frequency: f, connect() {}, start() { audioLog.started++; }, stop() {} }; }
+      createBiquadFilter() { const f = { value: 0, setValueAtTime() {}, exponentialRampToValueAtTime() {} }; return { type: '', Q: { value: 0 }, frequency: f, connect() {} }; }
+      createBufferSource() { return { connect() {}, start() { audioLog.started++; }, stop() {}, loop: false }; }
+      createBuffer(channels, length) { return { getChannelData: () => new Float32Array(length) }; }
+      resume() { this.state = 'running'; } suspend() { this.state = 'suspended'; }
+    },
     localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'opening.js', 'render-antre.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
-  return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, audio, unlockAudio, playSfx, scheduleMusic, setSound, soundLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
   const g = game(mode);
@@ -247,7 +257,7 @@ const tests = [
     }
     assert.equal(g.currentZone.id, 'appartement');
     // Chez Ishara : première nuit, matin, puis le miroir, où le prototype s'arrête pour l'instant.
-    Object.assign(g.player, { x: -228, y: 215 });
+    Object.assign(g.player, { x: -170, y: 90 });
     g.useInteract();
     for (let guard = 0; guard < 400 && g.home.stage === 'arrive'; guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
     for (let guard = 0; guard < 400 && (g.scene.active || g.story.active); guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
@@ -782,7 +792,7 @@ const tests = [
     g.draw();
     // Chaque objet du canon est examinable, avec un texte qui reprend le canon.
     const ids = g.apartmentSpots.map(s => s.id);
-    for (const id of ['fenetre', 'livres', 'tablebasse', 'canape', 'table', 'comptoir', 'porte-ishara', 'placard', 'lit', 'shampoings', 'radiateur', 'miroir']) assert(ids.includes(id), id);
+    for (const id of ['fenetre', 'livres', 'tablebasse', 'canape', 'table', 'comptoir', 'porte-ishara', 'placard', 'lit', 'parquet', 'shampoings', 'radiateur', 'miroir']) assert(ids.includes(id), id);
     const texts = g.apartmentSpots.map(s => (s.lines() || []).join(' ')).join(' ');
     for (const part of ['plantes', 'deux tasses', 'Pas de télé', 'mange debout', 'bouilloire', 'La porte est fermée', 'shampoings', 'serviettes', 'trente secondes']) assert(texts.toLowerCase().includes(part.toLowerCase()), part);
     assert(!/bleu/i.test(texts));
@@ -1066,6 +1076,45 @@ const tests = [
       assert.equal(g.zoneEnemies.antre[0].incapacitated, checkpoint === 'rue');
       assert.equal(g.encounter.phase, checkpoint === 'rue' ? 'complete' : 'waiting');
     }
+  }],
+  ['Son : rien avant un geste, musique douce, coup de faux, réglage gardé', () => {
+    const store = { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } };
+    const g = armed('loaded');
+    const a = game('loaded', false, store);
+    assert.equal(a.audioLog.contexts, 0, 'Aucun son avant un geste du joueur');
+    a.player.y = 144; a.update(.01);
+    a.startAttack(false);
+    assert.equal(a.audioLog.started, 0);
+    a.fire('window:pointerdown');
+    assert.equal(a.audioLog.contexts, 1);
+    a.fire('window:pointerdown');
+    assert.equal(a.audioLog.contexts, 1, 'Un seul moteur sonore');
+    a.syncMusic();
+    a.audio.next = 0;
+    a.audioLog.timers[0]();
+    assert(a.audioLog.started >= 2, 'La musique se programme');
+    a.update(1.2);
+    a.attack.cooldown = 0; a.attack.remaining = 0;
+    a.startAttack(false);
+    assert(a.audio.played.includes('slash'), 'Le coup de faux fait un bruit de lame');
+    a.hurtPlayer();
+    assert(a.audio.played.includes('hurt'));
+    // Réglage : coupé, gardé dans le navigateur, relu au lancement suivant ; plus aucun bruitage.
+    assert.equal(a.soundLabel(), 'Son : activé');
+    a.setSound(false);
+    assert.equal(a.soundLabel(), 'Son : coupé');
+    const before = a.audio.played.length;
+    a.playSfx('slash');
+    assert.equal(a.audio.played.length, before);
+    const b = game('loaded', false, store);
+    assert.equal(b.audio.enabled, false);
+    // Musique selon le lieu.
+    g.syncMusic();
+    assert.equal(g.audio.theme, 'abysse');
+    g.loadZone('exterieur'); g.syncMusic();
+    assert.equal(g.audio.theme, 'ville');
+    // Sans moteur sonore disponible, le jeu continue.
+    g.playSfx('slash'); g.startAttack(false);
   }],
   ['Antre : reprendre après une mort réinitialise le combat sans refaire le Troll', () => {
     const g = beginSpider(armed());

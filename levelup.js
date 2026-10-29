@@ -21,6 +21,7 @@ function startLevelUp() {
   player.hp = player.maxHp;
   player.mana = player.maxMana;
   Object.assign(levelUp, { time: 0, active: true });
+  playSfx('levelup');
   resetInput();
   updateStatus();
   updateAttackButton();

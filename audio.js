@@ -1,0 +1,132 @@
+'use strict';
+
+// Son en code, sans fichier : une petite musique de style 8 bits, très discrète, et quelques bruitages (coup de faux, impact,
+// dégâts, montée de niveau). Le navigateur n'autorise le son qu'après un geste du joueur : rien ne joue avant le premier appui.
+// Le choix « Son activé / coupé » est gardé dans le navigateur et se change dans les menus.
+const audio = { context: null, master: null, music: null, sfx: null, noise: null, enabled: true, theme: null, step: 0, next: 0, timer: null, played: [] };
+const soundKey = 'yarden-son-1';
+// Notes MIDI par croche (0 = silence). `abysse` : mineur, lent, tendu ; `ville` : pentatonique douce, plus chaude.
+const musicThemes = {
+  abysse: {
+    seconds: .36, wave: 'square',
+    lead: [69, 0, 72, 0, 76, 0, 72, 0, 74, 0, 77, 0, 81, 0, 77, 0, 76, 0, 72, 0, 71, 0, 72, 0, 69, 0, 0, 0, 64, 0, 0, 0],
+    bass: [45, 0, 0, 0, 45, 0, 0, 0, 41, 0, 0, 0, 41, 0, 0, 0, 40, 0, 0, 0, 40, 0, 0, 0, 45, 0, 0, 0, 45, 0, 0, 0]
+  },
+  ville: {
+    seconds: .32, wave: 'square',
+    lead: [76, 0, 79, 0, 81, 0, 79, 0, 76, 0, 74, 0, 72, 0, 0, 0, 74, 0, 77, 0, 79, 0, 77, 0, 74, 0, 72, 0, 67, 0, 0, 0],
+    bass: [48, 0, 0, 0, 55, 0, 0, 0, 53, 0, 0, 0, 55, 0, 0, 0, 50, 0, 0, 0, 57, 0, 0, 0, 55, 0, 0, 0, 48, 0, 0, 0]
+  }
+};
+
+function readSoundSetting() {
+  const store = storage();
+  try { return !store || store.getItem(soundKey) !== '0'; } catch (error) { return true; }
+}
+
+function soundLabel() {
+  return audio.enabled ? 'Son : activé' : 'Son : coupé';
+}
+
+// À appeler au premier geste du joueur (clic, touche, doigt) : crée le moteur sonore.
+function unlockAudio() {
+  if (audio.context || typeof AudioContext === 'undefined') return;
+  try {
+    const context = new AudioContext();
+    const master = context.createGain(), music = context.createGain(), sfx = context.createGain();
+    master.gain.value = audio.enabled ? 1 : 0;
+    music.gain.value = .07;
+    sfx.gain.value = .5;
+    music.connect(master); sfx.connect(master); master.connect(context.destination);
+    const noise = context.createBuffer(1, 4410, 44100), data = noise.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    Object.assign(audio, { context, master, music, sfx, noise, next: context.currentTime + .1, step: 0 });
+    if (context.state === 'suspended') context.resume();
+    audio.timer = setInterval(scheduleMusic, 120);
+  } catch (error) {
+    audio.context = null;
+  }
+}
+
+function setSound(enabled) {
+  audio.enabled = enabled;
+  if (audio.master) audio.master.gain.value = enabled ? 1 : 0;
+  const store = storage();
+  try { if (store) store.setItem(soundKey, enabled ? '1' : '0'); } catch (error) { /* tant pis */ }
+}
+
+const midiHz = note => 440 * Math.pow(2, (note - 69) / 12);
+
+function tone(wave, note, start, length, volume, target) {
+  const context = audio.context, oscillator = context.createOscillator(), gain = context.createGain();
+  oscillator.type = wave;
+  oscillator.frequency.setValueAtTime(midiHz(note), start);
+  gain.gain.setValueAtTime(0, start);
+  gain.gain.linearRampToValueAtTime(volume, start + .01);
+  gain.gain.linearRampToValueAtTime(0, start + length);
+  oscillator.connect(gain); gain.connect(target);
+  oscillator.start(start); oscillator.stop(start + length + .02);
+}
+
+function scheduleMusic() {
+  const context = audio.context, theme = musicThemes[audio.theme];
+  if (!context || !theme || context.state !== 'running') return;
+  while (audio.next < context.currentTime + .3) {
+    const i = audio.step % theme.lead.length;
+    if (theme.lead[i]) tone(theme.wave, theme.lead[i], audio.next, theme.seconds * 1.4, .5, audio.music);
+    if (theme.bass[i]) tone('triangle', theme.bass[i], audio.next, theme.seconds * 3, 1, audio.music);
+    audio.next += theme.seconds;
+    audio.step++;
+  }
+}
+
+// Musique selon le lieu : l'Abysse (donjon, antre) ou la ville (ruelle, appartement).
+function syncMusic() {
+  const theme = currentZone.id === 'donjon' || currentZone.id === 'antre' ? 'abysse' : 'ville';
+  if (theme === audio.theme) return;
+  audio.theme = theme;
+  audio.step = 0;
+  if (audio.context) audio.next = audio.context.currentTime + .1;
+}
+
+function playSfx(name) {
+  const context = audio.context;
+  if (!context || !audio.enabled) return;
+  audio.played.push(name);
+  if (audio.played.length > 20) audio.played.shift();
+  const now = context.currentTime;
+  if (name === 'slash') {
+    // Souffle de lame : bruit filtré qui descend, plus un petit sifflement.
+    const source = context.createBufferSource(), filter = context.createBiquadFilter(), gain = context.createGain();
+    source.buffer = audio.noise; source.loop = true;
+    filter.type = 'bandpass'; filter.Q.value = 1.2;
+    filter.frequency.setValueAtTime(3600, now); filter.frequency.exponentialRampToValueAtTime(700, now + .14);
+    gain.gain.setValueAtTime(.7, now); gain.gain.linearRampToValueAtTime(0, now + .15);
+    source.connect(filter); filter.connect(gain); gain.connect(audio.sfx);
+    source.start(now); source.stop(now + .17);
+    const whistle = context.createOscillator(), whistleGain = context.createGain();
+    whistle.type = 'sawtooth';
+    whistle.frequency.setValueAtTime(1100, now); whistle.frequency.exponentialRampToValueAtTime(240, now + .12);
+    whistleGain.gain.setValueAtTime(.12, now); whistleGain.gain.linearRampToValueAtTime(0, now + .12);
+    whistle.connect(whistleGain); whistleGain.connect(audio.sfx);
+    whistle.start(now); whistle.stop(now + .14);
+  } else if (name === 'hit' || name === 'hurt') {
+    const oscillator = context.createOscillator(), gain = context.createGain();
+    oscillator.type = name === 'hit' ? 'square' : 'sawtooth';
+    oscillator.frequency.setValueAtTime(name === 'hit' ? 240 : 200, now);
+    oscillator.frequency.exponentialRampToValueAtTime(name === 'hit' ? 90 : 55, now + (name === 'hit' ? .09 : .22));
+    gain.gain.setValueAtTime(name === 'hit' ? .3 : .35, now); gain.gain.linearRampToValueAtTime(0, now + (name === 'hit' ? .1 : .24));
+    oscillator.connect(gain); gain.connect(audio.sfx);
+    oscillator.start(now); oscillator.stop(now + .26);
+  } else if (name === 'levelup') {
+    [72, 76, 79, 84].forEach((note, i) => tone('square', note, now + i * .09, .16, .35, audio.sfx));
+  }
+}
+
+window.addEventListener('pointerdown', unlockAudio);
+window.addEventListener('keydown', unlockAudio);
+document.addEventListener('visibilitychange', () => {
+  if (!audio.context) return;
+  if (document.hidden) audio.context.suspend(); else audio.context.resume();
+});
+audio.enabled = readSoundSetting();
