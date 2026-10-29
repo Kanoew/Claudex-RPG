@@ -29,8 +29,8 @@ function game(imageMode) {
     ResizeObserver: class { observe() {} }, requestAnimationFrame() {}
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'npc.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'render.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, scene, sceneActors, sceneArt, loadSceneArt, sceneActorPose, resetScene, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -211,9 +211,12 @@ const tests = [
     assert(!g.over, 'La sortie du donjon mène à la deuxième salle');
     assert.equal(g.currentZone.id, 'antre');
     winSpider(g);
-    // Au bout de la ruelle, côté rue, au nord de la zone extérieure : fin du prototype.
-    Object.assign(g.player, { x: 0, y: -495 });
-    for (let i = 0; i < 4; i++) g.update(.05);
+    // Yarden remonte la ruelle : la scène du chapitre 2 se joue, puis c'est la fin du prototype.
+    Object.assign(g.player, { x: 0, y: -45 });
+    g.update(.05);
+    for (let guard = 0; guard < 20000 && !g.over; guard++) {
+      if (g.story.active) g.advanceStory(); else g.update(.05);
+    }
     assert(g.over && g.stage === 'escaped');
     assert(g.elements['result-text'].textContent.includes('Fin du prototype'));
     assert(g.elements['result-details'].textContent.includes('Temps de jeu'));
@@ -525,8 +528,9 @@ const tests = [
     assert.equal(hits(0, ext.room.y + 90, 30), false);
     assert(ext.blocks.every(b => b.x >= ext.room.x && b.x + b.width <= ext.room.x + ext.room.width && b.y > ext.room.y && b.y + b.height < ext.room.y + ext.room.height));
     assert(ext.blocks.every(b => ['benne', 'caisses', 'poubelles', 'scooter'].includes(b.kind)));
-    assert(ext.props.filter(p => p.kind === 'lampe').length === 3);
-    assert(ext.props.length >= 60 && ext.props.filter(p => p.kind !== 'lampe').every(p => !hits(p.x, p.y, 8)));
+    assert(ext.props.filter(p => p.kind === 'lampe').length === 2);
+    assert(ext.props.some(p => p.kind === 'lampe-eteinte') && ext.props.some(p => p.kind === 'grille'));
+    assert(ext.props.length >= 60 && ext.props.filter(p => p.kind !== 'lampe' && p.kind !== 'grille').every(p => !hits(p.x, p.y, 8)));
     // Il existe un chemin de la faille à la rue pour un disque de la taille de Yarden.
     const g = game();
     g.loadZone('exterieur');
@@ -681,7 +685,7 @@ const tests = [
       fallback.draw();
     }
   }],
-  ['Araignée : incapacitation vivante, réveil dans la ruelle et deux passants', () => {
+  ['Araignée : incapacitation vivante et réveil dans la ruelle', () => {
     const g = armed('loaded');
     winSpider(g);
     const spider = g.zoneEnemies.antre[0];
@@ -690,13 +694,50 @@ const tests = [
     assert(g.encounter.complete && !g.over);
     assert(!g.yardenSprite.defeated);
     assert.equal(g.activeEnemies().length, 0);
-    assert.equal(g.currentZone.npcs.length, 2);
+    assert(!g.currentZone.npcs, 'Plus de passants provisoires');
     Object.assign(g.player, { x: 0, y: 500 });
     assert.equal(g.doorAtPlayer(), null, 'La faille se ferme après le réveil');
-    const before = JSON.stringify(g.currentZone.npcs);
     g.draw();
-    assert.equal(JSON.stringify(g.currentZone.npcs), before);
-    assert(!g.allEnemies().some(e => e.name === 'Passante' || e.name === 'Passant'));
+    assert(!g.scene.active && !g.scene.done);
+  }],
+  ['Scène de la rue : déclenchement, déroulé canon, fin du prototype', () => {
+    const g = armed('loaded');
+    winSpider(g);
+    g.loadSceneArt();
+    g.keys.clear();
+    Object.assign(g.player, { x: 0, y: 300 });
+    g.update(.05);
+    assert(!g.scene.active, 'La scène attend que Yarden remonte la ruelle');
+    g.player.y = -45;
+    g.update(.05);
+    assert(g.scene.active);
+    const said = [];
+    for (let guard = 0; guard < 20000 && !g.over; guard++) {
+      if (g.story.active) { said.push(g.elements['story-text'].textContent); g.advanceStory(); continue; }
+      g.update(.05);
+      if (guard % 40 === 0) g.draw();
+    }
+    assert(g.over && g.scene.done && !g.scene.active, 'La scène se termine');
+    assert(said.some(line => line.includes('Pardon, désolée')));
+    assert(said.some(line => line.includes('Géométrie articulaire')));
+    assert(said.every(line => !/sang|faux|mana/i.test(line)), 'Ni faux, ni mana, ni sang');
+    assert(said.indexOf(said.find(l => l.includes('Hé.'))) < said.indexOf(said.find(l => l.includes('Aïe'))));
+    assert(g.elements['result-text'].textContent.includes('Fin du prototype'));
+    assert.equal(Object.keys(g.sceneActors).length, 1, 'Seule Ishara reste');
+    assert.equal(g.player.hp, g.player.maxHp, 'Aucun dégât pendant la scène');
+    assert.equal(g.scene.log.join(' ').includes('Passant'), false);
+  }],
+  ['Scène de la rue : Yarden fige ses actions, reprise remet la scène à zéro', () => {
+    const g = armed('loaded');
+    winSpider(g);
+    g.keys.add('KeyW');
+    g.player.y = -45;
+    g.update(.05);
+    assert(g.scene.active);
+    g.startAttack(false);
+    assert.equal(g.attack.remaining, 0, 'Pas d’attaque pendant la scène');
+    g.resetScene();
+    assert(!g.scene.active && Object.keys(g.sceneActors).length === 0);
   }],
   ['Antre : reprendre après une mort réinitialise le combat sans refaire le Troll', () => {
     const g = beginSpider(armed());
