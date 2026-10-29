@@ -5,7 +5,7 @@
   "background": {
     "type": "opaque-green",
     "target": "#00FF00",
-    "note": "Le vert des illustrations sources présente de légères variations ; les marges ajoutées sont #00FF00. Aucun canal alpha ni détourage appliqué."
+    "note": "Fond vert opaque #00FF00 harmonisé pour les bandes exportées ; sources originales conservées séparément. Aucun canal alpha ni export transparent appliqué."
   },
   "animations": {
     "ramassage": {
