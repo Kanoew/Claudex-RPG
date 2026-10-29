@@ -8,8 +8,9 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Plus loin, une fête bat son plein : musique, rires. Personne ne la remarque.
 - Niveau 1. Un corps plus petit, une voix plus haute. Ses souvenirs de combat sont en morceaux.
 - **Tiamat** : « Réveillée ? Ne cherche pas derrière toi, je suis partout. »
-- **Tiamat** : « Tu régnais sur un donjon de 182 étages. »
-- **Tiamat** : « Ils t’ont voté. Tu étais trop grand pour qu’ils te comptent. »
+- **Tiamat** : « Tu régnais sur un donjon de 182 étages, à Valstygheim. »
+- **Tiamat** : « Tu étais trop grand pour qu’ils te comptent. »
+- **Tiamat** : « Ils ont voté ta mort. Bienvenue à Helvara. »
 - **Tiamat** : « C’est moi qui l’ai ouverte. La traverser sera ton choix. »
 - **Tiamat** : « L’Abysse est trop dangereux pour une niveau 1. Je t’accompagne. »
 
