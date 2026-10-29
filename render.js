@@ -392,7 +392,9 @@ function draw() {
     ctx.save();
     ctx.translate(screenX, screenY);
     ctx.rotate(attack.angle);
+    const drawn = weaponArt[attack.empowered ? 'empowered' : 'base'] !== null;
     ctx.fillStyle = attack.empowered ? '#70ddff44' : '#c5afff44';
+    ctx.globalAlpha = drawn ? .25 : 1;
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.arc(0, 0, attack.range, -attack.halfAngle, attack.halfAngle);
@@ -401,6 +403,7 @@ function draw() {
     ctx.strokeStyle = attack.empowered ? '#70ddff' : '#c5afff';
     ctx.lineWidth = 2;
     ctx.stroke();
+    ctx.globalAlpha = 1;
     // Faux provisoire en formes simples, seulement si les images de Yarden manquent : sinon c'est le sprite qui la porte.
     if (!yardenSpriteActive()) {
       const progress = 1 - attack.remaining / attack.duration;
@@ -420,6 +423,7 @@ function draw() {
       ctx.fill();
     }
     ctx.restore();
+    drawAttackArc(screenX, screenY);
   }
   let labelY = screenY - 23;
   const spriteTop = drawYardenSprite(screenX, screenY);

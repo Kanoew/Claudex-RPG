@@ -70,14 +70,17 @@ function drawDungeon(offsetX, offsetY) {
   ctx.fillStyle = '#eae7f5';
   if (currentZone.id !== 'donjon' || player.armed) return;
   const x = weapon.x + offsetX, y = weapon.y + offsetY;
-  ctx.strokeStyle = '#c5afff';
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.arc(x, y, 27, 0, Math.PI * 2);
-  ctx.moveTo(x - 8, y + 16);
-  ctx.lineTo(x + 6, y - 16);
-  ctx.quadraticCurveTo(x + 28, y - 14, x + 13, y + 3);
-  ctx.stroke();
+  if (!drawWeaponPickup(x, y)) {
+    // Dessin de secours si l'image n'est pas chargée.
+    ctx.strokeStyle = '#c5afff';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(x, y, 27, 0, Math.PI * 2);
+    ctx.moveTo(x - 8, y + 16);
+    ctx.lineTo(x + 6, y - 16);
+    ctx.quadraticCurveTo(x + 28, y - 14, x + 13, y + 3);
+    ctx.stroke();
+  }
   ctx.fillStyle = '#eae7f5';
-  ctx.fillText('FAUX', x, y - 37);
+  ctx.fillText('FAUX', x, y - 50);
 }

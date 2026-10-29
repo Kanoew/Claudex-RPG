@@ -169,6 +169,7 @@ loadMonsterArt();
 loadSceneArt();
 loadMirrorArt();
 loadPortraits();
+loadWeaponArt();
 // Le jeu s'ouvre dans la ruelle ; ?skip dans le lien commence directement dans le donjon.
 if (typeof location !== 'undefined' && /[?&]skip\b/.test(location.search)) skipOpening(); else { titleBackdrop(); openMenu('title'); }
 requestAnimationFrame(frame);

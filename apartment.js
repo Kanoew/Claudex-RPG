@@ -72,7 +72,7 @@ function resetApartment() {
 // Arrivée : les clés, la bouilloire, le thé (canon : thé, puis café ; courbatures ; première nuit).
 function apartmentArrivalSteps() {
   return [
-    { say: ['Troisième étage. Ishara jette ses clés sur le comptoir en rentrant.', 'Ishara : « Thé ? »', 'Ishara : « Lait ? Sucre ? »', 'Yarden : « Noir. »', 'Ishara : « Femme de goût. »', 'Ishara : « La chambre en trop, c’est la première à gauche. Y’a des trucs dans le placard si t’as besoin, ma coloc met des années à récupérer ses affaires. »', 'Ishara : « Salle de bain en face. Le robinet froid met trente secondes à devenir chaud, c’est normal. »', 'Ishara lance une serviette sans vérifier si Yarden l’attrape. Yarden l’attrape.'] },
+    { say: ['Troisième étage. Ishara jette ses clés sur le comptoir en rentrant.', 'Ishara[sourire] : « Thé ? »', 'Ishara : « Lait ? Sucre ? »', 'Yarden : « Noir. »', 'Ishara[sourire] : « Femme de goût. »', 'Ishara : « La chambre en trop, c’est la première à gauche. Y’a des trucs dans le placard si t’as besoin, ma coloc met des années à récupérer ses affaires. »', 'Ishara : « Salle de bain en face. Le robinet froid met trente secondes à devenir chaud, c’est normal. »', 'Ishara lance une serviette sans vérifier si Yarden l’attrape. Yarden l’attrape.'] },
     { finish: true }
   ];
 }
