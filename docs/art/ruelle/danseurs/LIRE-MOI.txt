@@ -1,0 +1,11 @@
+DANSEURS DE LA FÊTE
+
+Deux bandes de 6 cases de 128 × 148 px, fond vert opaque #00FF00.
+Ancrage commun : (64,132). Hauteur debout visée : 100 px.
+Durées : 180,180,220,180,180,220 ms ; boucle oui.
+Fille : robe rouge, cheveux noirs attachés. Garçon : t-shirt pêche, pantalon brun, cheveux noirs courts.
+
+Ouvrir index.html pour voir les mouvements et les ancrages.
+animations.json décrit le découpage et les durées. animations-data.js permet l’aperçu hors connexion.
+Les images originales sont conservées dans sources/. Les bandes sont redimensionnées sans miroir, avec marge et harmonisation du vert ; aucun détourage alpha.
+Livraison de ressources uniquement : détourage et intégration au jeu restent à réaliser.
