@@ -54,8 +54,5 @@ function drawSceneMetro() {
   };
   place(yarden, [96, 104], [48, 101], Math.floor(t * 1.3) % 6, width * .5 - 70, false);
   place(ishara, [86, 115], [43, 111], Math.floor(t * 1.1) % 4, width * .5 + 50, false);
-  // Lueur du téléphone d'Ishara.
-  ctx.fillStyle = '#dfe9ff';
-  ctx.fillRect(width * .5 + 50 - 26, floorY + 18 - 78 * scale / 1.4, 8, 12);
   ctx.restore();
 }

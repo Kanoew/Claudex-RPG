@@ -158,6 +158,7 @@ function frame(time) {
   lastTime = time;
   update(seconds);
   draw();
+  drawMenuVignette();
   requestAnimationFrame(frame);
 }
 resize();

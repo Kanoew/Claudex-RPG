@@ -15,6 +15,8 @@ function hudMeter(id, value, max) {
 }
 
 function updateHud() {
+  const chip = document.getElementById('level-chip');
+  if (chip) { chip.hidden = !abyssReached; hudText('level-chip', `NIV. ${playerLevel}`); }
   const app = document.getElementById('app');
   if (app) app.classList.toggle('prologue', !abyssReached);
   hudMeter('hp-meter', player.hp, player.maxHp);
@@ -26,11 +28,11 @@ function updateHud() {
   document.getElementById('boss-panel').hidden = !bossVisible;
   hudMeter('boss-meter', boss.hp, boss.maxHp);
   hudText('boss-value', `${boss.hp} / ${boss.maxHp}`);
-  hudText('boss-state', bossDelay > 0 ? 'APPARITION' : boss.windup > 0 ? 'ÉCARTE-TOI' : 'TROLL');
+  hudText('boss-state', bossDelay > 0 ? 'APPARITION' : boss.windup > 0 ? 'ÉCARTE-TOI' : 'TROLL · NIV. 32');
   const outside = currentZone.id === 'exterieur';
   const indoors = currentZone.id === 'appartement';
   const antre = currentZone.id === 'antre';
-  hudText('opponents', currentZone.id === 'quartier' ? 'Quartier étudiant' : indoors ? 'Chez Ishara' : outside ? 'Ruelle calme' : antre ? 'Araignée de cristal' : stage === 'guards' ? `Gobelin ${enemies[0].hp}/3 · Ogre ${enemies[1].hp}/2` : stage === 'entry' ? 'Chapitre 1' : stage === 'boss' ? 'Le Troll de l’Abysse' : 'Donjon parcouru');
+  hudText('opponents', currentZone.id === 'quartier' ? 'Quartier étudiant' : indoors ? 'Chez Ishara' : outside ? 'Ruelle calme' : antre ? 'Araignée de cristal · Niv. 41' : stage === 'guards' ? `Gobelin éclaireur Niv. 8-12 · ${enemies[0].hp}/3   Ogre Niv. 25 · ${enemies[1].hp}/2` : stage === 'entry' ? 'Chapitre 1' : stage === 'boss' ? 'Troll de l’Abysse · Niv. 32' : 'Donjon parcouru');
   const goal = paused && !combatOver ? 'En pause — reviens au jeu' : currentZone.id === 'appartement' ? apartmentGoal() : currentZone.id === 'quartier' ? 'Rejoins Ishara devant la porte ↑' : !abyssReached ? (riftShown ? 'Marche jusqu’à la faille ↓' : 'Écoute') : !player.armed ? 'Rejoins la faux violette ↑' : antre ? encounterGoal() : outside ? (scene.active ? 'Suis la scène' : 'Rejoins la rue au nord ↑') : bossDelay > 0 ? 'Le Troll apparaît' : stage === 'guards' ? 'Vaincs le gobelin et l’ogre' : stage === 'boss' ? 'Vaincs le Troll' : stage === 'exit' ? 'Rejoins la porte verte ↑' : 'Tu as quitté l’Abysse';
   hudText('objective', goal);
 }

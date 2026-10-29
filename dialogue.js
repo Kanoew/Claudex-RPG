@@ -35,12 +35,23 @@ function drawPortrait(who, expression) {
     pen.fillStyle = '#2b3347'; pen.fillRect(0, 0, size, size);
     pen.drawImage(image, 0, 0, size, size);
   } else if (who === 'Tiamat') {
-    // Pas de visage : la pierre bleue marbrée sur sa chaîne.
-    const glow = pen.createRadialGradient(size / 2, size / 2, 6, size / 2, size / 2, size / 2);
-    glow.addColorStop(0, '#6b57e8'); glow.addColorStop(1, '#0d0a1e');
-    pen.fillStyle = glow; pen.fillRect(0, 0, size, size);
-    pen.fillStyle = '#5d8fd6'; pen.beginPath(); pen.arc(size / 2, size / 2, size * .2, 0, Math.PI * 2); pen.fill();
-    pen.fillStyle = '#b6d0f5'; pen.beginPath(); pen.arc(size / 2 - 8, size / 2 - 10, size * .06, 0, Math.PI * 2); pen.fill();
+    // Pas de visage : un œil de dragon, iris bleu-violet et pupille fendue, dans le noir.
+    const dark = pen.createRadialGradient(size / 2, size / 2, 6, size / 2, size / 2, size * .75);
+    dark.addColorStop(0, '#2a1d52'); dark.addColorStop(1, '#0a0716');
+    pen.fillStyle = dark; pen.fillRect(0, 0, size, size);
+    const cx = size / 2, cy = size / 2, w = size * .42, h = size * .22;
+    pen.beginPath();
+    pen.moveTo(cx - w, cy); pen.quadraticCurveTo(cx, cy - h * 2.1, cx + w, cy); pen.quadraticCurveTo(cx, cy + h * 2.1, cx - w, cy);
+    pen.closePath();
+    pen.save(); pen.clip();
+    const iris = pen.createRadialGradient(cx, cy, 4, cx, cy, w * .8);
+    iris.addColorStop(0, '#d9e6ff'); iris.addColorStop(.35, '#6f8dff'); iris.addColorStop(1, '#3a2a8a');
+    pen.fillStyle = iris; pen.fillRect(0, 0, size, size);
+    pen.fillStyle = '#05030c'; pen.beginPath(); pen.ellipse(cx, cy, size * .045, h * 1.9, 0, 0, Math.PI * 2); pen.fill();
+    pen.restore();
+    pen.strokeStyle = '#a99cff'; pen.lineWidth = 3;
+    pen.beginPath(); pen.moveTo(cx - w, cy); pen.quadraticCurveTo(cx, cy - h * 2.1, cx + w, cy); pen.quadraticCurveTo(cx, cy + h * 2.1, cx - w, cy); pen.stroke();
+    pen.fillStyle = '#ffffffcc'; pen.beginPath(); pen.arc(cx - size * .1, cy - size * .09, size * .035, 0, Math.PI * 2); pen.fill();
   } else {
     // Image absente : silhouette.
     pen.fillStyle = '#242a35'; pen.fillRect(0, 0, size, size);
