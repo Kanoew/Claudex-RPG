@@ -76,7 +76,8 @@ const enemyKinds = {
   goblin: { name: 'Gobelin', art: 'goblin', speed: 95, radius: 14, maxHp: 3, charger: false },
   ogre: { name: 'Ogre', art: 'ogre', speed: 80, radius: 14, maxHp: 2, charger: true },
   troll: { name: 'Troll', art: 'troll', speed: 65, radius: 24, maxHp: 8, boss: true, active: false },
-  spider: { name: 'Araignée de cristal', art: 'spider', speed: 145, radius: 28, maxHp: 12, ranged: true }
+  // Grossie en code (x1,5) pour dominer Yarden de la tête : l'image, l'ombre et la zone de collision grandissent ensemble.
+  spider: { name: 'Araignée de cristal', art: 'spider', speed: 145, radius: 42, scale: 1.5, maxHp: 12, ranged: true }
 };
 
 function makeEnemy(spec) {

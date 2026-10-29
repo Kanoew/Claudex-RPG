@@ -6,7 +6,7 @@
 // La scène se joue dans la moitié sud de la ruelle (côté faille, à l'opposé de la fête) : lampadaire éteint,
 // façade sans fenêtre à gauche, grille fermée à droite. Aucune faux, aucun mana, aucune autre violence que le poignet.
 // `free` : une étape « until » rend la main à Yarden jusqu'à ce que sa condition soit vraie.
-const scene = { active: false, free: false, card: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
+const scene = { active: false, free: false, card: null, mirror: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
 const sceneActors = {};
 const sceneArt = { strips: {} };
 const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, hommes: { cell: [134, 151], anchor: [67, 147] } };
@@ -104,7 +104,7 @@ function startScene(steps = sceneScript()) {
 }
 
 function resetScene() {
-  Object.assign(scene, { active: false, free: false, card: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
+  Object.assign(scene, { active: false, free: false, card: null, mirror: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
   for (const id of Object.keys(sceneActors)) delete sceneActors[id];
 }
 
@@ -130,6 +130,7 @@ function nextSceneStep() {
     if (step.wait !== undefined) return;
     if (step.until) { scene.free = true; return; }
     if (step.card) { scene.card = { text: step.card, time: 0 }; return; }
+    if (step.mirror) { mirrorStep(step.mirror); continue; }
     if (step.spawn) {
       const [id, kind, x, y, extra] = step.spawn;
       sceneActor(id, kind, x, y, extra);

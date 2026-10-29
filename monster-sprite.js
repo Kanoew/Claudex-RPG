@@ -57,7 +57,7 @@ function drawMonsterSprite(enemy, screenX, screenY) {
   const { clip, strip, frame } = pose;
   const [width, height] = clip.cell;
   const [anchorX, anchorY] = clip.anchor;
-  const scale = yardenCell.scale;
+  const scale = yardenCell.scale * (enemy.scale || 1);
   // Les pieds touchent le bas du disque de collision, qui ne change pas.
   const groundY = screenY + enemy.radius;
   ctx.fillStyle = '#00000066';
