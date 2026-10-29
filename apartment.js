@@ -14,9 +14,10 @@ const apartmentSpots = [
   { id: 'table', x: 0, y: -100, r: 58, label: 'Table', lines: () => ['Une table que personne n’utilise. Ici, on mange debout, au comptoir.'] },
   { id: 'comptoir', x: 190, y: -150, r: 58, label: 'Comptoir', lines: () => ['Le comptoir s’ouvre sur le salon. Les clés d’Ishara y sont jetées ; la bouilloire est visible depuis le canapé.'] },
   { id: 'porte-ishara', x: 40, y: 225, r: 52, label: 'Porte fermée', lines: () => ['La porte est fermée.'] },
-  { id: 'placard', x: -150, y: 245, r: 56, label: 'Placard', lines: () => ['Le placard contient les affaires de la colocataire, absente.'] },
+  { id: 'placard', x: -150, y: 245, r: 56, label: 'Placard', lines: () => ['La chambre est celle de la colocataire, absente : le placard contient ses affaires.'] },
   { id: 'cour', x: -292, y: 90, r: 48, label: 'Fenêtre sur cour', lines: () => ['Une fenêtre sur la cour intérieure. Sous un tapis fin, le parquet.'] },
-  { id: 'lit', x: -228, y: 215, r: 58, label: 'Lit', lines: () => home.stage === 'arrive' ? null : ['Le lit simple, aux draps propres.'], script: () => home.stage === 'arrive' ? sleepScript() : null },
+  { id: 'lit', x: -228, y: 215, r: 58, label: 'Lit', lines: () => ['Un lit simple, aux draps propres.'] },
+  { id: 'parquet', x: -170, y: 90, r: 60, label: 'Parquet', lines: () => ['Le parquet, sous un tapis fin.'], script: () => home.stage === 'arrive' ? sleepScript() : null },
   { id: 'shampoings', x: 290, y: 100, r: 60, label: 'Douche', lines: () => ['Petite, propre, encombrée par les affaires de deux personnes.', 'Deux shampoings : le violet est celui d’Ishara, le rouge celui de la colocataire.'] },
   { id: 'radiateur', x: 190, y: 105, r: 52, label: 'Radiateur', lines: () => ['Des serviettes sèchent sur le radiateur.'] },
   { id: 'miroir', x: 290, y: 28, r: 56, label: 'Lavabo', lines: () => ['Le robinet met trente secondes à chauffer.'], script: () => home.stage === 'matin' ? mirrorScript() : null }
@@ -64,7 +65,7 @@ function resetApartment() {
 // Arrivée : les clés, la bouilloire, le thé (canon : thé, puis café ; courbatures ; première nuit).
 function apartmentArrivalSteps() {
   return [
-    { say: ['Troisième étage. Ishara jette ses clés sur le comptoir en rentrant.', 'La bouilloire est en route : du thé.', 'Une chambre d’appoint attend Yarden, la première porte à gauche dans le couloir.'] },
+    { say: ['Troisième étage. Ishara jette ses clés sur le comptoir en rentrant.', 'Ishara : « Thé ? »', 'Ishara : « Lait ? Sucre ? »', 'Yarden : « Noir. »', 'Ishara : « Femme de goût. »', 'Ishara : « La chambre en trop, c’est la première à gauche. Y’a des trucs dans le placard si t’as besoin, ma coloc met des années à récupérer ses affaires. »', 'Ishara : « Salle de bain en face. Le robinet froid met trente secondes à devenir chaud, c’est normal. »', 'Ishara lance une serviette sans vérifier si Yarden l’attrape. Yarden l’attrape.'] },
     { finish: true }
   ];
 }
@@ -72,8 +73,8 @@ function apartmentArrivalSteps() {
 function sleepScript() {
   return [
     { card: 'La première nuit', seconds: 2.4 },
-    { run: () => { delete sceneActors.ishara; home.stage = 'matin'; Object.assign(player, { x: -190, y: 215 }); saveCheckpoint('matin'); updateStatus(); } },
-    { say: ['Yarden dort dans la chambre d’appoint, entre des draps propres.', 'Au matin : du café, et des courbatures dans ce corps qu’elle ne connaît pas encore.'] },
+    { run: () => { delete sceneActors.ishara; home.stage = 'matin'; Object.assign(player, { x: -170, y: 90 }); saveCheckpoint('matin'); updateStatus(); } },
+    { say: ['Yarden passe la nuit sur le parquet de la chambre d’appoint.', 'Au matin : du café, et des courbatures.'] },
     { finish: true }
   ];
 }
@@ -86,5 +87,5 @@ function mirrorScript() {
 }
 
 function apartmentGoal() {
-  return home.stage === 'arrive' ? 'Explore · va dormir dans la chambre d’appoint ←' : 'Va à la salle de bain, en face de la chambre d’appoint';
+  return home.stage === 'arrive' ? 'Explore · la chambre d’appoint est à gauche, dans le couloir' : 'Va à la salle de bain, en face de la chambre d’appoint';
 }

@@ -81,6 +81,7 @@ function update(seconds) {
   }
   if (combatOver || paused || document.hidden || story.active || menu.open || stats.open) return;
   elapsed += seconds;
+  syncMusic();
   zoneFade = Math.max(0, zoneFade - seconds);
   updateEncounter(seconds);
   updateScene(seconds);
@@ -124,6 +125,7 @@ function update(seconds) {
   for (const enemy of activeEnemies()) {
     if ((enemy.boss && !enemy.active) || enemy.hp <= 0 || attack.hits.has(enemy) || !attackHitsCircle(enemy) || !clearPath(player, enemy)) continue;
     attack.hits.add(enemy);
+    playSfx('hit');
     if (enemy.ranged) { hitSpider(attack.empowered); continue; }
     enemy.hp = Math.max(0, enemy.hp - attack.damage);
     enemy.flash = .2;

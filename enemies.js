@@ -94,6 +94,7 @@ function hurtPlayer(damage = 1) {
   if (combatOver || dodge.remaining > 0) return;
   player.hp = Math.max(0, player.hp - damage);
   player.flash = .2;
+  playSfx('hurt');
   updateStatus();
   if (player.hp === 0) {
     playYardenReaction('defeat');

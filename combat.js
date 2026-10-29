@@ -12,6 +12,7 @@ function startAttack(empowered = false) {
   attack.remaining = attack.duration;
   attack.cooldown = attack.recovery;
   attack.hits.clear();
+  playSfx('slash');
   updateAttackButton();
   updateStatus();
 }
