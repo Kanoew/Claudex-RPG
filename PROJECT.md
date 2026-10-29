@@ -6,7 +6,7 @@
 ## Règle de style des personnages (décidée avec Jordan le 29 octobre 2026)
 
 - **Chibi** (grosse tête, corps court, trait épais, aplats) pour les **personnages nommés qui comptent dans l'histoire** : Yarden, Ishara et, plus tard, d'autres personnages récurrents.
-- **Semi-réaliste simple** (trait sombre épais, aplats, peu de détails) pour les **figurants humains anonymes** et pour les **monstres**.
+- **Semi-réaliste simple** (trait sombre épais, aplats, peu de détails) pour les **monstres**. Nouvelle livraison demandée : les deux hommes anonymes de la ruelle et les deux danseurs sont désormais en **chibi**, à la même échelle que Yarden ; leurs anciennes silhouettes semi-réalistes servent seulement de référence de tenue.
 - Ainsi, à l'écran, le regard va vers ce qui est chibi. Les figurants restent génériques et secondaires (les deux hommes de la ruelle) et les monstres gardent leur style validé.
 - Tailles de référence (Yarden = 1,0) : Ishara environ 1,05 ; le grand environ 1,4 et le compact environ 1,17 ; gobelin 0,9, ogre 1,25, Troll environ 2,0.
 - Avant de produire de nouvelles images, vérifier à quelle catégorie appartient le personnage.
@@ -94,6 +94,8 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 - Jordan : teste sur téléphone, valide, décide de passer à l'étape suivante
 
 ## 8. Journal (à compléter après chaque étape)
+
+29 octobre 2026 — Livraison visuelle complémentaire, priorité 1 : faux de ramassage, lueur de ramassage en quatre images et deux arcs de six images dans `docs/art/faux/`, avec manifeste, ancrages, durées et aperçu. Cases 128 × 128 pour les icônes, 300 × 300 pour les arcs ; pivot des arcs (0,150), rayons visuels 96 et 144 px. Sources vertes opaques, sans raccordement au moteur. Invocation optionnelle non incluse.
 
 29 octobre 2026 — Confirmation de Jordan : invocation et coup de base de la faux à zéro mana, Fauchage conservé à 20 mana. Coût, disponibilité et libellés mis à jour ; un test vérifie la frappe à zéro mana, ses dégâts uniques et sa récupération. Les anciennes valeurs du journal restent historiques. Scripts de combat et HUD en `?v=41`.
 
