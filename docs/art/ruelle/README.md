@@ -44,4 +44,8 @@ Vérifications de préparation : les 28 cases ont les dimensions et marges trans
 
 ## Reprise chibi — 29 octobre 2026
 
-Ishara est maintenant en chibi : la version prête pour le jeu est dans `assets/npcs/ishara/chibi/` (sept bandes de quatre cases transparentes, manifeste `animations.json`). Les sources sur fond vert (sept images de 2172 × 724 px, environ 13 Mo) ont été retirées du dépôt pour l'alléger ; elles restent dans l'archive `ishara-chibi-animations-v2.zip` conservée par Jordan, dont l'empreinte est dans le manifeste. Les deux hommes sont dans `assets/npcs/hommes/`.
+Le repos chibi approuvé par Jordan sert désormais de référence pour [le nouveau pack et son aperçu](chibi/index.html) : sept bandes, quatre images chacune. Marche gauche/droite/de face/de dos, course gauche/droite et repos avec clignement. Les directions ont été générées séparément, sans miroir. Ce dossier conserve les sources sur fond vert ; les anciens PNG transparents du premier pack restent distincts.
+
+Les bandes font 2172 × 724 px : quatre cases de 543 × 724. `animations.json` décrit le découpage et les cadences provisoires. Ouvrir `chibi/index.html` pour lire, ralentir, mettre en pause ou avancer les sept animations image par image. Les grandes sources ne sont pas chargées par le jeu.
+
+Le fond fourni est vert opaque, avec de légères variations de couleur : il n’est pas exactement #00FF00 partout. Un détourage et un export léger restent nécessaires avant intégration. Vérifier aussi les raccords des pas, l’alignement des pieds, le sac à gauche anatomique et le mascara sous l’œil droit : la génération ne garantit pas leur constance dans toutes les vues. Cette livraison fournit les animations de travail, sans mise en scène ni modification de la ruelle jouable.

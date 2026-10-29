@@ -95,7 +95,7 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 
 ## 8. Journal (à compléter après chaque étape)
 
-29 octobre 2026 — Ishara reprise en chibi à partir du repos approuvé : sept bandes de quatre images (repos, quatre marches, deux courses), sources vertes converties en bandes transparentes dans `assets/npcs/ishara/chibi/` ; les sources brutes (environ 13 Mo) ont été retirées du dépôt le 29 octobre 2026 pour l'alléger et restent dans l'archive de Jordan. Dessins gauche/droite générés séparément. Ce pack ne modifie pas la ruelle jouable. Raccords et asymétries à contrôler avant intégration.
+29 octobre 2026 — Ishara reprise en chibi à partir du repos approuvé : sept bandes de quatre images (repos, quatre marches, deux courses), sources vertes et aperçu autonome dans `docs/art/ruelle/chibi/`. Dessins gauche/droite générés séparément. Les anciens sprites transparents restent en place ; ce nouveau pack ne modifie pas la ruelle jouable. Les sources vertes ne sont pas encore des exports transparents prêts pour le jeu ; raccords et asymétries à contrôler avant intégration.
 
 28 octobre 2026 — Cadre canonique de Yarden consigné : identité unique, nom utilisé par le jeu, pronoms, ton et apparence. Anciennes hypothèses de la rencontre et fiche visuelle corrigées. Mise à jour documentaire uniquement ; aucune modification des images ni du combat.
 | Étape | Statut | Notes / bugs connus |
