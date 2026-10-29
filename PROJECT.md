@@ -95,6 +95,8 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 
 ## 8. Journal (à compléter après chaque étape)
 
+29 octobre 2026 — Livraison des deux hommes en chibi dans `docs/art/ruelle/hommes-chibi/` : repos et marche gauche pour chacun, poignet retourné et recul pour Inconnu 2, soit quinze images. Cases 211 × 148, ancrage (105,132), échelle debout de 100–104 px. Fond vert opaque, sources, manifeste et aperçu ; miroir autorisé pour ces figurants anonymes. Aucun changement de la scène jouable.
+
 29 octobre 2026 — Livraison visuelle complémentaire, priorité 1 : faux de ramassage, lueur de ramassage en quatre images et deux arcs de six images dans `docs/art/faux/`, avec manifeste, ancrages, durées et aperçu. Cases 128 × 128 pour les icônes, 300 × 300 pour les arcs ; pivot des arcs (0,150), rayons visuels 96 et 144 px. Sources vertes opaques, sans raccordement au moteur. Invocation optionnelle non incluse.
 
 29 octobre 2026 — Confirmation de Jordan : invocation et coup de base de la faux à zéro mana, Fauchage conservé à 20 mana. Coût, disponibilité et libellés mis à jour ; un test vérifie la frappe à zéro mana, ses dégâts uniques et sa récupération. Les anciennes valeurs du journal restent historiques. Scripts de combat et HUD en `?v=41`.

@@ -1,0 +1,12 @@
+Inconnu 1 et Inconnu 2 — chibi
+
+Ouvrir index.html ; animations.json donne cases, ancrage et durées.
+Chaque homme : repos 2 images, marche gauche 4 images.
+Inconnu 2 : poignet retourné 1 pose, recul en secouant le poignet 2 images.
+Cases : 211 × 148 px ; ancrage fixe (105,132).
+Hauteur debout visée : environ 100 px (104 pour Inconnu 1, 100 pour Inconnu 2).
+Même taille de tête entre les bandes ; le genou plié et le recul conservent la réduction de hauteur liée à la posture.
+Ces deux figurants sont anonymes : miroir autorisé pour la droite.
+Vert opaque #00FF00 harmonisé à l’export, aucun alpha ; sources originales de travail dans sources/.
+Pas de sang ni de cri, pas d’autre violence visible que le poignet.
+Aucun remplacement des anciennes images dans le moteur dans cette livraison.
