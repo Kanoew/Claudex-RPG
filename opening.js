@@ -13,7 +13,9 @@ function openingScript() {
       'Helvara, de nuit. Yarden se réveille dans une ruelle, adossée à un mur de briques.',
       'Plus loin, une fête bat son plein : musique, rires. Personne ne la remarque.',
       'Niveau 1. Un corps plus petit, une voix plus haute. Ses souvenirs de combat sont en morceaux.',
-      'Tiamat (voix intérieure) : « Réveillée ? Ne cherche pas derrière toi, je suis partout. »'
+      'Tiamat (voix intérieure) : « Réveillée ? Ne cherche pas derrière toi, je suis partout. »',
+      'Tiamat : « Tu régnais sur un donjon de 182 étages. »',
+      'Tiamat : « Ils t’ont voté. Tu étais trop grand pour qu’ils te comptent. »'
     ] },
     { camera: { x: openingRift.x, y: openingRift.y - 120 } },
     { wait: .9 },

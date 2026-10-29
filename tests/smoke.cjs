@@ -892,7 +892,7 @@ const tests = [
     g.draw();
     const lines = [];
     const next = () => { lines.push(g.story.current); g.advanceStory(); };
-    for (let i = 0; i < 4; i++) next();
+    for (let i = 0; i < 6; i++) next();
     assert(!g.story.active && !g.riftShown, 'La caméra va regarder la faille avant qu’elle s’ouvre');
     for (let i = 0; i < 120 && !g.story.active; i++) g.update(.05);
     assert(g.riftShown && g.story.active);
