@@ -15,6 +15,8 @@ function hudMeter(id, value, max) {
 }
 
 function updateHud() {
+  const app = document.getElementById('app');
+  if (app) app.classList.toggle('prologue', !abyssReached);
   hudMeter('hp-meter', player.hp, player.maxHp);
   hudMeter('mana-meter', player.mana, player.maxMana);
   hudText('hp-value', `${player.hp} / ${player.maxHp}`);
@@ -28,7 +30,7 @@ function updateHud() {
   const outside = currentZone.id === 'exterieur';
   const antre = currentZone.id === 'antre';
   hudText('opponents', outside ? 'Ruelle calme' : antre ? 'Araignée de cristal' : stage === 'guards' ? `Gobelin ${enemies[0].hp}/3 · Ogre ${enemies[1].hp}/2` : stage === 'entry' ? 'Chapitre 1' : stage === 'boss' ? 'Le Troll de l’Abysse' : 'Donjon parcouru');
-  const goal = paused && !combatOver ? 'En pause — reviens au jeu' : !player.armed ? 'Rejoins la faux violette ↑' : antre ? encounterGoal() : outside ? (scene.active ? 'Suis la scène' : 'Rejoins la rue au nord ↑') : bossDelay > 0 ? 'Le Troll apparaît' : stage === 'guards' ? 'Vaincs le gobelin et l’ogre' : stage === 'boss' ? 'Vaincs le Troll' : stage === 'exit' ? 'Rejoins la porte verte ↑' : 'Tu as quitté l’Abysse';
+  const goal = paused && !combatOver ? 'En pause — reviens au jeu' : !abyssReached ? (riftShown ? 'Marche jusqu’à la faille ↓' : 'Écoute') : !player.armed ? 'Rejoins la faux violette ↑' : antre ? encounterGoal() : outside ? (scene.active ? 'Suis la scène' : 'Rejoins la rue au nord ↑') : bossDelay > 0 ? 'Le Troll apparaît' : stage === 'guards' ? 'Vaincs le gobelin et l’ogre' : stage === 'boss' ? 'Vaincs le Troll' : stage === 'exit' ? 'Rejoins la porte verte ↑' : 'Tu as quitté l’Abysse';
   hudText('objective', goal);
 }
 

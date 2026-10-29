@@ -183,13 +183,7 @@ function drawRoom(offsetX, offsetY) {
   ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
   ctx.clip();
   if (crystal) {
-    ctx.fillStyle = '#121822';
-    ctx.fillRect(room.x + offsetX, room.y + offsetY, room.width, room.height);
-    ctx.strokeStyle = '#29384a'; ctx.lineWidth = 1;
-    for (let i = -6; i < 8; i++) {
-      ctx.beginPath(); ctx.moveTo(offsetX - 480 + i * 100, offsetY - 400);
-      ctx.lineTo(offsetX + i * 100, offsetY + 400); ctx.stroke();
-    }
+    drawAntreFloor(offsetX, offsetY);
   } else if (floorArt) {
     ctx.save();
     ctx.translate(room.x + offsetX, room.y + offsetY);
@@ -218,9 +212,11 @@ function drawRoom(offsetX, offsetY) {
     }
   }
   if (outdoors) drawProps(offsetX, offsetY);
+  if (crystal) drawAntreCables(offsetX, offsetY);
   ctx.restore();
   walls.forEach((wall, index) => {
     const x = wall.x + offsetX, y = wall.y + offsetY;
+    if (crystal) { drawAntreSolid(wall, x, y, index >= 4); return; }
     ctx.save();
     if (outdoors && index >= 4) {
       ctx.restore();
@@ -350,6 +346,9 @@ function draw() {
   const screenY = Math.max(height * .3, Math.min(height * .7, centerY + player.y));
   const offsetX = screenX - player.x;
   const offsetY = screenY - player.y;
+  ctx.save();
+  const shake = antreShake();
+  ctx.translate(shake.x, shake.y);
   drawRoom(offsetX, offsetY);
   drawDungeon(offsetX, offsetY);
   drawRoomShade(screenX, screenY);
@@ -422,6 +421,7 @@ function draw() {
   ctx.fillText('Yarden', screenX, labelY);
   drawSceneActors(offsetX, offsetY, true);
   drawBossMarker(offsetX, offsetY);
+  ctx.restore();
   if (zoneFade > 0) {
     // Fondu depuis le noir quand Yarden arrive dans une nouvelle zone.
     ctx.fillStyle = `rgba(14, 15, 25, ${Math.min(1, zoneFade / .4)})`;

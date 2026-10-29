@@ -34,6 +34,7 @@ function advanceStory() {
 }
 
 function resetEncounter() {
+  antreResonance.until = 0;
   Object.assign(encounter, { phase: 'waiting', elapsed: 0, blind: 0, slow: 0, fall: 0, complete: false });
   encounter.projectiles.length = 0;
   Object.assign(story, { active: false, lines: [], done: null });
@@ -92,6 +93,7 @@ function updateEncounter(seconds) {
         encounter.phase = 'complete';
         resetYardenSprite();
         player.flash = 0;
+        restoreAfterCombat();
         enterZone('exterieur', 'south');
       });
     }
@@ -100,7 +102,7 @@ function updateEncounter(seconds) {
 }
 
 function encounterBlocksMovement() {
-  return story.active || scene.active || (currentZone.id === 'antre' && ['falling', 'resolution'].includes(encounter.phase));
+  return story.active || (scene.active && !scene.free) || (currentZone.id === 'antre' && ['falling', 'resolution'].includes(encounter.phase));
 }
 
 function canUseCrystal() {
@@ -113,6 +115,7 @@ function useCrystal() {
   if (!canUseCrystal()) return;
   encounter.phase = 'blinded';
   encounter.blind = 5;
+  pulseAntre();
   encounter.projectiles.length = 0;
   const spider = spiderEnemy();
   spider.windup = 0;
@@ -124,6 +127,7 @@ function useCrystal() {
 function hitSpider(empowered) {
   const spider = spiderEnemy();
   spider.flash = .2;
+  pulseAntre();
   if (encounter.phase !== 'blinded' || !empowered) return;
   encounter.phase = 'falling';
   encounter.fall = 1.2;

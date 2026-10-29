@@ -15,9 +15,15 @@ function doorAtPlayer() {
 // Passage d'une zone à l'autre : Yarden arrive devant la porte d'en face, à bonne distance pour ne pas la retraverser.
 function enterZone(id, arrival) {
   loadZone(id);
-  const door = currentZone.doors.find(item => item.side === arrival);
-  player.x = door.x;
-  player.y = arrival === 'south' ? room.y + room.height - 90 : room.y + 90;
+  if (id === 'donjon') abyssReached = true;
+  if (arrival === 'start') {
+    // Arrivée sans porte : le point de départ de la zone.
+    Object.assign(player, currentZone.start);
+  } else {
+    const door = currentZone.doors.find(item => item.side === arrival);
+    player.x = door.x;
+    player.y = arrival === 'south' ? room.y + room.height - 90 : room.y + 90;
+  }
   // On coupe le coup et l'esquive en cours, mais pas le joystick : le pouce est peut-être encore posé.
   attack.remaining = 0;
   dodge.remaining = 0;
@@ -54,7 +60,7 @@ function drawDungeon(offsetX, offsetY) {
     const y = door.side === 'north' ? room.y + offsetY : room.y + room.height + offsetY - 36;
     if (currentZone.theme === 'ruelle') {
       if (door.side === 'south') {
-        if (open) drawFaille(door.x + offsetX, y - 18, door.label);
+        if (open && riftShown) drawFaille(door.x + offsetX, y - 18, door.label);
       }
       else drawStreetGate(door.x + offsetX, y, door.label);
     } else drawStoneDoor(door.x + offsetX, y, open && !door.decorative, open ? door.label + (door.side === 'north' ? ' ↑' : '') : door.sealed);
