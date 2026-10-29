@@ -6,8 +6,29 @@
 // La scène se joue dans la moitié sud de la ruelle (côté faille, à l'opposé de la fête) : lampadaire éteint,
 // façade sans fenêtre à gauche, grille fermée à droite. Aucune faux, aucun mana, aucune autre violence que le poignet.
 // `free` : une étape « until » rend la main à Yarden jusqu'à ce que sa condition soit vraie.
-const scene = { active: false, free: false, card: null, mirror: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
+const scene = { active: false, free: false, card: null, mirror: null, metro: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
 const sceneActors = {};
+// Caméra de scène : elle peut aller regarder ailleurs (la faille, la fête) puis revenir vers Yarden, en glissant.
+const sceneCam = { on: false, x: 0, y: 0, tx: 0, ty: 0, follow: false, last: 0 };
+function setSceneCamera(value) {
+  if (value) {
+    if (!sceneCam.on) Object.assign(sceneCam, { on: true, x: player.x, y: player.y, last: mirrorNow() });
+    Object.assign(sceneCam, { tx: value.x, ty: value.y, follow: false });
+  } else if (sceneCam.on) sceneCam.follow = true;
+}
+
+// Point que regarde la caméra : Yarden, sauf pendant un plan de scène.
+function cameraFocus() {
+  if (!sceneCam.on) return player;
+  const now = mirrorNow(), dt = Math.min(.05, Math.max(0, now - sceneCam.last));
+  sceneCam.last = now;
+  if (sceneCam.follow) { sceneCam.tx = player.x; sceneCam.ty = player.y; }
+  const k = 1 - Math.exp(-dt * 3.2);
+  sceneCam.x += (sceneCam.tx - sceneCam.x) * k;
+  sceneCam.y += (sceneCam.ty - sceneCam.y) * k;
+  if (sceneCam.follow && Math.hypot(sceneCam.x - player.x, sceneCam.y - player.y) < 2) sceneCam.on = false;
+  return sceneCam;
+}
 const sceneArt = { strips: {} };
 const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, hommes: { cell: [134, 151], anchor: [67, 147] } };
 // Durées en millisecondes, reprises de assets/npcs/ishara/chibi/animations.json.
@@ -48,37 +69,40 @@ function sceneScript() {
     { moves: [move('yarden', [[0, -60]], 140)] },
     { run: () => { facing = { x: 0, y: -1 }; } },
     { say: ['Yarden regarde la fête depuis la ruelle. Elle allait faire demi-tour.'] },
-    { spawn: ['ishara', 'ishara', 50, -330, { run: true }] },
+    { camera: { x: 0, y: -440 } },
+    { music: 'fete' },
+    { wait: 1.8 },
+    { spawn: ['ishara', 'ishara', 18, -470, { run: true }] },
+    { camera: null },
     { moves: [move('ishara', [[14, -96]], 230)] },
     { set: ['ishara', { run: false }] },
     { wait: 2 },
-    { say: ['Ishara lui rentre dedans et s’accroche deux secondes à sa veste.', 'Ishara : « Pardon, désolée, vraiment, je... »'] },
+    { music: null },
+    { say: ['Une fille lui fonce dedans et s’accroche à sa veste une seconde ou deux.', 'Inconnue : « Pardon, désolée, vraiment, je... »'] },
     { set: ['ishara', { run: true }] },
     { moves: [move('ishara', [[30, -30], [36, 430]], 230)] },
     { set: ['ishara', { run: false, mode: 'idle' }] },
     { spawn: ['grand', 'grand', -25, -330] },
     { spawn: ['compact', 'compact', 45, -350] },
     { moves: [move('grand', [[-24, -170]], 85), move('compact', [[30, -150]], 85)] },
-    { say: ['Les deux hommes arrivent à mi-ruelle, les yeux fixés sur Ishara.', 'Yarden les évalue.', 'Tiamat (voix intérieure) : « Ce n’est pas ton problème. »', 'Yarden ne répond pas. Elle suit, sans courir ni intercepter.'] },
+    { say: ['Deux hommes arrivent à mi-ruelle. Ils ne regardent qu’elle.', 'Yarden les jauge.', 'Tiamat (voix intérieure) : « Ce n’est pas ton problème. »', 'Yarden ne répond pas. Elle suit, sans courir.'] },
     { moves: [move('grand', [[-5, 335]], 85), move('compact', [[50, 350]], 85), move('yarden', [[22, 205]], 95, { delay: 2.5 })] },
-    { say: ['Yarden les retrouve au coin sans lampadaire.', 'Ishara s’est arrêtée : droite, le sac serré contre le flanc, elle cherche une sortie.', 'Le grand : « On te veut pas de mal »', 'L’autre ricane.'] },
+    { say: ['Yarden les rattrape au coin sans lampadaire.', 'La fille s’est arrêtée, le dos droit, son sac serré contre elle. Elle cherche une sortie.', 'Inconnu 1 : « On te veut pas de mal. »', 'L’autre ricane.'] },
     { say: ['Yarden : « Hé. »'] },
     { moves: [move('yarden', [[22, 255]], 70)] },
-    { say: ['Les mains dans les poches, sans se presser, Yarden s’arrête à deux mètres.', 'Un des hommes : « T’as pas d’affaires ici, poupée »', 'Yarden : « C’est vous qui comprenez pas à qui vous parlez »'] },
+    { say: ['Mains dans les poches, Yarden s’arrête à deux mètres.', 'Inconnu 1 : « T’as pas d’affaires ici, poupée. »', 'Yarden : « C’est vous qui comprenez pas à qui vous parlez. »'] },
     { moves: [move('compact', [[32, 288]], 90)] },
-    { say: ['Le compact tend la main vers l’épaule de Yarden, pour la pousser, pas pour la frapper.'] },
+    { say: ['Le deuxième tend la main vers son épaule. Pour la pousser, pas pour la frapper.'] },
     { set: ['compact', { mode: 'stumble' }] },
-    { say: ['Yarden saisit le poignet. Ni vite ni avec rage : avec précision.', 'Une rotation suit l’articulation jusqu’au point inconfortable, et une légère pression vers le bas plie le genou du type. Il se retrouve debout, la main retournée contre lui-même. Il ne crie pas.', 'Le compact : « Aïe, lâche. »', 'Yarden : « Ouais. »', 'Yarden lâche.'] },
+    { say: ['Yarden lui attrape le poignet, sans vitesse ni rage. Un quart de tour, une pression vers le bas, et le voilà plié, la main retournée contre lui-même. Il ne crie pas.', 'Inconnu 2 : « Aïe, lâche. »', 'Yarden : « Ouais. »', 'Elle lâche.'] },
     { set: ['compact', { mode: 'idle' }] },
     { moves: [move('compact', [[50, 330]], 60)] },
-    { say: ['Le type recule, secoue le poignet : confusion, colère, puis prudence.', 'Yarden : « Elle est pas intéressée. Bonne soirée. »'] },
+    { say: ['Il recule en secouant le poignet. Surpris, furieux, puis prudent.', 'Yarden : « Elle est pas intéressée. Bonne soirée. »'] },
     { moves: [move('grand', [[-60, 300], [-60, 10]], 85), move('compact', [[70, 300], [70, 10]], 85, { delay: 0.7 })] },
     { remove: ['grand', 'compact'] },
-    { say: ['Le grand est parti en premier, sans courir. Le compact l’a suivi en marmonnant.', 'Yarden les reclasse en non-menace.'] },
+    { say: ['Le premier part sans courir. L’autre le suit en marmonnant.', 'Pour Yarden, ce ne sont plus une menace.'] },
     { moves: [move('ishara', [[180, 420]], 70), move('yarden', [[105, 395]], 70)] },
-    { say: ['Ishara, adossée à la grille, bras croisés, desserre les mains du sac et souffle.', 'Ishara : « T’as fait quoi exactement ? »', 'Yarden : « Géométrie articulaire. »', 'Ishara se présente. Yarden donne son nom.', 'Ishara lui propose un lit en trop. Yarden accepte.'] },
-    // Le trajet : Ishara explique le monde en marchant (sens des mots du canon de Jordan, répliques courtes à ajuster).
-    // Elle dit « faille » et « Abysse », jamais « donjon » (ce mot est celui de Valstygheim, donc de Yarden et de Tiamat).
+    { say: ['Adossée à la grille, bras croisés, la fille desserre les doigts autour de son sac et souffle.', 'Inconnue : « T’as fait quoi, exactement ? »', 'Yarden : « Self-défense. »', 'Elle se présente : Ishara. Yarden donne son nom.', 'Ishara lui propose un lit en trop. Yarden accepte.'] },
     { moves: [move('ishara', [[70, 400], [30, 330], [30, 120]], 80), move('yarden', [[70, 400], [30, 340], [0, 150]], 80, { delay: .6 })] },
     { say: ['Ishara : « Un niveau, tout le monde en a un. Mais nous, on peut le voir. »', 'Yarden : « D’accord. »', 'Ishara : « Ceux qui voient, on les appelle les Éveillés. »', 'Yarden : « Je vois. »'] },
     { moves: [move('ishara', [[30, -90]], 80), move('yarden', [[0, -60]], 80, { delay: .6 })] },
@@ -86,11 +110,16 @@ function sceneScript() {
     { moves: [move('ishara', [[30, -290]], 80), move('yarden', [[0, -260]], 80, { delay: .6 })] },
     { say: ['Ishara : « Ce qu’on ramène, ça se revend. C’est comme ça que je paye mon loyer. »', 'Yarden : « D’accord. »'] },
     { moves: [move('ishara', [[30, -430]], 80), move('yarden', [[0, -420]], 80, { delay: .5 })] },
-    { say: ['Au bout de la ruelle, la fête de la résidence étudiante : musique, rires, de la chaleur. Yarden s’arrête.', 'Tiamat (voix intérieure) : « Tu aurais pu entrer. »', 'Tiamat : « La chaleur humaine… »', 'Tiamat : « Bien. »', 'Ishara l’attend un peu plus loin, sans rien demander.'] },
-    { card: 'Dans le métro', seconds: 2.4 },
-    { say: ['Yarden découvre le métro : ce fut une expérience.', 'Elle reste debout près de la porte, le dos contre la paroi. Ishara regarde son téléphone. Elles ne parlent pas, mais c’est confortable.'] },
-    { say: ['Devant l’immeuble d’Ishara : haussmannien, un peu fatigué, la façade encore belle.'] },
-    { run: () => { enterApartment('arrive'); scene.done = true; } },
+    { say: ['Au bout de la ruelle, la fête : de la musique, des rires, de la chaleur. Yarden s’arrête.', 'Tiamat (voix intérieure) : « Tu aurais pu entrer. »', 'Tiamat : « La chaleur humaine… »', 'Tiamat : « Bien. »', 'Ishara attend un peu plus loin et ne demande rien.'] },
+    { metro: 'show' },
+    { say: ['Yarden découvre le métro. Ce fut une expérience.', 'Debout près de la porte, le dos contre la paroi. Ishara regarde son téléphone. Elles ne parlent pas, et c’est confortable.'] },
+    { metro: 'hide' },
+    { run: () => { enterQuartier(); scene.done = true; } },
+    { say: ['Devant l’immeuble d’Ishara. Haussmannien, un peu fatigué, la façade encore belle.', 'Ishara marche vers la porte. Yarden la suit.'] },
+    { moves: [move('ishara', [[0, -40]], 70)] },
+    { until: () => Math.hypot(player.x - quartierDoor.x, player.y - quartierDoor.y) < 70 },
+    { say: ['Ishara sort ses clés. La porte s’ouvre.'] },
+    { run: () => { enterApartment('arrive'); } },
     ...apartmentArrivalSteps()
   ];
 }
@@ -104,7 +133,9 @@ function startScene(steps = sceneScript()) {
 }
 
 function resetScene() {
-  Object.assign(scene, { active: false, free: false, card: null, mirror: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
+  sceneCam.on = false;
+  audio.override = null;
+  Object.assign(scene, { active: false, free: false, card: null, mirror: null, metro: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
   for (const id of Object.keys(sceneActors)) delete sceneActors[id];
 }
 
@@ -131,6 +162,9 @@ function nextSceneStep() {
     if (step.until) { scene.free = true; return; }
     if (step.card) { scene.card = { text: step.card, time: 0 }; return; }
     if (step.mirror) { mirrorStep(step.mirror); continue; }
+    if (step.metro) { metroStep(step.metro); continue; }
+    if ('camera' in step) { setSceneCamera(step.camera); continue; }
+    if ('music' in step) { audio.override = step.music; syncMusic(); continue; }
     if (step.spawn) {
       const [id, kind, x, y, extra] = step.spawn;
       sceneActor(id, kind, x, y, extra);

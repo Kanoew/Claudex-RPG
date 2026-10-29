@@ -3,7 +3,7 @@
 // Son en code, sans fichier : une petite musique de style 8 bits, très discrète, et quelques bruitages (coup de faux, impact,
 // dégâts, montée de niveau). Le navigateur n'autorise le son qu'après un geste du joueur : rien ne joue avant le premier appui.
 // Deux réglages séparés, « Musique » et « Effets », gardés dans le navigateur et modifiables dans les menus.
-const audio = { context: null, master: null, music: null, sfx: null, noise: null, musicOn: true, effectsOn: true, theme: null, step: 0, next: 0, timer: null, played: [] };
+const audio = { context: null, master: null, music: null, sfx: null, noise: null, musicOn: true, effectsOn: true, override: null, theme: null, step: 0, next: 0, timer: null, played: [] };
 const musicKey = 'yarden-musique-1', effectsKey = 'yarden-effets-1';
 // Notes MIDI par croche (0 = silence). `abysse` : mineur, lent, tendu ; `ville` : pentatonique douce, plus chaude.
 const musicThemes = {
@@ -63,6 +63,13 @@ function setEffects(on) {
   saveSetting(effectsKey, on);
 }
 
+// Fête : arpèges rapides sur la, fa, sol, mi, comme une techno 8 bits entendue de loin.
+(function buildParty() {
+  const roots = [57, 53, 55, 52], lead = [], bass = [];
+  for (const root of roots) for (let i = 0; i < 8; i++) { lead.push(root + 12 + [0, 7, 12, 7][i % 4]); bass.push(i % 2 === 0 ? root - 12 : 0); }
+  musicThemes.fete = { seconds: .2, wave: 'square', lead, bass };
+})();
+
 const midiHz = note => 440 * Math.pow(2, (note - 69) / 12);
 
 function tone(wave, note, start, length, volume, target) {
@@ -90,7 +97,7 @@ function scheduleMusic() {
 
 // Musique selon le lieu : l'Abysse (donjon, antre) ou la ville (ruelle, appartement).
 function syncMusic() {
-  const theme = currentZone.id === 'donjon' || currentZone.id === 'antre' ? 'abysse' : 'ville';
+  const theme = audio.override || (currentZone.id === 'donjon' || currentZone.id === 'antre' ? 'abysse' : 'ville');
   if (theme === audio.theme) return;
   audio.theme = theme;
   audio.step = 0;

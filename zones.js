@@ -54,6 +54,21 @@ const zones = {
     enemies: [],
     props: []
   },
+  // Petite rue devant un immeuble du quartier étudiant (Lausanne) : sert à arriver chez Ishara et se réutilisera pour d'autres immeubles.
+  // Le nord est la façade et sa porte, puis un trottoir, puis la chaussée. Aucun canon précis n'est fourni sur cette rue : plan inventé à minima.
+  quartier: {
+    id: 'quartier', title: 'LAUSANNE · QUARTIER ÉTUDIANT', theme: 'quartier',
+    room: { x: -260, y: -200, width: 520, height: 420 },
+    start: { x: -150, y: 170 },
+    blocks: [
+      { x: -260, y: -200, width: 520, height: 120, kind: 'facade' },
+      { x: -230, y: -76, width: 70, height: 26, kind: 'velos' }, { x: 150, y: -76, width: 70, height: 26, kind: 'velos' }, { x: 80, y: -70, width: 22, height: 22, kind: 'poubelle' },
+      { x: -100, y: 120, width: 70, height: 40, kind: 'scooter' }
+    ],
+    doors: [],
+    enemies: [],
+    props: []
+  },
   // Appartement d'Ishara (canon de Jordan, section 15 de PROJECT.md) : troisième étage, quartier étudiant, Lausanne.
   // Plan inventé à minima : l'entrée et la cuisine à l'est, le salon à l'ouest, le couloir au sud du salon, la chambre d'appoint
   // à gauche du couloir, la salle de bain en face, la chambre d'Ishara fermée. Palette chaude, jamais de bleu.

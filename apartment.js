@@ -47,6 +47,13 @@ function useInteract() {
   if (lines) showStory(lines, null);
 }
 
+// Arrivée devant l'immeuble : Yarden et Ishara en bas de la rue, avant d'entrer.
+function enterQuartier() {
+  enterZone('quartier', 'start');
+  for (const id of Object.keys(sceneActors)) delete sceneActors[id];
+  sceneActor('ishara', 'ishara', -100, 150, { face: 1 });
+}
+
 function enterApartment(stage) {
   enterZone('appartement', 'start');
   abyssReached = true;

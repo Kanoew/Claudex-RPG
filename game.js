@@ -79,6 +79,8 @@ function update(seconds) {
       if (resultDelay === 0) result.hidden = false;
     }
   }
+  // Le fondu d'arrivée continue pendant un texte : sinon l'écran reste noir derrière lui.
+  if (story.active && !paused && !document.hidden) zoneFade = Math.max(0, zoneFade - seconds);
   if (combatOver || paused || document.hidden || story.active || menu.open || stats.open) return;
   elapsed += seconds;
   syncMusic();
@@ -166,6 +168,7 @@ loadYardenArt();
 loadMonsterArt();
 loadSceneArt();
 loadMirrorArt();
+loadPortraits();
 // Le jeu s'ouvre dans la ruelle ; ?skip dans le lien commence directement dans le donjon.
 if (typeof location !== 'undefined' && /[?&]skip\b/.test(location.search)) skipOpening(); else { titleBackdrop(); openMenu('title'); }
 requestAnimationFrame(frame);
