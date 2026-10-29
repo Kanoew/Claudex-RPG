@@ -37,6 +37,6 @@ function updateHud() {
 function updateButtonHints() {
   const wait = time => `${time.toFixed(1).replace('.', ',')} s`;
   hudText('attack-hint', !player.armed ? 'À récupérer' : attack.cooldown > 0 ? wait(attack.cooldown) : player.mana < 3 ? 'Mana insuffisant' : '3 mana · Espace');
-  hudText('skill-hint', !player.armed ? 'À récupérer' : skill.cooldown > 0 ? wait(skill.cooldown) : player.mana < skill.cost ? 'Mana insuffisant' : '12 mana · E');
+  hudText('skill-hint', !player.armed ? 'À récupérer' : skill.cooldown > 0 ? wait(skill.cooldown) : player.mana < skill.cost ? 'Mana insuffisant' : `${skill.cost} mana · E`);
   hudText('dodge-hint', dodge.cooldown > 0 ? wait(dodge.cooldown) : 'Gratuite · Maj');
 }

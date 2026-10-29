@@ -104,7 +104,7 @@ const tests = [
     assert.equal(g.elements['hp-meter'].attributes['aria-valuenow'], '4');
     assert.equal(g.elements['hp-meter'].style['--fill'], '80%');
     g.startAttack(true);
-    assert.equal(g.elements['mana-value'].textContent, '18 / 30');
+    assert.equal(g.elements['mana-value'].textContent, '10 / 30');
     const b = bossFight();
     assert.equal(b.elements['boss-panel'].hidden, false);
     assert.equal(b.elements['boss-value'].textContent, '8 / 8');
@@ -133,7 +133,7 @@ const tests = [
     Object.assign(g.enemies[0], { x: -15, y: g.player.y - 50, speed: 0 });
     Object.assign(g.enemies[1], { x: 15, y: g.player.y - 50, speed: 0 });
     g.startAttack(true);
-    assert.equal(g.player.mana, 18);
+    assert.equal(g.player.mana, 10);
     g.update(.01);
     assert.equal(g.enemies[0].hp, 1);
     assert.equal(g.enemies[1].hp, 0);
@@ -284,7 +284,7 @@ const tests = [
     assert.equal(g.yardenFrame('running-left', .84), 7);
     assert.equal(g.yardenFrame('walk-down', .89), 0);
     // Toutes les bandes chargées : une seule image dessinée, sans retournement, collisions inchangées.
-    assert(Object.keys(g.yardenArt.strips).length === 11 && Object.values(g.yardenArt.strips).every(Boolean));
+    assert(Object.keys(g.yardenArt.strips).length === 12 && Object.values(g.yardenArt.strips).every(Boolean));
     const hitbox = JSON.stringify([g.player.x, g.player.y, g.player.radius]);
     g.calls.length = 0;
     g.draw();
@@ -807,6 +807,10 @@ const tests = [
     assert.equal(g.player.hp, 7);
     assert.equal(g.player.mana, 40);
     assert(g.elements['hp-value'].textContent.includes('7 / 7'));
+    assert.equal(g.yardenPose().clip, 'celebration', 'Yarden saute de joie');
+    assert.equal(g.yardenPose().frame, 0);
+    g.update(.5);
+    assert(g.yardenPose().frame > 2);
     g.draw();
     const y = g.player.y;
     g.keys.add('w'); g.update(.2); g.keys.clear();

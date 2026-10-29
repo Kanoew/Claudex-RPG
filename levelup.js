@@ -1,12 +1,13 @@
 'use strict';
 
 // Montée de niveau à l'arrivée dans la ruelle, à la fin de l'antre : l'Abysse a fait grandir Yarden.
-// Gain modeste (jamais abusif) : 5 → 7 PV et 30 → 40 mana, tout remonté. Aucun numéro de niveau n'est affiché : il n'a pas été fourni.
+// Gain modeste (jamais abusif) : 5 → 7 PV et 30 → 40 mana, tout remonté. Yarden passe du niveau 1 au niveau 24 (canon de Jordan).
 // L'effet est dessiné en formes simples (anneau, colonne de lumière, confettis violets et dorés) ;
 // les images de célébration de Jordan pourront le remplacer quand elles seront livrées dans le style de Yarden.
 const baseStats = { maxHp: 5, maxMana: 30 };
 const levelStats = { maxHp: 7, maxMana: 40 };
-const levelUp = { time: 0, duration: 2.4, active: false };
+// Niveau 24 à l'arrivée dans la ruelle : les monstres de l'antre donnent beaucoup d'expérience (canon de Jordan).
+const levelUp = { time: 0, duration: 2.4, active: false, level: 24 };
 const levelUpConfetti = [];
 (function buildConfetti() {
   let state = 2026;
@@ -74,7 +75,7 @@ function drawLevelUp(screenX, screenY) {
   ctx.fillRect(screenX - 96, groundY - 118 - t * 10, 192, 40);
   ctx.fillStyle = '#ffe9a8';
   ctx.font = 'bold 14px system-ui';
-  ctx.fillText('NIVEAU SUPÉRIEUR', screenX, groundY - 100 - t * 10);
+  ctx.fillText(`NIVEAU ${levelUp.level}`, screenX, groundY - 100 - t * 10);
   ctx.fillStyle = '#e7dcff';
   ctx.font = '11px system-ui';
   ctx.fillText(`+${levelStats.maxHp - baseStats.maxHp} VIE · +${levelStats.maxMana - baseStats.maxMana} MANA`, screenX, groundY - 85 - t * 10);

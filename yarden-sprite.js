@@ -20,6 +20,8 @@ const yardenClips = {
   'scythe-left': { ...yardenLarge, anchor: [126.7, 132], weights: [1, 1, 1.2, 1.4, 1.4, 1] },
   'dash-right': { ...yardenLarge, weights: yardenEven(6) },
   'dash-left': { ...yardenLarge, weights: yardenEven(6) },
+  // Petit saut de joie de la montée de niveau : lecture unique, durées de assets/yarden/celebration (820 ms).
+  celebration: { cell: [61, 162], anchor: [30.4, 141], weights: [100, 90, 80, 90, 130, 90, 100, 140] },
   hurt: { ...yardenLarge, weights: yardenEven(6) },
   defeat: { ...yardenLarge, weights: [1, 1, 1, 1, 1.4, 1.8] }
 };
@@ -34,7 +36,7 @@ function loadYardenArt() {
     const image = new Image();
     image.onload = () => { yardenArt.strips[name] = image; };
     image.onerror = () => { yardenArt.strips[name] = null; };
-    image.src = `assets/yarden/${name}.png?v=24`;
+    image.src = `assets/yarden/${name}.png?v=37`;
   }
 }
 
@@ -96,6 +98,8 @@ function yardenPose() {
   let wanted, progress = null, fallbacks = [];
   if (yardenSprite.defeated) {
     wanted = 'defeat'; progress = yardenSprite.defeatTime / yardenDefeatSeconds;
+  } else if (levelUp.active) {
+    wanted = 'celebration'; progress = levelUp.time / .82; fallbacks = ['idle'];
   } else if (dodge.remaining > 0) {
     const s = side(dodge.x);
     wanted = `dash-${s}`; progress = 1 - dodge.remaining / dodge.duration; fallbacks = [`running-${s}`];
