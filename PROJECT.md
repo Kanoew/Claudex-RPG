@@ -95,6 +95,8 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 
 ## 8. Journal (à compléter après chaque étape)
 
+29 octobre 2026 — Saut de joie demandé pour Yarden : bande de huit cases égales de face, poing gauche ganté levé et yeux fermés souriants au sommet, sans miroir ni confettis, dans `docs/art/yarden/celebration/`. Source verte conservée, ancrage commun et durées dans `animations.json` (820 ms, lecture unique puis repos). Aucun raccordement au moteur ni changement des particules ; export transparent léger à préparer avant intégration.
+
 29 octobre 2026 — Complément visuel : courses de face et de dos d’Ishara chibi, quatre images chacune, et une pose immobile gauche par homme. Sources vertes, manifestes et aperçus dans `docs/art/ruelle/chibi/` et `docs/art/ruelle/hommes/`. La scène `scene.js` est déjà présente sur main ; cette livraison ne modifie pas son déroulement et ne raccorde pas encore ces quatre nouvelles ressources. Les exports transparents et leur raccordement restent à réaliser.
 
 29 octobre 2026 — Ishara reprise en chibi à partir du repos approuvé : sept bandes de quatre images (repos, quatre marches, deux courses), sources vertes et aperçu autonome dans `docs/art/ruelle/chibi/`. Dessins gauche/droite générés séparément. Les anciens sprites transparents restent en place ; ce nouveau pack ne modifie pas la ruelle jouable. Les sources vertes ne sont pas encore des exports transparents prêts pour le jeu ; raccords et asymétries à contrôler avant intégration.

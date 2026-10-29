@@ -73,3 +73,7 @@ Le contrôleur doit cumuler le temps écoulé et respecter les durées de chaque
 Images fournies par Jordan pour son personnage Yarden, auparavant nommé Vesper pendant la préparation. Aucun droit CC0 n’est ajouté à ces fichiers ; la déclaration `assets/LICENCE.md` reste limitée aux deux images de pierre.
 
 La planche source contient 73 poses dans une grille de 8 × 11, dont 15 cases inutilisées transparentes. Les bandes légères sont extraites de cette planche, réduites ensemble à 50 % et enregistrées en PNG à palette avec transparence. Aucun dessin nouveau, miroir ou changement de pose n’est appliqué lors de cette conversion. Le SHA-256 de la source est inscrit dans le manifeste pour identifier les mêmes pixels.
+
+## Complément : petit saut de joie
+
+[Huit poses de célébration de face et aperçu animé](celebration/index.html), avec source verte, bande en cases égales et `animations.json`. Poing gauche ganté levé, yeux fermés souriants au sommet, réception puis retour au repos ; sans miroir ni confettis. Ce complément n’est pas raccordé au jeu.
