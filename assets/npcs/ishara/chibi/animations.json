@@ -1,0 +1,102 @@
+{
+  "name": "Ishara — version chibi",
+  "version": "chibi-v2",
+  "outfit": "soiree",
+  "style": "chibi, comme Yarden",
+  "cell": {
+    "width": 86,
+    "height": 115
+  },
+  "anchor": {
+    "x": 43,
+    "y": 111
+  },
+  "standHeight": 104,
+  "standHeightRelativeToYarden": 1.05,
+  "mirror": false,
+  "note": "Sept bandes de quatre cases, un seul grossissement pour toutes (réduction de 0,152 depuis les sources de 543 × 724 px). Les directions sont dessinées séparément et ne sont pas retournées. Le point au sol (anchor) est le centre de masse horizontal et le bas des pieds ; une pose de course en l'air garde son élévation. Les yeux, les chaussures (ballerines) et le côté du sac sont des choix de design provisoires : le canon ne les précise pas. Ce pack remplace le pack semi-réaliste de assets/npcs/ishara/soiree/, gardé jusqu'à validation.",
+  "source": {
+    "archive": "ishara-chibi-animations-v2.zip",
+    "sha256": "53be9098c914c14a16c23141f242d02d02ad5978f11f5908a4912129ee2dd2e4",
+    "scale": 0.152
+  },
+  "animations": {
+    "idle": {
+      "file": "idle.png",
+      "frames": 4,
+      "durationsMs": [
+        1000,
+        350,
+        110,
+        1200
+      ],
+      "loop": true
+    },
+    "walk-left": {
+      "file": "walk-left.png",
+      "frames": 4,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true
+    },
+    "walk-right": {
+      "file": "walk-right.png",
+      "frames": 4,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true
+    },
+    "walk-up": {
+      "file": "walk-up.png",
+      "frames": 4,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true
+    },
+    "walk-down": {
+      "file": "walk-down.png",
+      "frames": 4,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true
+    },
+    "run-left": {
+      "file": "run-left.png",
+      "frames": 4,
+      "durationsMs": [
+        100,
+        90,
+        100,
+        90
+      ],
+      "loop": true
+    },
+    "run-right": {
+      "file": "run-right.png",
+      "frames": 4,
+      "durationsMs": [
+        100,
+        90,
+        100,
+        90
+      ],
+      "loop": true
+    }
+  }
+}

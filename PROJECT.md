@@ -3,6 +3,14 @@
 > Fichier de contexte. À lire EN ENTIER au début de chaque session, par Claude comme par ChatGPT/Codex.
 > Si une consigne de ce fichier contredit une demande orale, on le signale avant de coder.
 
+## Règle de style des personnages (décidée avec Jordan le 29 octobre 2026)
+
+- **Chibi** (grosse tête, corps court, trait épais, aplats) pour les **personnages nommés qui comptent dans l'histoire** : Yarden, Ishara et, plus tard, d'autres personnages récurrents.
+- **Semi-réaliste simple** (trait sombre épais, aplats, peu de détails) pour les **figurants humains anonymes** et pour les **monstres**.
+- Ainsi, à l'écran, le regard va vers ce qui est chibi. Les figurants restent génériques et secondaires (les deux hommes de la ruelle) et les monstres gardent leur style validé.
+- Tailles de référence (Yarden = 1,0) : Ishara environ 1,05 ; le grand environ 1,4 et le compact environ 1,17 ; gobelin 0,9, ogre 1,25, Troll environ 2,0.
+- Avant de produire de nouvelles images, vérifier à quelle catégorie appartient le personnage.
+
 ## Cadre canonique — identité, ton et apparence (précisions du 28 octobre 2026)
 
 Ces consignes de Jordan priment sur les anciennes hypothèses de conception. Le jeu adapte le roman dark fantasy **Le Sang de Tiamat**. Ne pas inventer de lore manquant : demander à Jordan.
@@ -205,6 +213,11 @@ Un coin de trottoir sous un lampadaire éteint, dans un cul-de-sac partiel : fa�
 Référence de travail dans `docs/art/ruelle/`, sans chargement dans le jeu. Ishara garde sa tenue de soirée. Les hommes ont des palettes discrètes et des silhouettes contrastées : veste bleu-gris trop grande pour le grand, veste brun-charbon pour le compact. Coiffures sombres simples, chaussures et traits génériques sont des choix de travail. La couleur des yeux et les chaussures d’Ishara, non précisées par le lore fourni, restent elles aussi provisoires. Pas de noms ajoutés, pas d’arme pour les hommes, pas de tenue de combat ni d’effet magique pour Ishara.
 
 Le lien entre les deux noms est désormais précisé dans le cadre canonique en tête de document. Le travail continue sur les mouvements réutilisables d’Ishara, qui restera présente dans la suite de l’histoire. Les deux passants actuels ne sont pas transformés en acteurs de cette rencontre et aucune nouvelle réplique de scène n’est écrite.
+
+### Version chibi d'Ishara et deux hommes (29 octobre 2026)
+Ishara est passée en **chibi**, comme Yarden (règle de style en tête de document). Nouveau pack dans `assets/npcs/ishara/chibi/` : sept bandes de quatre cases de 86 × 115 px, ancrées en (43, 111), même grossissement pour toutes, hauteur debout d'environ 1,05 fois Yarden, environ 65 Ko avec le manifeste `animations.json`. Les directions sont dessinées séparément. Le pack semi-réaliste ci-dessous est remplacé et gardé en attendant la validation de Jordan ; ne plus s'en servir.
+
+Les **deux hommes** sont dans `assets/npcs/hommes/` (`grand.png` et `compact.png`, cases de 134 × 151 px, ancrées en (67, 147), quatre pas de marche vers la gauche et un recul déséquilibré, manifeste `hommes.json`). Ils sont semi-réalistes et simples, sans nom ni arme ; le grand mesure environ 1,4 fois Yarden et le compact environ 1,17. Ils peuvent être retournés. Ni Ishara chibi ni les hommes ne sont encore branchés dans le jeu : les deux silhouettes provisoires de la ruelle restent en place et la scène du chapitre 2 n'est pas raccordée.
 
 ### Mouvements préparés pour Ishara
 Premier pack de soirée dans `assets/npcs/ishara/soiree/` : repos avec respiration et clignement, marche dans les quatre directions et course à gauche/droite. Sept bandes transparentes de quatre images (28 cases de 128 × 160, ancrage 64 × 140, environ 71 Kio pour les PNG), avec manifeste et aperçu dans `docs/art/ruelle/ishara.html`. Les directions ont été dessinées séparément, sans miroir. Le sac à gauche anatomique est un choix de continuité visuelle encore à valider ; son côté n’est pas fixé par le lore fourni.
