@@ -1,0 +1,12 @@
+Deux hommes anonymes — ruelle
+
+Ouvrir index.html pour les deux bandes complètes.
+Chacun : quatre poses de marche vers la gauche, puis un recul déséquilibré.
+Grand : veste bleu-gris trop grande ; compact : veste brun-charbon.
+Visages simples, sans arme ni nom.
+Sources PNG sur vert opaque ; pas de transparence prête pour le jeu.
+Le fond vert présente de légères variations et ne vaut pas #00FF00 partout.
+Le manifeste fournit les rectangles de chaque pose : la répartition ne forme pas une grille régulière.
+Réduire les deux sources au même facteur et aligner leurs repères de sol. Le grand doit mesurer environ 1,4 fois Yarden.
+Raccords des quatre pas et subtilité du déhanchement à valider avant export définitif.
+Aucune modification de la ruelle jouable dans cette livraison.
