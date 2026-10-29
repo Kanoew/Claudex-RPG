@@ -20,7 +20,7 @@ Yarden a 5 PV et 30 mana. La faux coûte 3 mana, Fauchage 12 ; le mana revient �
 
 ## Fichiers et publication
 
-Ouvre `index.html` directement dans un navigateur récent ou utilise le lien du jeu. Aucun outil de build, paquet à installer ou serveur n’est nécessaire. `enemies.js`, `dungeon.js`, `hud.js`, `zones.js`, `yarden-sprite.js`, `monster-sprite.js`, `encounter.js`, `scene.js` et `render.js` sont chargés avant `game.js`. Les salles sont des données dans `zones.js` (dimensions, blocs, portes, monstres) ; `loadZone()` remplit la salle courante. Les règles et les contrôles restent dans `game.js` ; les barres et boutons sont mis à jour par `hud.js`, et le dessin de la salle et des formes provisoires est dans `render.js`.
+Ouvre `index.html` directement dans un navigateur récent ou utilise le lien du jeu. Aucun outil de build, paquet à installer ou serveur n’est nécessaire. `enemies.js`, `dungeon.js`, `hud.js`, `zones.js`, `state.js`, `yarden-sprite.js`, `monster-sprite.js`, `encounter.js`, `scene.js`, `render.js`, `combat.js`, `input.js` et `movement.js` sont chargés avant `game.js`. Les salles sont des données dans `zones.js` (dimensions, blocs, portes, monstres) ; `loadZone()` remplit la salle courante. `state.js` porte l’état partagé, `combat.js` les coups et l’esquive, `input.js` le joystick, le clavier et la pause, `movement.js` les collisions, et `game.js` la boucle de jeu ; les barres et boutons sont mis à jour par `hud.js`, et le dessin de la salle et des formes provisoires est dans `render.js`.
 
 ## Interface et décor
 
