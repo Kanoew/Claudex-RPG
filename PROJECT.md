@@ -46,7 +46,7 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 
 ## 4. Design du Chapitre 1 (issu du canon, à valider avant d'élargir)
 - Héroïne : Yarden. Départ dans un donjon (Abysse), arme obtenue sur place.
-- Arme : une faux manifestée par intention. Invocation gratuite, usage coûte du mana.
+- Arme : faux manifestée par les tatouages. Invocation et coup de base gratuits (confirmation de Jordan le 29 octobre 2026) ; Fauchage coûte 20 mana.
 - Stats de base : FOR, DEX, AGI, VIT (INT absente du prototype).
 - Combat : temps réel. Proposition de départ (à valider) : attaque de base, esquive avec courte invulnérabilité, une capacité qui consomme du mana.
 - Ennemis : 2 types maximum + 1 boss de fin de donjon.
@@ -94,6 +94,8 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 - Jordan : teste sur téléphone, valide, décide de passer à l'étape suivante
 
 ## 8. Journal (à compléter après chaque étape)
+
+29 octobre 2026 — Confirmation de Jordan : invocation et coup de base de la faux à zéro mana, Fauchage conservé à 20 mana. Coût, disponibilité et libellés mis à jour ; un test vérifie la frappe à zéro mana, ses dégâts uniques et sa récupération. Les anciennes valeurs du journal restent historiques. Scripts de combat et HUD en `?v=41`.
 
 29 octobre 2026 — Relecture : reprise depuis le menu corrigée (monstres, PV/mana, états et récupérations reconstruits avant le point de passage), récit et cristal bloqués sous Pause. Trente scénarios logiques passent, dont deux régressions nouvelles. Scripts concernés en `?v=40`.
 
@@ -262,7 +264,7 @@ Réponses de Jordan : les reflets restent en blanc bleuté très pâle ; les col
 
 **Prudence de l'auteur** : l'ordre exact de quelques scènes (douche, tatouages, run) a bougé pendant la refonte ; seul ce qui est marqué sûr est à respecter à la lettre.
 
-**Niveau et stats pendant tout le chapitre 2.** Niveau 24, qui ne bouge pas : le run du chapitre 2 ne donne aucun gain d'XP (courbe logarithmique). FOR 20, DEX 18, AGI 12, VIT 5, INT infinie mais au plafond de son niveau ; Yarden a plus de mana que quelqu'un de son niveau. Faux invoquée par les tatouages : coût d'invocation 0, coût d'usage en mana (adaptation souhaitée : invocation à 0 mana, et grand coup à 15 ou 20 au lieu de 12). Pas d'identité administrative, 0 franc en début de chapitre.
+**Niveau et stats pendant tout le chapitre 2.** Niveau 24, qui ne bouge pas : le run du chapitre 2 ne donne aucun gain d'XP (courbe logarithmique). FOR 20, DEX 18, AGI 12, VIT 5, INT infinie mais au plafond de son niveau ; Yarden a plus de mana que quelqu'un de son niveau. Faux invoquée par les tatouages : invocation et coup de base à coût zéro (confirmation de Jordan le 29 octobre 2026) ; Fauchage coûte 20 mana. Pas d'identité administrative, 0 franc en début de chapitre.
 
 **Déroulé.** 1) Après la ruelle, elle ouvre son interface et découvre les points donnés par Tiamat. 2) La rue : elle suit Ishara et règle l'affaire du poignet (déjà dans le jeu). 3) Le trajet : Ishara explique le monde en marchant (Éveillés, niveaux, failles) ; au seuil de l'immeuble, elle s'arrête pour parler à Tiamat. 4) L'appartement : thé, puis café, courbatures, première nuit. 5) La douche et le miroir : elle voit son visage pour la première fois ; la marque du flanc gauche devient le canal de Tiamat. 6) Les tatouages : ils sont le vecteur de la faux, coût zéro. 7) Premier run en Abysse avec Ishara : 7 créatures de niveau 15 à 19. 8) Vente au comptoir de la rue Marterey : 280 francs (la moitié d'un lot de 560). 9) Direction le 4B pour les papiers : le chapitre se termine devant la porte.
 

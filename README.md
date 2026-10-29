@@ -17,7 +17,7 @@ Prototype du chapitre 1 : un petit donjon en vue du dessus, jouable sur téléph
 
 Sur téléphone : joystick à gauche ; boutons Faux, Fauchage et Esquive à droite. Sur PC : flèches, ZQSD ou WASD ; Espace pour la faux, E pour Fauchage et Maj pour esquiver.
 
-Yarden a 5 PV et 30 mana. La faux coûte 3 mana, Fauchage 12 ; le mana revient à 3/s. L’esquive est gratuite. Le venin ralentit temporairement les déplacements. En cas de mort dans l’antre, « Reprendre l’antre » évite de refaire le Troll. « Continuer » avance les courts textes sans faire tourner le combat.
+Yarden commence avec 5 PV et 30 mana ; après l’araignée, elle atteint le niveau 24, avec 7 PV et 40 mana. L’invocation et le coup de base de la faux sont gratuits ; Fauchage coûte 20 mana. Le mana revient à 3/s. L’esquive est gratuite. Le venin ralentit temporairement les déplacements. En cas de mort dans l’antre, « Reprendre l’antre » évite de refaire le Troll. « Continuer » avance les courts textes sans faire tourner le combat.
 
 ## Fichiers et publication
 

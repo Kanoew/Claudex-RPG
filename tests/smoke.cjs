@@ -129,6 +129,32 @@ const tests = [
     assert.equal(g.stage, 'guards');
     assert.equal(g.player.mana, 30);
   }],
+  ['Faux gratuite : frappe à zéro mana, dégâts uniques et récupération conservés', () => {
+    const g = game();
+    g.player.mana = 0;
+    g.player.y = 144;
+    g.update(0);
+    assert(g.player.armed && g.player.mana === 0, 'L’invocation reste gratuite à zéro mana');
+    assert.equal(g.elements.attack.attributes['aria-disabled'], 'false');
+    assert.equal(g.elements['attack-hint'].textContent, 'Gratuite · Espace');
+    Object.assign(g.enemies[0], { x: 0, y: g.player.y - 50, speed: 0 });
+    g.startAttack();
+    assert(g.attack.remaining > 0);
+    assert.equal(g.player.mana, 0);
+    g.update(0);
+    assert.equal(g.enemies[0].hp, 2);
+    g.update(0);
+    assert.equal(g.enemies[0].hp, 2, 'Un seul dégât par coup');
+    g.attack.remaining = 0;
+    g.startAttack();
+    assert.equal(g.attack.remaining, 0, 'La récupération du coup reste obligatoire');
+    g.attack.cooldown = 0;
+    g.startAttack(true);
+    assert.equal(g.attack.remaining, 0, 'Fauchage reste payant');
+    g.player.mana = 20;
+    g.startAttack(true);
+    assert(g.attack.remaining > 0 && g.player.mana === 0);
+  }],
   ['Fauchage : coût, deux cibles, un seul impact et récupération', () => {
     const g = armed();
     Object.assign(g.enemies[0], { x: -15, y: g.player.y - 50, speed: 0 });
