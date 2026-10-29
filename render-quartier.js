@@ -54,9 +54,27 @@ function drawQuartierSolid(wall, x, y, index) {
   } else if (wall.kind === 'poubelle') {
     fill('#00000030', 3, 3, w, h);
     fill('#4a5a48', 0, 0, w, h); fill('#5e7059', 2, 2, w - 4, 6);
-  } else if (wall.kind === 'scooter') {
-    fill('#00000030', 4, 4, w, h);
-    fill('#7a3f2c', 0, 8, w, 22); fill('#c9b89a', 8, 0, 30, 10); fill('#222', 4, 30, 14, 10); fill('#222', w - 18, 30, 14, 10);
+  } else if (wall.kind === 'arbre') {
+    // Petit arbre en bac : tronc et feuillage vus en trois quarts.
+    fill('#00000030', 3, 3, w, h);
+    fill('#4a3a2c', w / 2 - 3, h - 12, 6, 12);
+    ctx.fillStyle = '#3f6b3a'; ctx.beginPath(); ctx.arc(w / 2, h / 2 - 3, w * .46, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#5d9150'; ctx.beginPath(); ctx.arc(w / 2 - 4, h / 2 - 7, w * .24, 0, Math.PI * 2); ctx.fill();
+  } else if (wall.kind === 'fleurs') {
+    fill('#00000030', 2, 3, w, h);
+    fill('#7a5a3a', 0, h - 7, w, 7);
+    const colors = ['#e58fb0', '#f2d36b', '#cbb8ff', '#ffffff'];
+    for (let i = 0; i < 6; i++) { fill('#3f6b3a', 3 + i * 5, 2, 3, h - 8); fill(colors[i % 4], 2 + i * 5, 0, 5, 5); }
+  } else if (wall.kind === 'voiture') {
+    // Voiture garée, vue de dessus en trois quarts : carrosserie, vitres, roues.
+    fill('#00000038', 4, 6, w, h);
+    ctx.fillStyle = wall.tint || '#555';
+    roundedRectPath(0, 4, w, h - 8, 10); ctx.fill();
+    fill('#00000022', 0, h / 2, w, h / 2 - 4);
+    fill('#1c2330', 18, 10, w - 36, h - 22);
+    fill('#8aa0b5', 22, 13, 20, h - 28); fill('#8aa0b5', w - 42, 13, 20, h - 28);
+    fill('#101010', 10, 0, 16, 7); fill('#101010', w - 26, 0, 16, 7); fill('#101010', 10, h - 7, 16, 7); fill('#101010', w - 26, h - 7, 16, 7);
+    fill('#f4e6b8', w - 4, 12, 4, 6); fill('#f4e6b8', w - 4, h - 18, 4, 6);
   }
   ctx.restore();
 }

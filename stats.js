@@ -6,16 +6,32 @@ const yardenStats = { level: 24, FOR: 20, DEX: 18, AGI: 12, VIT: 5, INT: 'Infini
 const stats = { open: false, unlocked: false, from: null };
 const statsPanel = document.getElementById('stats-panel');
 
-function statsText() {
+const statsBarMax = 30;
+
+// Les lignes de l'écran : une barre par statistique, l'une sous l'autre (valeur, part de la barre, couleur).
+function statsRows() {
+  const bar = (label, value, ratio, kind) => ({ label, value: String(value), ratio, kind });
   return [
-    `Niveau ${yardenStats.level}`,
-    `FOR ${yardenStats.FOR}   DEX ${yardenStats.DEX}   AGI ${yardenStats.AGI}   VIT ${yardenStats.VIT}`,
-    `INT : ${yardenStats.INT}`,
-    `Vie ${player.maxHp}   ·   Mana ${player.maxMana}`,
-    `Faux : appel gratuit, Fauchage ${skill.cost} mana`,
-    `Crédits : ${credits}`,
-    'Identité administrative : aucune'
-  ].join('\n');
+    bar('FOR', yardenStats.FOR, yardenStats.FOR / statsBarMax, 'stat'),
+    bar('DEX', yardenStats.DEX, yardenStats.DEX / statsBarMax, 'stat'),
+    bar('AGI', yardenStats.AGI, yardenStats.AGI / statsBarMax, 'stat'),
+    bar('VIT', yardenStats.VIT, yardenStats.VIT / statsBarMax, 'stat'),
+    bar('INT', '∞', 1, 'infini'),
+    bar('VIE', player.maxHp, player.hp / player.maxHp, 'vie'),
+    bar('MANA', player.maxMana, player.mana / player.maxMana, 'mana')
+  ];
+}
+
+const statsLines = () => [`Fauchage Circulaire : ${skill.cost} pts de Mana`, `Crédits : ${credits}`, 'Identité administrative : aucune'];
+
+// Version texte (pour les lecteurs d'écran et les tests).
+function statsText() {
+  return [`Niveau ${yardenStats.level}`, ...statsRows().map(row => `${row.label} ${row.value}`), 'INT : infinie, plafonnée par son niveau', ...statsLines()].join('\n');
+}
+
+function statsHtml() {
+  const rows = statsRows().map(row => `<div class="stat ${row.kind}"><span class="stat-name">${row.label}</span><span class="stat-bar"><i style="width:${Math.round(Math.max(0, Math.min(1, row.ratio)) * 100)}%"></i></span><b>${row.value}</b></div>`).join('');
+  return `<div class="stat-level"><span>NIV.</span><strong>${yardenStats.level}</strong></div>${rows}${statsLines().map(line => `<div class="stat-line">${line}</div>`).join('')}`;
 }
 
 // `from` : 'menu' pour revenir au menu de pause à la fermeture, ou une fonction à appeler.
@@ -23,7 +39,9 @@ function openStats(from) {
   resetInput();
   stats.open = true;
   stats.from = from || null;
-  document.getElementById('stats-body').textContent = statsText();
+  const body = document.getElementById('stats-body');
+  body.innerHTML = statsHtml();
+  body.setAttribute('aria-label', statsText().replace(/\n/g, ', '));
   statsPanel.hidden = false;
   document.getElementById('stats-close').focus();
   updateAttackButton();

@@ -1,0 +1,11 @@
+Musiques du jeu (facultatives)
+
+Dépose ici des fichiers audio : le jeu les joue à la place de la musique en code, et retombe sur la musique en code si un fichier manque.
+Noms attendus (en .mp3 ou .ogg) :
+  titre   écran titre
+  ville   ruelle, rue, appartement
+  abysse  donjon et antre
+  fete    la fête dans la ruelle
+
+Conseils : une boucle de 60 à 120 secondes qui se répète sans coupure, 1,5 Mo au plus par fichier (le jeu se charge sur téléphone),
+volume mixé assez doux (le réglage « Musique » du jeu s'applique par-dessus). Après un ajout, augmente le numéro ?v= dans audio.js.
