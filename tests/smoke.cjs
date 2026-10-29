@@ -7,11 +7,11 @@ const path = require('node:path');
 const vm = require('node:vm');
 const root = path.join(__dirname, '..');
 
-function game(imageMode) {
+function game(imageMode, keepOpening) {
   const listeners = {};
   const elements = {};
   let patterns = 0;
-  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-next']) {
+  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-next', 'app']) {
     elements[id] = {
       hidden: id === 'result', style: { setProperty(name, value) { this[name] = value; } }, offsetWidth: 54, textContent: '', attributes: {},
       classList: { toggle() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {}, focus() {},
@@ -29,8 +29,9 @@ function game(imageMode) {
     ResizeObserver: class { observe() {} }, requestAnimationFrame() {}
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'render-antre.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, scene, sceneActors, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'opening.js', 'render-antre.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  if (!keepOpening) vm.runInContext('skipOpening()', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, scene, sceneActors, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -577,11 +578,11 @@ const tests = [
     // Les monstres du donjon ne bougent pas pendant que Yarden est dehors.
     for (let i = 0; i < 10; i++) s.update(.05);
     assert.equal(JSON.stringify([s.boss.x, s.boss.y]), bossBefore);
-    // Retour par la faille : arrivée devant la porte nord du donjon, porte restée ouverte, monstres vaincus.
+    // La faille de la ruelle ramène au point de départ du donjon (c'est aussi l'aspiration du chapitre 1) ; monstres vaincus.
     Object.assign(s.player, { x: 0, y: 500 });
     s.update(.02);
     assert.equal(s.currentZone.id, 'donjon');
-    assert.equal(JSON.stringify([s.player.x, s.player.y]), JSON.stringify([0, -246]));
+    assert.equal(JSON.stringify([s.player.x, s.player.y]), JSON.stringify([0, 240]));
     assert(s.exitOpen);
     assert.equal(s.activeEnemies().length, 3);
     assert(s.activeEnemies().every(enemy => enemy.hp === 0));
@@ -751,6 +752,48 @@ const tests = [
     g.draw();
     g.update(.6);
     assert.equal(g.antreResonanceLevel(), 0, 'La vibration est brève');
+  }],
+  ['Ouverture : réveil dans la ruelle, faille, marche libre, aspiration vers le donjon', () => {
+    const g = game('loaded', true);
+    assert.equal(g.currentZone.id, 'exterieur');
+    assert(!g.abyssReached && !g.riftShown && g.story.active);
+    assert.equal(g.activeEnemies().length, 0);
+    assert.equal(g.elements.objective.textContent, 'Écoute');
+    g.draw();
+    const lines = [];
+    const next = () => { lines.push(g.elements['story-text'].textContent); g.advanceStory(); };
+    for (let i = 0; i < 4; i++) next();
+    assert(g.riftShown && g.story.active);
+    for (let i = 0; i < 3; i++) next();
+    assert(!g.story.active && g.scene.free, 'Le joueur marche librement jusqu’à la faille');
+    assert(lines.join(' ').includes('Tiamat'));
+    assert(lines.every(line => !line.includes('Jordan')), 'Jamais « Jordan » à l’écran');
+    g.update(.05);
+    assert(g.elements.objective.textContent.includes('faille'));
+    const y = g.player.y;
+    g.keys.add('s');
+    g.update(.2);
+    assert(g.player.y > y, 'Yarden se déplace pendant le tutoriel');
+    g.keys.clear();
+    g.draw();
+    Object.assign(g.player, { x: 0, y: 440 });
+    for (let i = 0; i < 40 && !g.story.active; i++) g.update(.05);
+    assert(g.story.active, 'La faille l’aspire');
+    g.advanceStory();
+    assert.equal(g.currentZone.id, 'donjon');
+    assert(g.abyssReached && !g.scene.active && !g.player.armed);
+    assert.equal(JSON.stringify([g.player.x, g.player.y]), JSON.stringify([0, 240]));
+  }],
+  ['Fin de combat : la vie et le mana remontent après le Troll', () => {
+    const s = armed();
+    s.enemies[0].hp = s.enemies[1].hp = 0;
+    s.update(.01); s.update(1.2);
+    Object.assign(s.player, { hp: 2, mana: 4 });
+    s.boss.hp = 0;
+    s.update(.01);
+    assert(s.exitOpen);
+    assert.equal(s.player.hp, s.player.maxHp);
+    assert.equal(s.player.mana, s.player.maxMana);
   }],
   ['Antre : reprendre après une mort réinitialise le combat sans refaire le Troll', () => {
     const g = beginSpider(armed());

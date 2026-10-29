@@ -5,7 +5,8 @@
 // (Ishara se présente, le lit en trop) sont racontés par une ligne de narration, pas par une réplique.
 // La scène se joue dans la moitié sud de la ruelle (côté faille, à l'opposé de la fête) : lampadaire éteint,
 // façade sans fenêtre à gauche, grille fermée à droite. Aucune faux, aucun mana, aucune autre violence que le poignet.
-const scene = { active: false, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
+// `free` : une étape « until » rend la main à Yarden jusqu'à ce que sa condition soit vraie.
+const scene = { active: false, free: false, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
 const sceneActors = {};
 const sceneArt = { strips: {} };
 const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, hommes: { cell: [134, 151], anchor: [67, 147] } };
@@ -80,16 +81,16 @@ function sceneScript() {
   ];
 }
 
-function startScene() {
+function startScene(steps = sceneScript()) {
   resetInput();
   attack.remaining = 0;
   dodge.remaining = 0;
-  Object.assign(scene, { active: true, steps: sceneScript(), index: -1, current: null, timer: 0, motions: {}, log: [] });
+  Object.assign(scene, { active: true, free: false, steps, index: -1, current: null, timer: 0, motions: {}, log: [] });
   nextSceneStep();
 }
 
 function resetScene() {
-  Object.assign(scene, { active: false, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
+  Object.assign(scene, { active: false, free: false, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
   for (const id of Object.keys(sceneActors)) delete sceneActors[id];
 }
 
@@ -113,6 +114,7 @@ function nextSceneStep() {
       return;
     }
     if (step.wait !== undefined) return;
+    if (step.until) { scene.free = true; return; }
     if (step.spawn) {
       const [id, kind, x, y, extra] = step.spawn;
       sceneActor(id, kind, x, y, extra);
@@ -122,6 +124,9 @@ function nextSceneStep() {
       for (const id of step.remove) delete sceneActors[id];
     } else if (step.run) {
       step.run();
+    } else if (step.finish) {
+      scene.active = false;
+      return;
     } else if (step.end) {
       scene.active = false;
       scene.done = true;
@@ -159,7 +164,7 @@ function moveSceneActors(seconds) {
     }
     if (!motion.path.length) delete scene.motions[id];
   }
-  if (!moving.has('yarden')) updateYardenSprite(seconds, 0, 0, false);
+  if (!moving.has('yarden') && !scene.free) updateYardenSprite(seconds, 0, 0, false);
   for (const actor of Object.values(sceneActors)) {
     actor.time += seconds;
     if (!moving.has(actor.id)) { actor.moving = false; if (actor.mode === 'move') actor.mode = 'idle'; }
@@ -172,11 +177,13 @@ function updateScene(seconds) {
     startScene();
     return;
   }
-  moveSceneActors(seconds);
+  if (!scene.free) moveSceneActors(seconds);
   const step = scene.current;
   if (!step) return;
   if (step.moves && !Object.keys(scene.motions).length) nextSceneStep();
-  else if (step.wait !== undefined) {
+  else if (step.until) {
+    if (step.until()) { scene.free = false; nextSceneStep(); }
+  } else if (step.wait !== undefined) {
     scene.timer += seconds;
     if (scene.timer >= step.wait) nextSceneStep();
   }

@@ -93,6 +93,7 @@ function updateEncounter(seconds) {
         encounter.phase = 'complete';
         resetYardenSprite();
         player.flash = 0;
+        restoreAfterCombat();
         enterZone('exterieur', 'south');
       });
     }
@@ -101,7 +102,7 @@ function updateEncounter(seconds) {
 }
 
 function encounterBlocksMovement() {
-  return story.active || scene.active || (currentZone.id === 'antre' && ['falling', 'resolution'].includes(encounter.phase));
+  return story.active || (scene.active && !scene.free) || (currentZone.id === 'antre' && ['falling', 'resolution'].includes(encounter.phase));
 }
 
 function canUseCrystal() {

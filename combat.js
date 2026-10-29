@@ -82,3 +82,11 @@ for (const [button, empowered] of [[attackButton, false], [skillButton, true]]) 
     if (event.detail === 0) startAttack(empowered);
   });
 }
+
+// Quand un combat est fini, Yarden récupère toute sa vie et tout son mana avant la suite.
+function restoreAfterCombat() {
+  player.hp = player.maxHp;
+  player.mana = player.maxMana;
+  player.flash = 0;
+  updateStatus();
+}

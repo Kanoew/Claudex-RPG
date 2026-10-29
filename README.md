@@ -6,11 +6,12 @@ Prototype du chapitre 1 : un petit donjon en vue du dessus, jouable sur téléph
 
 ## Jouer
 
+0. Le jeu s’ouvre dans la ruelle d’Helvara : lis le réveil de Yarden, puis marche jusqu’à la faille, qui l’aspire dans l’Abysse. La vie, le mana et les actions n’apparaissent qu’à partir de là. Ajoute `?skip` à la fin du lien pour commencer directement dans le donjon.
 1. Avance depuis l’entrée au sud vers la faux violette pour la manifester gratuitement.
 2. Bats le gobelin bleu et l’ogre rouge. Les annonces orange indiquent leurs attaques.
 3. Affronte le Troll : éloigne-toi du cercle orange ou esquive l’impact.
 4. Après sa défaite, rejoins la porte verte au nord : elle mène à l’antre de l’araignée.
-5. Avance dans l’antre puis lis le texte. Évite les tirs de venin annoncés en orange ; les piliers peuvent te protéger. Les coups seuls ne percent pas sa carapace.
+5. Avance dans l’antre puis lis le texte. Évite les tirs de venin annoncés en orange ; les colonnes de cristal noir peuvent te protéger. Les coups seuls ne percent pas sa carapace.
 6. Approche-toi du cristal noir puis utilise « Cristal » (F au clavier). Pendant les cinq secondes d’aveuglement, approche l’araignée et touche-la avec Fauchage. Elle reste vivante et immobilisée ; Yarden perd connaissance puis se réveille dans la ruelle.
 7. Traverse la ruelle d’Helvara en évitant bennes et caisses et rejoins la rue au nord. Quand Yarden remonte la ruelle, la scène du chapitre 2 se joue : Ishara et les deux hommes, le poignet, puis la fin du prototype. La faille se ferme après le réveil.
 

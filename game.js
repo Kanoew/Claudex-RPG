@@ -123,6 +123,7 @@ function update(seconds) {
   if (stage === 'boss' && boss.hp === 0) {
     stage = 'exit';
     exitOpen = true;
+    restoreAfterCombat();
     attack.remaining = 0;
     dodge.remaining = 0;
     updateStatus();
@@ -151,6 +152,8 @@ loadRoomArt();
 loadYardenArt();
 loadMonsterArt();
 loadSceneArt();
+// Le jeu s'ouvre dans la ruelle ; ?skip dans le lien commence directement dans le donjon.
+if (typeof location !== 'undefined' && /[?&]skip\b/.test(location.search)) skipOpening(); else startOpening();
 requestAnimationFrame(frame);
 
 document.getElementById('story-next').addEventListener('click', advanceStory);
