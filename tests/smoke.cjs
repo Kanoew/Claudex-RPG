@@ -12,7 +12,7 @@ function game(imageMode, keepOpening, store) {
   const listeners = {};
   const elements = {};
   let patterns = 0;
-  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-card', 'story-portrait', 'story-name', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-music', 'menu-effects', 'menu-settings', 'menu-back', 'menu-main', 'menu-settings-view', 'menu-vignette', 'level-chip', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close']) {
+  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-card', 'story-portrait', 'story-name', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-music', 'menu-effects', 'menu-music-volume', 'menu-effects-volume', 'menu-settings', 'menu-back', 'menu-main', 'menu-settings-view', 'menu-vignette', 'level-chip', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close']) {
     elements[id] = {
       hidden: id === 'result', style: { setProperty(name, value) { this[name] = value; } }, offsetWidth: 54, textContent: '', attributes: {},
       classList: { toggle() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {}, focus() {},
@@ -42,7 +42,7 @@ function game(imageMode, keepOpening, store) {
   // Même ordre et portées globales que les scripts defer de la page.
   for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'dialogue.js', 'metro.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-quartier.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, parseStoryLine, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, parseStoryLine, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -892,7 +892,7 @@ const tests = [
     g.draw();
     const lines = [];
     const next = () => { lines.push(g.story.current); g.advanceStory(); };
-    for (let i = 0; i < 4; i++) next();
+    for (let i = 0; i < 7; i++) next();
     assert(!g.story.active && !g.riftShown, 'La caméra va regarder la faille avant qu’elle s’ouvre');
     for (let i = 0; i < 120 && !g.story.active; i++) g.update(.05);
     assert(g.riftShown && g.story.active);
@@ -953,8 +953,9 @@ const tests = [
     assert(!g.stats.open);
     g.advanceStory();
     assert(g.stats.open && !g.elements['stats-panel'].hidden);
-    const text = g.elements['stats-body'].textContent;
-    for (const part of ['Niveau 24', 'FOR 20', 'DEX 18', 'AGI 12', 'VIT 5', 'INT : Infinie', 'Vie 7', 'Mana 40', 'Fauchage 20 mana', 'Crédits : 0']) assert(text.includes(part), part);
+    const text = g.statsText();
+    assert(g.statsRows().length === 7 && g.statsRows().find(row => row.label === 'INT').value === '∞');
+    for (const part of ['Niveau 24', 'FOR 20', 'DEX 18', 'AGI 12', 'VIT 5', 'INT : infinie', 'VIE 7', 'MANA 40', 'Fauchage Circulaire : 20 pts de Mana', 'Crédits : 0']) assert(text.includes(part), part);
     assert(!/franc/i.test(text), 'Des crédits, pas des francs');
     g.keys.add('w'); g.update(.2); g.keys.clear();
     assert.equal(g.player.y, y, 'Le jeu attend la fermeture de l’interface');
@@ -1154,10 +1155,23 @@ const tests = [
     const before = a.audio.played.length;
     a.playSfx('slash');
     assert.equal(a.audio.played.length, before, 'Plus de bruitages');
-    assert.equal(a.audio.music.gain.value, .07, 'La musique continue');
+    assert(Math.abs(a.audio.music.gain.value - .072) < 1e-9, 'La musique continue');
     a.setMusic(false);
     assert.equal(a.audio.music.gain.value, 0);
+    // Curseurs de volume : gardés, relus, et appliqués aux deux circuits sonores.
+    a.setMusic(true); a.setEffects(true);
+    a.setMusicVolume(.3); a.setEffectsVolume(1);
+    assert(Math.abs(a.audio.music.gain.value - .036) < 1e-9, 'La musique suit son curseur');
+    assert(Math.abs(a.audio.sfx.gain.value - .8) < 1e-9, 'Les effets suivent leur curseur');
+    a.elements['menu-music-volume'].value = '40';
+    a.fire('menu-music-volume:input');
+    assert.equal(a.audio.musicVolume, .4);
+    a.setMusic(false);
+    assert.equal(a.audio.music.gain.value, 0);
+    a.setEffects(false);
     const b = game('loaded', false, store);
+    assert.equal(b.audio.musicVolume, .4);
+    assert.equal(b.audio.effectsVolume, 1);
     assert.equal(b.audio.effectsOn, false);
     assert.equal(b.audio.musicOn, false);
     a.fire('menu-effects:click');

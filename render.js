@@ -82,6 +82,19 @@ function drawAlleyObject(kind, x, y, w, h) {
 function drawProps(offsetX, offsetY) {
   for (const prop of currentZone.props || []) {
     const x = prop.x + offsetX, y = prop.y + offsetY;
+    if (prop.kind === 'residence') {
+      // La résidence de la fête : une porte allumée au bout de la ruelle, dont la lumière chaude se répand vers le sud.
+      if (x < -140 || x > width + 140 || y < -200 || y > height + 260) continue;
+      const spill = ctx.createLinearGradient(0, y - 20, 0, y + 190);
+      spill.addColorStop(0, '#ffcf8a77'); spill.addColorStop(1, '#ffcf8a00');
+      ctx.fillStyle = spill;
+      ctx.fillRect(x - 110, y - 20, 220, 210);
+      ctx.fillStyle = '#4a2f26'; ctx.fillRect(x - 34, y - 26, 68, 52);
+      ctx.fillStyle = '#ffd18a'; ctx.fillRect(x - 27, y - 22, 54, 46);
+      ctx.fillStyle = '#ff9fc4'; ctx.fillRect(x - 27, y - 22, 10, 46);
+      ctx.fillStyle = '#9fd7ff'; ctx.fillRect(x + 17, y - 22, 10, 46);
+      continue;
+    }
     if (prop.kind === 'lampe-eteinte') {
       // Lampadaire éteint : le coin reste sombre.
       if (x < -20 || x > width + 20 || y < -20 || y > height + 20) continue;

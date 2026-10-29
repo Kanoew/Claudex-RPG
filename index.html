@@ -112,10 +112,24 @@
     #menu-panel button, #stats-panel button { border: 1px solid #8b78c9; border-radius: 16px; background: linear-gradient(#3b2f5f, #2a2144); color: var(--ink); }
     #menu-main, #menu-settings-view { display: grid; gap: 10px; width: min(320px, 100%); justify-items: center; }
     #menu-main[hidden], #menu-settings-view[hidden] { display: none; }
+    .slider { display: grid; gap: 6px; width: 100%; color: var(--muted); font-size: 12px; letter-spacing: .06em; text-align: left; }
+    .slider input { width: 100%; accent-color: #b9a2ff; height: 28px; }
     #menu-vignette { width: min(360px, 100%); height: auto; margin-top: 6px; }
     #menu-vignette[hidden] { display: none; }
     #stats-panel:not([hidden]) { background: radial-gradient(120% 90% at 50% 20%, #2d2150f7, #0d0b15fa); }
     #stats-body { border-color: #8b78c9; border-radius: 18px; background: var(--glass); }
+    #stats-body { width: min(340px, 100%); padding: 18px 16px 16px; font-size: 13px; text-align: left; white-space: normal; }
+    .stat-level { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; color: var(--accent); font: 700 12px system-ui; letter-spacing: .2em; }
+    .stat-level strong { color: #fff; font: 800 38px Georgia, serif; letter-spacing: 0; text-shadow: 0 0 18px #a98cff99; }
+    .stat { display: grid; grid-template-columns: 44px 1fr 34px; align-items: center; gap: 10px; margin: 7px 0; }
+    .stat-name { color: var(--muted); font: 800 12px system-ui; letter-spacing: .14em; }
+    .stat b { text-align: right; color: #fff; font: 800 15px system-ui; }
+    .stat-bar { display: block; height: 11px; background: #150f24; border: 1px solid #4a3d73; transform: skewX(-18deg); overflow: hidden; }
+    .stat-bar i { display: block; height: 100%; background: linear-gradient(90deg, #8e78d6, #e1d5ff); box-shadow: 0 0 10px #b9a2ff88; }
+    .stat.vie .stat-bar i { background: linear-gradient(90deg, #c4609a, #f4b7d8); }
+    .stat.mana .stat-bar i { background: linear-gradient(90deg, #7b8cff, #d5dcff); }
+    .stat.infini .stat-bar i { background: linear-gradient(90deg, #6f5ac7, #ffffff, #6f5ac7); }
+    .stat-line { margin-top: 10px; padding-top: 8px; border-top: 1px solid #3d3358; color: var(--accent-soft); }
     #result:not([hidden]) { background: #0d0b15f2; }
     #retry { border-color: #8b78c9; border-radius: 16px; background: linear-gradient(#3b2f5f, #2a2144); color: var(--ink); }
     button:focus-visible { outline: 3px solid #fff1c2; outline-offset: 3px; }
@@ -139,30 +153,30 @@
   <script src="enemies.js?v=46" defer></script>
   <script src="dungeon.js?v=49" defer></script>
   <script src="hud.js?v=50" defer></script>
-  <script src="zones.js?v=48" defer></script>
+  <script src="zones.js?v=51" defer></script>
   <script src="state.js?v=50" defer></script>
   <script src="yarden-sprite.js?v=42" defer></script>
   <script src="monster-sprite.js?v=46" defer></script>
   <script src="encounter.js?v=48" defer></script>
-  <script src="scene.js?v=50" defer></script>
+  <script src="scene.js?v=51" defer></script>
   <script src="apartment.js?v=48" defer></script>
   <script src="metro.js?v=50" defer></script>
   <script src="mirror.js?v=48" defer></script>
   <script src="dialogue.js?v=50" defer></script>
   <script src="levelup.js?v=50" defer></script>
-  <script src="stats.js?v=48" defer></script>
+  <script src="stats.js?v=51" defer></script>
   <script src="save.js?v=50" defer></script>
-  <script src="audio.js?v=48" defer></script>
-  <script src="opening.js?v=50" defer></script>
-  <script src="weapon-art.js?v=49" defer></script>
-  <script src="render-quartier.js?v=48" defer></script>
+  <script src="audio.js?v=51" defer></script>
+  <script src="opening.js?v=52" defer></script>
+  <script src="weapon-art.js?v=51" defer></script>
+  <script src="render-quartier.js?v=51" defer></script>
   <script src="render-appart.js?v=44" defer></script>
   <script src="render-antre.js?v=42" defer></script>
-  <script src="render.js?v=49" defer></script>
+  <script src="render.js?v=51" defer></script>
   <script src="combat.js?v=48" defer></script>
   <script src="input.js?v=44" defer></script>
   <script src="movement.js?v=42" defer></script>
-  <script src="menu.js?v=50" defer></script>
+  <script src="menu.js?v=51" defer></script>
   <script src="game.js?v=50" defer></script>
 </head>
 <body>
@@ -182,10 +196,10 @@
       <div id="menu-panel" role="dialog" aria-modal="true" aria-labelledby="menu-title" hidden>
         <h2 id="menu-title">Le Sang de Tiamat</h2><p id="menu-note"></p>
         <div id="menu-main"><button id="menu-continue" type="button">Continuer</button><button id="menu-new" type="button">Commencer</button><button id="menu-resume" type="button">Reprendre</button><button id="menu-stats" type="button" hidden>Statistiques</button><button id="menu-settings" type="button">Paramètres</button><button id="menu-restart" type="button">Revenir au dernier point de passage</button></div>
-        <div id="menu-settings-view" hidden><button id="menu-music" type="button">Musique : activée</button><button id="menu-effects" type="button">Effets : activés</button><button id="menu-back" type="button">Retour</button></div>
+        <div id="menu-settings-view" hidden><button id="menu-music" type="button">Musique : activée</button><label class="slider">Volume de la musique<input id="menu-music-volume" type="range" min="0" max="100" step="5" value="60"></label><button id="menu-effects" type="button">Effets : activés</button><label class="slider">Volume des effets<input id="menu-effects-volume" type="range" min="0" max="100" step="5" value="60"></label><button id="menu-back" type="button">Retour</button></div>
         <canvas id="menu-vignette" width="360" height="170" hidden aria-hidden="true"></canvas>
       </div>
-      <div id="stats-panel" role="dialog" aria-modal="true" aria-labelledby="stats-title" hidden><h2 id="stats-title">Yarden</h2><p id="stats-body"></p><button id="stats-close" type="button">Fermer</button></div>
+      <div id="stats-panel" role="dialog" aria-modal="true" aria-labelledby="stats-title" hidden><h2 id="stats-title">Yarden</h2><div id="stats-body" role="group"></div><button id="stats-close" type="button">Fermer</button></div>
       <div id="story-panel" role="dialog" aria-modal="true" aria-labelledby="story-text" hidden><div id="story-card"><canvas id="story-portrait" width="144" height="144" hidden></canvas><div id="story-body"><p id="story-name" hidden></p><p id="story-text"></p></div></div><button id="story-next" type="button">Continuer</button></div>
     </div>
     <div id="controls">

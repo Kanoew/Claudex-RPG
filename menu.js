@@ -31,6 +31,8 @@ function showMenuView(view) {
   document.getElementById('menu-title').textContent = view === 'settings' ? 'Paramètres' : menu.kind === 'title' ? 'Le Sang de Tiamat' : 'Pause';
   menuButtons.music.textContent = musicLabel();
   menuButtons.effects.textContent = effectsLabel();
+  musicSlider.value = Math.round(audio.musicVolume * 100);
+  effectsSlider.value = Math.round(audio.effectsVolume * 100);
 }
 
 function openMenu(kind) {
@@ -86,6 +88,9 @@ menuButtons.continue.addEventListener('click', menuContinue);
 menuButtons.new.addEventListener('click', menuNewGame);
 menuButtons.resume.addEventListener('click', closeMenu);
 menuButtons.restart.addEventListener('click', menuContinue);
+const musicSlider = document.getElementById('menu-music-volume'), effectsSlider = document.getElementById('menu-effects-volume');
+musicSlider.addEventListener('input', () => setMusicVolume(Number(musicSlider.value) / 100));
+effectsSlider.addEventListener('input', () => { setEffectsVolume(Number(effectsSlider.value) / 100); playSfx('hit'); });
 menuButtons.settings.addEventListener('click', () => { showMenuView('settings'); menuButtons.music.focus(); });
 menuButtons.back.addEventListener('click', () => { showMenuView('main'); menuButtons.settings.focus(); });
 menuButtons.music.addEventListener('click', () => { setMusic(!audio.musicOn); menuButtons.music.textContent = musicLabel(); });

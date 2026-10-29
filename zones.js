@@ -62,8 +62,11 @@ const zones = {
     start: { x: -150, y: 170 },
     blocks: [
       { x: -260, y: -200, width: 520, height: 120, kind: 'facade' },
-      { x: -230, y: -76, width: 70, height: 26, kind: 'velos' }, { x: 150, y: -76, width: 70, height: 26, kind: 'velos' }, { x: 80, y: -70, width: 22, height: 22, kind: 'poubelle' },
-      { x: -100, y: 120, width: 70, height: 40, kind: 'scooter' }
+      // Sur le trottoir : vélos, poubelle, arbres en bac et jardinières. Deux voitures garées à moitié sur le trottoir, à moitié sur la route.
+      { x: -240, y: -76, width: 70, height: 26, kind: 'velos' }, { x: 160, y: -76, width: 70, height: 26, kind: 'velos' }, { x: 80, y: -70, width: 22, height: 22, kind: 'poubelle' },
+      { x: -142, y: -76, width: 28, height: 28, kind: 'arbre' }, { x: 112, y: -76, width: 28, height: 28, kind: 'arbre' },
+      { x: -78, y: -62, width: 30, height: 16, kind: 'fleurs' }, { x: 48, y: -62, width: 30, height: 16, kind: 'fleurs' },
+      { x: -226, y: -36, width: 96, height: 50, kind: 'voiture', tint: '#7a2f3a' }, { x: 134, y: -36, width: 96, height: 50, kind: 'voiture', tint: '#3d5568' }
     ],
     doors: [],
     enemies: [],
@@ -111,7 +114,7 @@ function scatterProps(zone, seed, count) {
   }
   return props;
 }
-zones.exterieur.props = [{ x: -150, y: -360, kind: 'lampe' }, { x: 150, y: -120, kind: 'lampe' }, { x: -140, y: 210, kind: 'lampe-eteinte' }, { x: 190, y: 420, kind: 'grille' }, ...scatterProps(zones.exterieur, 20261028, 60)];
+zones.exterieur.props = [{ x: 96, y: -498, kind: 'residence' }, { x: -150, y: -360, kind: 'lampe' }, { x: 150, y: -120, kind: 'lampe' }, { x: -140, y: 210, kind: 'lampe-eteinte' }, { x: 190, y: 420, kind: 'grille' }, ...scatterProps(zones.exterieur, 20261028, 60)];
 
 function zoneWalls(zone) {
   const r = zone.room;
