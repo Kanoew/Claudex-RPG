@@ -1,12 +1,20 @@
 # Bilan du prototype — Chapitre 1
 
-## Point actuel — antre de l’araignée
+## Point actuel — relecture du 29 octobre 2026
 
-Les sections historiques ci-dessous décrivent le prototype initial. Le jeu comprend désormais les sprites de Yarden et des monstres, la ruelle d’Helvara, et une première version de l’antre après le Troll. Jordan confirme le fonctionnement sur son Android ; aucune fréquence d’images n’a été mesurée.
+Le jeu comprend une ouverture dans la ruelle, un premier donjon (gobelin, ogre, Troll), l’antre de cristal et sa victoire par la ruse, le réveil au niveau 24 (7 PV, 40 mana et saut de joie), puis la rencontre avec Ishara et les deux hommes. Il s’arrête quand Ishara propose un hébergement. Le trajet, l’appartement, le miroir, le run du chapitre 2 et le 4B sont du canon préparé, pas encore du contenu jouable.
 
-L’antre ajoute le tir de venin annoncé, les piliers protecteurs, un cristal noir qui ouvre une fenêtre de ruse, l’incapacitation vivante de l’araignée et le réveil dans la ruelle. La scène de la rue (chapitre 2) est jouée par `scene.js` d'après le canon fourni. Le combat est une adaptation simplifiée du canon, détaillée dans `PROJECT.md`, section 10.
+Le moteur reste en HTML/JavaScript/Canvas, sans dépendances. Il sépare désormais état, commandes, collisions, combat, scènes, rendu et sauvegarde. Écran titre, pause et trois points de passage sont présents. Les sauvegardes restent locales au navigateur ; le retour à un point de passage reconstruit un état déterminé, il ne restaure pas un combat au milieu.
 
-Vingt scénarios logiques passent. Un essai dans Chromium vérifie les images, le récit au clavier, la ruse, la transition et le réveil sans exception JavaScript ; les formats portrait et paysage sont contrôlés. La jouabilité du nouveau combat, son équilibrage et ses images restent à tester sur téléphone. Aucun basculement vers Godot n’a été entrepris.
+La relecture a reproduit puis corrigé deux défauts : le retour au point de passage gardait des ennemis vaincus, des blessures et des récupérations de la partie courante ; le cristal et le récit pouvaient encore être activés sous le menu Pause. Deux scénarios de régression couvrent ces cas, dont les trois points de passage repris dans une même partie.
+
+Confirmation de Jordan pour la suite « D. Miroir et tatouages » : invocation et coup de base de la faux gratuits, même à zéro mana ; Fauchage reste à 20 mana. Un troisième scénario vérifie la gratuité, les dégâts uniques et la récupération du coup de base. Le portrait rapproché est préparé dans `docs/art/yarden/miroir/`, sans nouvelle scène ni réplique inventée.
+
+**Vérification : 31 scénarios logiques réussis.** Dans Chromium, vérification en 412 × 915 et 915 × 412 : ouverture, reprise depuis le menu, coup gratuit, Fauchage payant, blocage du cristal en pause, résolution de l’antre, montée au niveau 24 et fin de la scène de rue. Les transitions ont été exercées avec des états de combat contrôlés : cela ne constitue pas une partie complète pour juger l’équilibrage. Les 12 bandes de Yarden, 4 monstres et 9 bandes de PNJ se chargent, sans exception JavaScript ni ressource du jeu manquante.
+
+Points à traiter ensuite : convertir et raccorder les courses verticales d’Ishara et les poses immobiles des hommes (leurs sources existent, le jeu emploie encore les poses de remplacement) ; poursuivre le trajet puis l’appartement avant d’introduire le miroir ; valider les répliques provisoires de Tiamat ; mesurer la fluidité et l’équilibrage sur Android. Les PNG/SVG de `assets/` totalisent environ 658 Kio, y compris des anciennes ressources non chargées. Aucune migration Godot engagée.
+
+Les sections suivantes sont l’historique du prototype initial ; leurs valeurs et limites ne décrivent pas toutes la version actuelle.
 
 ## État
 

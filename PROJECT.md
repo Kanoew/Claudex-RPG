@@ -46,7 +46,7 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 
 ## 4. Design du Chapitre 1 (issu du canon, à valider avant d'élargir)
 - Héroïne : Yarden. Départ dans un donjon (Abysse), arme obtenue sur place.
-- Arme : une faux manifestée par intention. Invocation gratuite, usage coûte du mana.
+- Arme : faux manifestée par les tatouages. Invocation et coup de base gratuits (confirmation de Jordan le 29 octobre 2026) ; Fauchage coûte 20 mana.
 - Stats de base : FOR, DEX, AGI, VIT (INT absente du prototype).
 - Combat : temps réel. Proposition de départ (à valider) : attaque de base, esquive avec courte invulnérabilité, une capacité qui consomme du mana.
 - Ennemis : 2 types maximum + 1 boss de fin de donjon.
@@ -94,6 +94,10 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 - Jordan : teste sur téléphone, valide, décide de passer à l'étape suivante
 
 ## 8. Journal (à compléter après chaque étape)
+
+29 octobre 2026 — Confirmation de Jordan : invocation et coup de base de la faux à zéro mana, Fauchage conservé à 20 mana. Coût, disponibilité et libellés mis à jour ; un test vérifie la frappe à zéro mana, ses dégâts uniques et sa récupération. Les anciennes valeurs du journal restent historiques. Scripts de combat et HUD en `?v=41`.
+
+29 octobre 2026 — Relecture : reprise depuis le menu corrigée (monstres, PV/mana, états et récupérations reconstruits avant le point de passage), récit et cristal bloqués sous Pause. Trente scénarios logiques passent, dont deux régressions nouvelles. Scripts concernés en `?v=40`.
 
 29 octobre 2026 — Saut de joie demandé pour Yarden : bande de huit cases égales de face, poing gauche ganté levé et yeux fermés souriants au sommet, sans miroir ni confettis, dans `docs/art/yarden/celebration/`. Source verte conservée, ancrage commun et durées dans `animations.json` (820 ms, lecture unique puis repos). Aucun raccordement au moteur ni changement des particules ; export transparent léger à préparer avant intégration.
 
@@ -195,11 +199,11 @@ Limites de ce premier raccordement : pas de système d’inventaire, pas de poud
 |---|---|---|
 | Actions de l’araignée | préparées et raccordées | Bande transparente de neuf cases : quatre marches, préparation, tir, dégâts, aveuglement, incapacitation. Découpe et repère au sol dans `assets/monsters/monsters.json`. Aspect et continuité à valider sur téléphone. |
 | Deuxième salle et bataille | première version jouable, à relire | Vingt scénarios logiques passent, dont venin continu/murs/esquive, territoire, récit figé, ruse et réveil, reprise de l’antre. Chromium charge les images et traverse le récit, la ruse, l’incapacitation et le réveil sans exception JavaScript ; affichage contrôlé en portrait et paysage. Cela ne remplace pas Android. |
-| Deux habitants de la ruelle | emplacements et silhouettes provisoires | Identités et dialogues encore à fournir ; aucun nouveau rôle canonique attribué. |
+| Rencontre de la ruelle | intégrée, à valider sur Android | Ishara et deux hommes anonymes dans `scene.js` ; sources complémentaires de mouvement et de repos encore à raccorder. |
 
 ## 11. Ruelle — Ishara et les deux hommes (précisions de Jordan)
 
-Ces précisions concernent la rencontre du chapitre 2. La bible et le texte publié restent les références. Elles remplacent l’hypothèse de deux simples passants pour la conception de cette scène : **Ishara et deux hommes anonymes** sont trois personnages distincts. Le jeu affiche encore les deux silhouettes provisoires de la section 10 ; leur remplacement et la scène ne sont pas encore raccordés.
+Ces précisions concernent la rencontre du chapitre 2. La bible et le texte publié restent les références. Elles remplacent l’hypothèse de deux simples passants pour la conception de cette scène : **Ishara et deux hommes anonymes** sont trois personnages distincts. La scène est désormais raccordée dans `scene.js` (étape 16b). Les sources complémentaires de course verticale et de pose immobile ne sont pas encore exportées pour le jeu.
 
 ### Ishara, au moment de la rencontre
 - Niveau 11, éveillée depuis environ six mois, quelques runs en groupe, aucune guilde.
@@ -225,12 +229,12 @@ Un coin de trottoir sous un lampadaire éteint, dans un cul-de-sac partiel : fa�
 ### Première proposition de design (à valider)
 Référence de travail dans `docs/art/ruelle/`, sans chargement dans le jeu. Ishara garde sa tenue de soirée. Les hommes ont des palettes discrètes et des silhouettes contrastées : veste bleu-gris trop grande pour le grand, veste brun-charbon pour le compact. Coiffures sombres simples, chaussures et traits génériques sont des choix de travail. La couleur des yeux et les chaussures d’Ishara, non précisées par le lore fourni, restent elles aussi provisoires. Pas de noms ajoutés, pas d’arme pour les hommes, pas de tenue de combat ni d’effet magique pour Ishara.
 
-Le lien entre les deux noms est désormais précisé dans le cadre canonique en tête de document. Le travail continue sur les mouvements réutilisables d’Ishara, qui restera présente dans la suite de l’histoire. Les deux passants actuels ne sont pas transformés en acteurs de cette rencontre et aucune nouvelle réplique de scène n’est écrite.
+Le lien entre les deux noms est désormais précisé dans le cadre canonique en tête de document. Le travail continue sur les mouvements réutilisables d’Ishara, qui restera présente dans la suite de l’histoire. La scène a depuis été intégrée à l’étape 16b ; ne pas ajouter de nouvelle réplique au canon fourni.
 
 ### Version chibi d'Ishara et deux hommes (29 octobre 2026)
 Ishara est passée en **chibi**, comme Yarden (règle de style en tête de document). Nouveau pack dans `assets/npcs/ishara/chibi/` : sept bandes de quatre cases de 86 × 115 px, ancrées en (43, 111), même grossissement pour toutes, hauteur debout d'environ 1,05 fois Yarden, environ 65 Ko avec le manifeste `animations.json`. Les directions sont dessinées séparément. Le pack semi-réaliste ci-dessous est remplacé et gardé en attendant la validation de Jordan ; ne plus s'en servir.
 
-Les **deux hommes** sont dans `assets/npcs/hommes/` (`grand.png` et `compact.png`, cases de 134 × 151 px, ancrées en (67, 147), quatre pas de marche vers la gauche et un recul déséquilibré, manifeste `hommes.json`). Ils sont semi-réalistes et simples, sans nom ni arme ; le grand mesure environ 1,4 fois Yarden et le compact environ 1,17. Ils peuvent être retournés. Les sources vertes des deux hommes et d'Ishara sont conservées dans `docs/art/ruelle/hommes/` et `docs/art/ruelle/chibi/` (environ 16 Mo) : décision de Jordan, pour retrouver les originaux depuis le dépôt si son dossier local est perdu. Ni Ishara chibi ni les hommes ne sont encore branchés dans le jeu : les deux silhouettes provisoires de la ruelle restent en place et la scène du chapitre 2 n'est pas raccordée.
+Les **deux hommes** sont dans `assets/npcs/hommes/` (`grand.png` et `compact.png`, cases de 134 × 151 px, ancrées en (67, 147), quatre pas de marche vers la gauche et un recul déséquilibré, manifeste `hommes.json`). Ils sont semi-réalistes et simples, sans nom ni arme ; le grand mesure environ 1,4 fois Yarden et le compact environ 1,17. Ils peuvent être retournés. Les sources vertes des deux hommes et d'Ishara sont conservées dans `docs/art/ruelle/hommes/` et `docs/art/ruelle/chibi/` (environ 16 Mo) : décision de Jordan, pour retrouver les originaux depuis le dépôt si son dossier local est perdu. Ishara chibi et les deux hommes sont branchés dans `scene.js` depuis l’étape 16b. Les nouvelles courses verticales et poses immobiles restent à exporter et à raccorder.
 
 ### Mouvements préparés pour Ishara
 Premier pack de soirée dans `assets/npcs/ishara/soiree/` : repos avec respiration et clignement, marche dans les quatre directions et course à gauche/droite. Sept bandes transparentes de quatre images (28 cases de 128 × 160, ancrage 64 × 140, environ 71 Kio pour les PNG), avec manifeste et aperçu dans `docs/art/ruelle/ishara.html`. Les directions ont été dessinées séparément, sans miroir. Le sac à gauche anatomique est un choix de continuité visuelle encore à valider ; son côté n’est pas fixé par le lore fourni.
@@ -261,7 +265,7 @@ Réponses de Jordan : les reflets restent en blanc bleuté très pâle ; les col
 
 **Prudence de l'auteur** : l'ordre exact de quelques scènes (douche, tatouages, run) a bougé pendant la refonte ; seul ce qui est marqué sûr est à respecter à la lettre.
 
-**Niveau et stats pendant tout le chapitre 2.** Niveau 24, qui ne bouge pas : le run du chapitre 2 ne donne aucun gain d'XP (courbe logarithmique). FOR 20, DEX 18, AGI 12, VIT 5, INT infinie mais au plafond de son niveau ; Yarden a plus de mana que quelqu'un de son niveau. Faux invoquée par les tatouages : coût d'invocation 0, coût d'usage en mana (adaptation souhaitée : invocation à 0 mana, et grand coup à 15 ou 20 au lieu de 12). Pas d'identité administrative, 0 franc en début de chapitre.
+**Niveau et stats pendant tout le chapitre 2.** Niveau 24, qui ne bouge pas : le run du chapitre 2 ne donne aucun gain d'XP (courbe logarithmique). FOR 20, DEX 18, AGI 12, VIT 5, INT infinie mais au plafond de son niveau ; Yarden a plus de mana que quelqu'un de son niveau. Faux invoquée par les tatouages : invocation et coup de base à coût zéro (confirmation de Jordan le 29 octobre 2026) ; Fauchage coûte 20 mana. Pas d'identité administrative, 0 franc en début de chapitre.
 
 **Déroulé.** 1) Après la ruelle, elle ouvre son interface et découvre les points donnés par Tiamat. 2) La rue : elle suit Ishara et règle l'affaire du poignet (déjà dans le jeu). 3) Le trajet : Ishara explique le monde en marchant (Éveillés, niveaux, failles) ; au seuil de l'immeuble, elle s'arrête pour parler à Tiamat. 4) L'appartement : thé, puis café, courbatures, première nuit. 5) La douche et le miroir : elle voit son visage pour la première fois ; la marque du flanc gauche devient le canal de Tiamat. 6) Les tatouages : ils sont le vecteur de la faux, coût zéro. 7) Premier run en Abysse avec Ishara : 7 créatures de niveau 15 à 19. 8) Vente au comptoir de la rue Marterey : 280 francs (la moitié d'un lot de 560). 9) Direction le 4B pour les papiers : le chapitre se termine devant la porte.
 
@@ -290,3 +294,11 @@ Note : le chapitre 2 se termine devant la porte du 4B (section 14) ; la scène i
 ## 17. À fournir par Jordan avant le trajet avec Ishara (étape B)
 
 Le canon donne le déroulé (Ishara explique le monde en marchant : Éveillés, niveaux, failles ; au seuil de l'immeuble, Yarden s'arrête pour parler à Tiamat) mais aucun texte. Pour ne pas inventer de lore, attendre : ce que dit Ishara sur les Éveillés, les niveaux et les failles ; ce que Yarden répond ; ce que Tiamat dit au seuil. Le trajet à jouer (rue, métro éventuel, immeuble) est aussi à préciser.
+
+## 18. Suite D — miroir et tatouages (confirmation du 29 octobre 2026)
+
+Jordan demande un **portrait rapproché du visage** de Yarden, pas une illustration de salle de bain ou de reflet. Ressource transparente préparée dans `docs/art/yarden/miroir/visage.png` : visage de face, yeux bleu-gris, lunettes dorées, cheveux et maquillage selon la fiche visuelle. Elle ne contient ni faux ni tatouages ajoutés au visage. Pas de nouvelle scène écrite : dans l’état actuel, le jeu se termine encore à la rencontre avec Ishara. Le miroir et les tatouages viendront dans la continuité de l’appartement selon la section 14.
+
+**Règle de combat confirmée par Jordan : l’invocation ET le coup de base sont gratuits.** Fauchage conserve son coût de 20 mana. La gratuité ne retire ni la récupération entre les coups ni les règles de dégâts existantes. Le vecteur d’invocation reste les tatouages ; ne pas inventer de mécanisme de tatouage ou de révélation de Tiamat supplémentaire.
+
+Relecture de l’état actuel dans `BILAN.md`, avec les limites de vérification.
