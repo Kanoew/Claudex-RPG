@@ -30,6 +30,7 @@ function openingScript() {
 }
 
 function startOpening() {
+  resetDungeonRun();
   abyssReached = false;
   riftShown = false;
   loadZone('exterieur');
@@ -42,15 +43,5 @@ function startOpening() {
 
 // Commence directement dans le donjon, sans l'ouverture (lien ?skip et tests).
 function skipOpening() {
-  resetScene();
-  resetLevelUp();
-  resetEncounter();
-  loadZone('donjon');
-  Object.assign(player, zones.donjon.start);
-  abyssReached = true;
-  riftShown = true;
-  facing = { x: 0, y: -1 };
-  zoneFade = 0;
-  updateStatus();
-  updateAttackButton();
+  resetDungeonRun();
 }

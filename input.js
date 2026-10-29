@@ -55,6 +55,7 @@ for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) {
   });
 }
 window.addEventListener('keydown', event => {
+  if (menu.open) return;
   if (story.active) {
     if (event.key === 'Tab') { event.preventDefault(); document.getElementById('story-next').focus(); }
     if (['Enter', 'Space'].includes(event.code)) {
@@ -65,7 +66,7 @@ window.addEventListener('keydown', event => {
   }
   if (event.code === 'KeyF') {
     event.preventDefault();
-    if (!event.repeat) useCrystal();
+    if (!event.repeat) useInteract();
     return;
   }
   if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {

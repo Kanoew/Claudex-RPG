@@ -3,7 +3,7 @@
 // Coups de faux, fauchage, esquive et boutons d'action.
 
 function startAttack(empowered = false) {
-  const cost = empowered ? skill.cost : 3;
+  const cost = empowered ? skill.cost : 0;
   if (!player.armed || paused || combatOver || encounterBlocksMovement() || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
   player.mana -= cost;
   if (empowered) skill.cooldown = skill.recovery;
@@ -18,7 +18,7 @@ function startAttack(empowered = false) {
 
 function updateAttackButton() {
   const blocked = paused || combatOver || encounterBlocksMovement();
-  const recovering = blocked || !player.armed || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || player.mana < 3;
+  const recovering = blocked || !player.armed || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0;
   attackButton.classList.toggle('recovering', recovering);
   attackButton.setAttribute('aria-disabled', String(recovering));
   const unavailable = blocked || !player.armed || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || skill.cooldown > 0 || player.mana < skill.cost;
@@ -27,9 +27,10 @@ function updateAttackButton() {
   dodgeButton.classList.toggle('recovering', blocked || bossDelay > 0 || dodge.cooldown > 0);
   dodgeButton.setAttribute('aria-disabled', String(blocked || bossDelay > 0 || dodge.cooldown > 0));
   const interact = document.getElementById('interact');
-  interact.hidden = currentZone.id !== 'antre';
-  interact.classList.toggle('recovering', !canUseCrystal());
-  interact.setAttribute('aria-disabled', String(!canUseCrystal()));
+  interact.hidden = !hasInteract();
+  interact.textContent = currentZone.id === 'antre' ? 'Cristal · F' : 'Examiner · F';
+  interact.classList.toggle('recovering', !canInteract());
+  interact.setAttribute('aria-disabled', String(!canInteract()));
   updateButtonHints();
 }
 

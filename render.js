@@ -175,6 +175,7 @@ function drawFacades(offsetX, offsetY) {
 function drawRoom(offsetX, offsetY) {
   const outdoors = currentZone.theme === 'ruelle';
   const crystal = currentZone.theme === 'cristal';
+  const indoor = currentZone.theme === 'appart';
   const floorArt = crystal ? null : outdoors ? roomArt.asphalt : roomArt.floor;
   const wallArt = crystal ? null : outdoors ? roomArt.brick : roomArt.wall;
   if (outdoors) drawFacades(offsetX, offsetY);
@@ -182,7 +183,9 @@ function drawRoom(offsetX, offsetY) {
   ctx.beginPath();
   ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
   ctx.clip();
-  if (crystal) {
+  if (indoor) {
+    drawAppartFloor(offsetX, offsetY);
+  } else if (crystal) {
     drawAntreFloor(offsetX, offsetY);
   } else if (floorArt) {
     ctx.save();
@@ -217,6 +220,7 @@ function drawRoom(offsetX, offsetY) {
   walls.forEach((wall, index) => {
     const x = wall.x + offsetX, y = wall.y + offsetY;
     if (crystal) { drawAntreSolid(wall, x, y, index >= 4); return; }
+    if (indoor) { drawAppartSolid(wall, x, y, index); return; }
     ctx.save();
     if (outdoors && index >= 4) {
       ctx.restore();
@@ -253,7 +257,7 @@ function drawRoomShade(x, y) {
   ctx.save();
   const radius = Math.max(240, Math.min(440, Math.hypot(width, height) * .65));
   const shade = ctx.createRadialGradient(x, y, 85, x, y, radius);
-  const tint = currentZone.theme === 'ruelle' ? ['#050a1800', '#050a1838', '#050a18b4'] : ['#07101b00', '#07101b28', '#07101ba8'];
+  const tint = currentZone.theme === 'appart' ? ['#2a160a00', '#2a160a14', '#2a160a58'] : currentZone.theme === 'ruelle' ? ['#050a1800', '#050a1838', '#050a18b4'] : ['#07101b00', '#07101b28', '#07101ba8'];
   shade.addColorStop(0, tint[0]);
   shade.addColorStop(.6, tint[1]);
   shade.addColorStop(1, tint[2]);
@@ -420,9 +424,11 @@ function draw() {
   ctx.textAlign = 'center';
   ctx.fillText('Yarden', screenX, labelY);
   drawSceneActors(offsetX, offsetY, true);
+  drawSpotMarkers(offsetX, offsetY);
   drawLevelUp(screenX, screenY);
   drawBossMarker(offsetX, offsetY);
   ctx.restore();
+  drawSceneCard();
   if (zoneFade > 0) {
     // Fondu depuis le noir quand Yarden arrive dans une nouvelle zone.
     ctx.fillStyle = `rgba(14, 15, 25, ${Math.min(1, zoneFade / .4)})`;

@@ -6,7 +6,7 @@ Prototype du chapitre 1 : un petit donjon en vue du dessus, jouable sur téléph
 
 ## Jouer
 
-0. Le jeu s’ouvre dans la ruelle d’Helvara : lis le réveil de Yarden, puis marche jusqu’à la faille, qui l’aspire dans l’Abysse. La vie, le mana et les actions n’apparaissent qu’à partir de là. Ajoute `?skip` à la fin du lien pour commencer directement dans le donjon.
+0. L’écran titre propose Commencer ou Continuer si une sauvegarde existe. Le bouton Pause ou Échap suspend le jeu ; le menu permet de revenir au dernier point de passage. La sauvegarde reste dans ce navigateur. Le jeu s’ouvre dans la ruelle d’Helvara : lis le réveil de Yarden, puis marche jusqu’à la faille, qui l’aspire dans l’Abysse. La vie, le mana et les actions n’apparaissent qu’à partir de là. Ajoute `?skip` à la fin du lien pour commencer directement dans le donjon.
 1. Avance depuis l’entrée au sud vers la faux violette pour la manifester gratuitement.
 2. Bats le gobelin bleu et l’ogre rouge. Les annonces orange indiquent leurs attaques.
 3. Affronte le Troll : éloigne-toi du cercle orange ou esquive l’impact.
@@ -17,7 +17,7 @@ Prototype du chapitre 1 : un petit donjon en vue du dessus, jouable sur téléph
 
 Sur téléphone : joystick à gauche ; boutons Faux, Fauchage et Esquive à droite. Sur PC : flèches, ZQSD ou WASD ; Espace pour la faux, E pour Fauchage et Maj pour esquiver.
 
-Yarden a 5 PV et 30 mana. La faux coûte 3 mana, Fauchage 12 ; le mana revient à 3/s. L’esquive est gratuite. Le venin ralentit temporairement les déplacements. En cas de mort dans l’antre, « Reprendre l’antre » évite de refaire le Troll. « Continuer » avance les courts textes sans faire tourner le combat.
+Yarden commence avec 5 PV et 30 mana ; après l’araignée, elle atteint le niveau 24, avec 7 PV et 40 mana. L’invocation et le coup de base de la faux sont gratuits ; Fauchage coûte 20 mana. Le mana revient à 3/s. L’esquive est gratuite. Le venin ralentit temporairement les déplacements. En cas de mort dans l’antre, « Reprendre l’antre » évite de refaire le Troll. « Continuer » avance les courts textes sans faire tourner le combat.
 
 ## Fichiers et publication
 

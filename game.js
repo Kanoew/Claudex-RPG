@@ -32,13 +32,16 @@ function finishCombat(message, delay = 0) {
   updateAttackButton();
 }
 
-retryButton.addEventListener('click', () => {
-  if (currentZone.id === 'antre' && !encounter.complete) { retryAntre(); return; }
+// Base propre pour recommencer ou reconstruire un point de passage.
+function resetDungeonRun() {
   resetInput();
   resetEncounter();
   resetScene();
+  resetApartment();
   resetLevelUp();
   loadZone('donjon');
+  abyssReached = true;
+  riftShown = true;
   Object.assign(player, { x: zones.donjon.start.x, y: zones.donjon.start.y, hp: player.maxHp, flash: 0, mana: player.maxMana, armed: false });
   for (const enemy of allEnemies()) resetEnemy(enemy);
   stage = 'entry';
@@ -59,6 +62,11 @@ retryButton.addEventListener('click', () => {
   retryButton.blur();
   updateStatus();
   updateAttackButton();
+}
+
+retryButton.addEventListener('click', () => {
+  if (currentZone.id === 'antre' && !encounter.complete) retryAntre();
+  else resetDungeonRun();
 });
 
 function update(seconds) {
@@ -164,6 +172,6 @@ const interactButton = document.getElementById('interact');
 interactButton.addEventListener('pointerdown', event => {
   if (event.pointerType === 'mouse' && event.button !== 0) return;
   event.preventDefault();
-  useCrystal();
+  useInteract();
 });
-interactButton.addEventListener('click', event => { if (event.detail === 0) useCrystal(); });
+interactButton.addEventListener('click', event => { if (event.detail === 0) useInteract(); });

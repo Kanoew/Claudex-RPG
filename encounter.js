@@ -18,7 +18,7 @@ function showStory(lines, done) {
 }
 
 function advanceStory() {
-  if (!story.active) return;
+  if (!story.active || menu.open || paused || document.hidden) return;
   if (story.lines.length) {
     document.getElementById('story-text').textContent = story.lines.shift();
     return;
@@ -109,7 +109,7 @@ function encounterBlocksMovement() {
 
 function canUseCrystal() {
   const crystal = currentZone.crystal;
-  return !paused && !combatOver && !document.hidden && !story.active && crystal &&
+  return !paused && !combatOver && !document.hidden && !encounterBlocksMovement() && crystal &&
     encounter.phase === 'combat' && Math.hypot(player.x - crystal.x, player.y - crystal.y) <= 55;
 }
 
