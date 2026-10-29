@@ -71,7 +71,7 @@ function update(seconds) {
       if (resultDelay === 0) result.hidden = false;
     }
   }
-  if (combatOver || paused || document.hidden || story.active) return;
+  if (combatOver || paused || document.hidden || story.active || menu.open) return;
   elapsed += seconds;
   zoneFade = Math.max(0, zoneFade - seconds);
   updateEncounter(seconds);
@@ -126,6 +126,7 @@ function update(seconds) {
     stage = 'exit';
     exitOpen = true;
     restoreAfterCombat();
+    saveCheckpoint('antre');
     attack.remaining = 0;
     dodge.remaining = 0;
     updateStatus();
@@ -155,7 +156,7 @@ loadYardenArt();
 loadMonsterArt();
 loadSceneArt();
 // Le jeu s'ouvre dans la ruelle ; ?skip dans le lien commence directement dans le donjon.
-if (typeof location !== 'undefined' && /[?&]skip\b/.test(location.search)) skipOpening(); else startOpening();
+if (typeof location !== 'undefined' && /[?&]skip\b/.test(location.search)) skipOpening(); else { titleBackdrop(); openMenu('title'); }
 requestAnimationFrame(frame);
 
 document.getElementById('story-next').addEventListener('click', advanceStory);
