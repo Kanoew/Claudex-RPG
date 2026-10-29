@@ -1,5 +1,5 @@
 {
-  "status": "sources de travail non intégrées au jeu",
+  "status": "sources conservées ; nouvelles poses immobiles non raccordées au jeu",
   "background": "vert opaque avec variations",
   "characters": {
     "grand": {
@@ -104,7 +104,25 @@
             650
           ]
         }
-      ]
+      ],
+      "idle": {
+        "file": "grand-idle.png",
+        "frames": 1,
+        "facing": "left",
+        "sourceSize": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          620,
+          61,
+          887,
+          957
+        ],
+        "baselineSourceY": 957,
+        "referenceHeightToYarden": 1.4,
+        "note": "Source individuelle à un grossissement différent de la bande. Réduire sa hauteur debout au même nombre de pixels que le personnage dans la bande existante ; ne pas utiliser directement le facteur de réduction de cette bande."
+      }
     },
     "compact": {
       "file": "compact.png",
@@ -208,7 +226,25 @@
             610
           ]
         }
-      ]
+      ],
+      "idle": {
+        "file": "compact-idle.png",
+        "frames": 1,
+        "facing": "left",
+        "sourceSize": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          587,
+          92,
+          951,
+          912
+        ],
+        "baselineSourceY": 912,
+        "referenceHeightToYarden": 1.17,
+        "note": "Source individuelle à un grossissement différent de la bande. Réduire sa hauteur debout au même nombre de pixels que le personnage dans la bande existante ; ne pas utiliser directement le facteur de réduction de cette bande."
+      }
     }
   },
   "scaleNote": "Au futur export, choisir un même facteur de réduction pour les deux sources et aligner baselineSourceY sur le même sol. Caler ensuite le grand à environ 1,4 fois la hauteur de Yarden. Ne pas normaliser chaque pose séparément."

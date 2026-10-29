@@ -95,6 +95,8 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 
 ## 8. Journal (à compléter après chaque étape)
 
+29 octobre 2026 — Complément visuel : courses de face et de dos d’Ishara chibi, quatre images chacune, et une pose immobile gauche par homme. Sources vertes, manifestes et aperçus dans `docs/art/ruelle/chibi/` et `docs/art/ruelle/hommes/`. La scène `scene.js` est déjà présente sur main ; cette livraison ne modifie pas son déroulement et ne raccorde pas encore ces quatre nouvelles ressources. Les exports transparents et leur raccordement restent à réaliser.
+
 29 octobre 2026 — Ishara reprise en chibi à partir du repos approuvé : sept bandes de quatre images (repos, quatre marches, deux courses), sources vertes et aperçu autonome dans `docs/art/ruelle/chibi/`. Dessins gauche/droite générés séparément. Les anciens sprites transparents restent en place ; ce nouveau pack ne modifie pas la ruelle jouable. Les sources vertes ne sont pas encore des exports transparents prêts pour le jeu ; raccords et asymétries à contrôler avant intégration.
 
 28 octobre 2026 — Cadre canonique de Yarden consigné : identité unique, nom utilisé par le jeu, pronoms, ton et apparence. Anciennes hypothèses de la rencontre et fiche visuelle corrigées. Mise à jour documentaire uniquement ; aucune modification des images ni du combat.
@@ -223,6 +225,6 @@ Les **deux hommes** sont dans `assets/npcs/hommes/` (`grand.png` et `compact.png
 ### Mouvements préparés pour Ishara
 Premier pack de soirée dans `assets/npcs/ishara/soiree/` : repos avec respiration et clignement, marche dans les quatre directions et course à gauche/droite. Sept bandes transparentes de quatre images (28 cases de 128 × 160, ancrage 64 × 140, environ 71 Kio pour les PNG), avec manifeste et aperçu dans `docs/art/ruelle/ishara.html`. Les directions ont été dessinées séparément, sans miroir. Le sac à gauche anatomique est un choix de continuité visuelle encore à valider ; son côté n’est pas fixé par le lore fourni.
 
-Ces ressources préparent sa présence dans la suite de l’histoire, sans lui attribuer le rôle de Yarden et sans déclencher la rencontre. Aspect, cou sans accessoire non canonique, raccords des poses et détails asymétriques restent à valider avant intégration. La course de face/de dos et la tenue de combat ne sont pas encore préparées. Aucun changement du comportement du jeu dans cette livraison de design et de mouvements.
+Ces ressources préparent sa présence dans la suite de l’histoire, sans lui attribuer le rôle de Yarden et sans déclencher la rencontre. Aspect, cou sans accessoire non canonique, raccords des poses et détails asymétriques restent à valider avant intégration. Les courses de face/de dos ont désormais leurs sources chibi dans `docs/art/ruelle/chibi/` ; leur export et leur raccordement restent à réaliser. La tenue de combat n’est pas encore préparée. Aucun changement du comportement du jeu dans cette livraison de design et de mouvements.
 
 

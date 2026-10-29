@@ -1,7 +1,7 @@
 {
   "name": "Ishara",
-  "version": "chibi-v2",
-  "status": "planches de travail, non intégrées au jeu",
+  "version": "chibi-v3",
+  "status": "sources de travail ; courses verticales non raccordées au jeu",
   "background": "vert opaque pour détourage",
   "animations": {
     "idle": {
@@ -102,6 +102,38 @@
     },
     "run-right": {
       "file": "run-right.png",
+      "frames": 4,
+      "cell": [
+        543,
+        724
+      ],
+      "durationsMs": [
+        100,
+        90,
+        100,
+        90
+      ],
+      "loop": true,
+      "mirror": false
+    },
+    "run-up": {
+      "file": "run-up.png",
+      "frames": 4,
+      "cell": [
+        543,
+        724
+      ],
+      "durationsMs": [
+        100,
+        90,
+        100,
+        90
+      ],
+      "loop": true,
+      "mirror": false
+    },
+    "run-down": {
+      "file": "run-down.png",
       "frames": 4,
       "cell": [
         543,
