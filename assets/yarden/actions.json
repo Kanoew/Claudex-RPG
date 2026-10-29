@@ -93,6 +93,31 @@
         "y": 132
       },
       "loop": false
+    },
+    "celebration": {
+      "file": "celebration.png",
+      "label": "Petit saut de joie de la montée de niveau, de face",
+      "frames": 8,
+      "cell": [
+        61,
+        162
+      ],
+      "anchor": {
+        "x": 30.4,
+        "y": 141
+      },
+      "durationsMs": [
+        100,
+        90,
+        80,
+        90,
+        130,
+        90,
+        100,
+        140
+      ],
+      "loop": false,
+      "source": "docs/art/yarden/saut-joie/"
     }
   }
 }

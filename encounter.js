@@ -95,6 +95,8 @@ function updateEncounter(seconds) {
         player.flash = 0;
         restoreAfterCombat();
         enterZone('exterieur', 'south');
+        startLevelUp();
+        saveCheckpoint('rue');
       });
     }
   }
@@ -102,7 +104,7 @@ function updateEncounter(seconds) {
 }
 
 function encounterBlocksMovement() {
-  return story.active || (scene.active && !scene.free) || (currentZone.id === 'antre' && ['falling', 'resolution'].includes(encounter.phase));
+  return story.active || menu.open || levelUp.active || (scene.active && !scene.free) || (currentZone.id === 'antre' && ['falling', 'resolution'].includes(encounter.phase));
 }
 
 function canUseCrystal() {

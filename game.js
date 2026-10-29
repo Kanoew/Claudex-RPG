@@ -37,6 +37,7 @@ retryButton.addEventListener('click', () => {
   resetInput();
   resetEncounter();
   resetScene();
+  resetLevelUp();
   loadZone('donjon');
   Object.assign(player, { x: zones.donjon.start.x, y: zones.donjon.start.y, hp: player.maxHp, flash: 0, mana: player.maxMana, armed: false });
   for (const enemy of allEnemies()) resetEnemy(enemy);
@@ -70,11 +71,12 @@ function update(seconds) {
       if (resultDelay === 0) result.hidden = false;
     }
   }
-  if (combatOver || paused || document.hidden || story.active) return;
+  if (combatOver || paused || document.hidden || story.active || menu.open) return;
   elapsed += seconds;
   zoneFade = Math.max(0, zoneFade - seconds);
   updateEncounter(seconds);
   updateScene(seconds);
+  updateLevelUp(seconds);
   if (combatOver || encounterBlocksMovement()) { updateStatus(); updateAttackButton(); return; }
   // Pendant l'apparition du Troll, Yarden peut bouger ; seuls les coups et les ennemis attendent.
   const appearing = bossDelay > 0;
@@ -124,6 +126,7 @@ function update(seconds) {
     stage = 'exit';
     exitOpen = true;
     restoreAfterCombat();
+    saveCheckpoint('antre');
     attack.remaining = 0;
     dodge.remaining = 0;
     updateStatus();
@@ -153,7 +156,7 @@ loadYardenArt();
 loadMonsterArt();
 loadSceneArt();
 // Le jeu s'ouvre dans la ruelle ; ?skip dans le lien commence directement dans le donjon.
-if (typeof location !== 'undefined' && /[?&]skip\b/.test(location.search)) skipOpening(); else startOpening();
+if (typeof location !== 'undefined' && /[?&]skip\b/.test(location.search)) skipOpening(); else { titleBackdrop(); openMenu('title'); }
 requestAnimationFrame(frame);
 
 document.getElementById('story-next').addEventListener('click', advanceStory);

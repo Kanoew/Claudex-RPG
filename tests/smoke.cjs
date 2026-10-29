@@ -7,11 +7,11 @@ const path = require('node:path');
 const vm = require('node:vm');
 const root = path.join(__dirname, '..');
 
-function game(imageMode, keepOpening) {
+function game(imageMode, keepOpening, store) {
   const listeners = {};
   const elements = {};
   let patterns = 0;
-  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-next', 'app']) {
+  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart']) {
     elements[id] = {
       hidden: id === 'result', style: { setProperty(name, value) { this[name] = value; } }, offsetWidth: 54, textContent: '', attributes: {},
       classList: { toggle() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {}, focus() {},
@@ -26,12 +26,13 @@ function game(imageMode, keepOpening) {
   const context = vm.createContext({
     document, window: { devicePixelRatio: 1, addEventListener: (name, fn) => (listeners['window:' + name] ??= []).push(fn) },
     Image: imageMode ? class { set src(value) { if (imageMode === 'error') this.onerror(); else this.onload(); } } : undefined,
-    ResizeObserver: class { observe() {} }, requestAnimationFrame() {}
+    ResizeObserver: class { observe() {} }, requestAnimationFrame() {},
+    localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'opening.js', 'render-antre.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-  if (!keepOpening) vm.runInContext('skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, scene, sceneActors, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'levelup.js', 'save.js', 'opening.js', 'render-antre.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -104,7 +105,7 @@ const tests = [
     assert.equal(g.elements['hp-meter'].attributes['aria-valuenow'], '4');
     assert.equal(g.elements['hp-meter'].style['--fill'], '80%');
     g.startAttack(true);
-    assert.equal(g.elements['mana-value'].textContent, '18 / 30');
+    assert.equal(g.elements['mana-value'].textContent, '10 / 30');
     const b = bossFight();
     assert.equal(b.elements['boss-panel'].hidden, false);
     assert.equal(b.elements['boss-value'].textContent, '8 / 8');
@@ -133,7 +134,7 @@ const tests = [
     Object.assign(g.enemies[0], { x: -15, y: g.player.y - 50, speed: 0 });
     Object.assign(g.enemies[1], { x: 15, y: g.player.y - 50, speed: 0 });
     g.startAttack(true);
-    assert.equal(g.player.mana, 18);
+    assert.equal(g.player.mana, 10);
     g.update(.01);
     assert.equal(g.enemies[0].hp, 1);
     assert.equal(g.enemies[1].hp, 0);
@@ -284,7 +285,7 @@ const tests = [
     assert.equal(g.yardenFrame('running-left', .84), 7);
     assert.equal(g.yardenFrame('walk-down', .89), 0);
     // Toutes les bandes chargées : une seule image dessinée, sans retournement, collisions inchangées.
-    assert(Object.keys(g.yardenArt.strips).length === 11 && Object.values(g.yardenArt.strips).every(Boolean));
+    assert(Object.keys(g.yardenArt.strips).length === 12 && Object.values(g.yardenArt.strips).every(Boolean));
     const hitbox = JSON.stringify([g.player.x, g.player.y, g.player.radius]);
     g.calls.length = 0;
     g.draw();
@@ -794,6 +795,112 @@ const tests = [
     assert(s.exitOpen);
     assert.equal(s.player.hp, s.player.maxHp);
     assert.equal(s.player.mana, s.player.maxMana);
+  }],
+  ['Montée de niveau : 7 PV et 40 mana au réveil dans la ruelle, effet bref, retour à 5 PV au recommencement', () => {
+    const g = armed('loaded');
+    assert.equal(g.player.maxHp, 5);
+    assert.equal(g.player.maxMana, 30);
+    g.player.hp = 2;
+    winSpider(g);
+    assert(g.levelUp.active);
+    assert.equal(g.player.maxHp, 7);
+    assert.equal(g.player.maxMana, 40);
+    assert.equal(g.player.hp, 7);
+    assert.equal(g.player.mana, 40);
+    assert(g.elements['hp-value'].textContent.includes('7 / 7'));
+    assert.equal(g.yardenPose().clip, 'celebration', 'Yarden saute de joie');
+    assert.equal(g.yardenPose().frame, 0);
+    g.update(.5);
+    assert(g.yardenPose().frame > 2);
+    g.draw();
+    const y = g.player.y;
+    g.keys.add('w'); g.update(.2); g.keys.clear();
+    assert.equal(g.player.y, y, 'Yarden attend la fin de l’effet');
+    for (let i = 0; i < 60 && g.levelUp.active; i++) g.update(.05);
+    assert(!g.levelUp.active);
+    g.keys.add('w'); g.update(.2); g.keys.clear();
+    assert(g.player.y < y, 'Elle bouge de nouveau');
+    g.loadZone('exterieur');
+    g.fire('retry:click');
+    assert.equal(g.player.maxHp, 5);
+    assert.equal(g.player.maxMana, 30);
+    assert.equal(g.player.hp, 5);
+  }],
+  ['Menu : écran titre au lancement, pause qui fige le jeu, reprise', () => {
+    const g = game('loaded', 'title');
+    g.openMenu('title');
+    assert(g.menu.open && !g.elements['menu-panel'].hidden);
+    assert(g.elements['menu-continue'].hidden, 'Pas de reprise sans sauvegarde');
+    assert.equal(g.elements['menu-new'].textContent, 'Commencer');
+    g.fire('menu-new:click');
+    assert(!g.menu.open && g.currentZone.id === 'exterieur' && g.story.active, 'Commencer lance l’ouverture');
+    const h = armed();
+    h.openMenu('pause');
+    assert(h.menu.open && !h.elements['menu-resume'].hidden);
+    const y = h.player.y;
+    h.keys.add('w'); h.update(.3); h.keys.clear();
+    assert.equal(h.player.y, y, 'Le jeu est figé en pause');
+    h.startAttack(false);
+    assert.equal(h.attack.remaining, 0);
+    h.fire('menu-resume:click');
+    assert(!h.menu.open);
+    h.keys.add('w'); h.update(.2); h.keys.clear();
+    assert(h.player.y < y);
+  }],
+  ['Sauvegarde : trois points de passage, reprise, nouvelle partie confirmée', () => {
+    const store = { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } };
+    const g = game('loaded', true, store);
+    for (let guard = 0; guard < 100 && !g.readSave(); guard++) {
+      if (g.story.active) g.advanceStory(); else { if (g.scene.free) Object.assign(g.player, { x: 0, y: 440 }); g.update(.05); }
+    }
+    assert.equal(g.readSave().checkpoint, 'abysse');
+    const a = game('loaded', 'title', store);
+    a.openMenu('title');
+    assert(!a.elements['menu-continue'].hidden && a.elements['menu-continue'].textContent.includes('Entrée dans l’Abysse'));
+    a.fire('menu-continue:click');
+    assert.equal(a.currentZone.id, 'donjon');
+    assert(a.abyssReached && !a.player.armed);
+    const b = armed(undefined);
+    b.enemies[0].hp = b.enemies[1].hp = 0;
+    b.update(.01); b.update(1.2);
+    b.boss.hp = 0;
+    b.update(.01);
+    assert.equal(JSON.parse(store.data['yarden-sauvegarde-1']).checkpoint, 'abysse', 'Autre partie, autre stockage');
+    const c = game('loaded', false, store);
+    c.player.y = 144; c.update(.01);
+    c.enemies[0].hp = c.enemies[1].hp = 0;
+    c.update(.01); c.update(1.2);
+    c.boss.hp = 0;
+    c.update(.01);
+    assert.equal(c.readSave().checkpoint, 'antre');
+    const d = game('loaded', 'title', store);
+    d.openMenu('title');
+    d.fire('menu-continue:click');
+    assert.equal(d.currentZone.id, 'antre');
+    assert(d.player.armed && d.exitOpen && d.activeEnemies().length === 1 && d.encounter.phase === 'waiting');
+    const e = game('loaded', false, store);
+    e.player.y = 144; e.update(.01);
+    winSpider(e);
+    assert.equal(e.readSave().checkpoint, 'rue');
+    const f = game('loaded', 'title', store);
+    f.openMenu('title');
+    f.fire('menu-continue:click');
+    assert.equal(f.currentZone.id, 'exterieur');
+    assert.equal(f.player.maxHp, 7);
+    assert(f.encounter.complete && f.player.armed && !f.scene.active);
+    f.player.y = -45; f.update(.05);
+    assert(f.scene.active, 'La scène de la rue se joue après la reprise');
+    // Nouvelle partie : deux appuis, puis la sauvegarde est effacée.
+    const n = game('loaded', 'title', store);
+    n.openMenu('title');
+    n.fire('menu-new:click');
+    assert(n.menu.open && n.readSave());
+    n.fire('menu-new:click');
+    assert(!n.menu.open && !n.readSave() && n.currentZone.id === 'exterieur');
+    // Sans stockage disponible, le jeu continue.
+    const m = game('loaded', false, { getItem() { throw new Error('refusé'); }, setItem() { throw new Error('refusé'); }, removeItem() {} });
+    assert.equal(m.saveCheckpoint('abysse'), false);
+    assert.equal(m.readSave(), null);
   }],
   ['Antre : reprendre après une mort réinitialise le combat sans refaire le Troll', () => {
     const g = beginSpider(armed());

@@ -24,7 +24,7 @@ function openingScript() {
     { until: () => Math.hypot(player.x - openingRift.x, player.y - openingRift.y) < 100 },
     { moves: [{ id: 'yarden', path: [{ x: openingRift.x, y: openingRift.y - 10 }], speed: 150 }] },
     { say: ['Tiamat : « L’Abysse est trop dangereux pour une niveau 1. Je t’accompagne. »'] },
-    { run: () => { enterZone('donjon', 'start'); } },
+    { run: () => { enterZone('donjon', 'start'); saveCheckpoint('abysse'); } },
     { finish: true }
   ];
 }
@@ -43,6 +43,7 @@ function startOpening() {
 // Commence directement dans le donjon, sans l'ouverture (lien ?skip et tests).
 function skipOpening() {
   resetScene();
+  resetLevelUp();
   resetEncounter();
   loadZone('donjon');
   Object.assign(player, zones.donjon.start);
