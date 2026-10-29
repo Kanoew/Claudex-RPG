@@ -79,13 +79,6 @@ function sleepScript() {
   ];
 }
 
-function mirrorScript() {
-  return [
-    { say: ['Le robinet met trente secondes à chauffer.', 'Au-dessus du lavabo, le miroir.'] },
-    { end: 'Le miroir arrive à la prochaine étape. Fin du prototype !' }
-  ];
-}
-
 function apartmentGoal() {
   return home.stage === 'arrive' ? 'Explore · la chambre d’appoint est à gauche, dans le couloir' : 'Va à la salle de bain, en face de la chambre d’appoint';
 }

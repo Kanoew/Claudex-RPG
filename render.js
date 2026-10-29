@@ -428,6 +428,7 @@ function draw() {
   drawLevelUp(screenX, screenY);
   drawBossMarker(offsetX, offsetY);
   ctx.restore();
+  drawSceneMirror();
   drawSceneCard();
   if (zoneFade > 0) {
     // Fondu depuis le noir quand Yarden arrive dans une nouvelle zone.

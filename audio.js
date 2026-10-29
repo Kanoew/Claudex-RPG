@@ -2,9 +2,9 @@
 
 // Son en code, sans fichier : une petite musique de style 8 bits, très discrète, et quelques bruitages (coup de faux, impact,
 // dégâts, montée de niveau). Le navigateur n'autorise le son qu'après un geste du joueur : rien ne joue avant le premier appui.
-// Le choix « Son activé / coupé » est gardé dans le navigateur et se change dans les menus.
-const audio = { context: null, master: null, music: null, sfx: null, noise: null, enabled: true, theme: null, step: 0, next: 0, timer: null, played: [] };
-const soundKey = 'yarden-son-1';
+// Deux réglages séparés, « Musique » et « Effets », gardés dans le navigateur et modifiables dans les menus.
+const audio = { context: null, master: null, music: null, sfx: null, noise: null, musicOn: true, effectsOn: true, theme: null, step: 0, next: 0, timer: null, played: [] };
+const musicKey = 'yarden-musique-1', effectsKey = 'yarden-effets-1';
 // Notes MIDI par croche (0 = silence). `abysse` : mineur, lent, tendu ; `ville` : pentatonique douce, plus chaude.
 const musicThemes = {
   abysse: {
@@ -19,14 +19,13 @@ const musicThemes = {
   }
 };
 
-function readSoundSetting() {
+function readSetting(key) {
   const store = storage();
-  try { return !store || store.getItem(soundKey) !== '0'; } catch (error) { return true; }
+  try { return !store || store.getItem(key) !== '0'; } catch (error) { return true; }
 }
 
-function soundLabel() {
-  return audio.enabled ? 'Son : activé' : 'Son : coupé';
-}
+const musicLabel = () => audio.musicOn ? 'Musique : activée' : 'Musique : coupée';
+const effectsLabel = () => audio.effectsOn ? 'Effets : activés' : 'Effets : coupés';
 
 // À appeler au premier geste du joueur (clic, touche, doigt) : crée le moteur sonore.
 function unlockAudio() {
@@ -34,8 +33,8 @@ function unlockAudio() {
   try {
     const context = new AudioContext();
     const master = context.createGain(), music = context.createGain(), sfx = context.createGain();
-    master.gain.value = audio.enabled ? 1 : 0;
-    music.gain.value = .07;
+    master.gain.value = 1;
+    music.gain.value = audio.musicOn ? .07 : 0;
     sfx.gain.value = .5;
     music.connect(master); sfx.connect(master); master.connect(context.destination);
     const noise = context.createBuffer(1, 4410, 44100), data = noise.getChannelData(0);
@@ -48,11 +47,20 @@ function unlockAudio() {
   }
 }
 
-function setSound(enabled) {
-  audio.enabled = enabled;
-  if (audio.master) audio.master.gain.value = enabled ? 1 : 0;
+function saveSetting(key, on) {
   const store = storage();
-  try { if (store) store.setItem(soundKey, enabled ? '1' : '0'); } catch (error) { /* tant pis */ }
+  try { if (store) store.setItem(key, on ? '1' : '0'); } catch (error) { /* tant pis */ }
+}
+
+function setMusic(on) {
+  audio.musicOn = on;
+  if (audio.music) audio.music.gain.value = on ? .07 : 0;
+  saveSetting(musicKey, on);
+}
+
+function setEffects(on) {
+  audio.effectsOn = on;
+  saveSetting(effectsKey, on);
 }
 
 const midiHz = note => 440 * Math.pow(2, (note - 69) / 12);
@@ -91,7 +99,7 @@ function syncMusic() {
 
 function playSfx(name) {
   const context = audio.context;
-  if (!context || !audio.enabled) return;
+  if (!context || !audio.effectsOn) return;
   audio.played.push(name);
   if (audio.played.length > 20) audio.played.shift();
   const now = context.currentTime;
@@ -129,4 +137,5 @@ document.addEventListener('visibilitychange', () => {
   if (!audio.context) return;
   if (document.hidden) audio.context.suspend(); else audio.context.resume();
 });
-audio.enabled = readSoundSetting();
+audio.musicOn = readSetting(musicKey);
+audio.effectsOn = readSetting(effectsKey);

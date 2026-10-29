@@ -12,7 +12,7 @@ function game(imageMode, keepOpening, store) {
   const listeners = {};
   const elements = {};
   let patterns = 0;
-  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-sound', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close']) {
+  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-music', 'menu-effects', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close']) {
     elements[id] = {
       hidden: id === 'result', style: { setProperty(name, value) { this[name] = value; } }, offsetWidth: 54, textContent: '', attributes: {},
       classList: { toggle() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {}, focus() {},
@@ -40,9 +40,9 @@ function game(imageMode, keepOpening, store) {
     localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, audio, unlockAudio, playSfx, scheduleMusic, setSound, soundLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -834,6 +834,29 @@ const tests = [
     while (g.story.active) g.advanceStory();
     assert(!g.scene.active);
   }],
+  ['Miroir : texte adapté, portrait, dragon et collier dessinés puis dissous', () => {
+    const g = armed('loaded');
+    winSpider(g);
+    g.levelUp.active = false;
+    g.enterApartment('matin');
+    g.loadSceneArt();
+    Object.assign(g.player, { x: 290, y: 28 });
+    g.useInteract();
+    const said = [];
+    const flags = [];
+    for (let guard = 0; guard < 600 && !g.over; guard++) {
+      if (g.story.active) { said.push(g.elements['story-text'].textContent); if (g.scene.mirror) flags.push([g.scene.mirror.cuff, g.scene.mirror.cuffFrom !== null, g.scene.mirror.pendant, g.scene.mirror.pendantFrom !== null].join()); g.draw(); g.advanceStory(); } else g.update(.05);
+    }
+    assert(g.over && g.scene.mirror === null);
+    const all = said.join('\n');
+    assert(all.includes('Yarden : « ...C’est acceptable. »'));
+    assert(all.includes('Elle détesta ça avec méthode.'));
+    assert(all.includes('Des yeux violets'), 'Yeux violets dans la version jeu');
+    for (const banned of ['Jordan', 'bleu-gris', 'septum', 'piercing', 'Angel']) assert(!all.includes(banned), banned);
+    assert(!/\bil (s’approcha|tourna|chercha|emprunta|détesta|fronça|toucha)/i.test(all), 'Au féminin');
+    assert(flags.includes('true,false,false,false') && flags.includes('true,true,false,false'), 'Le dragon apparaît puis se dissout');
+    assert(flags.some(f => f.endsWith('true,false')) && flags.some(f => f.endsWith('true,true')), 'Le collier apparaît puis se dissout');
+  }],
   ['Scène de la rue : Yarden fige ses actions, reprise remet la scène à zéro', () => {
     const g = armed('loaded');
     winSpider(g);
@@ -1099,15 +1122,22 @@ const tests = [
     assert(a.audio.played.includes('slash'), 'Le coup de faux fait un bruit de lame');
     a.hurtPlayer();
     assert(a.audio.played.includes('hurt'));
-    // Réglage : coupé, gardé dans le navigateur, relu au lancement suivant ; plus aucun bruitage.
-    assert.equal(a.soundLabel(), 'Son : activé');
-    a.setSound(false);
-    assert.equal(a.soundLabel(), 'Son : coupé');
+    // Deux réglages séparés, gardés dans le navigateur : la musique et les effets.
+    assert.equal(a.musicLabel(), 'Musique : activée');
+    assert.equal(a.effectsLabel(), 'Effets : activés');
+    a.setEffects(false);
+    assert.equal(a.effectsLabel(), 'Effets : coupés');
     const before = a.audio.played.length;
     a.playSfx('slash');
-    assert.equal(a.audio.played.length, before);
+    assert.equal(a.audio.played.length, before, 'Plus de bruitages');
+    assert.equal(a.audio.music.gain.value, .07, 'La musique continue');
+    a.setMusic(false);
+    assert.equal(a.audio.music.gain.value, 0);
     const b = game('loaded', false, store);
-    assert.equal(b.audio.enabled, false);
+    assert.equal(b.audio.effectsOn, false);
+    assert.equal(b.audio.musicOn, false);
+    a.fire('menu-effects:click');
+    assert.equal(a.audio.effectsOn, true);
     // Musique selon le lieu.
     g.syncMusic();
     assert.equal(g.audio.theme, 'abysse');
