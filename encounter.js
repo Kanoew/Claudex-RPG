@@ -100,7 +100,7 @@ function updateEncounter(seconds) {
 }
 
 function encounterBlocksMovement() {
-  return story.active || (currentZone.id === 'antre' && ['falling', 'resolution'].includes(encounter.phase));
+  return story.active || scene.active || (currentZone.id === 'antre' && ['falling', 'resolution'].includes(encounter.phase));
 }
 
 function canUseCrystal() {

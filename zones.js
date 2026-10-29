@@ -50,10 +50,6 @@ const zones = {
       { side: 'north', x: 0, half: 44, label: 'RUE', end: 'Yarden a rejoint la rue. Fin du prototype !' }
     ],
     enemies: [],
-    npcs: [
-      { id: 'passant-a', name: 'Passante', x: 100, y: 120, coat: '#52677f', hair: '#342b28' },
-      { id: 'passant-b', name: 'Passant', x: -80, y: -270, coat: '#84565e', hair: '#28272b' }
-    ],
     props: []
   }
 };
@@ -73,7 +69,7 @@ function scatterProps(zone, seed, count) {
   }
   return props;
 }
-zones.exterieur.props = [{ x: -150, y: -360, kind: 'lampe' }, { x: 150, y: -120, kind: 'lampe' }, { x: -140, y: 210, kind: 'lampe' }, ...scatterProps(zones.exterieur, 20261028, 60)];
+zones.exterieur.props = [{ x: -150, y: -360, kind: 'lampe' }, { x: 150, y: -120, kind: 'lampe' }, { x: -140, y: 210, kind: 'lampe-eteinte' }, { x: 190, y: 420, kind: 'grille' }, ...scatterProps(zones.exterieur, 20261028, 60)];
 
 function zoneWalls(zone) {
   const r = zone.room;

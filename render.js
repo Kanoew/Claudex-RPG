@@ -82,6 +82,26 @@ function drawAlleyObject(kind, x, y, w, h) {
 function drawProps(offsetX, offsetY) {
   for (const prop of currentZone.props || []) {
     const x = prop.x + offsetX, y = prop.y + offsetY;
+    if (prop.kind === 'lampe-eteinte') {
+      // Lampadaire éteint : le coin reste sombre.
+      if (x < -20 || x > width + 20 || y < -20 || y > height + 20) continue;
+      ctx.fillStyle = '#0b0e14';
+      ctx.beginPath(); ctx.arc(x, y, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#242a36';
+      ctx.beginPath(); ctx.arc(x, y, 3.4, 0, Math.PI * 2); ctx.fill();
+      continue;
+    }
+    if (prop.kind === 'grille') {
+      // Grille fermée contre le mur de droite.
+      if (x < -60 || x > width + 60 || y < -80 || y > height + 80) continue;
+      ctx.fillStyle = '#10141c';
+      ctx.fillRect(x - 12, y - 40, 24, 80);
+      ctx.strokeStyle = '#4b5666';
+      ctx.lineWidth = 2;
+      for (let bar = -34; bar <= 34; bar += 12) { ctx.beginPath(); ctx.moveTo(x - 10, y + bar); ctx.lineTo(x + 10, y + bar); ctx.stroke(); }
+      ctx.strokeRect(x - 11, y - 39, 22, 78);
+      continue;
+    }
     if (prop.kind === 'lampe') {
       if (x < -170 || x > width + 170 || y < -170 || y > height + 170) continue;
       const pool = ctx.createRadialGradient(x, y, 6, x, y, 160);
@@ -137,6 +157,8 @@ function drawFacades(offsetX, offsetY) {
     for (let row = 0; row * 96 < tall; row++) {
       for (let col = 0; col < 3; col++) {
         const lit = (row * 5 + col * 3 + (side < 0 ? 0 : 2)) % 7 < 3;
+        // Moitié sud de la façade de gauche : aucune fenêtre, la scène s'y déroule à l'abri des regards.
+        if (side < 0 && room.y - 500 + 26 + row * 96 > 0 && room.y - 500 + 26 + row * 96 < room.y + room.height) continue;
         ctx.fillStyle = lit ? '#ffd28ab0' : '#0b0e14c8';
         ctx.fillRect(34 + col * 90, 26 + row * 96, 26, 36);
       }
@@ -332,7 +354,7 @@ function draw() {
   drawDungeon(offsetX, offsetY);
   drawRoomShade(screenX, screenY);
   drawEncounter(offsetX, offsetY);
-  drawNpcs(offsetX, offsetY);
+  drawSceneActors(offsetX, offsetY, false);
   ctx.fillStyle = '#b5afca';
   ctx.font = '12px system-ui';
   ctx.textAlign = 'left';
@@ -398,6 +420,7 @@ function draw() {
   ctx.fillStyle = '#eae7f5';
   ctx.textAlign = 'center';
   ctx.fillText('Yarden', screenX, labelY);
+  drawSceneActors(offsetX, offsetY, true);
   drawBossMarker(offsetX, offsetY);
   if (zoneFade > 0) {
     // Fondu depuis le noir quand Yarden arrive dans une nouvelle zone.
