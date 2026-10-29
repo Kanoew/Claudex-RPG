@@ -49,3 +49,7 @@ Le repos chibi approuvé par Jordan sert désormais de référence pour [le nouv
 Les bandes font 2172 × 724 px : quatre cases de 543 × 724. `animations.json` décrit le découpage et les cadences provisoires. Ouvrir `chibi/index.html` pour lire, ralentir, mettre en pause ou avancer les sept animations image par image. Les grandes sources ne sont pas chargées par le jeu.
 
 Le fond fourni est vert opaque, avec de légères variations de couleur : il n’est pas exactement #00FF00 partout. Un détourage et un export léger restent nécessaires avant intégration. Vérifier aussi les raccords des pas, l’alignement des pieds, le sac à gauche anatomique et le mascara sous l’œil droit : la génération ne garantit pas leur constance dans toutes les vues. Cette livraison fournit les animations de travail, sans mise en scène ni modification de la ruelle jouable.
+
+## Sources des deux hommes — conservées
+
+Les sources sur fond vert des deux hommes sont gardées dans [`hommes/`](hommes/index.html) (`grand.png`, `compact.png`, manifeste `animations.json`, aperçu `index.html`), pour pouvoir les retrouver depuis le dépôt si le dossier d'origine est perdu. Les versions légères prêtes pour le jeu sont dans `assets/npcs/hommes/`. Ces sources ne sont pas chargées par le jeu. Même chose pour Ishara : ses sources vertes sont dans [`chibi/`](chibi/index.html) et la version légère dans `assets/npcs/ishara/chibi/`.

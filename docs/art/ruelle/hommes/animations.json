@@ -1,0 +1,215 @@
+{
+  "status": "sources de travail non intégrées au jeu",
+  "background": "vert opaque avec variations",
+  "characters": {
+    "grand": {
+      "file": "grand.png",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "facing": "left",
+      "walkFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "walkDurationMs": [
+        170,
+        170,
+        170,
+        170
+      ],
+      "reactionFrame": 4,
+      "baselineSourceY": 646,
+      "poses": [
+        {
+          "frame": 0,
+          "pose": "walk",
+          "sourceRect": [
+            12,
+            100,
+            393,
+            553
+          ],
+          "bounds": [
+            20,
+            108,
+            397,
+            645
+          ]
+        },
+        {
+          "frame": 1,
+          "pose": "walk",
+          "sourceRect": [
+            476,
+            98,
+            296,
+            555
+          ],
+          "bounds": [
+            484,
+            106,
+            764,
+            645
+          ]
+        },
+        {
+          "frame": 2,
+          "pose": "walk",
+          "sourceRect": [
+            812,
+            100,
+            401,
+            553
+          ],
+          "bounds": [
+            820,
+            108,
+            1205,
+            645
+          ]
+        },
+        {
+          "frame": 3,
+          "pose": "walk",
+          "sourceRect": [
+            1285,
+            90,
+            285,
+            564
+          ],
+          "bounds": [
+            1293,
+            98,
+            1562,
+            646
+          ]
+        },
+        {
+          "frame": 4,
+          "pose": "stumble",
+          "sourceRect": [
+            1686,
+            114,
+            443,
+            544
+          ],
+          "bounds": [
+            1694,
+            122,
+            2121,
+            650
+          ]
+        }
+      ]
+    },
+    "compact": {
+      "file": "compact.png",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "facing": "left",
+      "walkFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "walkDurationMs": [
+        170,
+        170,
+        170,
+        170
+      ],
+      "reactionFrame": 4,
+      "baselineSourceY": 616,
+      "poses": [
+        {
+          "frame": 0,
+          "pose": "walk",
+          "sourceRect": [
+            31,
+            159,
+            353,
+            463
+          ],
+          "bounds": [
+            39,
+            167,
+            376,
+            614
+          ]
+        },
+        {
+          "frame": 1,
+          "pose": "walk",
+          "sourceRect": [
+            447,
+            154,
+            315,
+            468
+          ],
+          "bounds": [
+            455,
+            162,
+            754,
+            614
+          ]
+        },
+        {
+          "frame": 2,
+          "pose": "walk",
+          "sourceRect": [
+            831,
+            151,
+            340,
+            468
+          ],
+          "bounds": [
+            839,
+            159,
+            1163,
+            611
+          ]
+        },
+        {
+          "frame": 3,
+          "pose": "walk",
+          "sourceRect": [
+            1259,
+            148,
+            316,
+            476
+          ],
+          "bounds": [
+            1267,
+            156,
+            1567,
+            616
+          ]
+        },
+        {
+          "frame": 4,
+          "pose": "stumble",
+          "sourceRect": [
+            1697,
+            169,
+            444,
+            449
+          ],
+          "bounds": [
+            1705,
+            177,
+            2133,
+            610
+          ]
+        }
+      ]
+    }
+  },
+  "scaleNote": "Au futur export, choisir un même facteur de réduction pour les deux sources et aligner baselineSourceY sur le même sol. Caler ensuite le grand à environ 1,4 fois la hauteur de Yarden. Ne pas normaliser chaque pose séparément."
+}
