@@ -71,7 +71,7 @@ function update(seconds) {
       if (resultDelay === 0) result.hidden = false;
     }
   }
-  if (combatOver || paused || document.hidden || story.active || menu.open) return;
+  if (combatOver || paused || document.hidden || story.active || menu.open || stats.open) return;
   elapsed += seconds;
   zoneFade = Math.max(0, zoneFade - seconds);
   updateEncounter(seconds);

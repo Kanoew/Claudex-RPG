@@ -54,6 +54,10 @@
     #story-next { min-height: 48px; padding: 10px; background: #35455c; color: white; border: 1px solid #a6cadf; border-radius: 7px; font: inherit; }
     #pause-button { min-width: 44px; min-height: 36px; padding: 6px 12px; border: 1px solid #59616a; border-radius: 6px; background: #20262d; color: #e0c58f; font: bold 14px system-ui; letter-spacing: .1em; touch-action: manipulation; }
     #menu-panel:not([hidden]) { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 12px; padding: 24px; background: #0b0e14f2; text-align: center; z-index: 3; }
+    #stats-panel:not([hidden]) { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 14px; padding: 24px; background: #0b0e14f5; text-align: center; z-index: 4; }
+    #stats-title { margin: 0; font: 600 24px Georgia, serif; letter-spacing: .2em; }
+    #stats-body { margin: 0; max-width: 340px; padding: 16px; border: 1px solid #a6cadf; border-radius: 7px; background: #151c2c; font-size: 15px; line-height: 1.8; white-space: pre-line; }
+    #stats-panel button { width: min(300px, 100%); min-height: 52px; border: 1px solid #a6cadf; border-radius: 6px; background: #35455c; color: #fff; font: bold 15px system-ui; }
     #menu-title { margin: 0; font: 600 28px Georgia, serif; letter-spacing: .2em; }
     #menu-note { margin: 0 0 8px; color: #b8c1cb; }
     #menu-panel button { width: min(300px, 100%); min-height: 52px; padding: 12px 18px; border: 1px solid #c9ad78; border-radius: 6px; background: #3f3540; color: #fff2d6; font: bold 15px system-ui; touch-action: manipulation; }
@@ -81,21 +85,22 @@
   <script src="dungeon.js?v=38" defer></script>
   <script src="hud.js?v=38" defer></script>
   <script src="zones.js?v=38" defer></script>
-  <script src="state.js?v=38" defer></script>
+  <script src="state.js?v=40" defer></script>
   <script src="yarden-sprite.js?v=38" defer></script>
   <script src="monster-sprite.js?v=38" defer></script>
-  <script src="encounter.js?v=38" defer></script>
+  <script src="encounter.js?v=40" defer></script>
   <script src="scene.js?v=38" defer></script>
-  <script src="levelup.js?v=38" defer></script>
-  <script src="save.js?v=38" defer></script>
+  <script src="levelup.js?v=40" defer></script>
+  <script src="stats.js?v=40" defer></script>
+  <script src="save.js?v=40" defer></script>
   <script src="opening.js?v=38" defer></script>
   <script src="render-antre.js?v=38" defer></script>
   <script src="render.js?v=38" defer></script>
   <script src="combat.js?v=38" defer></script>
   <script src="input.js?v=38" defer></script>
   <script src="movement.js?v=38" defer></script>
-  <script src="menu.js?v=39" defer></script>
-  <script src="game.js?v=39" defer></script>
+  <script src="menu.js?v=40" defer></script>
+  <script src="game.js?v=40" defer></script>
 </head>
 <body>
   <main id="app">
@@ -111,7 +116,8 @@
       <canvas id="game" tabindex="-1" aria-label="Prends la faux, affronte les monstres, puis traverse l’antre de l’araignée. Orange : attaque annoncée ; vert : esquive.">Votre navigateur doit prendre en charge Canvas.</canvas>
       <div id="boss-panel" hidden><div class="meter-label"><span id="boss-state">TROLL</span><span id="boss-value">8 / 8</span></div><div class="meter" id="boss-meter" role="progressbar" aria-label="Points de vie du Gardien" aria-valuemin="0" aria-valuemax="8" aria-valuenow="8"></div></div>
       <div id="result" hidden><strong id="result-text" role="status"></strong><p id="result-details"></p><button id="retry" type="button">Recommencer le donjon</button></div>
-      <div id="menu-panel" role="dialog" aria-modal="true" aria-labelledby="menu-title" hidden><h2 id="menu-title">YARDEN</h2><p id="menu-note"></p><button id="menu-continue" type="button">Continuer</button><button id="menu-new" type="button">Commencer</button><button id="menu-resume" type="button">Reprendre</button><button id="menu-restart" type="button">Revenir au dernier point de passage</button></div>
+      <div id="menu-panel" role="dialog" aria-modal="true" aria-labelledby="menu-title" hidden><h2 id="menu-title">YARDEN</h2><p id="menu-note"></p><button id="menu-continue" type="button">Continuer</button><button id="menu-new" type="button">Commencer</button><button id="menu-resume" type="button">Reprendre</button><button id="menu-stats" type="button" hidden>Statistiques</button><button id="menu-restart" type="button">Revenir au dernier point de passage</button></div>
+      <div id="stats-panel" role="dialog" aria-modal="true" aria-labelledby="stats-title" hidden><h2 id="stats-title">Yarden</h2><p id="stats-body"></p><button id="stats-close" type="button">Fermer</button></div>
       <div id="story-panel" role="dialog" aria-modal="true" aria-labelledby="story-text" hidden><p id="story-text"></p><button id="story-next" type="button">Continuer</button></div>
     </div>
     <div id="controls">
