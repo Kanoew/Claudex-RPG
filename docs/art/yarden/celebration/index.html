@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yarden — petit saut de joie</title>
+<style>
+body{margin:0;padding:20px;background:#18191e;color:#eee;font:16px system-ui}main{max-width:740px;margin:auto}h1{font-size:24px}button,input{font:inherit}button{padding:8px;margin:4px}canvas{display:block;width:180px;height:auto;margin:16px auto;max-width:100%}a{color:#c4d9ff}label{display:inline-block;margin:8px}#caption{text-align:center}p{line-height:1.5}
+</style>
+<main>
+<h1>Yarden — petit saut de joie</h1>
+<p>Huit images de face, sans miroir ni confettis. Source sur fond vert ; animation à raccorder au jeu.</p>
+<div><button id="play">Pause</button><button id="restart">Rejouer</button><button id="previous">Image précédente</button><button id="next">Image suivante</button></div>
+<label>Vitesse <input id="speed" type="range" min="25" max="200" value="100"> <span id="speedValue">100 %</span></label>
+<label><input id="repeat" type="checkbox" checked> Répéter l’aperçu</label>
+<canvas id="sprite"></canvas><p id="caption" aria-live="polite">Chargement…</p>
+<p><a href="celebration.png">Bande complète</a> · <a href="animations.json">Découpage et durées</a> · <a href="source.png">Source originale</a></p>
+<p>La séquence dure 820 ms. La répétition ci-dessus sert à l’examen : le manifeste prévoit une seule lecture, puis le retour au repos. Conserver le même ancrage pour les huit cases afin de garder l’élévation du saut.</p>
+</main>
+<script src="animations-data.js?v=1"></script>
+<script>
+'use strict';
+const meta = window.YARDEN_CELEBRATION;
+const clip = meta.animations.celebration;
+const canvas = document.getElementById('sprite');
+canvas.width = meta.cell.width; canvas.height = meta.cell.height;
+const ctx = canvas.getContext('2d');
+const strip = new Image();
+let frame = 0, elapsed = 0, last = null, playing = true, finished = false;
+function draw() {
+  if (!strip.naturalWidth) return;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.drawImage(strip,frame*canvas.width,0,canvas.width,canvas.height,0,0,canvas.width,canvas.height);
+  document.getElementById('caption').textContent = `${frame+1} / ${clip.frames} — ${clip.frameLabels[frame]} (${clip.durationsMs[frame]} ms)`;
+}
+function setPlaying(value) {
+  playing = value; last = null;
+  document.getElementById('play').textContent = playing ? 'Pause' : 'Lire';
+}
+function restart() { frame = 0; elapsed = 0; finished = false; draw(); }
+document.getElementById('play').onclick = () => {
+  if (!playing && finished) restart();
+  setPlaying(!playing);
+};
+document.getElementById('restart').onclick = () => { restart(); setPlaying(true); };
+function step(delta) {
+  setPlaying(false); finished = false; elapsed = 0;
+  frame = (frame+delta+clip.frames)%clip.frames; draw();
+}
+document.getElementById('previous').onclick = () => step(-1);
+document.getElementById('next').onclick = () => step(1);
+document.getElementById('speed').oninput = e => { document.getElementById('speedValue').textContent = e.target.value+' %'; };
+document.addEventListener('visibilitychange', () => { last = null; });
+strip.onload = draw;
+strip.onerror = () => { setPlaying(false); document.getElementById('caption').textContent = 'Bande introuvable : conserver tous les fichiers du pack dans le même dossier.'; };
+strip.src = clip.file;
+function tick(now) {
+  const dt = last === null ? 0 : Math.min(now-last,100); last = now;
+  if (playing && strip.naturalWidth && !document.hidden) {
+    elapsed += dt*Number(document.getElementById('speed').value)/100;
+    if (finished) {
+      if (!document.getElementById('repeat').checked) setPlaying(false);
+      else if (elapsed >= 650) restart();
+    } else while (elapsed >= clip.durationsMs[frame]) {
+      elapsed -= clip.durationsMs[frame];
+      if (frame < clip.frames-1) frame++;
+      else {
+        finished = true; elapsed = 0;
+        if (!document.getElementById('repeat').checked) setPlaying(false);
+        break;
+      }
+    }
+    draw();
+  }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+</script>
+</html>
