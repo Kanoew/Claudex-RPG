@@ -346,6 +346,9 @@ function draw() {
   const screenY = Math.max(height * .3, Math.min(height * .7, centerY + player.y));
   const offsetX = screenX - player.x;
   const offsetY = screenY - player.y;
+  ctx.save();
+  const shake = antreShake();
+  ctx.translate(shake.x, shake.y);
   drawRoom(offsetX, offsetY);
   drawDungeon(offsetX, offsetY);
   drawRoomShade(screenX, screenY);
@@ -418,6 +421,7 @@ function draw() {
   ctx.fillText('Yarden', screenX, labelY);
   drawSceneActors(offsetX, offsetY, true);
   drawBossMarker(offsetX, offsetY);
+  ctx.restore();
   if (zoneFade > 0) {
     // Fondu depuis le noir quand Yarden arrive dans une nouvelle zone.
     ctx.fillStyle = `rgba(14, 15, 25, ${Math.min(1, zoneFade / .4)})`;

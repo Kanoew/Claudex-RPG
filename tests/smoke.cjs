@@ -30,7 +30,7 @@ function game(imageMode) {
   });
   // Même ordre et portées globales que les scripts defer de la page.
   for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'render-antre.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, scene, sceneActors, sceneArt, loadSceneArt, sceneActorPose, resetScene, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, scene, sceneActors, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -738,6 +738,19 @@ const tests = [
     assert.equal(g.attack.remaining, 0, 'Pas d’attaque pendant la scène');
     g.resetScene();
     assert(!g.scene.active && Object.keys(g.sceneActors).length === 0);
+  }],
+  ['Antre : la vibration pulse les câbles et fait trembler l’image très légèrement, sans attaquer', () => {
+    const g = beginSpider(armed('loaded'));
+    g.draw();
+    assert.equal(g.antreResonanceLevel(), 0);
+    assert.equal(JSON.stringify(g.antreShake()), JSON.stringify({ x: 0, y: 0 }));
+    g.hitSpider(false);
+    assert(g.antreResonanceLevel() > .9);
+    const shake = g.antreShake();
+    assert(Math.abs(shake.x) <= 2 && Math.abs(shake.y) <= 1.5, 'Tremblement de deux pixels au plus');
+    g.draw();
+    g.update(.6);
+    assert.equal(g.antreResonanceLevel(), 0, 'La vibration est brève');
   }],
   ['Antre : reprendre après une mort réinitialise le combat sans refaire le Troll', () => {
     const g = beginSpider(armed());

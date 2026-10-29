@@ -80,16 +80,17 @@ function drawAntreCables(offsetX, offsetY) {
   const spider = spiderEnemy();
   const tx = spider.x + offsetX, ty = spider.y + offsetY;
   ctx.save();
-  ctx.lineWidth = 1.6;
+  const pulse = antreResonanceLevel();
+  ctx.lineWidth = 1.6 + pulse * 1.4;
   for (const cable of antreCables) {
     const x = cable.x + offsetX, y = cable.y + offsetY;
     ctx.strokeStyle = cable.low ? '#2a3442' : '#3a4658';
-    ctx.globalAlpha = .38;
+    ctx.globalAlpha = .38 + pulse * .4;
     ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(tx, ty); ctx.stroke();
     const t = (cable.phase + elapsed * cable.speed) % 1;
     ctx.globalAlpha = .75;
     ctx.fillStyle = antreLook.reflect;
-    ctx.beginPath(); ctx.arc(x + (tx - x) * t, y + (ty - y) * t, 1.7, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x + (tx - x) * t, y + (ty - y) * t, 1.7 + pulse * 1.2, 0, Math.PI * 2); ctx.fill();
   }
   ctx.restore();
 }
@@ -104,11 +105,39 @@ function drawAntreSolid(wall, x, y, column) {
   ctx.lineWidth = 2;
   ctx.strokeRect(2, 2, wall.width - 4, wall.height - 4);
   if (column) {
-    ctx.fillStyle = '#16202c';
-    ctx.beginPath();
-    ctx.moveTo(4, wall.height - 4); ctx.lineTo(wall.width * .3, 4); ctx.lineTo(wall.width * .55, wall.height - 4);
-    ctx.moveTo(wall.width * .5, wall.height - 4); ctx.lineTo(wall.width * .75, 6); ctx.lineTo(wall.width - 4, wall.height - 4);
-    ctx.fill();
+    // Pointes de cristal noir : base large, hauteurs variées, quelques facettes plus claires pour se lire sur le sol noir.
+    const spikes = wall.width > 85 ? 4 : 3, step = (wall.width - 8) / spikes;
+    for (let n = 0; n < spikes; n++) {
+      const left = 4 + n * step - step * .35, right = 4 + (n + 1) * step + step * .35;
+      const apex = 4 + ((n * 37 + wall.x * 3 + wall.y) % 100) / 100 * wall.height * .45;
+      const peak = (left + right) / 2 + ((n % 2) ? 3 : -3);
+      ctx.fillStyle = '#121a26';
+      ctx.beginPath(); ctx.moveTo(Math.max(3, left), wall.height - 3); ctx.lineTo(peak, apex); ctx.lineTo(Math.min(wall.width - 3, right), wall.height - 3); ctx.closePath(); ctx.fill();
+      if (n % 2 === 0 || n === spikes - 1) {
+        ctx.fillStyle = '#2d4058';
+        ctx.beginPath(); ctx.moveTo(peak, apex); ctx.lineTo(Math.min(wall.width - 3, right), wall.height - 3); ctx.lineTo(peak + (right - left) * .08, wall.height - 3); ctx.closePath(); ctx.fill();
+      }
+    }
   }
   ctx.restore();
+}
+
+// Vibration infrasonore : l'araignée la lance quand elle est touchée, aveuglée ou étourdie, jamais pour attaquer.
+// Tous les câbles résonnent ensemble et l'image tremble très légèrement, très brièvement.
+const antreResonance = { until: 0, length: .45 };
+
+function pulseAntre() {
+  antreResonance.until = elapsed + antreResonance.length;
+}
+
+function antreResonanceLevel() {
+  return Math.max(0, Math.min(1, (antreResonance.until - elapsed) / antreResonance.length));
+}
+
+// Décalage de l'image en pixels ; nul si le téléphone demande moins de mouvement.
+function antreShake() {
+  const level = antreResonanceLevel();
+  if (level <= 0 || currentZone.id !== 'antre') return { x: 0, y: 0 };
+  if (typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return { x: 0, y: 0 };
+  return { x: Math.sin(elapsed * 90) * 2 * level, y: Math.cos(elapsed * 77) * 1.5 * level };
 }
