@@ -27,6 +27,7 @@ function startLevelUp() {
 }
 
 function resetLevelUp() {
+  resetStats();
   Object.assign(player, baseStats);
   levelUp.active = false;
   levelUp.time = 0;
@@ -35,7 +36,11 @@ function resetLevelUp() {
 function updateLevelUp(seconds) {
   if (!levelUp.active) return;
   levelUp.time += seconds;
-  if (levelUp.time >= levelUp.duration) levelUp.active = false;
+  if (levelUp.time < levelUp.duration) return;
+  levelUp.active = false;
+  // Elle ouvre son interface : les points que Tiamat lui a donnés (canon, chapitre 2).
+  stats.unlocked = true;
+  showStory(['Yarden ouvre son interface. Tiamat y a ajouté des points.'], () => openStats());
 }
 
 function drawLevelUp(screenX, screenY) {

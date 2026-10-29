@@ -52,6 +52,7 @@ function applyCheckpoint(name) {
   Object.assign(spider, { incapacitated: true, hp: 1 });
   Object.assign(encounter, { phase: 'complete', complete: true });
   Object.assign(player, levelStats);
+  stats.unlocked = true;
   player.hp = player.maxHp;
   player.mana = player.maxMana;
   enterZone('exterieur', 'south');

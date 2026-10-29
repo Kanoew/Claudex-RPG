@@ -34,6 +34,8 @@ let bossDelay = 0;
 let zoneFade = 0;
 // Faux tant que Yarden n'est pas entrée dans l'Abysse : la vie, le mana et les actions n'apparaissent qu'à partir de là.
 let abyssReached = true;
+// Monnaie du jeu : des crédits (le chapitre 2 commence à 0).
+let credits = 0;
 // Faux avant l'ouverture de la faille dans la ruelle du chapitre 1.
 let riftShown = true;
 // Remplis par loadZone() à partir de la zone courante (voir zones.js).
