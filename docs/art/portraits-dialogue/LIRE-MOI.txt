@@ -1,0 +1,17 @@
+PORTRAITS DE DIALOGUE
+
+Onze portraits individuels de 256 × 256 px, tête et épaules, fond vert opaque #00FF00.
+Quatre bandes à cases égales reprennent les mêmes portraits :
+- Yarden : neutre, souriante, agacée, surprise.
+- Ishara : neutre, sourire, inquiète.
+- Inconnu 1 et Inconnu 2 : neutre et menaçant chacun.
+
+Expressions statiques : choisir la case ou le fichier correspondant à la réplique.
+Le défilement de 1200 ms par expression sert seulement à l’aperçu, sans boucle par défaut.
+Ancrage des cases : (128,248). Aucun miroir appliqué.
+Yarden garde les yeux violets et son visage de référence du miroir, sans collier, boucle d’oreille ou piercing.
+Aucun visage ajouté pour Tiamat. Les deux hommes correspondent au pack hommes-chibi.
+
+Ouvrir index.html ; animations.json décrit les fichiers individuels et les bandes.
+Les originaux sont conservés dans sources/. Le vert des exports est harmonisé sans canal alpha.
+Détourage et intégration au jeu à réaliser séparément.

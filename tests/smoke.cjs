@@ -40,9 +40,9 @@ function game(imageMode, keepOpening, store) {
     localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'dialogue.js', 'metro.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'render-quartier.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'dialogue.js', 'metro.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-quartier.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, parseStoryLine, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -775,7 +775,7 @@ const tests = [
     assert(said.some(line => line.includes('Éveillés')) && said.some(line => line.includes('Tu aurais pu entrer')));
     assert(said.every(line => !/donjon/i.test(line)), 'Ishara et le récit disent faille et Abysse, jamais donjon');
     assert(said.some(line => line.includes('Pardon, désolée')));
-    assert(said.some(line => line.startsWith('Inconnu 1 :')) && said.some(line => line.startsWith('Inconnu 2 :')), 'Inconnu 1 et Inconnu 2');
+    assert(said.some(line => /^Inconnu 1(\[\w+\])? :/.test(line)) && said.some(line => /^Inconnu 2(\[\w+\])? :/.test(line)), 'Inconnu 1 et Inconnu 2');
     assert(said.every(line => !/grand|compact/i.test(line)));
     assert(said.some(line => line.includes('Self-défense')));
     assert(said.every(line => !/sang|faux|mana/i.test(line)), 'Ni faux, ni mana, ni sang');
@@ -851,7 +851,7 @@ const tests = [
     }
     assert(g.over && g.scene.mirror === null && framed);
     const all = said.join('\n');
-    assert(all.includes('Yarden : « ...C’est acceptable. »'));
+    assert(all.includes('« ...C’est acceptable. »'));
     assert(all.includes('des yeux violets'), 'Yeux violets dans la version jeu');
     for (const banned of ['Jordan', 'bleu-gris', 'septum', 'piercing', 'Angel', 'ear cuff', 'dragon', 'collier', 'chaîne']) assert(!all.includes(banned), banned);
     assert(!all.includes('—') && !all.includes('–'), 'Pas de tiret cadratin');
@@ -1148,6 +1148,38 @@ const tests = [
     assert.equal(g.audio.theme, 'ville');
     // Sans moteur sonore disponible, le jeu continue.
     g.playSfx('slash'); g.startAttack(false);
+  }],
+  ['Pack visuel : portraits, arcs de la faux, hommes chibi et danseurs', () => {
+    const p = game('loaded').parseStoryLine('Yarden[agacee] : « Hé. »');
+    assert.equal(p.who, 'Yarden'); assert.equal(p.expression, 'agacee'); assert.equal(p.text, 'Hé.');
+    const q = game('loaded').parseStoryLine('Tiamat (voix intérieure) : « Ce n’est pas ton problème. »');
+    assert.equal(q.who, 'Tiamat'); assert.equal(q.expression, 'neutre');
+    assert.equal(game('loaded').parseStoryLine('Elle regarde encore.').who, null);
+    const g = armed('loaded');
+    g.loadWeaponArt(); g.loadPortraits(); g.loadSceneArt();
+    assert(g.weaponArt.glow && g.weaponArt.base && g.weaponArt.empowered, 'Images de la faux chargées');
+    assert(Object.keys(g.portraitArt).length === 11 && Object.values(g.portraitArt).every(Boolean));
+    g.calls.length = 0;
+    g.startAttack(false);
+    g.draw();
+    assert(g.calls.some(c => c[0] === 'drawImage' && c[1] === g.weaponArt.base), 'Arc violet dessiné');
+    g.attack.cooldown = 0; g.attack.remaining = 0; g.skill.cooldown = 0;
+    g.player.mana = g.player.maxMana;
+    g.startAttack(true);
+    g.calls.length = 0;
+    g.draw();
+    assert(g.calls.some(c => c[0] === 'drawImage' && c[1] === g.weaponArt.empowered), 'Arc cyan dessiné');
+    const failing = game('error');
+    failing.loadWeaponArt();
+    failing.draw();
+    // Hommes chibi et danseurs : chaque pose a son image.
+    g.sceneActor('a', 'grand', 0, 0); g.sceneActor('b', 'compact', 0, 0); g.sceneActor('c', 'danseuse', 0, 0); g.sceneActor('d', 'danseur', 0, 0);
+    const poses = id => g.sceneActorPose(g.sceneActors[id]);
+    assert(poses('a').strip && poses('c').strip && poses('d').strip);
+    Object.assign(g.sceneActors.b, { mode: 'stumble' });
+    assert.equal(poses('b').strip, [...Object.values(g.sceneArt.strips)].find(x => x === poses('b').strip));
+    assert.deepEqual(Array.from(poses('b').cell), [211, 148]);
+    assert.deepEqual(Array.from(poses('c').cell), [128, 148]);
   }],
   ['Antre : reprendre après une mort réinitialise le combat sans refaire le Troll', () => {
     const g = beginSpider(armed());

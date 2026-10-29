@@ -30,13 +30,20 @@ function cameraFocus() {
   return sceneCam;
 }
 const sceneArt = { strips: {} };
-const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, hommes: { cell: [134, 151], anchor: [67, 147] } };
+const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, inconnus: { cell: [211, 148], anchor: [105, 132] }, fete: { cell: [128, 148], anchor: [64, 132] } };
+// Inconnu 1 (grand) et Inconnu 2 (compact) : chibi, regardent à gauche ; on les retourne pour la droite (figurants anonymes).
+const inconnuClips = {
+  'repos': { frames: 2, durations: [900, 900] }, 'marche-gauche': { frames: 4, durations: [170, 170, 170, 170] },
+  'poignet': { frames: 1, durations: [900] }, 'recul': { frames: 2, durations: [220, 220] }
+};
+const danceDurations = [180, 180, 220, 180, 180, 220];
 // Durées en millisecondes, reprises de assets/npcs/ishara/chibi/animations.json.
 const isharaClips = {
   idle: [1000, 350, 110, 1200], 'walk-left': [150, 150, 150, 150], 'walk-right': [150, 150, 150, 150],
   'walk-up': [150, 150, 150, 150], 'walk-down': [150, 150, 150, 150], 'run-left': [100, 90, 100, 90], 'run-right': [100, 90, 100, 90]
 };
-const sceneFiles = [...Object.keys(isharaClips).map(name => `ishara/${name}`), 'hommes/grand', 'hommes/compact'];
+const sceneFiles = [...Object.keys(isharaClips).map(name => `ishara/${name}`),
+  ...['1', '2'].flatMap(n => ['repos', 'marche-gauche'].map(clip => `inconnus/inconnu-${n}-${clip}`)), 'inconnus/inconnu-2-poignet', 'inconnus/inconnu-2-recul', 'fete/danseur', 'fete/danseuse'];
 
 function loadSceneArt() {
   if (typeof Image === 'undefined') return;
@@ -44,7 +51,7 @@ function loadSceneArt() {
     const image = new Image();
     image.onload = () => { sceneArt.strips[key] = image; };
     image.onerror = () => { sceneArt.strips[key] = null; };
-    image.src = `assets/npcs/${key.startsWith('ishara') ? 'ishara/chibi/' + key.slice(7) : key}.png?v=31`;
+    image.src = `assets/npcs/${key.startsWith('ishara') ? 'ishara/chibi/' + key.slice(7) : key}.png?v=49`;
   }
 }
 
@@ -69,6 +76,8 @@ function sceneScript() {
     { moves: [move('yarden', [[0, -60]], 140)] },
     { run: () => { facing = { x: 0, y: -1 }; } },
     { say: ['Yarden regarde la fête depuis la ruelle. Elle allait faire demi-tour.'] },
+    { spawn: ['danseuse', 'danseuse', -118, -452] },
+    { spawn: ['danseur', 'danseur', 112, -446] },
     { camera: { x: 0, y: -440 } },
     { music: 'fete' },
     { wait: 1.8 },
@@ -78,7 +87,7 @@ function sceneScript() {
     { set: ['ishara', { run: false }] },
     { wait: 2 },
     { music: null },
-    { say: ['Une fille lui fonce dedans et s’accroche à sa veste une seconde ou deux.', 'Inconnue : « Pardon, désolée, vraiment, je... »'] },
+    { say: ['Une fille lui fonce dedans et s’accroche à sa veste une seconde ou deux.', 'Inconnue[inquiete] : « Pardon, désolée, vraiment, je... »'] },
     { set: ['ishara', { run: true }] },
     { moves: [move('ishara', [[30, -30], [36, 430]], 230)] },
     { set: ['ishara', { run: false, mode: 'idle' }] },
@@ -90,25 +99,27 @@ function sceneScript() {
     { say: ['Yarden les rattrape au coin sans lampadaire.', 'La fille s’est arrêtée, le dos droit, son sac serré contre elle. Elle cherche une sortie.', 'Inconnu 1 : « On te veut pas de mal. »', 'L’autre ricane.'] },
     { say: ['Yarden : « Hé. »'] },
     { moves: [move('yarden', [[22, 255]], 70)] },
-    { say: ['Mains dans les poches, Yarden s’arrête à deux mètres.', 'Inconnu 1 : « T’as pas d’affaires ici, poupée. »', 'Yarden : « C’est vous qui comprenez pas à qui vous parlez. »'] },
+    { say: ['Mains dans les poches, Yarden s’arrête à deux mètres.', 'Inconnu 1[menacant] : « T’as pas d’affaires ici, poupée. »', 'Yarden[agacee] : « C’est vous qui comprenez pas à qui vous parlez. »'] },
     { moves: [move('compact', [[32, 288]], 90)] },
     { say: ['Le deuxième tend la main vers son épaule. Pour la pousser, pas pour la frapper.'] },
     { set: ['compact', { mode: 'stumble' }] },
     { say: ['Yarden lui attrape le poignet, sans vitesse ni rage. Un quart de tour, une pression vers le bas, et le voilà plié, la main retournée contre lui-même. Il ne crie pas.', 'Inconnu 2 : « Aïe, lâche. »', 'Yarden : « Ouais. »', 'Elle lâche.'] },
     { set: ['compact', { mode: 'idle' }] },
+    { set: ['compact', { variant: 'recul' }] },
     { moves: [move('compact', [[50, 330]], 60)] },
-    { say: ['Il recule en secouant le poignet. Surpris, furieux, puis prudent.', 'Yarden : « Elle est pas intéressée. Bonne soirée. »'] },
+    { set: ['compact', { variant: null }] },
+    { say: ['Il recule en secouant le poignet. Surpris, furieux, puis prudent.', 'Yarden[agacee] : « Elle est pas intéressée. Bonne soirée. »'] },
     { moves: [move('grand', [[-60, 300], [-60, 10]], 85), move('compact', [[70, 300], [70, 10]], 85, { delay: 0.7 })] },
     { remove: ['grand', 'compact'] },
     { say: ['Le premier part sans courir. L’autre le suit en marmonnant.', 'Pour Yarden, ce ne sont plus une menace.'] },
     { moves: [move('ishara', [[180, 420]], 70), move('yarden', [[105, 395]], 70)] },
     { say: ['Adossée à la grille, bras croisés, la fille desserre les doigts autour de son sac et souffle.', 'Inconnue : « T’as fait quoi, exactement ? »', 'Yarden : « Self-défense. »', 'Elle se présente : Ishara. Yarden donne son nom.', 'Ishara lui propose un lit en trop. Yarden accepte.'] },
     { moves: [move('ishara', [[70, 400], [30, 330], [30, 120]], 80), move('yarden', [[70, 400], [30, 340], [0, 150]], 80, { delay: .6 })] },
-    { say: ['Ishara : « Un niveau, tout le monde en a un. Mais nous, on peut le voir. »', 'Yarden : « D’accord. »', 'Ishara : « Ceux qui voient, on les appelle les Éveillés. »', 'Yarden : « Je vois. »'] },
+    { say: ['Ishara : « Un niveau, tout le monde en a un. Mais nous, on peut le voir. »', 'Yarden : « D’accord. »', 'Ishara[sourire] : « Ceux qui voient, on les appelle les Éveillés. »', 'Yarden : « Je vois. »'] },
     { moves: [move('ishara', [[30, -90]], 80), move('yarden', [[0, -60]], 80, { delay: .6 })] },
     { say: ['Ishara : « Une faille, c’est une porte. Les gens normaux passent à côté sans la voir. »', 'Yarden : « Continue. »', 'Ishara : « Dedans, c’est un autre endroit. Le temps y va un peu de travers. »', 'Ishara : « T’as fui quelque chose ? »', 'Yarden : « On pourrait dire ça. »', 'Ishara : « Tu veux en parler ? »', 'Yarden : « Non. »'] },
     { moves: [move('ishara', [[30, -290]], 80), move('yarden', [[0, -260]], 80, { delay: .6 })] },
-    { say: ['Ishara : « Ce qu’on ramène, ça se revend. C’est comme ça que je paye mon loyer. »', 'Yarden : « D’accord. »'] },
+    { say: ['Ishara[sourire] : « Ce qu’on ramène, ça se revend. C’est comme ça que je paye mon loyer. »', 'Yarden : « D’accord. »'] },
     { moves: [move('ishara', [[30, -430]], 80), move('yarden', [[0, -420]], 80, { delay: .5 })] },
     { say: ['Au bout de la ruelle, la fête : de la musique, des rires, de la chaleur. Yarden s’arrête.', 'Tiamat (voix intérieure) : « Tu aurais pu entrer. »', 'Tiamat : « La chaleur humaine… »', 'Tiamat : « Bien. »', 'Ishara attend un peu plus loin et ne demande rien.'] },
     { metro: 'show' },
@@ -258,10 +269,19 @@ function sceneActorPose(actor) {
     if (!sceneArt.strips[key]) return null;
     return { strip: sceneArt.strips[key], frame: sceneFrame(isharaClips[name], actor.time * speed), flip: false, ...sceneCells.ishara };
   }
-  const key = `hommes/${actor.kind}`;
+  if (actor.kind === 'danseur' || actor.kind === 'danseuse') {
+    const key = `fete/${actor.kind}`;
+    if (!sceneArt.strips[key]) return null;
+    return { strip: sceneArt.strips[key], frame: sceneFrame(danceDurations, actor.time), flip: false, ...sceneCells.fete };
+  }
+  // Inconnu 1 = « grand », Inconnu 2 = « compact ».
+  const who = actor.kind === 'grand' ? 1 : 2;
+  let clip = actor.moving ? (actor.variant === 'recul' && who === 2 ? 'recul' : 'marche-gauche') : 'repos';
+  if (who === 2 && actor.mode === 'stumble') clip = 'poignet';
+  const key = `inconnus/inconnu-${who}-${clip}`;
   if (!sceneArt.strips[key]) return null;
-  const frame = actor.mode === 'stumble' ? 4 : actor.moving ? sceneFrame([170, 170, 170, 170], actor.time) : 0;
-  return { strip: sceneArt.strips[key], frame, flip: actor.face > 0, ...sceneCells.hommes };
+  const frame = sceneFrame(inconnuClips[clip].durations, actor.time);
+  return { strip: sceneArt.strips[key], frame, flip: actor.face > 0, ...sceneCells.inconnus };
 }
 
 // Dessine les acteurs de la scène ; `front` sélectionne ceux qui sont au sud de Yarden et passent donc devant elle.
@@ -277,7 +297,7 @@ function drawSceneActors(offsetX, offsetY, front) {
     const pose = sceneActorPose(actor);
     if (!pose) {
       // Disque de secours si les images ne sont pas chargées.
-      ctx.fillStyle = actor.kind === 'ishara' ? '#6b4a3a' : actor.kind === 'grand' ? '#52677f' : '#84565e';
+      ctx.fillStyle = actor.kind === 'ishara' ? '#6b4a3a' : actor.kind === 'grand' ? '#52677f' : actor.kind === 'compact' ? '#84565e' : '#c4525a';
       ctx.beginPath();
       ctx.arc(x, actor.y + offsetY, player.radius, 0, Math.PI * 2);
       ctx.fill();

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aperçu du pack</title>
+<style>body{margin:0;padding:20px;background:#181a22;color:#eee;font:16px system-ui}main{max-width:1200px;margin:auto}h1{font-size:25px}h2{font-size:18px}button,input{font:inherit}button{padding:8px;margin:4px}label{display:inline-block;margin:8px}#panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}article{padding:14px;background:#252934;border-radius:8px}canvas{display:block;max-width:100%;height:auto;margin:8px auto}small{display:block}a{color:#c9ddff}.controls{position:sticky;top:0;background:#181a22;z-index:1}p{line-height:1.5}</style>
+<main><h1 id="title">Aperçu du pack</h1><p>Sources vertes opaques. Le détourage et l’intégration au jeu restent à réaliser.</p><div class="controls"><button id="play">Pause</button><button id="restart">Rejouer</button><button id="previous">Image précédente</button><button id="next">Image suivante</button><label>Vitesse <input id="speed" type="range" min="25" max="200" value="100"> <span id="speed-value">100 %</span></label><label><input id="repeat" type="checkbox" checked> Répéter l’aperçu</label><label><input id="guides" type="checkbox"> Ancrages</label></div><section id="panels"></section><p><a href="animations.json">Manifeste</a> · <a href="LIRE-MOI.txt">Guide de reprise</a></p></main>
+<script src="animations-data.js?v=1"></script>
+<script>
+'use strict';
+const data = window.ART_PACK;
+document.title = data.name; document.getElementById('title').textContent = data.name;
+const panels = []; let playing = true, last = null;
+for (const [name, clip] of Object.entries(data.animations)) {
+ const article=document.createElement('article'),h=document.createElement('h2');h.textContent=clip.label||name;article.append(h);
+ const canvas=document.createElement('canvas');canvas.width=clip.cell.width;canvas.height=clip.cell.height;article.append(canvas);
+ const label=document.createElement('small');article.append(label);
+ const link=document.createElement('a');link.href=clip.file;link.textContent='Bande PNG';article.append(link);document.getElementById('panels').append(article);
+ const p={clip,canvas,label,ctx:canvas.getContext('2d'),image:new Image(),frame:0,elapsed:0,finished:false};panels.push(p);
+ p.image.onload=()=>draw(p);p.image.onerror=()=>{label.textContent='Image introuvable';};p.image.src=clip.file;
+}
+function draw(p){if(!p.image.naturalWidth)return;const w=p.canvas.width,h=p.canvas.height;p.ctx.clearRect(0,0,w,h);p.ctx.drawImage(p.image,p.frame*w,0,w,h,0,0,w,h);if(document.getElementById('guides').checked){const a=p.clip.anchor;p.ctx.strokeStyle='#ff4c4c';p.ctx.lineWidth=1;p.ctx.beginPath();p.ctx.moveTo(a.x-6,a.y);p.ctx.lineTo(a.x+6,a.y);p.ctx.moveTo(a.x,a.y-6);p.ctx.lineTo(a.x,a.y+6);p.ctx.stroke();}const labels=p.clip.frameLabels;p.label.textContent=`${p.frame+1} / ${p.clip.frames}${labels?' · '+labels[p.frame]:''} · ${p.clip.loop?'boucle':'lecture unique'}`;}
+function reset(p){p.frame=0;p.elapsed=0;p.finished=false;draw(p);}
+function pause(){playing=false;last=null;document.getElementById('play').textContent='Lire';}
+document.getElementById('play').onclick=()=>{playing=!playing;last=null;document.getElementById('play').textContent=playing?'Pause':'Lire';if(playing)for(const p of panels)if(p.finished)reset(p);};
+document.getElementById('restart').onclick=()=>{panels.forEach(reset);playing=true;last=null;document.getElementById('play').textContent='Pause';};
+function step(delta){pause();for(const p of panels){p.frame=(p.frame+delta+p.clip.frames)%p.clip.frames;p.elapsed=0;p.finished=false;draw(p);}}
+document.getElementById('next').onclick=()=>step(1);document.getElementById('previous').onclick=()=>step(-1);
+document.getElementById('speed').oninput=e=>{document.getElementById('speed-value').textContent=e.target.value+' %';};document.getElementById('guides').onchange=()=>panels.forEach(draw);
+document.addEventListener('visibilitychange',()=>{last=null;});
+function tick(now){const dt=last===null?0:Math.min(now-last,100);last=now;if(playing&&!document.hidden)for(const p of panels){if(!p.image.naturalWidth||p.clip.frames===1)continue;p.elapsed+=dt*Number(document.getElementById('speed').value)/100;if(p.finished){if(document.getElementById('repeat').checked&&p.elapsed>=600)reset(p);continue;}while(p.elapsed>=p.clip.durationsMs[p.frame]){p.elapsed-=p.clip.durationsMs[p.frame];if(p.frame<p.clip.frames-1)p.frame++;else if(p.clip.loop){p.frame=0;}else{p.finished=true;p.elapsed=0;break;}}draw(p);}requestAnimationFrame(tick);}requestAnimationFrame(tick);
+</script></html>

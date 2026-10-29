@@ -1,0 +1,14 @@
+Faux — priorité 1
+
+Ouvrir index.html après extraction complète. Les cases, ancrages et durées sont dans animations.json.
+ramassage.png : 1 case 128 × 128.
+ramassage-lueur.png : 4 cases 128 × 128, aura violette en boucle.
+arc-base.png : 6 cases 300 × 300, violet, 220 ms, rayon visuel 96 px.
+arc-fauchage.png : 6 cases 300 × 300, cyan, 300 ms, rayon visuel 144 px (rapport 1,5).
+Les deux arcs ont leur pivot fixe au centre du bord gauche (0,150).
+Ne pas centrer leur silhouette dans les cases : la place vide à droite est volontaire.
+Ancrage commun des icônes (64,120).
+Sources originales dans sources/. Mise en cases, mise à l’échelle et harmonisation du vert opaque ; pas de transparence appliquée.
+Les bandes exportées ont un fond vert opaque #00FF00 ; les sources brutes peuvent présenter des variations. Le détourage reste à réaliser.
+Les tailles sont visuelles : conserver la logique des collisions dans le jeu. Contrôler le balayage avec le cône de contact lors de l’intégration.
+Invocation optionnelle non incluse.

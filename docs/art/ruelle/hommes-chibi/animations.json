@@ -1,0 +1,406 @@
+{
+  "name": "Inconnu 1 et Inconnu 2 — chibi",
+  "version": 1,
+  "status": "sources sur fond vert, détourage et intégration à réaliser",
+  "background": {
+    "type": "opaque-green",
+    "target": "#00FF00",
+    "note": "Fond vert opaque #00FF00 harmonisé pour les bandes exportées ; sources originales conservées séparément. Aucun canal alpha ni export transparent appliqué."
+  },
+  "animations": {
+    "inconnu-1-repos": {
+      "file": "inconnu-1-repos.png",
+      "frames": 2,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        900,
+        900
+      ],
+      "loop": true,
+      "source": "sources/inconnu-1-repos.png",
+      "sourceScale": 0.12871287128712872,
+      "mirrorAllowed": true,
+      "frameData": [
+        {
+          "sourceCrop": [
+            307,
+            38,
+            733,
+            862
+          ],
+          "sourceRoot": [
+            556.0,
+            855
+          ],
+          "exportOffset": [
+            73,
+            27
+          ]
+        },
+        {
+          "sourceCrop": [
+            114,
+            39,
+            543,
+            863
+          ],
+          "sourceRoot": [
+            364.0,
+            855
+          ],
+          "exportOffset": [
+            73,
+            27
+          ]
+        }
+      ],
+      "standingHeightTarget": 104,
+      "character": "Inconnu 1"
+    },
+    "inconnu-1-marche-gauche": {
+      "file": "inconnu-1-marche-gauche.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        170,
+        170,
+        170,
+        170
+      ],
+      "loop": true,
+      "source": "sources/inconnu-1-marche-gauche.png",
+      "sourceScale": 0.14730473047304732,
+      "mirrorAllowed": true,
+      "frameData": [
+        {
+          "sourceCrop": [
+            67,
+            57,
+            441,
+            706
+          ],
+          "sourceRoot": [
+            287.0,
+            698
+          ],
+          "exportOffset": [
+            73,
+            38
+          ]
+        },
+        {
+          "sourceCrop": [
+            35,
+            57,
+            422,
+            706
+          ],
+          "sourceRoot": [
+            262.0,
+            698
+          ],
+          "exportOffset": [
+            72,
+            38
+          ]
+        },
+        {
+          "sourceCrop": [
+            21,
+            57,
+            401,
+            706
+          ],
+          "sourceRoot": [
+            246.0,
+            698
+          ],
+          "exportOffset": [
+            72,
+            38
+          ]
+        },
+        {
+          "sourceCrop": [
+            16,
+            57,
+            402,
+            706
+          ],
+          "sourceRoot": [
+            243.0,
+            698
+          ],
+          "exportOffset": [
+            72,
+            38
+          ]
+        }
+      ],
+      "standingHeightTarget": 104,
+      "character": "Inconnu 1"
+    },
+    "inconnu-2-repos": {
+      "file": "inconnu-2-repos.png",
+      "frames": 2,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        900,
+        900
+      ],
+      "loop": true,
+      "source": "sources/inconnu-2-repos.png",
+      "sourceScale": 0.12755102040816327,
+      "mirrorAllowed": true,
+      "frameData": [
+        {
+          "sourceCrop": [
+            329,
+            58,
+            775,
+            858
+          ],
+          "sourceRoot": [
+            589.0,
+            850
+          ],
+          "exportOffset": [
+            72,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            78,
+            58,
+            523,
+            858
+          ],
+          "sourceRoot": [
+            338.0,
+            850
+          ],
+          "exportOffset": [
+            72,
+            31
+          ]
+        }
+      ],
+      "standingHeightTarget": 100,
+      "character": "Inconnu 2"
+    },
+    "inconnu-2-marche-gauche": {
+      "file": "inconnu-2-marche-gauche.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        170,
+        170,
+        170,
+        170
+      ],
+      "loop": true,
+      "source": "sources/inconnu-2-marche-gauche.png",
+      "sourceScale": 0.15565824223418426,
+      "mirrorAllowed": true,
+      "frameData": [
+        {
+          "sourceCrop": [
+            37,
+            130,
+            430,
+            762
+          ],
+          "sourceRoot": [
+            251.0,
+            754
+          ],
+          "exportOffset": [
+            72,
+            35
+          ]
+        },
+        {
+          "sourceCrop": [
+            26,
+            130,
+            417,
+            759
+          ],
+          "sourceRoot": [
+            238.0,
+            754
+          ],
+          "exportOffset": [
+            72,
+            35
+          ]
+        },
+        {
+          "sourceCrop": [
+            17,
+            130,
+            410,
+            762
+          ],
+          "sourceRoot": [
+            230.0,
+            754
+          ],
+          "exportOffset": [
+            72,
+            35
+          ]
+        },
+        {
+          "sourceCrop": [
+            8,
+            130,
+            393,
+            760
+          ],
+          "sourceRoot": [
+            218.0,
+            754
+          ],
+          "exportOffset": [
+            72,
+            35
+          ]
+        }
+      ],
+      "standingHeightTarget": 100,
+      "character": "Inconnu 2"
+    },
+    "inconnu-2-poignet": {
+      "file": "inconnu-2-poignet.png",
+      "frames": 1,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        900
+      ],
+      "loop": false,
+      "source": "sources/inconnu-2-poignet.png",
+      "sourceScale": 0.12701955782312926,
+      "mirrorAllowed": true,
+      "frameData": [
+        {
+          "sourceCrop": [
+            599,
+            56,
+            1051,
+            862
+          ],
+          "sourceRoot": [
+            879.0,
+            854
+          ],
+          "exportOffset": [
+            69,
+            31
+          ]
+        }
+      ],
+      "standingHeightTarget": 100,
+      "character": "Inconnu 2"
+    },
+    "inconnu-2-recul": {
+      "file": "inconnu-2-recul.png",
+      "frames": 2,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        220,
+        220
+      ],
+      "loop": false,
+      "source": "sources/inconnu-2-recul.png",
+      "sourceScale": 0.12886528455503737,
+      "mirrorAllowed": true,
+      "frameData": [
+        {
+          "sourceCrop": [
+            305,
+            68,
+            814,
+            842
+          ],
+          "sourceRoot": [
+            573.0,
+            836
+          ],
+          "exportOffset": [
+            70,
+            33
+          ]
+        },
+        {
+          "sourceCrop": [
+            135,
+            63,
+            637,
+            844
+          ],
+          "sourceRoot": [
+            381.0,
+            836
+          ],
+          "exportOffset": [
+            73,
+            32
+          ]
+        }
+      ],
+      "standingHeightTarget": 100,
+      "character": "Inconnu 2"
+    }
+  },
+  "notes": [
+    "Noms d’affichage : Inconnu 1 et Inconnu 2 ; pas de nouveau nom canonique.",
+    "Cases 211 × 148, ancrage fixe (105,132). Échelle debout visée : 104 px pour le plus grand, 100 px pour le compact.",
+    "Les deux figurants sont anonymes, sans détail asymétrique canon : miroir autorisé pour la droite.",
+    "Le poignet et le recul sont réservés à Inconnu 2 ; pas de sang ni de cri.",
+    "Les anciennes silhouettes semi-réalistes ne sont pas remplacées dans le moteur par cette livraison."
+  ]
+}
