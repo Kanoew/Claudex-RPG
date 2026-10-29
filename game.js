@@ -37,6 +37,7 @@ retryButton.addEventListener('click', () => {
   resetInput();
   resetEncounter();
   resetScene();
+  resetLevelUp();
   loadZone('donjon');
   Object.assign(player, { x: zones.donjon.start.x, y: zones.donjon.start.y, hp: player.maxHp, flash: 0, mana: player.maxMana, armed: false });
   for (const enemy of allEnemies()) resetEnemy(enemy);
@@ -75,6 +76,7 @@ function update(seconds) {
   zoneFade = Math.max(0, zoneFade - seconds);
   updateEncounter(seconds);
   updateScene(seconds);
+  updateLevelUp(seconds);
   if (combatOver || encounterBlocksMovement()) { updateStatus(); updateAttackButton(); return; }
   // Pendant l'apparition du Troll, Yarden peut bouger ; seuls les coups et les ennemis attendent.
   const appearing = bossDelay > 0;

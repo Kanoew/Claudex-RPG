@@ -43,6 +43,7 @@ function startOpening() {
 // Commence directement dans le donjon, sans l'ouverture (lien ?skip et tests).
 function skipOpening() {
   resetScene();
+  resetLevelUp();
   resetEncounter();
   loadZone('donjon');
   Object.assign(player, zones.donjon.start);

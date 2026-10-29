@@ -29,9 +29,9 @@ function game(imageMode, keepOpening) {
     ResizeObserver: class { observe() {} }, requestAnimationFrame() {}
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'opening.js', 'render-antre.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'levelup.js', 'opening.js', 'render-antre.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   if (!keepOpening) vm.runInContext('skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, scene, sceneActors, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -794,6 +794,32 @@ const tests = [
     assert(s.exitOpen);
     assert.equal(s.player.hp, s.player.maxHp);
     assert.equal(s.player.mana, s.player.maxMana);
+  }],
+  ['Montée de niveau : 7 PV et 40 mana au réveil dans la ruelle, effet bref, retour à 5 PV au recommencement', () => {
+    const g = armed('loaded');
+    assert.equal(g.player.maxHp, 5);
+    assert.equal(g.player.maxMana, 30);
+    g.player.hp = 2;
+    winSpider(g);
+    assert(g.levelUp.active);
+    assert.equal(g.player.maxHp, 7);
+    assert.equal(g.player.maxMana, 40);
+    assert.equal(g.player.hp, 7);
+    assert.equal(g.player.mana, 40);
+    assert(g.elements['hp-value'].textContent.includes('7 / 7'));
+    g.draw();
+    const y = g.player.y;
+    g.keys.add('w'); g.update(.2); g.keys.clear();
+    assert.equal(g.player.y, y, 'Yarden attend la fin de l’effet');
+    for (let i = 0; i < 60 && g.levelUp.active; i++) g.update(.05);
+    assert(!g.levelUp.active);
+    g.keys.add('w'); g.update(.2); g.keys.clear();
+    assert(g.player.y < y, 'Elle bouge de nouveau');
+    g.loadZone('exterieur');
+    g.fire('retry:click');
+    assert.equal(g.player.maxHp, 5);
+    assert.equal(g.player.maxMana, 30);
+    assert.equal(g.player.hp, 5);
   }],
   ['Antre : reprendre après une mort réinitialise le combat sans refaire le Troll', () => {
     const g = beginSpider(armed());

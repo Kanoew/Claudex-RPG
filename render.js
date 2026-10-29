@@ -420,6 +420,7 @@ function draw() {
   ctx.textAlign = 'center';
   ctx.fillText('Yarden', screenX, labelY);
   drawSceneActors(offsetX, offsetY, true);
+  drawLevelUp(screenX, screenY);
   drawBossMarker(offsetX, offsetY);
   ctx.restore();
   if (zoneFade > 0) {
