@@ -379,8 +379,9 @@ function draw() {
   const centerY = height / 2;
   // La caméra laisse d’abord bouger Yarden, puis accompagne son déplacement.
   const focus = cameraFocus();
-  const offsetX = Math.max(width * .3, Math.min(width * .7, centerX + focus.x)) - focus.x;
-  const offsetY = Math.max(height * .3, Math.min(height * .7, centerY + focus.y)) - focus.y;
+  const sceneOffsets = typeof uxSceneOffsets === 'function' ? uxSceneOffsets() : null;
+  const offsetX = sceneOffsets ? sceneOffsets.x : Math.max(width * .3, Math.min(width * .7, centerX + focus.x)) - focus.x;
+  const offsetY = sceneOffsets ? sceneOffsets.y : Math.max(height * .3, Math.min(height * .7, centerY + focus.y)) - focus.y;
   const screenX = player.x + offsetX;
   const screenY = player.y + offsetY;
   ctx.save();

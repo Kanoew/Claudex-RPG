@@ -165,6 +165,7 @@ function frame(time) {
   const seconds = lastTime === null ? 0 : Math.min((time - lastTime) / 1000, .05);
   lastTime = time;
   update(seconds);
+  if (typeof updateUxLayout === 'function') updateUxLayout();
   draw();
   drawMenuVignette();
   requestAnimationFrame(frame);
