@@ -1269,7 +1269,7 @@ const tests = [
     const g = armed('loaded');
     g.loadWeaponArt(); g.loadPortraits(); g.loadSceneArt();
     assert(g.weaponArt.glow && g.weaponArt.base && g.weaponArt.empowered, 'Images de la faux chargées');
-    assert(Object.keys(g.portraitArt).length === 14 && Object.values(g.portraitArt).every(Boolean));
+    assert(Object.keys(g.portraitArt).length === 16 && Object.values(g.portraitArt).every(Boolean));
     g.calls.length = 0;
     g.startAttack(false);
     g.draw();

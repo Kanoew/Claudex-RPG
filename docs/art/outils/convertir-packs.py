@@ -108,8 +108,12 @@ def export_chapter2b(art):
         cells = alpha_cells(rgba, [(c * 500, 0, (c + 1) * 500, 667) for c in range(4)], 1)
         place(cells, 118, cell_w, 124, (cell_w // 2, 120), 'assets/npcs/' + ('remi' if name.startswith('remi') else 'felix') + '/' + name + '.png')
     busts = key(art + 'ch2b/portraits-ishara-remi-felix.webp')
-    for name, (x0, x1) in [('ishara-course', (0, 667)), ('remi', (667, 1334)), ('felix', (1334, 2000))]:
-        part = busts[:, x0:x1].copy()
+    extra = key(art + 'ch2b/portraits-ishara-course-expressions.webp')
+    half = extra.shape[1] // 2
+    cuts = [('ishara-course', busts[:, 0:667]), ('remi', busts[:, 667:1334]), ('felix', busts[:, 1334:2000]),
+            ('ishara-course-sourire', extra[:, :half]), ('ishara-course-inquiete', extra[:, half:])]
+    for name, source in cuts:
+        part = source.copy()
         keep = largest(part[..., 3] > 24)
         part[..., 3] = np.where(keep, part[..., 3], 0)
         ys, xs = np.nonzero(part[..., 3] > 24)
@@ -122,8 +126,8 @@ def export_chapter2b(art):
         square = Image.fromarray(crop, 'RGBA').resize((144, 144), Image.LANCZOS)
         arr = np.asarray(square).copy()
         arr[..., 3] = np.where(arr[..., 3] <= 24, 0, arr[..., 3])
-        Image.fromarray(arr, 'RGBA').quantize(colors=96, method=Image.FASTOCTREE, dither=Image.NONE).save('assets/portraits/' + name + '-neutre.png', optimize=True)
-        print('assets/portraits/' + name + '-neutre.png')
+        Image.fromarray(arr, 'RGBA').quantize(colors=96, method=Image.FASTOCTREE, dither=Image.NONE).save('assets/portraits/' + name + ('' if name.startswith('ishara-course-') else '-neutre') + '.png', optimize=True)
+        print(name)
 
 def place_scaled(cells, scale, cell_w, cell_h, anchor, dst, colors=96):
     sheet = Image.new('RGBA', (cell_w * len(cells), cell_h), (0, 0, 0, 0))
