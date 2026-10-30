@@ -122,3 +122,18 @@ h1 { font-size: 13px; letter-spacing: .12em; }
   #app[data-input="keyboard"] #actions button { height: 48px; }
 }
 @media (prefers-reduced-motion: reduce) { #loot-toast.show { animation: none; } button:active { filter: none; } }
+
+/* Grand écran : les jauges ne s'étirent pas sur toute la largeur. */
+@media (min-width: 900px) {
+  .resources { max-width: 640px; }
+  #objective { max-width: 640px; }
+}
+
+/* Paysage sur téléphone : le dialogue passe à droite du terrain, pour que la scène garde toute sa hauteur. */
+@media (orientation: landscape) and (max-height: 550px) {
+  #app[data-context="dialogue"] #view { margin-left: 0; margin-right: calc(42% + 8px); }
+  #app > #story-panel:not([hidden]) { position: absolute; top: 62px; right: max(8px, env(safe-area-inset-right)); bottom: 8px; width: 42%; max-height: none; margin: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; align-content: stretch; align-items: stretch; }
+  #app[data-story-place="top"] > #story-panel:not([hidden]) { order: 3; }
+  .story-actions { flex-direction: row-reverse; justify-content: flex-start; }
+  #story-next { flex: 1; }
+}

@@ -83,7 +83,11 @@ const enemyKinds = {
   crabe: { name: 'Crabe', art: 'crabe', speed: 60, radius: 18, maxHp: 5, charger: false },
   ogre: { name: 'Ogre', art: 'ogre', speed: 80, radius: 14, maxHp: 2, charger: true },
   // Chef de faille du mode libre : le Troll, sans les phases du chapitre 1.
-  chef: { name: 'Chef de faille', art: 'troll', speed: 70, radius: 24, maxHp: 10, charger: true },
+  chef: { name: 'Chef de faille', art: 'troll', speed: 70, radius: 24, maxHp: 10, charger: true, chief: true },
+  // Le golem de pierre : autre chef de faille, plus lent, et le tatou et l'homme rouge pour les petits groupes.
+  golem: { name: 'Golem de pierre', art: 'golem', speed: 60, radius: 26, maxHp: 10, charger: true, chief: true },
+  tatou: { name: 'Tatou', art: 'tatou', speed: 95, radius: 17, maxHp: 4, charger: true },
+  rouge: { name: 'Homme rouge', art: 'rouge', speed: 112, radius: 13, maxHp: 3, charger: false },
   troll: { name: 'Troll', art: 'troll', speed: 65, radius: 24, maxHp: 8, boss: true, active: false },
   // Grossie en code (x1,5) pour dominer Yarden de la tête : l'image, l'ombre et la zone de collision grandissent ensemble.
   spider: { name: 'Araignée de cristal', art: 'spider', speed: 145, radius: 42, scale: 1.5, maxHp: 12, ranged: true }
@@ -219,7 +223,7 @@ function drawEnemy(enemy, offsetX, offsetY) {
   ctx.fillRect(ex - 20, barY, 40, 5);
   ctx.fillStyle = enemy.charger ? '#e7c567' : '#df6c82';
   ctx.fillRect(ex - 20, barY, 40 * enemy.hp / enemy.maxHp, 5);
-  if (enemy.kind === 'chef') { ctx.fillStyle = '#eae7f5'; ctx.font = '10px system-ui'; ctx.textAlign = 'center'; ctx.fillText('CHEF', ex, barY - 14); }
+  if (enemy.chief) { ctx.fillStyle = '#eae7f5'; ctx.font = '10px system-ui'; ctx.textAlign = 'center'; ctx.fillText('CHEF', ex, barY - 14); }
   if (enemy.level) { ctx.fillStyle = '#eae7f5'; ctx.font = '10px system-ui'; ctx.textAlign = 'center'; ctx.fillText(`Niv. ${enemy.level}`, ex, barY - 3); }
   if (enemy.boss) {
     ctx.fillStyle = '#eae7f5';

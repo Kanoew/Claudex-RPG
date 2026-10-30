@@ -143,6 +143,40 @@ def place_scaled(cells, scale, cell_w, cell_h, anchor, dst, colors=96):
     Image.fromarray(arr, 'RGBA').quantize(colors=colors, method=Image.FASTOCTREE, dither=Image.NONE).save(dst, optimize=True)
     print(dst)
 
+def synth_strip(src, box, name, height, cell=(260, 190), anchor=(130, 172), walk=(3, 1.5, 0.0), defeat=(78, .9), dst='assets/monsters/'):
+    """Fabrique une bande de 8 cases (4 marche, annonce, coup, dégâts, défaite) à partir d'UN dessin de profil tourné vers la gauche.
+    Les mouvements sont des transformations (rebond, penché, étirement, chute) : une vraie animation dessinée les remplacera plus tard.
+    walk = (rebond en px, inclinaison en degrés, balancement horizontal en px)."""
+    sheet = key(src)
+    x0, x1 = box
+    part = sheet[:, x0:x1].copy()
+    keep = largest(part[..., 3] > 24)
+    part[..., 3] = np.where(keep, part[..., 3], 0)
+    ys, xs = np.nonzero(part[..., 3] > 24)
+    crop = Image.fromarray(part[ys.min():ys.max() + 1, xs.min():xs.max() + 1], 'RGBA')
+    scale = height / crop.height
+    crop = crop.resize((max(1, round(crop.width * scale)), height), Image.LANCZOS)
+    bob, tilt, sway = walk
+    # (dx, dy, rotation en degrés, étirement x, étirement y) ; rotation positive = penche vers l'avant (la gauche).
+    poses = [(0, 0, -tilt, 1, 1), (sway, -bob, 0, 1.02, .98), (0, 0, tilt, 1, 1), (-sway, -bob, 0, 1.02, .98),
+             (7, 0, -9, 1.04, .93), (-18, 2, 7, 1.1, .96), (10, 0, -11, .96, 1.02), (0, 0, defeat[0], 1, defeat[1])]
+    frames = []
+    for dx, dy, angle, sx, sy in poses:
+        pose = crop.resize((max(1, round(crop.width * sx)), max(1, round(crop.height * sy))), Image.LANCZOS)
+        canvas = Image.new('RGBA', cell, (0, 0, 0, 0))
+        pivot = (anchor[0] + dx, anchor[1] + dy)
+        canvas.alpha_composite(pose, (round(pivot[0] - pose.width / 2), round(pivot[1] - pose.height)))
+        if angle:
+            canvas = canvas.rotate(angle, resample=Image.BICUBIC, center=pivot)
+        frames.append(canvas)
+    strip = Image.new('RGBA', (cell[0] * 8, cell[1]), (0, 0, 0, 0))
+    for i, frame in enumerate(frames):
+        strip.alpha_composite(frame, (i * cell[0], 0))
+    arr = np.asarray(strip).copy()
+    arr[..., 3] = np.where(arr[..., 3] <= 24, 0, arr[..., 3])
+    Image.fromarray(arr, 'RGBA').quantize(colors=128, method=Image.FASTOCTREE, dither=Image.NONE).save(dst + name + '.png', optimize=True)
+    print(dst + name + '.png')
+
 if __name__ == '__main__':
     art = 'docs/art/'
     export(art + 'faux/ramassage-lueur.png', 'assets/faux/ramassage-lueur.png', 4, clean=False)
@@ -159,3 +193,7 @@ if __name__ == '__main__':
     # Trois monstres du mode libre : bandes de 8 cases de 211 x 148 (4 déplacement, préparation, attaque, dégâts, défaite).
     for source, name in [('insecte-aile', 'insecte'), ('rampant-gris', 'rampant'), ('crabe', 'crabe')]:
         export(art + 'monstres-a-integrer/' + source + '-bande.png', 'assets/monsters/' + name + '.png', 8, colors=128)
+    # Trois monstres dessinés de profil seulement : animés par transformations (voir synth_strip).
+    synth_strip(art + 'monstres-a-integrer/guepe-rampant-homme-rouge-golem.webp', (1150, 1400), 'rouge', 108, walk=(3, 1.5, 0))
+    synth_strip(art + 'monstres-a-integrer/guepe-rampant-homme-rouge-golem.webp', (1420, 2000), 'golem', 140, walk=(2, 1, 0))
+    synth_strip(art + 'monstres-a-integrer/tatou-crabe.webp', (0, 1000), 'tatou', 80, walk=(2, 1.5, 3), defeat=(6, .55))

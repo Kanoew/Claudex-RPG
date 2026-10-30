@@ -53,7 +53,7 @@ function generateFaille(spot) {
   }
   const specs = [];
   const count = 5 + freeRoll(4);
-  const pool = ['goblin', 'goblin', 'sauteur', 'ogre', 'fuyard', 'insecte', 'insecte', 'rampant', 'rampant', 'crabe'];
+  const pool = ['goblin', 'goblin', 'sauteur', 'ogre', 'fuyard', 'insecte', 'insecte', 'rampant', 'rampant', 'crabe', 'tatou', 'rouge'];
   for (let i = 0; i < count; i++) {
     let x = 0, y = 0;
     for (let tries = 0; tries < 60; tries++) {
@@ -63,7 +63,7 @@ function generateFaille(spot) {
     const kind = freePick(pool);
     specs.push({ kind, x, y, level: level + freeRoll(4), aggro: 260 + freeRoll(40), ...(kind === 'fuyard' ? { refuge: { x: freeRoll(2) ? area.x + 90 : area.x + width - 90, y: area.y + 90 } } : {}) });
   }
-  specs.push({ kind: 'chef', x: 0, y: area.y + 110, level: level + 5, aggro: 340 });
+  specs.push({ kind: freePick(['chef', 'golem']), x: 0, y: area.y + 110, level: level + 5, aggro: 340 });
   zones.faille = { id: 'faille', title: `ABYSSE · FAILLE ${spot.label.toUpperCase()}`, theme, room: area, start, blocks, doors: [], enemies: specs, props: [],
     goal: () => freeMode.done ? 'Faille refermée : rejoins le passage ↓' : `Vaincs-les tous (${specs.length - failleRemaining()}/${specs.length})`,
     label: () => `Niv. ${level} à ${level + 5} · ${specs.length - failleRemaining()}/${specs.length}` };

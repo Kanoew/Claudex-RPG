@@ -24,7 +24,7 @@ function quatrebScript() {
     // 1. Seuil.
     { say: ['La porte cède sans résistance, comme si elle attendait la main.', 'Ishara : « Félix ? »', 'Tiamat (voix intérieure) : « Reste sur le seuil de ton attention. Je regarde avec toi. »'] },
     { say: ['L’air change de densité, pas de température : une pression basse contre la mâchoire.', 'Un appartement chaud, encombré, presque domestique. Du papier punaisé en couches sur tous les murs : documents jaunis, tampons, filigranes, écritures dans des alphabets inconnus.', 'Des étagères du sol au plafond. Des bocaux qui contiennent des choses qui ont été vivantes. Des crânes alignés, propres, tournés vers la pièce comme un public patient.'] },
-    { moves: [moveOf('yarden', [[0, -40]], 80), moveOf('ishara', [[-48, -20]], 80, { delay: .3 })] },
+    { moves: [moveOf('yarden', [[0, -10]], 80), moveOf('ishara', [[-48, 5]], 80, { delay: .3 })] },
     // 2. Félix.
     { say: ['Au fond, derrière la table de travail, Félix ne se lève pas : encriers, plumes, lampes à bras articulés éteintes. Yarden ne lit aucun niveau, seulement une absence.', 'Ses yeux rattrapent parfois en retard le mouvement de sa tête. Là, ils suivent à temps, par courtoisie.'] },
     { say: ['Félix : « Vous êtes récente. »', 'Félix : « Très récente. Deux jours. Peut-être moins. Et soigneusement rangée sous quelque chose. »'] },

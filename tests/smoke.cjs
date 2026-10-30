@@ -1337,7 +1337,7 @@ const tests = [
       seen.add(g.currentZone.theme);
       const list = g.zoneEnemies.faille;
       assert(list.length >= 6 && list.length <= 9, 'Cinq à huit monstres puis le chef');
-      assert.equal(list[list.length - 1].kind, 'chef');
+      assert(list[list.length - 1].chief, 'Un chef au fond');
       for (const enemy of list) assert(!g.walls.some(w => enemy.x > w.x && enemy.x < w.x + w.width && enemy.y > w.y && enemy.y < w.y + w.height), 'Aucun monstre dans un mur');
       assert(!g.walls.some(w => g.player.x > w.x && g.player.x < w.x + w.width && g.player.y > w.y && g.player.y < w.y + w.height), 'Départ libre');
       g.update(.05);

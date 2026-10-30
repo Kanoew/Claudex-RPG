@@ -22,3 +22,9 @@ Les dialogues occupent une zone séparée du terrain : au-dessus de la ruelle po
 5. En mode libre, ouvrir la carte et changer de quartier ; sur PC, vérifier les raccourcis et l'absence de joystick en mode clavier.
 
 La mise en page ne constitue pas une certification d'accessibilité. Les contrastes de tous les états, les lecteurs d'écran, les encoches et les gestes système demandent des vérifications dédiées.
+
+## Corrections ajoutées après contrôle (Claude, 30 octobre 2026)
+
+- Grand écran : le décor est agrandi jusqu'à ×2 quand le terrain mesure au moins 620 px de large (`resize` dans `input.js`) ; jamais sur téléphone.
+- Paysage téléphone avec dialogue : le panneau passe à droite du terrain (`ux.css`, fin du fichier).
+- Grand écran : jauges et objectif limités à 640 px.
