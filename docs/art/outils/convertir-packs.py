@@ -107,16 +107,19 @@ def export_chapter2b(art):
         rgba = key(art + 'ch2b/' + name.replace('remi-comptoir', 'remi-comptoir').replace('felix-bureau', 'felix-bureau') + '.webp')
         cells = alpha_cells(rgba, [(c * 500, 0, (c + 1) * 500, 667) for c in range(4)], 1)
         place(cells, 118, cell_w, 124, (cell_w // 2, 120), 'assets/npcs/' + ('remi' if name.startswith('remi') else 'felix') + '/' + name + '.png')
-    lineup = key(art + 'ch2b/lineup-ishara-remi-felix.webp')
-    for name, (x0, x1) in [('remi', (790, 1160)), ('felix', (1420, 1790))]:
-        part = lineup[0:340, x0:x1].copy()
+    busts = key(art + 'ch2b/portraits-ishara-remi-felix.webp')
+    for name, (x0, x1) in [('ishara-course', (0, 667)), ('remi', (667, 1334)), ('felix', (1334, 2000))]:
+        part = busts[:, x0:x1].copy()
         keep = largest(part[..., 3] > 24)
         part[..., 3] = np.where(keep, part[..., 3], 0)
         ys, xs = np.nonzero(part[..., 3] > 24)
-        side = int(xs.max() - xs.min()) + 12
-        left = max(0, int(xs.min()) - 6)
-        top = max(0, int(ys.min()) - 6)
-        square = Image.fromarray(part[top:top + side, left:left + side], 'RGBA').resize((144, 144), Image.LANCZOS)
+        side = max(int(xs.max() - xs.min()), int(ys.max() - ys.min())) + 1
+        left = max(0, min(part.shape[1] - side, int(xs.min()) - (side - int(xs.max() - xs.min())) // 2))
+        top = int(ys.min())
+        crop = np.zeros((side, side, 4), np.uint8)
+        piece = part[top:top + side, left:left + side]
+        crop[:piece.shape[0], :piece.shape[1]] = piece
+        square = Image.fromarray(crop, 'RGBA').resize((144, 144), Image.LANCZOS)
         arr = np.asarray(square).copy()
         arr[..., 3] = np.where(arr[..., 3] <= 24, 0, arr[..., 3])
         Image.fromarray(arr, 'RGBA').quantize(colors=96, method=Image.FASTOCTREE, dither=Image.NONE).save('assets/portraits/' + name + '-neutre.png', optimize=True)
