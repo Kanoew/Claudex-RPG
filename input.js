@@ -4,14 +4,27 @@
 
 function resize() {
   const rect = canvas.getBoundingClientRect();
+  const layoutChanged = width !== rect.width || height !== rect.height;
   width = rect.width;
   height = rect.height;
   const ratio = Math.min(window.devicePixelRatio || 1, 2);
-  canvas.width = Math.round(width * ratio);
-  canvas.height = Math.round(height * ratio);
+  const pixelWidth = Math.round(width * ratio);
+  const pixelHeight = Math.round(height * ratio);
+  // Réaffecter ces propriétés efface le Canvas, même si leur valeur ne change pas.
+  const bitmapChanged = canvas.width !== pixelWidth || canvas.height !== pixelHeight;
+  if (!bitmapChanged && !layoutChanged) return false;
+  if (bitmapChanged) {
+    canvas.width = pixelWidth;
+    canvas.height = pixelHeight;
+  }
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  return true;
 }
-new ResizeObserver(resize).observe(canvas);
+new ResizeObserver(() => {
+  // Le navigateur livre cet événement après la boucle de dessin : repeindre avant
+  // l'affichage évite une image vide quand le dialogue modifie la place du terrain.
+  if (resize() && width > 0 && height > 0) draw();
+}).observe(canvas);
 
 function moveStick(event) {
   if (encounterBlocksMovement()) return;

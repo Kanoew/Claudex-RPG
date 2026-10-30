@@ -27,7 +27,7 @@ function game(imageMode, keepOpening, store) {
   const context = vm.createContext({
     document, window: { devicePixelRatio: 1, addEventListener: (name, fn) => (listeners['window:' + name] ??= []).push(fn) },
     Image: imageMode ? class { set src(value) { if (imageMode === 'error') this.onerror(); else this.onload(); } } : undefined,
-    ResizeObserver: class { observe() {} }, requestAnimationFrame() {}, setInterval: fn => { audioLog.timers.push(fn); return 1; },
+    ResizeObserver: class { constructor(fn) { (listeners['canvas:resize'] ??= []).push(fn); } observe() {} }, requestAnimationFrame() {}, setInterval: fn => { audioLog.timers.push(fn); return 1; },
     AudioContext: class {
       constructor() { this.currentTime = 0; this.state = 'running'; this.destination = {}; audioLog.contexts++; }
       createGain() { const param = () => ({ value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} }); return { gain: param(), connect() {} }; }
@@ -98,6 +98,25 @@ function solid(g, body) {
   }
 }
 const tests = [
+  ['Canvas : redimensionnement repeint immédiatement, dimensions identiques sans effacement', () => {
+    const g = game();
+    let resets = 0, bitmapWidth = g.elements.game.width, bitmapHeight = g.elements.game.height;
+    Object.defineProperty(g.elements.game, 'width', { get: () => bitmapWidth, set(value) { bitmapWidth = value; resets++; } });
+    Object.defineProperty(g.elements.game, 'height', { get: () => bitmapHeight, set(value) { bitmapHeight = value; resets++; } });
+    g.calls.length = 0;
+    g.fire('canvas:resize');
+    assert.equal(resets, 0, 'Une notification identique ne doit pas effacer le Canvas');
+    assert.equal(g.calls.length, 0, 'Pas de dessin supplémentaire sans changement');
+    g.elements.game.getBoundingClientRect = () => ({ left: 0, top: 0, width: 430, height: 320 });
+    g.fire('canvas:resize');
+    assert.equal(bitmapWidth, 430);
+    assert.equal(bitmapHeight, 320);
+    assert(g.calls.some(([name, x, y, w, h]) => name === 'fillRect' && x === 0 && y === 0 && w === 430 && h === 320), 'La scène doit être repeinte dans le callback, sans attendre la prochaine image');
+    const previousResets = resets, previousCalls = g.calls.length;
+    g.fire('canvas:resize');
+    assert.equal(resets, previousResets);
+    assert.equal(g.calls.length, previousCalls);
+  }],
   ['Décor avec textures ou secours, sans modification du monde', () => {
     for (const mode of ['loaded', 'error', undefined]) {
       const g = game(mode);
