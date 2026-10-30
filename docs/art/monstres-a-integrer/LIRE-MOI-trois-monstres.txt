@@ -1,0 +1,49 @@
+PACK : INSECTE AILE, RAMPANT GRIS, CRABE
+
+Références : docs/art/monstres-a-integrer/ du dépôt Kanoew/Claudex-RPG.
+Style : monstres semi-réalistes simples, contours sombres, aplats, sans décor.
+
+FORMAT COMMUN
+Cases de 211 x 148 px ; ancrage (105,132) ; fond #00FF00 opaque.
+Chaque monstre regarde vers la gauche. Miroir autorisé pour ces monstres anonymes.
+Les ailes, griffes et pinces restent dans les cases, avec des marges.
+
+BANDE COMPLETE : <monstre>.png
+8 cases horizontales, dimensions 1688 x 148 px :
+0,1,2,3 : déplacement, boucle.
+4 : préparation de l'attaque.
+5 : impact de l'attaque.
+6 : réaction aux dégâts.
+7 : défaite, pose finale.
+
+BANDES PAR ACTION
+<monstre>-deplacement.png : 4 cases, 844 x 148 px.
+<monstre>-preparation.png, -attaque.png, -degats.png, -defaite.png :
+une pose par fichier, 211 x 148 px.
+Les quatre poses d'action sont des images clefs tenues, pas des animations
+interpolées. Pour une attaque : préparation -> impact -> retour au déplacement.
+
+DUREES PROPOSEES
+Insecte ailé : déplacement 90 ms par image.
+Rampant gris : déplacement 130 ms par image.
+Crabe : déplacement 170 ms par image.
+Préparation 320 ms ; attaque 150 ms ; dégâts 180 ms ; défaite 800 ms puis maintien
+ou disparition selon le moteur. Ces actions ne bouclent pas.
+Voir animations.json pour les indices, durées et fichiers.
+
+ECHELLE
+Hauteur des déplacements : insecte ailé 100 px (ailes comprises), rampant gris
+85 px, crabe 72 px. Ce sont des choix visuels, pas des tailles de lore.
+Une même échelle est conservée pour toutes les poses de chaque monstre.
+Au grossissement actuel de 0,62, le rampant et le crabe restent bas et larges.
+
+UTILISATION
+Ouvrir index.html à la racine du ZIP pour voir les boucles et les actions.
+Choisir l'échelle x0,62 pour contrôler la lisibilité en jeu.
+Seul le dossier exports est destiné à une éventuelle copie dans le dépôt :
+PNG, animations.json et ce LIRE-MOI.txt.
+Les sources haute résolution et l'aperçu restent hors du dépôt.
+
+Les exports restent sur fond vert à cette étape. Leur détourage et leur
+branchement au moteur restent à effectuer. Aucun fichier du jeu n'a été modifié.
+Nouveaux comportements, dégâts et niveaux : non définis par ce pack.

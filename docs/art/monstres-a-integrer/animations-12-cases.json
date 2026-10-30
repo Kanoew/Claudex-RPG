@@ -1,0 +1,282 @@
+{
+  "version": 1,
+  "cell": {
+    "width": 211,
+    "height": 148
+  },
+  "anchor": {
+    "x": 105,
+    "y": 132
+  },
+  "background": "#00FF00",
+  "opaque": true,
+  "direction": "left",
+  "mirrorAllowed": true,
+  "note": "Quatre cases dessinées pour le déplacement et quatre pour l’attaque, deux pour les dégâts et deux pour la défaite. Les durées et hauteurs sont des propositions visuelles, sans changement de comportement ni de lore.",
+  "monsters": {
+    "homme-rouge": {
+      "sheet": "homme-rouge.png",
+      "frameCount": 12,
+      "locomotionHeightPx": 100,
+      "animations": {
+        "deplacement": {
+          "file": "homme-rouge-deplacement.png",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sheetFrames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durationsMs": [
+            130,
+            110,
+            130,
+            110
+          ],
+          "loop": true,
+          "onComplete": "loop"
+        },
+        "attaque": {
+          "file": "homme-rouge-attaque.png",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sheetFrames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durationsMs": [
+            140,
+            90,
+            100,
+            160
+          ],
+          "loop": false,
+          "onComplete": "returnToLocomotion",
+          "impactFrame": 2
+        },
+        "degats": {
+          "file": "homme-rouge-degats.png",
+          "frames": [
+            0,
+            1
+          ],
+          "sheetFrames": [
+            8,
+            9
+          ],
+          "durationsMs": [
+            110,
+            140
+          ],
+          "loop": false,
+          "onComplete": "returnToLocomotion"
+        },
+        "defaite": {
+          "file": "homme-rouge-defaite.png",
+          "frames": [
+            0,
+            1
+          ],
+          "sheetFrames": [
+            10,
+            11
+          ],
+          "durationsMs": [
+            220,
+            650
+          ],
+          "loop": false,
+          "onComplete": "holdLastFrame"
+        }
+      }
+    },
+    "golem": {
+      "sheet": "golem.png",
+      "frameCount": 12,
+      "locomotionHeightPx": 108,
+      "animations": {
+        "deplacement": {
+          "file": "golem-deplacement.png",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sheetFrames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durationsMs": [
+            200,
+            180,
+            200,
+            180
+          ],
+          "loop": true,
+          "onComplete": "loop"
+        },
+        "attaque": {
+          "file": "golem-attaque.png",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sheetFrames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durationsMs": [
+            250,
+            230,
+            150,
+            230
+          ],
+          "loop": false,
+          "onComplete": "returnToLocomotion",
+          "impactFrame": 2
+        },
+        "degats": {
+          "file": "golem-degats.png",
+          "frames": [
+            0,
+            1
+          ],
+          "sheetFrames": [
+            8,
+            9
+          ],
+          "durationsMs": [
+            150,
+            160
+          ],
+          "loop": false,
+          "onComplete": "returnToLocomotion"
+        },
+        "defaite": {
+          "file": "golem-defaite.png",
+          "frames": [
+            0,
+            1
+          ],
+          "sheetFrames": [
+            10,
+            11
+          ],
+          "durationsMs": [
+            300,
+            800
+          ],
+          "loop": false,
+          "onComplete": "holdLastFrame"
+        }
+      }
+    },
+    "tatou": {
+      "sheet": "tatou.png",
+      "frameCount": 12,
+      "locomotionHeightPx": 75,
+      "animations": {
+        "deplacement": {
+          "file": "tatou-deplacement.png",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sheetFrames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durationsMs": [
+            140,
+            110,
+            140,
+            110
+          ],
+          "loop": true,
+          "onComplete": "loop"
+        },
+        "attaque": {
+          "file": "tatou-attaque.png",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sheetFrames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durationsMs": [
+            170,
+            90,
+            110,
+            150
+          ],
+          "loop": false,
+          "onComplete": "returnToLocomotion",
+          "impactFrame": 2
+        },
+        "degats": {
+          "file": "tatou-degats.png",
+          "frames": [
+            0,
+            1
+          ],
+          "sheetFrames": [
+            8,
+            9
+          ],
+          "durationsMs": [
+            110,
+            140
+          ],
+          "loop": false,
+          "onComplete": "returnToLocomotion"
+        },
+        "defaite": {
+          "file": "tatou-defaite.png",
+          "frames": [
+            0,
+            1
+          ],
+          "sheetFrames": [
+            10,
+            11
+          ],
+          "durationsMs": [
+            220,
+            700
+          ],
+          "loop": false,
+          "onComplete": "holdLastFrame"
+        }
+      }
+    }
+  }
+}

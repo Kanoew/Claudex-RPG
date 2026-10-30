@@ -1,0 +1,60 @@
+HOMME ROUGE, GOLEM ET TATOU — 12 CASES PAR CREATURE
+
+Références : docs/art/monstres-a-integrer/ dans Kanoew/Claudex-RPG.
+Style conservé : monstres semi-réalistes simples, contours sombres et aplats.
+Les poses ont été dessinées séparément : membres articulés, préparation,
+impact et récupération. Aucun cycle n'est fabriqué en déplaçant une pose fixe.
+
+FORMAT
+Cases de 211 x 148 pixels, ancrage commun (105,132).
+Fond vert pur #00FF00 opaque ; pas de détourage alpha à cette étape.
+Orientation gauche ; miroir autorisé pour ces monstres anonymes.
+Une même échelle de dessin est conservée entre les poses de chaque créature.
+Marges autour des pieds, mains, pointes et carapace vérifiées.
+
+BANDE COMPLETE
+<monstre>.png : 12 cases horizontales, 2532 x 148 pixels.
+Indices commençant à zéro :
+0,1,2,3 : déplacement, boucle en quatre cases.
+4,5,6,7 : attaque, préparation -> accélération -> impact -> récupération.
+8,9 : dégâts, recul -> reprise d'appui.
+10,11 : défaite, début de chute -> position finale au sol.
+
+BANDES SEPAREES
+<monstre>-deplacement.png : 4 cases, 844 x 148 pixels.
+<monstre>-attaque.png : 4 cases, 844 x 148 pixels.
+<monstre>-degats.png : 2 cases, 422 x 148 pixels.
+<monstre>-defaite.png : 2 cases, 422 x 148 pixels.
+
+ATTAQUES
+Homme rouge : coup de poing.
+Golem : frappe lourde, bras levé puis abattu.
+Tatou : bond bas, poussée des pattes arrière puis réception.
+L'impact correspond à la troisième case de chaque bande d'attaque (indice 2).
+Ce sont des propositions visuelles : aucune portée, statistique ou mécanique
+de combat n'est ajoutée ou imposée au jeu.
+
+DUREES
+Toutes les durées sont en millisecondes dans animations.json.
+Déplacement : boucle.
+Attaque et dégâts : une lecture puis retour à la locomotion.
+Défaite : une lecture puis maintien de la dernière case ou disparition,
+selon la règle retenue pour le moteur.
+Les durées peuvent être recalées sur les fenêtres d'attaque existantes.
+
+ECHELLE PROPOSEE
+Hauteur des poses de marche : homme rouge 100 px, golem 108 px, tatou 75 px.
+Ces tailles sont des choix visuels, sans valeur canonique.
+Les poses d'attaque peuvent dépasser la hauteur de marche sans changer d'échelle.
+Le tatou quitte légèrement le sol pendant les deux cases centrales du bond.
+
+LIVRAISON
+Ouvrir index.html à la racine du ZIP pour voir les animations, les rejouer et
+examiner chaque case. Le dossier apercus contient aussi des GIF animés.
+Le dossier sources conserve les trois planches haute résolution.
+Pour le dépôt : copier seulement les fichiers du présent dossier exports
+(PNG, animations.json et ce LIRE-MOI.txt).
+Sources, GIF et aperçu restent hors du dépôt.
+
+Le pack ne modifie ni le dépôt ni le moteur. Le détourage et le remplacement
+des ressources du jeu restent à effectuer.
