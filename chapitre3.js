@@ -11,6 +11,7 @@ function enterQuatreB() {
   clearActors();
   sceneActor('ishara', 'ishara', -40, 160, { face: 1 });
   sceneActor('felix', 'felix', 0, -115);
+  ch2b.paperStillAt = 0;
   saveCheckpoint('quatreb');
 }
 
@@ -37,7 +38,10 @@ function quatrebScript() {
     // 4. Tiamat parle par la bouche de Yarden.
     { say: ['Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste conscient, spectatrice de sa propre voix.', 'Tiamat : « Mithra. »'] },
     { say: ['Félix : « Vous prononcez un nom que je n’ai pas donné. »', 'Tiamat : « Je ne le donne pas non plus. Je le reconnais. »', 'Tiamat : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement lausannois parce que c’est la seule chose qu’il sache faire. »'] },
-    { say: ['Tiamat : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »', 'Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.', 'Ishara regarde, sans exister trop fort.'] },
+    { say: ['Tiamat : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »', 'Ishara regarde, sans exister trop fort.'] },
+    { run: () => { ch2b.paperStillAt = mirrorNow(); } },
+    { wait: 1.6 },
+    { say: ['Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.'] },
     // 5. La corde d'Ishara.
     { say: ['Félix : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »', 'Félix : « Vous n’avez rien à me prouver, Ishara. Vous pouvez rester une inconnue. C’est un droit. »', 'Ishara : « …Vas-y. Je veux savoir. »'] },
     { say: ['Félix : « Vous êtes une Éveillée ordinaire. Ça, c’est la surface. Niveau onze, défense de zone. Mais en dessous, il y a une corde. »', 'Félix : « C’est une corde de témoin. Le genre de lien qu’on tend quand on veut voir à travers quelqu’un. Pas le commander. Le regarder. »', 'Félix : « Votre instinct, ce petit talent que vous avez pour savoir en qui avoir confiance avant même qu’on parle. Ce n’est pas vous. Enfin, c’est vous, mais ce n’est pas que vous. »'] },

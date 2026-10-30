@@ -205,8 +205,8 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Je ne le donne pas non plus. Je le reconnais. »
 - **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement lausannois parce que c’est la seule chose qu’il sache faire. »
 - **Tiamat** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
-- Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - Ishara regarde, sans exister trop fort.
+- Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - **Félix** : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »
 - **Félix** : « Vous n’avez rien à me prouver, Ishara. Vous pouvez rester une inconnue. C’est un droit. »
 - **Ishara** : « …Vas-y. Je veux savoir. »
@@ -304,8 +304,8 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Je ne le donne pas non plus. Je le reconnais. »
 - **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement lausannois parce que c’est la seule chose qu’il sache faire. »
 - **Tiamat** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
-- Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - Ishara regarde, sans exister trop fort.
+- Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - **Félix** : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »
 - **Félix** : « Vous n’avez rien à me prouver, Ishara. Vous pouvez rester une inconnue. C’est un droit. »
 - **Ishara** : « …Vas-y. Je veux savoir. »
@@ -401,8 +401,8 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Je ne le donne pas non plus. Je le reconnais. »
 - **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement lausannois parce que c’est la seule chose qu’il sache faire. »
 - **Tiamat** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
-- Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - Ishara regarde, sans exister trop fort.
+- Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - **Félix** : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »
 - **Félix** : « Vous n’avez rien à me prouver, Ishara. Vous pouvez rester une inconnue. C’est un droit. »
 - **Ishara** : « …Vas-y. Je veux savoir. »
@@ -484,8 +484,8 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Je ne le donne pas non plus. Je le reconnais. »
 - **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement lausannois parce que c’est la seule chose qu’il sache faire. »
 - **Tiamat** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
-- Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - Ishara regarde, sans exister trop fort.
+- Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - **Félix** : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »
 - **Félix** : « Vous n’avez rien à me prouver, Ishara. Vous pouvez rester une inconnue. C’est un droit. »
 - **Ishara** : « …Vas-y. Je veux savoir. »
@@ -559,8 +559,8 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Je ne le donne pas non plus. Je le reconnais. »
 - **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement lausannois parce que c’est la seule chose qu’il sache faire. »
 - **Tiamat** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
-- Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - Ishara regarde, sans exister trop fort.
+- Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - **Félix** : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »
 - **Félix** : « Vous n’avez rien à me prouver, Ishara. Vous pouvez rester une inconnue. C’est un droit. »
 - **Ishara** : « …Vas-y. Je veux savoir. »

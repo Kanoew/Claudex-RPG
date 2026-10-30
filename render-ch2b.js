@@ -3,7 +3,7 @@
 // Décors du chapitre 2 (le lendemain matin) : l'impasse, le run en Abysse, la rue Marterey, le comptoir de Rémi, le 4B et son escalier.
 // Tout est dessiné en code, dans des rectangles qui suivent les collisions. Plans, couleurs et détails sont inventés à minima ;
 // les éléments canon sont dans PROJECT.md (sections 27 à 29).
-const ch2b = { shutterAt: 0, slate: '', buff: false };
+const ch2b = { shutterAt: 0, slate: '', buff: false, paperStillAt: 0 };
 
 function ch2bRect(offsetX, offsetY) {
   return (x, y, w, h, color) => { ctx.fillStyle = color; ctx.fillRect(x + offsetX, y + offsetY, w, h); };
@@ -219,14 +219,18 @@ themeDrawers.quatreb = {
     if (index < 4) fill('#1a120c', 0, 0, w, h);
     else if (wall.kind === 'papier') {
       fill('#6a5a44', 0, 0, w, h);
+      // Le papier bruisse dans les murs ; quand Tiamat parle, il s'immobilise d'un coup, comme un cœur qui saute un battement.
+      const now = mirrorNow(), age = ch2b.paperStillAt ? now - ch2b.paperStillAt : -1;
+      const amp = age < 0 ? 1 : Math.max(0, 1 - age / .35);
       // Documents punaisés en couches : feuilles jaunies, tampons rouges, lignes d'écritures inconnues.
       for (let i = 0; i < 34; i++) {
-        const px = (i * 53) % (w - 30), py = ((i * 29) % (h - 18)), pw = 22 + (i * 7) % 18, ph = 16 + (i * 11) % 14;
+        const px = (i * 53) % (w - 30) + Math.sin(now * 3.1 + i * 1.3) * 1.6 * amp, py = ((i * 29) % (h - 18)) + Math.cos(now * 2.4 + i * 1.9) * 1.1 * amp, pw = 22 + (i * 7) % 18, ph = 16 + (i * 11) % 14;
         fill(i % 3 === 0 ? '#d9c79a' : i % 3 === 1 ? '#c8b585' : '#e3d6ae', px, py, pw, ph);
         ctx.strokeStyle = '#5a4a30'; ctx.lineWidth = 1;
         for (let l = 0; l < 3; l++) { ctx.beginPath(); ctx.moveTo(x + px + 3, y + py + 4 + l * 4); ctx.lineTo(x + px + pw - 3 - (l * i) % 6, y + py + 4 + l * 4); ctx.stroke(); }
         if (i % 5 === 0) fill('#a8483c', px + pw - 8, py + ph - 8, 6, 6);
       }
+      if (age >= 0 && age < .9) fill(`rgba(170, 140, 255, ${.42 * (1 - age / .9)})`, 0, 0, w, h);
     } else if (wall.kind === 'etagere') {
       fill('#3b2a1c', 0, 0, w, h);
       const left = x < 0;
