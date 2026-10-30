@@ -1,8 +1,0 @@
-Yarden — petit saut de joie
-
-Décompresser tout le dossier et ouvrir index.html.
-Bande : celebration.png, 8 cases égales de 272 × 724 px.
-Durées : animations.json, 820 ms au total, lecture unique puis retour au repos.
-Fond vert opaque, sans confettis ; détourage et intégration au jeu à réaliser.
-Ancrage commun : (136, 631). Ne pas recaler les pieds des poses aériennes sur le sol.
-La source originale et ses repères de découpe sont inclus dans le pack.

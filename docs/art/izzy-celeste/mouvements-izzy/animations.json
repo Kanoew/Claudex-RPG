@@ -1,0 +1,482 @@
+{
+  "name": "Izzy — mouvements en tenue façade",
+  "version": 1,
+  "status": "sources sur fond vert, détourage et intégration à réaliser",
+  "background": {
+    "type": "opaque-green",
+    "target": "#00FF00",
+    "note": "Fond vert opaque #00FF00 harmonisé pour les bandes exportées ; sources originales conservées séparément. Aucun canal alpha ni export transparent appliqué."
+  },
+  "animations": {
+    "repos": {
+      "file": "repos.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        1000,
+        500,
+        140,
+        1000
+      ],
+      "loop": true,
+      "facing": "front",
+      "view": "front",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/repos.png",
+      "sourceScale": 0.15267175572519084,
+      "frameData": [
+        {
+          "sourceCrop": [
+            42,
+            24,
+            517,
+            693
+          ],
+          "sourceRoot": [
+            278.0,
+            685
+          ],
+          "exportOffset": [
+            69,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            40,
+            24,
+            515,
+            694
+          ],
+          "sourceRoot": [
+            276.0,
+            686
+          ],
+          "exportOffset": [
+            69,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            37,
+            23,
+            513,
+            694
+          ],
+          "sourceRoot": [
+            274.0,
+            686
+          ],
+          "exportOffset": [
+            69,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            37,
+            24,
+            512,
+            693
+          ],
+          "sourceRoot": [
+            273.0,
+            685
+          ],
+          "exportOffset": [
+            69,
+            31
+          ]
+        }
+      ]
+    },
+    "marche-gauche": {
+      "file": "marche-gauche.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        180,
+        180,
+        180,
+        180
+      ],
+      "loop": true,
+      "facing": "left",
+      "view": "three-quarter-side",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/marche-gauche.png",
+      "sourceScale": 0.14285714285714285,
+      "frameData": [
+        {
+          "sourceCrop": [
+            33,
+            38,
+            496,
+            750
+          ],
+          "sourceRoot": [
+            272.0,
+            742
+          ],
+          "exportOffset": [
+            71,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            19,
+            37,
+            489,
+            752
+          ],
+          "sourceRoot": [
+            251.0,
+            744
+          ],
+          "exportOffset": [
+            72,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            10,
+            39,
+            491,
+            752
+          ],
+          "sourceRoot": [
+            254.0,
+            744
+          ],
+          "exportOffset": [
+            70,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            12,
+            39,
+            478,
+            755
+          ],
+          "sourceRoot": [
+            252.0,
+            747
+          ],
+          "exportOffset": [
+            71,
+            31
+          ]
+        }
+      ]
+    },
+    "marche-droite": {
+      "file": "marche-droite.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        180,
+        180,
+        180,
+        180
+      ],
+      "loop": true,
+      "facing": "right",
+      "view": "three-quarter-side",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/marche-droite.png",
+      "sourceScale": 0.14388489208633093,
+      "frameData": [
+        {
+          "sourceCrop": [
+            32,
+            46,
+            496,
+            757
+          ],
+          "sourceRoot": [
+            270.0,
+            749
+          ],
+          "exportOffset": [
+            71,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            3,
+            47,
+            462,
+            753
+          ],
+          "sourceRoot": [
+            236.0,
+            745
+          ],
+          "exportOffset": [
+            71,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            0,
+            47,
+            471,
+            756
+          ],
+          "sourceRoot": [
+            241.0,
+            748
+          ],
+          "exportOffset": [
+            70,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            0,
+            49,
+            458,
+            753
+          ],
+          "sourceRoot": [
+            236.0,
+            745
+          ],
+          "exportOffset": [
+            71,
+            32
+          ]
+        }
+      ]
+    },
+    "marche-haut": {
+      "file": "marche-haut.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        180,
+        180,
+        180,
+        180
+      ],
+      "loop": true,
+      "facing": "up",
+      "view": "back",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/marche-haut.png",
+      "sourceScale": 0.141643059490085,
+      "frameData": [
+        {
+          "sourceCrop": [
+            59,
+            35,
+            479,
+            757
+          ],
+          "sourceRoot": [
+            270.0,
+            749
+          ],
+          "exportOffset": [
+            75,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            47,
+            35,
+            465,
+            751
+          ],
+          "sourceRoot": [
+            252.0,
+            743
+          ],
+          "exportOffset": [
+            76,
+            32
+          ]
+        },
+        {
+          "sourceCrop": [
+            34,
+            35,
+            455,
+            757
+          ],
+          "sourceRoot": [
+            245.0,
+            749
+          ],
+          "exportOffset": [
+            75,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            23,
+            35,
+            442,
+            751
+          ],
+          "sourceRoot": [
+            228.0,
+            743
+          ],
+          "exportOffset": [
+            76,
+            32
+          ]
+        }
+      ]
+    },
+    "marche-bas": {
+      "file": "marche-bas.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        180,
+        180,
+        180,
+        180
+      ],
+      "loop": true,
+      "facing": "down",
+      "view": "front",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/marche-bas.png",
+      "sourceScale": 0.14925373134328357,
+      "frameData": [
+        {
+          "sourceCrop": [
+            51,
+            19,
+            517,
+            705
+          ],
+          "sourceRoot": [
+            288.0,
+            697
+          ],
+          "exportOffset": [
+            70,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            42,
+            19,
+            505,
+            704
+          ],
+          "sourceRoot": [
+            271.0,
+            696
+          ],
+          "exportOffset": [
+            71,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            38,
+            19,
+            502,
+            705
+          ],
+          "sourceRoot": [
+            270.0,
+            697
+          ],
+          "exportOffset": [
+            70,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            35,
+            19,
+            497,
+            704
+          ],
+          "sourceRoot": [
+            264.0,
+            696
+          ],
+          "exportOffset": [
+            71,
+            31
+          ]
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Chaque bande comporte quatre cases de 211 × 148, ancrage commun (105,132), fond vert opaque #00FF00.",
+    "Toutes les directions sont dessinées séparément ; aucun miroir.",
+    "Même référence et proportions de tête que le premier pack ; hauteur debout d’environ 100 px, posture de course légèrement plus basse.",
+    "Repos : respiration et un clignement, troisième case yeux fermés.",
+    "Originaux haute résolution conservés dans le sous-dossier sources/ du ZIP ; seules les bandes légères et leurs guides sont dans le dépôt.",
+    "Détourage et intégration au jeu restent à réaliser.",
+    "Tenue façade uniquement ; tatouage floral à la clavicule gauche, chevalière au petit doigt gauche, boucles et talons dorés. Aucun halo ni manchette.",
+    "Le tatouage de clavicule est caché en vue de dos ; les détails du côté éloigné ne doivent pas être déplacés sur le côté visible."
+  ]
+}
