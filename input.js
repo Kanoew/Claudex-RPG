@@ -4,12 +4,14 @@
 
 function resize() {
   const rect = canvas.getBoundingClientRect();
-  const layoutChanged = width !== rect.width || height !== rect.height;
-  width = rect.width;
-  height = rect.height;
+  // Sur grand écran, on agrandit le décor (jusqu'à x2, seulement si le terrain est large : jamais sur téléphone) pour que les petites salles ne flottent pas au milieu du terrain.
+  const zoom = Math.max(1, Math.min(2, rect.width / 620, rect.height / 460));
+  const layoutChanged = width !== rect.width / zoom || height !== rect.height / zoom;
+  width = rect.width / zoom;
+  height = rect.height / zoom;
   const ratio = Math.min(window.devicePixelRatio || 1, 2);
-  const pixelWidth = Math.round(width * ratio);
-  const pixelHeight = Math.round(height * ratio);
+  const pixelWidth = Math.round(rect.width * ratio);
+  const pixelHeight = Math.round(rect.height * ratio);
   // Réaffecter ces propriétés efface le Canvas, même si leur valeur ne change pas.
   const bitmapChanged = canvas.width !== pixelWidth || canvas.height !== pixelHeight;
   if (!bitmapChanged && !layoutChanged) return false;
@@ -17,7 +19,7 @@ function resize() {
     canvas.width = pixelWidth;
     canvas.height = pixelHeight;
   }
-  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.setTransform(ratio * zoom, 0, 0, ratio * zoom, 0, 0);
   return true;
 }
 new ResizeObserver(() => {

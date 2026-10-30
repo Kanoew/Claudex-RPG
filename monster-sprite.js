@@ -10,6 +10,10 @@ const monsterClips = {
   // Gobelin : 4 marche, 5 dague en arrière, 6 coup de dague. Ogre : 4 marche, 5 accroupi poings en arrière, 6 charge.
   goblin: { cell: [130, 94], anchor: [65, 90], stand: 89, reach: 89, walk: [0, 1, 2, 3], walkSeconds: .1, windup: 4, strike: 5, strikeSeconds: .2 },
   ogre: { cell: [170, 127], anchor: [85, 123], stand: 124, reach: 124, walk: [0, 1, 2, 3], walkSeconds: .12, windup: 4, strike: 5, strikeSeconds: .2 },
+  // Trois monstres du mode libre : 0 à 3 marche, 4 annonce, 5 coup, 6 dégâts, 7 défaite (cases de 211 x 148, pieds à 132).
+  insecte: { cell: [211, 148], anchor: [105, 132], stand: 100, reach: 100, walk: [0, 1, 2, 3], walkSeconds: .09, windup: 4, strike: 5, hurt: 6, strikeSeconds: .2 },
+  rampant: { cell: [211, 148], anchor: [105, 132], stand: 85, reach: 100, walk: [0, 1, 2, 3], walkSeconds: .13, windup: 4, strike: 5, hurt: 6, strikeSeconds: .2 },
+  crabe: { cell: [211, 148], anchor: [105, 132], stand: 72, reach: 100, walk: [0, 1, 2, 3], walkSeconds: .17, windup: 4, strike: 5, hurt: 6, strikeSeconds: .2 },
   spider: { cell: [224, 168], anchor: [112, 158], stand: 125, reach: 125, walk: [0, 1, 2, 3], walkSeconds: .1, windup: 4, strike: 5, hurt: 6, blinded: 7, incapacitated: 8, strikeSeconds: .22 }
 };
 const monsterArt = { strips: {} };
@@ -20,7 +24,7 @@ function loadMonsterArt() {
     const image = new Image();
     image.onload = () => { monsterArt.strips[name] = image; };
     image.onerror = () => { monsterArt.strips[name] = null; };
-    image.src = `assets/monsters/${name}.png?v=31`;
+    image.src = `assets/monsters/${name}.png?v=62`;
   }
 }
 
@@ -44,6 +48,7 @@ function monsterPose(enemy) {
   if (enemy.incapacitated) frame = clip.incapacitated;
   else if (enemy.ranged && encounter.phase === 'blinded') frame = clip.blinded;
   else if (enemy.ranged && enemy.flash > 0) frame = clip.hurt;
+  else if (clip.hurt !== undefined && !enemy.ranged && enemy.flash > 0 && enemy.windup <= 0) frame = clip.hurt;
   else if (enemy.charge > 0 || sprite.strike > 0) frame = clip.strike;
   else if (enemy.windup > 0) frame = clip.windup;
   else if (sprite.moving) frame = clip.walk[Math.floor(sprite.time / clip.walkSeconds) % clip.walk.length];

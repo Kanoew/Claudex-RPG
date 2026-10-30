@@ -53,7 +53,7 @@ function generateFaille(spot) {
   }
   const specs = [];
   const count = 5 + freeRoll(4);
-  const pool = ['goblin', 'goblin', 'sauteur', 'ogre', 'fuyard'];
+  const pool = ['goblin', 'goblin', 'sauteur', 'ogre', 'fuyard', 'insecte', 'insecte', 'rampant', 'rampant', 'crabe'];
   for (let i = 0; i < count; i++) {
     let x = 0, y = 0;
     for (let tries = 0; tries < 60; tries++) {

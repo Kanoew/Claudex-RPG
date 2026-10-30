@@ -156,3 +156,6 @@ if __name__ == '__main__':
     for name in ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant']:
         export(art + 'portraits-dialogue/' + name + '.png', 'assets/portraits/' + name + '.png', 1, colors=96, size=(144, 144))
     export_chapter2b(art)
+    # Trois monstres du mode libre : bandes de 8 cases de 211 x 148 (4 déplacement, préparation, attaque, dégâts, défaite).
+    for source, name in [('insecte-aile', 'insecte'), ('rampant-gris', 'rampant'), ('crabe', 'crabe')]:
+        export(art + 'monstres-a-integrer/' + source + '-bande.png', 'assets/monsters/' + name + '.png', 8, colors=128)

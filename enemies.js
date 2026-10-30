@@ -77,6 +77,10 @@ const enemyKinds = {
   // Gobelins du premier run (niveaux 15 à 19) : le sauteur bondit sur Yarden, le fuyard se réfugie dans le couloir sans issue.
   sauteur: { name: 'Gobelin sauteur', art: 'goblin', speed: 100, radius: 14, maxHp: 3, charger: true },
   fuyard: { name: 'Gobelin fuyard', art: 'goblin', speed: 115, radius: 14, maxHp: 3, charger: false, flees: true },
+  // Monstres du mode libre (pack de Jordan) : l'insecte vole vite, le rampant bondit, le crabe est lent et solide.
+  insecte: { name: 'Insecte ailé', art: 'insecte', speed: 125, radius: 12, maxHp: 2, charger: false },
+  rampant: { name: 'Rampant gris', art: 'rampant', speed: 105, radius: 15, maxHp: 3, charger: true },
+  crabe: { name: 'Crabe', art: 'crabe', speed: 60, radius: 18, maxHp: 5, charger: false },
   ogre: { name: 'Ogre', art: 'ogre', speed: 80, radius: 14, maxHp: 2, charger: true },
   // Chef de faille du mode libre : le Troll, sans les phases du chapitre 1.
   chef: { name: 'Chef de faille', art: 'troll', speed: 70, radius: 24, maxHp: 10, charger: true },

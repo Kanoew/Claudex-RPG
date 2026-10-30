@@ -1,0 +1,261 @@
+{
+  "version": 1,
+  "cell": {
+    "width": 211,
+    "height": 148
+  },
+  "anchor": {
+    "x": 105,
+    "y": 132
+  },
+  "background": "#00FF00",
+  "opaque": true,
+  "direction": "left",
+  "mirrorAllowed": true,
+  "note": "Miroir autorisé pour ces monstres anonymes ; les repères cyan suivent les plaques. Aucun paramètre de combat imposé. Les actions hors déplacement sont des poses clefs tenues, pas des cycles interpolés.",
+  "monsters": {
+    "insecte-aile": {
+      "sheet": "insecte-aile.png",
+      "frameCount": 8,
+      "locomotionHeightPx": 100,
+      "animations": {
+        "deplacement": {
+          "file": "insecte-aile-deplacement.png",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sheetFrames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durationsMs": [
+            90,
+            90,
+            90,
+            90
+          ],
+          "loop": true
+        },
+        "preparation": {
+          "file": "insecte-aile-preparation.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            4
+          ],
+          "durationsMs": [
+            320
+          ],
+          "loop": false
+        },
+        "attaque": {
+          "file": "insecte-aile-attaque.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            5
+          ],
+          "durationsMs": [
+            150
+          ],
+          "loop": false
+        },
+        "degats": {
+          "file": "insecte-aile-degats.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            6
+          ],
+          "durationsMs": [
+            180
+          ],
+          "loop": false
+        },
+        "defaite": {
+          "file": "insecte-aile-defaite.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            7
+          ],
+          "durationsMs": [
+            800
+          ],
+          "loop": false
+        }
+      }
+    },
+    "rampant-gris": {
+      "sheet": "rampant-gris.png",
+      "frameCount": 8,
+      "locomotionHeightPx": 85,
+      "animations": {
+        "deplacement": {
+          "file": "rampant-gris-deplacement.png",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sheetFrames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durationsMs": [
+            130,
+            130,
+            130,
+            130
+          ],
+          "loop": true
+        },
+        "preparation": {
+          "file": "rampant-gris-preparation.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            4
+          ],
+          "durationsMs": [
+            320
+          ],
+          "loop": false
+        },
+        "attaque": {
+          "file": "rampant-gris-attaque.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            5
+          ],
+          "durationsMs": [
+            150
+          ],
+          "loop": false
+        },
+        "degats": {
+          "file": "rampant-gris-degats.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            6
+          ],
+          "durationsMs": [
+            180
+          ],
+          "loop": false
+        },
+        "defaite": {
+          "file": "rampant-gris-defaite.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            7
+          ],
+          "durationsMs": [
+            800
+          ],
+          "loop": false
+        }
+      }
+    },
+    "crabe": {
+      "sheet": "crabe.png",
+      "frameCount": 8,
+      "locomotionHeightPx": 72,
+      "animations": {
+        "deplacement": {
+          "file": "crabe-deplacement.png",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sheetFrames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durationsMs": [
+            170,
+            170,
+            170,
+            170
+          ],
+          "loop": true
+        },
+        "preparation": {
+          "file": "crabe-preparation.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            4
+          ],
+          "durationsMs": [
+            320
+          ],
+          "loop": false
+        },
+        "attaque": {
+          "file": "crabe-attaque.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            5
+          ],
+          "durationsMs": [
+            150
+          ],
+          "loop": false
+        },
+        "degats": {
+          "file": "crabe-degats.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            6
+          ],
+          "durationsMs": [
+            180
+          ],
+          "loop": false
+        },
+        "defaite": {
+          "file": "crabe-defaite.png",
+          "frames": [
+            0
+          ],
+          "sheetFrames": [
+            7
+          ],
+          "durationsMs": [
+            800
+          ],
+          "loop": false
+        }
+      }
+    }
+  }
+}
