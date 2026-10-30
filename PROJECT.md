@@ -367,3 +367,7 @@ Références de travail dans `docs/art/personnages-a-venir/` (`izzy-facade-chibi
 - Izzy façade : garder tatouage à gauche, bijoux, palette rouge, noir, or. Le halo et les manchettes dorées appartiennent à la tenue de combat.
 
 **Premier pack à demander** : pour chacune, trois portraits (neutre, sourire, une expression forte, à choisir par Jordan) et un repos de face. Les références sont sur la branche `ccr-7c0e09b8-1rbfts`, pas encore sur `main` tant que la pull request n'est pas fusionnée.
+
+## 24. Premier pack d'Izzy et de Céleste (livré par Codex, 30 octobre 2026)
+
+Exports et fiche dans `docs/art/izzy-celeste/` (les originaux haute résolution ne sont pas copiés dans le dépôt : ils sont dans le ZIP de Jordan). Contenu : un repos de face par personnage (211 × 148, ancrage 105,132, environ 100 px de haut) et six portraits de dialogue 256 × 256, sur fond vert. Izzy : neutre, sourire, narquoise (sourire en coin, un sourcil levé). Céleste : neutre, sourire, alerte (inquiétude pressée). Les corrections de la section 23 sont appliquées (proportions de la tête rapprochées d'Ishara, fond vert, fente de Céleste à droite anatomique, décolleté remonté, ni halo ni manchettes pour Izzy). Pas encore détourés ni branchés dans le jeu : aucune scène n'en a besoin pour l'instant (Céleste est absente de l'appartement au chapitre 2). Pour les utiliser : ajouter « Izzy » et « Céleste » aux noms de `dialogue.js`, exporter avec `docs/art/outils/convertir-packs.py`, puis écrire la scène.

@@ -1,0 +1,40 @@
+IZZY ET CÉLESTE — PREMIER PACK
+
+CONTENU
+- izzy-repos-face.png : une pose immobile en tenue façade.
+- celeste-repos-face.png : une pose immobile en tenue du chapitre 4.
+- izzy-portraits.png : neutre, sourire, narquoise.
+- celeste-portraits.png : neutre, sourire, alerte.
+Les six portraits sont aussi disponibles en fichiers individuels 256 × 256.
+
+FORMAT
+Repos : une case 211 × 148, ancrage (105,132), hauteur debout de 100 px environ.
+Portraits : trois cases 256 × 256 par bande, ancrage (128,248).
+Fond vert opaque #00FF00, sans ombre, effet ou contour autocollant lilas.
+Les originaux haute résolution sont dans sources/ ; les deux repos viennent de la même planche.
+Export par découpe et réduction proportionnelle, sans miroir. Le fond vert des exports est harmonisé.
+Aucun canal alpha appliqué. Les ressources ne sont pas raccordées au jeu.
+
+EXPRESSIONS
+Izzy : le sourire en coin narquois, un sourcil levé, se distingue du sourire simple.
+Céleste : inquiétude pressée, regard alerte et bouche entrouverte pour reprendre son souffle.
+Ce sont des expressions statiques : les 1200 ms du manifeste servent à les feuilleter dans l’aperçu.
+Les repos sont également statiques (1000 ms indicatives). Toutes les lectures sont sans boucle.
+
+CONTINUITÉ
+Izzy : cheveux rouges ondulés, yeux bruns repris de la référence, robe bordeaux, veste noire, talons dorés.
+Tatouage floral sur sa clavicule gauche, à droite de l’image de face. Chevalière sur son petit doigt gauche.
+Boucles dorées conservées. Aucun halo ni manchette : ces deux éléments sont réservés au combat.
+Céleste : cheveux châtains partiellement défaits, yeux bruns repris de la référence, bijoux dorés.
+Robe midi noire, V sobre remonté, fente à droite anatomique donc à gauche de l’image de face.
+Veste courte à deux boutons dorés et bottines à talon bloc.
+Ishara n’a pas de veste dans sa tenue de rue ; ses chaussures ne sont pas fixées par le lore.
+La tenue quotidienne de Céleste et les autres tenues d’Izzy ne sont pas inventées ici.
+
+APERÇU ET REPRISE
+Ouvrir index.html, même hors connexion : il lit animations-data.js.
+Pause, image suivante/précédente, vitesse et repères d’ancrage sont disponibles.
+animations.json décrit les cases, les durées, les sources et les fichiers individuels.
+Pour les dialogues, choisir une expression fixe ; ne pas faire défiler les trois portraits automatiquement.
+Pour le moteur, préparer les exports transparents et conserver les ancrages indiqués.
+Valider la lisibilité à l’échelle du jeu avant raccordement à une scène.
