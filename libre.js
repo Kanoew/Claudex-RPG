@@ -13,6 +13,8 @@ const freeSpots = {
   sousgare: { x: 150, y: 100, label: 'Sous-gare', base: 20 }
 };
 const freeThemes = ['pierre', 'cristal', 'ocre'];
+// Les rues se suivent : on sort par le bord est ou ouest pour passer à la rue voisine (la carte montre le plan).
+const freeLinks = { quartier: { east: 'marterey' }, marterey: { west: 'quartier', east: 'sousgare' }, sousgare: { west: 'marterey' } };
 
 function freeUnlocked() {
   try { return typeof localStorage !== 'undefined' && localStorage.getItem(freeKey) === '1'; } catch (error) { return false; }
@@ -90,6 +92,15 @@ function enterHub(id) {
   for (const key of Object.keys(sceneActors)) delete sceneActors[key];
 }
 
+// Passage d'une rue à l'autre : on arrive du côté opposé, à hauteur du départ de la nouvelle rue.
+function walkToStreet(id, side) {
+  enterHub(id);
+  const r = zones[id].room;
+  player.x = side === 'west' ? r.x + 56 : r.x + r.width - 56;
+  player.y = zones[id].start.y;
+  updateStatus();
+}
+
 function startFreeMode() {
   result.hidden = true;
   resultDelay = 0;
@@ -140,6 +151,9 @@ function updateFree(seconds = 0) {
       enterHub(freeMode.from);
     }
   } else if (freeSpots[currentZone.id]) {
+    const links = freeLinks[currentZone.id] || {};
+    if (links.east && player.x > room.x + room.width - 38) { walkToStreet(links.east, 'west'); return; }
+    if (links.west && player.x < room.x + 38) { walkToStreet(links.west, 'east'); return; }
     const spot = freeSpots[currentZone.id];
     if (Math.hypot(player.x - spot.x, player.y - spot.y) < 40) enterFaille(currentZone.id);
   }
@@ -148,6 +162,18 @@ function updateFree(seconds = 0) {
 // La faille : un rectangle d'air déformé, violet ; dans la salle, le même signe sert de sortie une fois le chef vaincu.
 function drawFreeRift(offsetX, offsetY) {
   if (!freeMode.active) return;
+  const links = freeLinks[currentZone.id];
+  if (links) {
+    ctx.save();
+    ctx.font = '11px system-ui'; ctx.fillStyle = '#e4d8ff'; ctx.strokeStyle = '#e4d8ff'; ctx.lineWidth = 2;
+    const y = zones[currentZone.id].start.y + offsetY, pulse = 3 * Math.sin(mirrorNow() * 3);
+    for (const [side, id] of Object.entries(links)) {
+      const east = side === 'east', x = (east ? room.x + room.width - 22 : room.x + 22) + offsetX, dir = east ? 1 : -1;
+      ctx.beginPath(); ctx.moveTo(x - 6 * dir + pulse * dir, y - 10); ctx.lineTo(x + 2 * dir + pulse * dir, y); ctx.lineTo(x - 6 * dir + pulse * dir, y + 10); ctx.stroke();
+      ctx.textAlign = east ? 'right' : 'left'; ctx.fillText(freeSpots[id].label, x - 12 * dir, y - 16);
+    }
+    ctx.restore();
+  }
   let point = null;
   if (freeSpots[currentZone.id]) point = freeSpots[currentZone.id];
   else if (currentZone.id === 'faille' && freeMode.done) point = zones.faille.start;
@@ -172,8 +198,10 @@ function openMap() {
   stats.open = true;
   stats.from = null;
   freeMode.mapOpen = true;
-  const list = document.getElementById('map-list');
-  list.innerHTML = Object.entries(freeSpots).map(([id, spot]) => `<button type="button" data-spot="${id}"${freeMode.from === id && currentZone.id !== 'faille' ? ' class="here"' : ''}><span>${spot.label}</span><b>Failles · niv. ${spot.base} et plus</b></button>`).join('');
+  // Plan des rues : trois quartiers reliés par leurs bords, la position actuelle marquée. Aucun voyage rapide : on marche.
+  const here = currentZone.id === 'faille' ? freeMode.from : currentZone.id;
+  const nodes = Object.entries(freeSpots).map(([id, spot], index) => `<div class="map-node${here === id ? ' here' : ''}"><span>${spot.label}</span><b>Failles · niv. ${spot.base} et plus</b>${here === id ? '<i>Tu es ici</i>' : ''}</div>${index < 2 ? '<div class="map-link" aria-hidden="true">↕ rue ↕</div>' : ''}`).join('');
+  document.getElementById('map-list').innerHTML = nodes + '<p class="map-note">Sors par le bord de la rue pour passer à la suivante. Chaque quartier a une faille.</p>';
   mapPanel.hidden = false;
   document.getElementById('map-close').focus();
   updateAttackButton();
@@ -203,11 +231,4 @@ function resetFree() {
 
 document.getElementById('map-button').addEventListener('click', openMap);
 document.getElementById('map-close').addEventListener('click', closeMap);
-document.getElementById('map-list').addEventListener('click', event => {
-  const button = event.target && event.target.closest ? event.target.closest('button') : null;
-  if (!button || !button.dataset.spot) return;
-  closeMap();
-  enterHub(button.dataset.spot);
-  updateStatus();
-});
 document.getElementById('free-button').addEventListener('click', startFreeMode);

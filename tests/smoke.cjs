@@ -1333,6 +1333,19 @@ const tests = [
     assert(!g.elements['map-panel'].hidden && g.stats.open);
     g.closeMap();
     assert(g.elements['map-panel'].hidden && !g.stats.open);
+    // Les rues se suivent : par le bord est, quartier -> Marterey -> Sous-gare, et retour par l'ouest.
+    Object.assign(g.player, { x: 240, y: 150 });
+    g.updateFree();
+    assert.equal(g.currentZone.id, 'marterey');
+    Object.assign(g.player, { x: 240, y: 100 });
+    g.updateFree();
+    assert.equal(g.currentZone.id, 'sousgare');
+    Object.assign(g.player, { x: -240, y: 100 });
+    g.updateFree(); g.updateFree();
+    assert.equal(g.currentZone.id, 'marterey');
+    Object.assign(g.player, { x: -240, y: 100 });
+    g.updateFree();
+    assert.equal(g.currentZone.id, 'quartier');
     const seen = new Set();
     for (let round = 0; round < 6; round++) {
       Object.assign(g.player, { x: g.freeSpots.quartier.x, y: g.freeSpots.quartier.y });
