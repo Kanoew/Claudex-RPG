@@ -358,4 +358,12 @@ Références de travail dans `docs/art/personnages-a-venir/` (`izzy-facade-chibi
 
 **Céleste, tenue du chapitre 4 (retour de soirée de guilde).** Robe midi noire, matière fluide, décolleté en V sobre, fente latérale droite jusqu'à mi-cuisse. Veste en cuir noir courte, col légèrement structuré, deux boutons dorés, pas d'autre quincaillerie. Bottines en cuir noir mat, talon bloc, tige courte (elle marche vite et peut courir). Chaîne fine dorée avec un minuscule pendentif de guilde, petites créoles dorées. Rouge à lèvres légèrement estompé sur les bords, eye-liner encore net. Cheveux mi-longs châtains, partiellement défaits d'une coiffure du soir, quelques mèches libres. Aucune tenue du quotidien n'existe dans les bibles : à inventer avec Jordan si besoin.
 
-**Points de vigilance.** Céleste est la colocataire d'Ishara : leurs silhouettes se ressemblent (châtain, robe noire, veste), à distinguer par le métal (or pour Céleste, argent pour Ishara), la veste, les bottines, la longueur de la robe et la teinte des cheveux. La fente de la robe de Céleste doit être à droite (à vérifier sur l'image). Le décolleté de Céleste doit rester « sobre ».
+**Points de vigilance.** Céleste est la colocataire d'Ishara : leurs silhouettes se ressemblent (châtain, robe noire). À distinguer par le métal (or pour Céleste, argent pour Ishara), la veste (Céleste en porte une ; Ishara n'en porte pas dans sa tenue de rue), la longueur de la robe (midi pour Céleste, courte pour Ishara) et la teinte des cheveux. Les chaussures d'Ishara ne sont pas fixées par le lore : ne pas s'en servir pour les distinguer.
+
+**Corrections à demander avant le premier pack (relecture du 30 octobre).**
+- Céleste : fente sur sa droite anatomique (à gauche de l'image de face) ; décolleté remonté pour retrouver le « V sobre ».
+- Izzy et Céleste : corps raccourcis et têtes agrandies proportionnellement pour rejoindre Ishara (une simple réduction à 100 px ne corrige pas les proportions).
+- Retirer le contour autocollant lilas ; fond vert uniforme.
+- Izzy façade : garder tatouage à gauche, bijoux, palette rouge, noir, or. Le halo et les manchettes dorées appartiennent à la tenue de combat.
+
+**Premier pack à demander** : pour chacune, trois portraits (neutre, sourire, une expression forte, à choisir par Jordan) et un repos de face. Les références sont sur la branche `ccr-7c0e09b8-1rbfts`, pas encore sur `main` tant que la pull request n'est pas fusionnée.
