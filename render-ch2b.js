@@ -3,7 +3,7 @@
 // Décors du chapitre 2 (le lendemain matin) : l'impasse, le run en Abysse, la rue Marterey, le comptoir de Rémi, le 4B et son escalier.
 // Tout est dessiné en code, dans des rectangles qui suivent les collisions. Plans, couleurs et détails sont inventés à minima ;
 // les éléments canon sont dans PROJECT.md (sections 27 à 29).
-const ch2b = { shutterAt: 0, slate: '', buff: false };
+const ch2b = { shutterAt: 0, slate: '', buff: false, paperStillAt: 0 };
 
 function ch2bRect(offsetX, offsetY) {
   return (x, y, w, h, color) => { ctx.fillStyle = color; ctx.fillRect(x + offsetX, y + offsetY, w, h); };
@@ -194,6 +194,66 @@ themeDrawers.cour = {
     if (index < 4) fill('#15131a', 0, 0, w, h);
     else if (wall.kind === 'lierre') { fill('#2f4f2a', 0, 0, w, h); ctx.strokeStyle = '#3f6b3a'; ctx.lineWidth = 2; for (let i = 0; i < 18; i++) { ctx.beginPath(); ctx.moveTo(x, y + i * 21); ctx.lineTo(x + w, y + i * 21 + 4); ctx.stroke(); } }
     else if (wall.kind === 'arbuste') { fill('#00000030', 3, 5, w, h); ctx.fillStyle = '#3f6b3a'; ctx.beginPath(); ctx.arc(x + w / 2, y + h / 2, w * .5, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#4f8248'; ctx.beginPath(); ctx.arc(x + w / 2 - 4, y + h / 2 - 4, w * .28, 0, Math.PI * 2); ctx.fill(); }
+    ctx.restore();
+  }
+};
+
+// ---------- Le 4B : papier punaisé en couches, étagères, bocaux, crânes alignés ----------
+themeDrawers.quatreb = {
+  tint: ['#2a160a00', '#2a160a22', '#1a0e0899'],
+  floor(offsetX, offsetY) {
+    const rect = ch2bRect(offsetX, offsetY);
+    rect(-190, -250, 380, 420, '#4a3426');
+    ctx.strokeStyle = '#00000030';
+    for (let y = -250; y < 170; y += 22) { ctx.beginPath(); ctx.moveTo(-190 + offsetX, y + offsetY); ctx.lineTo(190 + offsetX, y + offsetY); ctx.stroke(); }
+    // Un tapis usé devant la table de travail.
+    rect(-70, -90, 140, 130, '#5a3a30'); rect(-64, -84, 128, 118, '#6a4638');
+    // Chaleur d'une lampe : l'appartement est domestique, jamais sinistre en lumière.
+    const t = mirrorNow(), glow = ctx.createRadialGradient(offsetX, -110 + offsetY, 10, offsetX, -110 + offsetY, 230);
+    glow.addColorStop(0, `rgba(255, 207, 138, ${.34 + .04 * Math.sin(t * 1.4)})`); glow.addColorStop(1, 'rgba(255, 207, 138, 0)');
+    ctx.fillStyle = glow; ctx.fillRect(-190 + offsetX, -250 + offsetY, 380, 420);
+  },
+  solid(wall, x, y, index) {
+    const fill = ch2bFill(x, y), w = wall.width, h = wall.height;
+    ctx.save();
+    if (index < 4) fill('#1a120c', 0, 0, w, h);
+    else if (wall.kind === 'papier') {
+      fill('#6a5a44', 0, 0, w, h);
+      // Le papier bruisse dans les murs ; quand Tiamat parle, il s'immobilise d'un coup, comme un cœur qui saute un battement.
+      const now = mirrorNow(), age = ch2b.paperStillAt ? now - ch2b.paperStillAt : -1;
+      const amp = age < 0 ? 1 : Math.max(0, 1 - age / .35);
+      // Documents punaisés en couches : feuilles jaunies, tampons rouges, lignes d'écritures inconnues.
+      for (let i = 0; i < 34; i++) {
+        const px = (i * 53) % (w - 30) + Math.sin(now * 3.1 + i * 1.3) * 1.6 * amp, py = ((i * 29) % (h - 18)) + Math.cos(now * 2.4 + i * 1.9) * 1.1 * amp, pw = 22 + (i * 7) % 18, ph = 16 + (i * 11) % 14;
+        fill(i % 3 === 0 ? '#d9c79a' : i % 3 === 1 ? '#c8b585' : '#e3d6ae', px, py, pw, ph);
+        ctx.strokeStyle = '#5a4a30'; ctx.lineWidth = 1;
+        for (let l = 0; l < 3; l++) { ctx.beginPath(); ctx.moveTo(x + px + 3, y + py + 4 + l * 4); ctx.lineTo(x + px + pw - 3 - (l * i) % 6, y + py + 4 + l * 4); ctx.stroke(); }
+        if (i % 5 === 0) fill('#a8483c', px + pw - 8, py + ph - 8, 6, 6);
+      }
+      if (age >= 0 && age < .9) fill(`rgba(170, 140, 255, ${.42 * (1 - age / .9)})`, 0, 0, w, h);
+    } else if (wall.kind === 'etagere') {
+      fill('#3b2a1c', 0, 0, w, h);
+      const left = x < 0;
+      for (let row = 0; row < 6; row++) {
+        const ry = 10 + row * 54;
+        fill('#2a1c12', 0, ry + 40, w, 6);
+        for (let k = 0; k < 2; k++) {
+          const cx = x + (left ? 28 : 14) + k * 0, cy = y + ry + 22;
+          if (row % 2 === 0) {
+            // Crâne propre, tourné vers la pièce comme un public patient.
+            ctx.fillStyle = '#e8e1d0'; ctx.beginPath(); ctx.ellipse(cx, cy - k * 0, 11, 12, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#2a1c12'; ctx.fillRect(cx - 6, cy - 3, 4, 5); ctx.fillRect(cx + 2, cy - 3, 4, 5); ctx.fillRect(cx - 3, cy + 5, 6, 4);
+            break;
+          }
+          // Bocaux : des choses qui ont été vivantes.
+          ctx.fillStyle = k ? '#7a8f5a99' : '#b98a4a99'; ctx.fillRect(x + 8 + k * 18, y + ry + 10, 14, 28);
+          ctx.fillStyle = '#d8d0b0'; ctx.fillRect(x + 8 + k * 18, y + ry + 8, 14, 4);
+        }
+      }
+    } else if (wall.kind === 'bureau') {
+      fill('#00000033', 4, 6, w, h); fill('#4a3020', 0, 0, w, h); fill('#6b4a2e', 0, 0, w, 8);
+      fill('#101014', 10, 12, 8, 12); fill('#101014', w - 22, 14, 8, 10);
+    }
     ctx.restore();
   }
 };

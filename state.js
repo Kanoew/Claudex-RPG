@@ -41,6 +41,9 @@ let credits = 0;
 // Le sac à dos : butin ramassé et pas encore vendu ; la faux reste scellée dans la ruelle jusqu'à la première nuit ; tenue d'Ishara (soiree, puis course).
 const bag = [];
 let scytheFreed = false;
+// Chapitre 3 : la dette envers Félix et le nom sur les papiers.
+let debt = 0;
+let identityName = '';
 let isharaOutfit = 'soiree';
 // Faux avant l'ouverture de la faille dans la ruelle du chapitre 1.
 let riftShown = true;

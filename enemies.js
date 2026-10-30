@@ -78,6 +78,8 @@ const enemyKinds = {
   sauteur: { name: 'Gobelin sauteur', art: 'goblin', speed: 100, radius: 14, maxHp: 3, charger: true },
   fuyard: { name: 'Gobelin fuyard', art: 'goblin', speed: 115, radius: 14, maxHp: 3, charger: false, flees: true },
   ogre: { name: 'Ogre', art: 'ogre', speed: 80, radius: 14, maxHp: 2, charger: true },
+  // Chef de faille du mode libre : le Troll, sans les phases du chapitre 1.
+  chef: { name: 'Chef de faille', art: 'troll', speed: 70, radius: 24, maxHp: 10, charger: true },
   troll: { name: 'Troll', art: 'troll', speed: 65, radius: 24, maxHp: 8, boss: true, active: false },
   // Grossie en code (x1,5) pour dominer Yarden de la tête : l'image, l'ombre et la zone de collision grandissent ensemble.
   spider: { name: 'Araignée de cristal', art: 'spider', speed: 145, radius: 42, scale: 1.5, maxHp: 12, ranged: true }
@@ -213,6 +215,7 @@ function drawEnemy(enemy, offsetX, offsetY) {
   ctx.fillRect(ex - 20, barY, 40, 5);
   ctx.fillStyle = enemy.charger ? '#e7c567' : '#df6c82';
   ctx.fillRect(ex - 20, barY, 40 * enemy.hp / enemy.maxHp, 5);
+  if (enemy.kind === 'chef') { ctx.fillStyle = '#eae7f5'; ctx.font = '10px system-ui'; ctx.textAlign = 'center'; ctx.fillText('CHEF', ex, barY - 14); }
   if (enemy.level) { ctx.fillStyle = '#eae7f5'; ctx.font = '10px system-ui'; ctx.textAlign = 'center'; ctx.fillText(`Niv. ${enemy.level}`, ex, barY - 3); }
   if (enemy.boss) {
     ctx.fillStyle = '#eae7f5';

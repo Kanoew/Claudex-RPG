@@ -6,7 +6,7 @@ const menu = { open: false, kind: 'title', view: 'main', confirm: null };
 const menuPanel = document.getElementById('menu-panel');
 const menuButtons = {
   continue: document.getElementById('menu-continue'), new: document.getElementById('menu-new'), resume: document.getElementById('menu-resume'),
-  restart: document.getElementById('menu-restart'), settings: document.getElementById('menu-settings'), back: document.getElementById('menu-back'), music: document.getElementById('menu-music'), effects: document.getElementById('menu-effects'), stats: document.getElementById('menu-stats')
+  restart: document.getElementById('menu-restart'), settings: document.getElementById('menu-settings'), back: document.getElementById('menu-back'), music: document.getElementById('menu-music'), effects: document.getElementById('menu-effects'), stats: document.getElementById('menu-stats'), free: document.getElementById('menu-free')
 };
 
 function menuLabelFor(save) {
@@ -44,6 +44,7 @@ function openMenu(kind) {
   menuButtons.continue.textContent = menuLabelFor(save);
   menuButtons.new.hidden = kind !== 'title';
   menuButtons.new.textContent = save ? 'Nouvelle partie' : 'Commencer';
+  menuButtons.free.hidden = kind !== 'title' || !freeUnlocked();
   menuButtons.resume.hidden = kind !== 'pause';
   menuButtons.restart.hidden = kind !== 'pause' || !save;
   menuButtons.restart.textContent = 'Revenir au dernier point de passage';
@@ -87,6 +88,7 @@ function menuContinue() {
 menuButtons.continue.addEventListener('click', menuContinue);
 menuButtons.new.addEventListener('click', menuNewGame);
 menuButtons.resume.addEventListener('click', closeMenu);
+menuButtons.free.addEventListener('click', () => { closeMenu(); skipOpening(); startFreeMode(); });
 menuButtons.restart.addEventListener('click', menuContinue);
 const musicSlider = document.getElementById('menu-music-volume'), effectsSlider = document.getElementById('menu-effects-volume');
 musicSlider.addEventListener('input', () => setMusicVolume(Number(musicSlider.value) / 100));

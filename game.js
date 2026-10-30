@@ -26,7 +26,9 @@ function finishCombat(message, delay = 0) {
   resetInput();
   for (const enemy of allEnemies()) { enemy.windup = 0; enemy.charge = 0; }
   resultText.textContent = message;
-  retryButton.textContent = currentZone.id === 'antre' ? 'Reprendre l’antre' : 'Recommencer le donjon';
+  retryButton.textContent = freeMode.active ? 'Retourner en ville' : currentZone.id === 'antre' ? 'Reprendre l’antre' : 'Recommencer le donjon';
+  if (stage === 'escaped' && !freeMode.active) unlockFree();
+  updateFreeHud();
   resultDetails.textContent = `Temps de jeu : ${Math.floor(elapsed)} s · PV restants : ${player.hp}/${player.maxHp}`;
   result.hidden = delay > 0;
   updateAttackButton();
@@ -39,6 +41,7 @@ function resetDungeonRun() {
   resetScene();
   resetChapter2b();
   resetBag();
+  resetFree();
   resetApartment();
   resetLevelUp();
   loadZone('donjon');
@@ -67,7 +70,8 @@ function resetDungeonRun() {
 }
 
 retryButton.addEventListener('click', () => {
-  if (currentZone.id === 'antre' && !encounter.complete) retryAntre();
+  if (freeMode.active) freeReturn();
+  else if (currentZone.id === 'antre' && !encounter.complete) retryAntre();
   else resetDungeonRun();
 });
 
@@ -90,6 +94,7 @@ function update(seconds) {
   updateEncounter(seconds);
   updateScene(seconds);
   updateChapter2b(seconds);
+  updateFree(seconds);
   updateLevelUp(seconds);
   if (combatOver || encounterBlocksMovement()) { updateStatus(); updateAttackButton(); return; }
   // Pendant l'apparition du Troll, Yarden peut bouger ; seuls les coups et les ennemis attendent.

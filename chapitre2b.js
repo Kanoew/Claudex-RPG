@@ -14,7 +14,7 @@ function resetChapter2b() {
   chapter2b.runDone = false;
   ch2b.shutterAt = 0; ch2b.slate = ''; ch2b.buff = false;
   for (const enemy of zoneEnemies.run) { resetEnemy(enemy); enemy.looted = false; }
-  bag.length = 0; credits = 0; scytheFreed = false; isharaOutfit = 'soiree';
+  bag.length = 0; credits = 0; debt = 0; identityName = ''; scytheFreed = false; isharaOutfit = 'soiree';
 }
 
 // Butin du run : quatre fragments et deux bourses (canon), un par gobelin sauf le dernier, qui s'enfuit. Le niveau 19 est le plus gros, coupe propre.
@@ -186,8 +186,8 @@ function sousgareScript() {
     { until: above(-530) },
     { say: ['Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.'] },
     { run: () => { ch2b.buff = true; } },
-    { say: ['Le buff d’Ishara se déclenche : un léger scintillement doré.', 'Félix : « Je vous attendais. »'] },
-    { end: 'Le chapitre 3 arrive à la prochaine étape. Fin du prototype !' }
+    { say: ['Le buff d’Ishara se déclenche tout seul : un léger scintillement doré.'] },
+    ...quatrebScript()
   ];
 }
 

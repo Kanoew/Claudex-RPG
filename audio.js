@@ -125,7 +125,7 @@ function scheduleMusic() {
 
 // Musique selon le lieu : l'Abysse (donjon, antre) ou la ville (ruelle, appartement).
 function syncMusic() {
-  const theme = audio.override || (menu.open && menu.kind === 'title' ? 'titre' : currentZone.id === 'donjon' || currentZone.id === 'antre' || currentZone.id === 'run' ? 'abysse' : 'ville');
+  const theme = audio.override || (menu.open && menu.kind === 'title' ? 'titre' : currentZone.id === 'donjon' || currentZone.id === 'antre' || currentZone.id === 'run' || currentZone.id === 'faille' ? 'abysse' : 'ville');
   if (theme === audio.theme) return;
   audio.theme = theme;
   audio.step = 0;

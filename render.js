@@ -388,6 +388,7 @@ function draw() {
   ctx.translate(shake.x, shake.y);
   drawRoom(offsetX, offsetY);
   drawDungeon(offsetX, offsetY);
+  drawFreeRift(offsetX, offsetY);
   drawRoomShade(screenX, screenY);
   drawEncounter(offsetX, offsetY);
   drawSceneActors(offsetX, offsetY, false);
