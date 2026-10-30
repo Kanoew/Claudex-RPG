@@ -4,7 +4,7 @@
 // Trois points : l'entrée dans l'Abysse, la sortie du Troll vers l'antre, l'arrivée dans la ruelle après l'araignée.
 // Si le navigateur refuse le stockage (navigation privée), le jeu continue sans sauvegarde.
 const saveKey = 'yarden-sauvegarde-1';
-const checkpointNames = { abysse: 'Entrée dans l’Abysse', antre: 'Devant l’antre', rue: 'Ruelle d’Helvara', appart: 'Chez Ishara', nuit: 'Chez Ishara, le soir', matin: 'Chez Ishara, le matin', impasse: 'Dimanche matin, l’impasse', marterey: 'Rue Marterey', sousgare: 'Quartier Sous-gare' };
+const checkpointNames = { abysse: 'Entrée dans l’Abysse', antre: 'Devant l’antre', rue: 'Ruelle d’Helvara', appart: 'Chez Ishara', nuit: 'Chez Ishara, le soir', matin: 'Chez Ishara, le matin', impasse: 'Dimanche matin, l’impasse', marterey: 'Rue Marterey', sousgare: 'Quartier Sous-gare', quatreb: 'Le 4B' };
 
 function storage() {
   try { return typeof localStorage !== 'undefined' ? localStorage : null; } catch (error) { return null; }
@@ -61,11 +61,12 @@ function applyCheckpoint(name) {
   scene.done = true;
   scytheFreed = !['rue', 'appart', 'nuit'].includes(name);
   if (name === 'marterey') for (const drop of runDrops) if (drop) bag.push({ ...drop });
-  if (name === 'sousgare') credits = 280;
-  isharaOutfit = ['impasse', 'matin', 'marterey', 'sousgare'].includes(name) ? 'course' : 'soiree';
+  if (name === 'sousgare' || name === 'quatreb') credits = 280;
+  isharaOutfit = ['impasse', 'matin', 'marterey', 'sousgare', 'quatreb'].includes(name) ? 'course' : 'soiree';
   if (name === 'appart') { enterApartment('arrive'); startScene(apartmentArrivalSteps()); }
   else if (name === 'impasse' || name === 'matin') startScene(impasseScript());
   else if (name === 'marterey') startScene(marteryScript());
   else if (name === 'sousgare') startScene(sousgareScript());
+  else if (name === 'quatreb') startScene(quatrebScript());
   else enterApartment('nuit');
 }

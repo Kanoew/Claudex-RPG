@@ -154,6 +154,17 @@ const zones = {
     blocks: [],
     doors: [], enemies: [], props: []
   },
+  // Le 4B (chapitre 3) : un appartement chaud et encombré, qui est Félix lui-même. Plan inventé à minima.
+  quatreb: {
+    id: 'quatreb', title: 'SOUS-GARE · LE 4B', theme: 'quatreb',
+    room: { x: -190, y: -250, width: 380, height: 420 },
+    start: { x: 0, y: 140 },
+    blocks: [
+      { x: -190, y: -250, width: 46, height: 330, kind: 'etagere' }, { x: 144, y: -250, width: 46, height: 330, kind: 'etagere' },
+      { x: -144, y: -250, width: 288, height: 56, kind: 'papier' }, { x: -48, y: -134, width: 96, height: 40, kind: 'bureau' }
+    ],
+    doors: [], enemies: [], props: []
+  },
   // Appartement d'Ishara (canon de Jordan, section 15 de PROJECT.md) : troisième étage, quartier étudiant, Lausanne.
   // Plan inventé à minima : l'entrée et la cuisine à l'est, le salon à l'ouest, le couloir au sud du salon, la chambre d'appoint
   // à gauche du couloir, la salle de bain en face, la chambre d'Ishara fermée. Palette chaude, jamais de bleu.

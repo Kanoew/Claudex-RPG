@@ -22,7 +22,7 @@ function statsRows() {
   ];
 }
 
-const statsLines = () => [`Fauchage Circulaire : ${skill.cost} pts de Mana`, `Crédits : ${credits}`, 'Identité administrative : aucune'];
+const statsLines = () => [`Fauchage Circulaire : ${skill.cost} pts de Mana`, `Crédits : ${credits}`, ...(debt ? [`Dette : ${debt}`] : []), `Identité administrative : ${identityName ? identityName + ' (papiers dans 3 jours)' : 'aucune'}`];
 
 // Version texte (pour les lecteurs d'écran et les tests).
 function statsText() {

@@ -1,6 +1,6 @@
 # Textes du jeu
 
-Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifier à la main. Les textes vivent dans le code (`opening.js`, `scene.js`, `apartment.js`, `mirror.js`, `chapitre2b.js`, `stats.js`, `hud.js`) ; ce fichier les rassemble pour la relecture. Une ligne `Nom (expression)` indique le visage montré dans la bulle.
+Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifier à la main. Les textes vivent dans le code (`opening.js`, `scene.js`, `apartment.js`, `mirror.js`, `chapitre2b.js`, `chapitre3.js`, `stats.js`, `hud.js`) ; ce fichier les rassemble pour la relecture. Une ligne `Nom (expression)` indique le visage montré dans la bulle.
 
 ## Ouverture : la ruelle et la faille
 
@@ -169,9 +169,45 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
 - Plus haut, plus chargé.
 - Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
-- Le buff d’Ishara se déclenche : un léger scintillement doré.
-- **Félix** : « Je vous attendais. »
-- *Fin de scène : Le chapitre 3 arrive à la prochaine étape. Fin du prototype !*
+- Le buff d’Ishara se déclenche tout seul : un léger scintillement doré.
+- La porte cède sans résistance, comme si elle attendait la main.
+- L’air change de densité, pas de température : une pression basse contre la mâchoire.
+- Un appartement chaud, encombré, presque domestique. Du papier punaisé en couches sur tous les murs : documents jaunis, tampons, filigranes, écritures dans des alphabets inconnus.
+- Des étagères du sol au plafond. Des bocaux qui contiennent des choses qui ont été vivantes. Des crânes alignés, propres, tournés vers la pièce comme un public patient.
+- Au fond, derrière la table de travail, Félix ne se lève pas. Il ne bouge pas de la bonne façon : posé comme le mobilier.
+- Aucun niveau lisible. Pas un zéro : une absence lisse.
+- **Félix** : « Vous êtes récente… Deux jours. Peut-être moins. Et soigneusement rangée sous quelque chose. »
+- **Ishara** : « Félix, c’est elle. Il lui faut un nom. Et des papiers. »
+- **Félix** : « Le 4B n’est pas ma maison, mademoiselle. Le 4B, c’est moi. Le corps en tablier est une commodité : pratique pour tremper une plume. »
+- **Félix** : « Je ne lis que les liens et les serments. Et seulement si on me le permet. »
+- **Félix** : « Il me faut un oui explicite de la jeune femme, avant de lire sa corde. »
+- **Ishara** : « Oui. »
+- **Yarden** : « Avant de signer quoi que ce soit : le prix du silence. »
+- **Félix** : « Vous refusez de signer sans connaître le prix. C’est sain. Continuons. »
+- La voix de Yarden change. Ce n’est plus tout à fait la sienne.
+- **Tiamat** : « Mithra. »
+- **Félix** : « Ah. Elle parle, alors. »
+- **Tiamat** : « Ton résidu scelle, moi je masque. Deux vieux métiers différents, dans deux maisons différentes. »
+- **Tiamat** : « Nous pouvons travailler côte à côte sans nous toucher. »
+- **Félix (neutre)** : « Soit. »
+- Félix lit la corde d’Ishara. Une corde de témoin, tendue vers Yarden. La signature du dieu a été effacée, volontairement.
+- **Félix** : « Intéressant. Je n’en dirai rien. »
+- **Félix** : « Un nom, maintenant. »
+- **Yarden** : « Yarden. »
+- **Félix** : « Yarden. Le Jourdain, la racine qui descend. Un nom unisexe à l’origine. Pour le reste, Weiss : personne ne regarde un Weiss. »
+- **Félix** : « Suisse par un grand-parent, née ailleurs, arrivée jeune. Vingt-deux ans sur le papier. »
+- **Yarden** : « Vingt-deux. »
+- **Félix** : « Le corps en paraît vingt. Un écart assumé. Ça explique le léger décalage, et personne n’ira creuser. »
+- **Félix** : « Huit cents crédits en tout. Deux cent quatre-vingts maintenant, cinq cent vingt en dette. »
+- **Félix** : « Des crédits pour le nom. Et, pour le silence : ne pas avoir à le regretter. »
+- **Félix** : « Un nom qu’on n’a pas fini de payer est un nom qu’on ne trahit pas. »
+- Yarden verse l’acompte : 280 → 0. Il reste une dette de 520.
+- **Félix** : « Vos papiers seront prêts dans trois jours. »
+- **Ishara (sourire)** : « Yarden Weiss. »
+- **Yarden** : « C’est étrange à entendre. »
+- **Ishara** : « Dis, ton araignée de niveau 41… ça n’a pas dû être drôle. »
+- **Yarden (surprise)** : « Je ne t’ai jamais parlé d’une araignée. »
+- *Fin de scène : Les papiers seront prêts dans trois jours. Fin du prototype !*
 
 ## Rue Marterey : la porte marron
 
@@ -198,9 +234,45 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
 - Plus haut, plus chargé.
 - Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
-- Le buff d’Ishara se déclenche : un léger scintillement doré.
-- **Félix** : « Je vous attendais. »
-- *Fin de scène : Le chapitre 3 arrive à la prochaine étape. Fin du prototype !*
+- Le buff d’Ishara se déclenche tout seul : un léger scintillement doré.
+- La porte cède sans résistance, comme si elle attendait la main.
+- L’air change de densité, pas de température : une pression basse contre la mâchoire.
+- Un appartement chaud, encombré, presque domestique. Du papier punaisé en couches sur tous les murs : documents jaunis, tampons, filigranes, écritures dans des alphabets inconnus.
+- Des étagères du sol au plafond. Des bocaux qui contiennent des choses qui ont été vivantes. Des crânes alignés, propres, tournés vers la pièce comme un public patient.
+- Au fond, derrière la table de travail, Félix ne se lève pas. Il ne bouge pas de la bonne façon : posé comme le mobilier.
+- Aucun niveau lisible. Pas un zéro : une absence lisse.
+- **Félix** : « Vous êtes récente… Deux jours. Peut-être moins. Et soigneusement rangée sous quelque chose. »
+- **Ishara** : « Félix, c’est elle. Il lui faut un nom. Et des papiers. »
+- **Félix** : « Le 4B n’est pas ma maison, mademoiselle. Le 4B, c’est moi. Le corps en tablier est une commodité : pratique pour tremper une plume. »
+- **Félix** : « Je ne lis que les liens et les serments. Et seulement si on me le permet. »
+- **Félix** : « Il me faut un oui explicite de la jeune femme, avant de lire sa corde. »
+- **Ishara** : « Oui. »
+- **Yarden** : « Avant de signer quoi que ce soit : le prix du silence. »
+- **Félix** : « Vous refusez de signer sans connaître le prix. C’est sain. Continuons. »
+- La voix de Yarden change. Ce n’est plus tout à fait la sienne.
+- **Tiamat** : « Mithra. »
+- **Félix** : « Ah. Elle parle, alors. »
+- **Tiamat** : « Ton résidu scelle, moi je masque. Deux vieux métiers différents, dans deux maisons différentes. »
+- **Tiamat** : « Nous pouvons travailler côte à côte sans nous toucher. »
+- **Félix (neutre)** : « Soit. »
+- Félix lit la corde d’Ishara. Une corde de témoin, tendue vers Yarden. La signature du dieu a été effacée, volontairement.
+- **Félix** : « Intéressant. Je n’en dirai rien. »
+- **Félix** : « Un nom, maintenant. »
+- **Yarden** : « Yarden. »
+- **Félix** : « Yarden. Le Jourdain, la racine qui descend. Un nom unisexe à l’origine. Pour le reste, Weiss : personne ne regarde un Weiss. »
+- **Félix** : « Suisse par un grand-parent, née ailleurs, arrivée jeune. Vingt-deux ans sur le papier. »
+- **Yarden** : « Vingt-deux. »
+- **Félix** : « Le corps en paraît vingt. Un écart assumé. Ça explique le léger décalage, et personne n’ira creuser. »
+- **Félix** : « Huit cents crédits en tout. Deux cent quatre-vingts maintenant, cinq cent vingt en dette. »
+- **Félix** : « Des crédits pour le nom. Et, pour le silence : ne pas avoir à le regretter. »
+- **Félix** : « Un nom qu’on n’a pas fini de payer est un nom qu’on ne trahit pas. »
+- Yarden verse l’acompte : 280 → 0. Il reste une dette de 520.
+- **Félix** : « Vos papiers seront prêts dans trois jours. »
+- **Ishara (sourire)** : « Yarden Weiss. »
+- **Yarden** : « C’est étrange à entendre. »
+- **Ishara** : « Dis, ton araignée de niveau 41… ça n’a pas dû être drôle. »
+- **Yarden (surprise)** : « Je ne t’ai jamais parlé d’une araignée. »
+- *Fin de scène : Les papiers seront prêts dans trois jours. Fin du prototype !*
 
 ## Le comptoir de Rémi
 
@@ -225,9 +297,45 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
 - Plus haut, plus chargé.
 - Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
-- Le buff d’Ishara se déclenche : un léger scintillement doré.
-- **Félix** : « Je vous attendais. »
-- *Fin de scène : Le chapitre 3 arrive à la prochaine étape. Fin du prototype !*
+- Le buff d’Ishara se déclenche tout seul : un léger scintillement doré.
+- La porte cède sans résistance, comme si elle attendait la main.
+- L’air change de densité, pas de température : une pression basse contre la mâchoire.
+- Un appartement chaud, encombré, presque domestique. Du papier punaisé en couches sur tous les murs : documents jaunis, tampons, filigranes, écritures dans des alphabets inconnus.
+- Des étagères du sol au plafond. Des bocaux qui contiennent des choses qui ont été vivantes. Des crânes alignés, propres, tournés vers la pièce comme un public patient.
+- Au fond, derrière la table de travail, Félix ne se lève pas. Il ne bouge pas de la bonne façon : posé comme le mobilier.
+- Aucun niveau lisible. Pas un zéro : une absence lisse.
+- **Félix** : « Vous êtes récente… Deux jours. Peut-être moins. Et soigneusement rangée sous quelque chose. »
+- **Ishara** : « Félix, c’est elle. Il lui faut un nom. Et des papiers. »
+- **Félix** : « Le 4B n’est pas ma maison, mademoiselle. Le 4B, c’est moi. Le corps en tablier est une commodité : pratique pour tremper une plume. »
+- **Félix** : « Je ne lis que les liens et les serments. Et seulement si on me le permet. »
+- **Félix** : « Il me faut un oui explicite de la jeune femme, avant de lire sa corde. »
+- **Ishara** : « Oui. »
+- **Yarden** : « Avant de signer quoi que ce soit : le prix du silence. »
+- **Félix** : « Vous refusez de signer sans connaître le prix. C’est sain. Continuons. »
+- La voix de Yarden change. Ce n’est plus tout à fait la sienne.
+- **Tiamat** : « Mithra. »
+- **Félix** : « Ah. Elle parle, alors. »
+- **Tiamat** : « Ton résidu scelle, moi je masque. Deux vieux métiers différents, dans deux maisons différentes. »
+- **Tiamat** : « Nous pouvons travailler côte à côte sans nous toucher. »
+- **Félix (neutre)** : « Soit. »
+- Félix lit la corde d’Ishara. Une corde de témoin, tendue vers Yarden. La signature du dieu a été effacée, volontairement.
+- **Félix** : « Intéressant. Je n’en dirai rien. »
+- **Félix** : « Un nom, maintenant. »
+- **Yarden** : « Yarden. »
+- **Félix** : « Yarden. Le Jourdain, la racine qui descend. Un nom unisexe à l’origine. Pour le reste, Weiss : personne ne regarde un Weiss. »
+- **Félix** : « Suisse par un grand-parent, née ailleurs, arrivée jeune. Vingt-deux ans sur le papier. »
+- **Yarden** : « Vingt-deux. »
+- **Félix** : « Le corps en paraît vingt. Un écart assumé. Ça explique le léger décalage, et personne n’ira creuser. »
+- **Félix** : « Huit cents crédits en tout. Deux cent quatre-vingts maintenant, cinq cent vingt en dette. »
+- **Félix** : « Des crédits pour le nom. Et, pour le silence : ne pas avoir à le regretter. »
+- **Félix** : « Un nom qu’on n’a pas fini de payer est un nom qu’on ne trahit pas. »
+- Yarden verse l’acompte : 280 → 0. Il reste une dette de 520.
+- **Félix** : « Vos papiers seront prêts dans trois jours. »
+- **Ishara (sourire)** : « Yarden Weiss. »
+- **Yarden** : « C’est étrange à entendre. »
+- **Ishara** : « Dis, ton araignée de niveau 41… ça n’a pas dû être drôle. »
+- **Yarden (surprise)** : « Je ne t’ai jamais parlé d’une araignée. »
+- *Fin de scène : Les papiers seront prêts dans trois jours. Fin du prototype !*
 
 ## Le 4B : Sous-gare, la cour, l’escalier
 
@@ -238,9 +346,86 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
 - Plus haut, plus chargé.
 - Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
-- Le buff d’Ishara se déclenche : un léger scintillement doré.
-- **Félix** : « Je vous attendais. »
-- *Fin de scène : Le chapitre 3 arrive à la prochaine étape. Fin du prototype !*
+- Le buff d’Ishara se déclenche tout seul : un léger scintillement doré.
+- La porte cède sans résistance, comme si elle attendait la main.
+- L’air change de densité, pas de température : une pression basse contre la mâchoire.
+- Un appartement chaud, encombré, presque domestique. Du papier punaisé en couches sur tous les murs : documents jaunis, tampons, filigranes, écritures dans des alphabets inconnus.
+- Des étagères du sol au plafond. Des bocaux qui contiennent des choses qui ont été vivantes. Des crânes alignés, propres, tournés vers la pièce comme un public patient.
+- Au fond, derrière la table de travail, Félix ne se lève pas. Il ne bouge pas de la bonne façon : posé comme le mobilier.
+- Aucun niveau lisible. Pas un zéro : une absence lisse.
+- **Félix** : « Vous êtes récente… Deux jours. Peut-être moins. Et soigneusement rangée sous quelque chose. »
+- **Ishara** : « Félix, c’est elle. Il lui faut un nom. Et des papiers. »
+- **Félix** : « Le 4B n’est pas ma maison, mademoiselle. Le 4B, c’est moi. Le corps en tablier est une commodité : pratique pour tremper une plume. »
+- **Félix** : « Je ne lis que les liens et les serments. Et seulement si on me le permet. »
+- **Félix** : « Il me faut un oui explicite de la jeune femme, avant de lire sa corde. »
+- **Ishara** : « Oui. »
+- **Yarden** : « Avant de signer quoi que ce soit : le prix du silence. »
+- **Félix** : « Vous refusez de signer sans connaître le prix. C’est sain. Continuons. »
+- La voix de Yarden change. Ce n’est plus tout à fait la sienne.
+- **Tiamat** : « Mithra. »
+- **Félix** : « Ah. Elle parle, alors. »
+- **Tiamat** : « Ton résidu scelle, moi je masque. Deux vieux métiers différents, dans deux maisons différentes. »
+- **Tiamat** : « Nous pouvons travailler côte à côte sans nous toucher. »
+- **Félix (neutre)** : « Soit. »
+- Félix lit la corde d’Ishara. Une corde de témoin, tendue vers Yarden. La signature du dieu a été effacée, volontairement.
+- **Félix** : « Intéressant. Je n’en dirai rien. »
+- **Félix** : « Un nom, maintenant. »
+- **Yarden** : « Yarden. »
+- **Félix** : « Yarden. Le Jourdain, la racine qui descend. Un nom unisexe à l’origine. Pour le reste, Weiss : personne ne regarde un Weiss. »
+- **Félix** : « Suisse par un grand-parent, née ailleurs, arrivée jeune. Vingt-deux ans sur le papier. »
+- **Yarden** : « Vingt-deux. »
+- **Félix** : « Le corps en paraît vingt. Un écart assumé. Ça explique le léger décalage, et personne n’ira creuser. »
+- **Félix** : « Huit cents crédits en tout. Deux cent quatre-vingts maintenant, cinq cent vingt en dette. »
+- **Félix** : « Des crédits pour le nom. Et, pour le silence : ne pas avoir à le regretter. »
+- **Félix** : « Un nom qu’on n’a pas fini de payer est un nom qu’on ne trahit pas. »
+- Yarden verse l’acompte : 280 → 0. Il reste une dette de 520.
+- **Félix** : « Vos papiers seront prêts dans trois jours. »
+- **Ishara (sourire)** : « Yarden Weiss. »
+- **Yarden** : « C’est étrange à entendre. »
+- **Ishara** : « Dis, ton araignée de niveau 41… ça n’a pas dû être drôle. »
+- **Yarden (surprise)** : « Je ne t’ai jamais parlé d’une araignée. »
+- *Fin de scène : Les papiers seront prêts dans trois jours. Fin du prototype !*
+
+## Chapitre 3 : le 4B, Félix, les papiers
+
+- La porte cède sans résistance, comme si elle attendait la main.
+- L’air change de densité, pas de température : une pression basse contre la mâchoire.
+- Un appartement chaud, encombré, presque domestique. Du papier punaisé en couches sur tous les murs : documents jaunis, tampons, filigranes, écritures dans des alphabets inconnus.
+- Des étagères du sol au plafond. Des bocaux qui contiennent des choses qui ont été vivantes. Des crânes alignés, propres, tournés vers la pièce comme un public patient.
+- Au fond, derrière la table de travail, Félix ne se lève pas. Il ne bouge pas de la bonne façon : posé comme le mobilier.
+- Aucun niveau lisible. Pas un zéro : une absence lisse.
+- **Félix** : « Vous êtes récente… Deux jours. Peut-être moins. Et soigneusement rangée sous quelque chose. »
+- **Ishara** : « Félix, c’est elle. Il lui faut un nom. Et des papiers. »
+- **Félix** : « Le 4B n’est pas ma maison, mademoiselle. Le 4B, c’est moi. Le corps en tablier est une commodité : pratique pour tremper une plume. »
+- **Félix** : « Je ne lis que les liens et les serments. Et seulement si on me le permet. »
+- **Félix** : « Il me faut un oui explicite de la jeune femme, avant de lire sa corde. »
+- **Ishara** : « Oui. »
+- **Yarden** : « Avant de signer quoi que ce soit : le prix du silence. »
+- **Félix** : « Vous refusez de signer sans connaître le prix. C’est sain. Continuons. »
+- La voix de Yarden change. Ce n’est plus tout à fait la sienne.
+- **Tiamat** : « Mithra. »
+- **Félix** : « Ah. Elle parle, alors. »
+- **Tiamat** : « Ton résidu scelle, moi je masque. Deux vieux métiers différents, dans deux maisons différentes. »
+- **Tiamat** : « Nous pouvons travailler côte à côte sans nous toucher. »
+- **Félix (neutre)** : « Soit. »
+- Félix lit la corde d’Ishara. Une corde de témoin, tendue vers Yarden. La signature du dieu a été effacée, volontairement.
+- **Félix** : « Intéressant. Je n’en dirai rien. »
+- **Félix** : « Un nom, maintenant. »
+- **Yarden** : « Yarden. »
+- **Félix** : « Yarden. Le Jourdain, la racine qui descend. Un nom unisexe à l’origine. Pour le reste, Weiss : personne ne regarde un Weiss. »
+- **Félix** : « Suisse par un grand-parent, née ailleurs, arrivée jeune. Vingt-deux ans sur le papier. »
+- **Yarden** : « Vingt-deux. »
+- **Félix** : « Le corps en paraît vingt. Un écart assumé. Ça explique le léger décalage, et personne n’ira creuser. »
+- **Félix** : « Huit cents crédits en tout. Deux cent quatre-vingts maintenant, cinq cent vingt en dette. »
+- **Félix** : « Des crédits pour le nom. Et, pour le silence : ne pas avoir à le regretter. »
+- **Félix** : « Un nom qu’on n’a pas fini de payer est un nom qu’on ne trahit pas. »
+- Yarden verse l’acompte : 280 → 0. Il reste une dette de 520.
+- **Félix** : « Vos papiers seront prêts dans trois jours. »
+- **Ishara (sourire)** : « Yarden Weiss. »
+- **Yarden** : « C’est étrange à entendre. »
+- **Ishara** : « Dis, ton araignée de niveau 41… ça n’a pas dû être drôle. »
+- **Yarden (surprise)** : « Je ne t’ai jamais parlé d’une araignée. »
+- *Fin de scène : Les papiers seront prêts dans trois jours. Fin du prototype !*
 
 ## Objectif affiché en haut (appartement)
 

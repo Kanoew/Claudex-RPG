@@ -198,6 +198,62 @@ themeDrawers.cour = {
   }
 };
 
+// ---------- Le 4B : papier punaisé en couches, étagères, bocaux, crânes alignés ----------
+themeDrawers.quatreb = {
+  tint: ['#2a160a00', '#2a160a22', '#1a0e0899'],
+  floor(offsetX, offsetY) {
+    const rect = ch2bRect(offsetX, offsetY);
+    rect(-190, -250, 380, 420, '#4a3426');
+    ctx.strokeStyle = '#00000030';
+    for (let y = -250; y < 170; y += 22) { ctx.beginPath(); ctx.moveTo(-190 + offsetX, y + offsetY); ctx.lineTo(190 + offsetX, y + offsetY); ctx.stroke(); }
+    // Un tapis usé devant la table de travail.
+    rect(-70, -90, 140, 130, '#5a3a30'); rect(-64, -84, 128, 118, '#6a4638');
+    // Chaleur d'une lampe : l'appartement est domestique, jamais sinistre en lumière.
+    const t = mirrorNow(), glow = ctx.createRadialGradient(offsetX, -110 + offsetY, 10, offsetX, -110 + offsetY, 230);
+    glow.addColorStop(0, `rgba(255, 207, 138, ${.34 + .04 * Math.sin(t * 1.4)})`); glow.addColorStop(1, 'rgba(255, 207, 138, 0)');
+    ctx.fillStyle = glow; ctx.fillRect(-190 + offsetX, -250 + offsetY, 380, 420);
+  },
+  solid(wall, x, y, index) {
+    const fill = ch2bFill(x, y), w = wall.width, h = wall.height;
+    ctx.save();
+    if (index < 4) fill('#1a120c', 0, 0, w, h);
+    else if (wall.kind === 'papier') {
+      fill('#6a5a44', 0, 0, w, h);
+      // Documents punaisés en couches : feuilles jaunies, tampons rouges, lignes d'écritures inconnues.
+      for (let i = 0; i < 34; i++) {
+        const px = (i * 53) % (w - 30), py = ((i * 29) % (h - 18)), pw = 22 + (i * 7) % 18, ph = 16 + (i * 11) % 14;
+        fill(i % 3 === 0 ? '#d9c79a' : i % 3 === 1 ? '#c8b585' : '#e3d6ae', px, py, pw, ph);
+        ctx.strokeStyle = '#5a4a30'; ctx.lineWidth = 1;
+        for (let l = 0; l < 3; l++) { ctx.beginPath(); ctx.moveTo(x + px + 3, y + py + 4 + l * 4); ctx.lineTo(x + px + pw - 3 - (l * i) % 6, y + py + 4 + l * 4); ctx.stroke(); }
+        if (i % 5 === 0) fill('#a8483c', px + pw - 8, py + ph - 8, 6, 6);
+      }
+    } else if (wall.kind === 'etagere') {
+      fill('#3b2a1c', 0, 0, w, h);
+      const left = x < 0;
+      for (let row = 0; row < 6; row++) {
+        const ry = 10 + row * 54;
+        fill('#2a1c12', 0, ry + 40, w, 6);
+        for (let k = 0; k < 2; k++) {
+          const cx = x + (left ? 28 : 14) + k * 0, cy = y + ry + 22;
+          if (row % 2 === 0) {
+            // Crâne propre, tourné vers la pièce comme un public patient.
+            ctx.fillStyle = '#e8e1d0'; ctx.beginPath(); ctx.ellipse(cx, cy - k * 0, 11, 12, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#2a1c12'; ctx.fillRect(cx - 6, cy - 3, 4, 5); ctx.fillRect(cx + 2, cy - 3, 4, 5); ctx.fillRect(cx - 3, cy + 5, 6, 4);
+            break;
+          }
+          // Bocaux : des choses qui ont été vivantes.
+          ctx.fillStyle = k ? '#7a8f5a99' : '#b98a4a99'; ctx.fillRect(x + 8 + k * 18, y + ry + 10, 14, 28);
+          ctx.fillStyle = '#d8d0b0'; ctx.fillRect(x + 8 + k * 18, y + ry + 8, 14, 4);
+        }
+      }
+    } else if (wall.kind === 'bureau') {
+      fill('#00000033', 4, 6, w, h); fill('#4a3020', 0, 0, w, h); fill('#6b4a2e', 0, 0, w, 8);
+      fill('#101014', 10, 12, 8, 12); fill('#101014', w - 22, 14, 8, 10);
+    }
+    ctx.restore();
+  }
+};
+
 // ---------- L'escalier : marches de pierre creusées au centre ; l'air s'alourdit à chaque étage ----------
 themeDrawers.escalier = {
   tint: ['#00000000', '#0a081410', '#0a0814a0'],
