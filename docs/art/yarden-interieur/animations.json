@@ -1,0 +1,257 @@
+{
+  "name": "Yarden — tenues d’intérieur",
+  "cell": {
+    "width": 96,
+    "height": 104
+  },
+  "anchor": {
+    "x": 48,
+    "y": 101
+  },
+  "heightPx": 100,
+  "background": "#00FF00",
+  "opaque": true,
+  "mirrorAllowed": false,
+  "outfits": {
+    "serviette": {
+      "file": "yarden-serviette-idle.png",
+      "frames": 6,
+      "durationsMs": [
+        280,
+        110,
+        110,
+        140,
+        140,
+        320
+      ],
+      "loop": true,
+      "staticFile": "yarden-serviette.png",
+      "largeExport": {
+        "file": "yarden-serviette-idle-211x148.png",
+        "cell": {
+          "width": 211,
+          "height": 148
+        },
+        "anchor": {
+          "x": 105,
+          "y": 132
+        }
+      },
+      "walkAnimations": {
+        "walk-left": {
+          "file": "yarden-serviette-walk-left.png",
+          "frames": 4,
+          "durationsMs": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "mirrorAllowed": false,
+          "largeExport": {
+            "file": "yarden-serviette-walk-left-211x148.png",
+            "cell": {
+              "width": 211,
+              "height": 148
+            },
+            "anchor": {
+              "x": 105,
+              "y": 132
+            }
+          }
+        },
+        "walk-right": {
+          "file": "yarden-serviette-walk-right.png",
+          "frames": 4,
+          "durationsMs": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "mirrorAllowed": false,
+          "largeExport": {
+            "file": "yarden-serviette-walk-right-211x148.png",
+            "cell": {
+              "width": 211,
+              "height": 148
+            },
+            "anchor": {
+              "x": 105,
+              "y": 132
+            }
+          }
+        },
+        "walk-down": {
+          "file": "yarden-serviette-walk-down.png",
+          "frames": 4,
+          "durationsMs": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "mirrorAllowed": false,
+          "largeExport": {
+            "file": "yarden-serviette-walk-down-211x148.png",
+            "cell": {
+              "width": 211,
+              "height": 148
+            },
+            "anchor": {
+              "x": 105,
+              "y": 132
+            }
+          }
+        },
+        "walk-up": {
+          "file": "yarden-serviette-walk-up.png",
+          "frames": 4,
+          "durationsMs": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "mirrorAllowed": false,
+          "largeExport": {
+            "file": "yarden-serviette-walk-up-211x148.png",
+            "cell": {
+              "width": 211,
+              "height": 148
+            },
+            "anchor": {
+              "x": 105,
+              "y": 132
+            }
+          }
+        }
+      }
+    },
+    "tshirt-short": {
+      "file": "yarden-tshirt-short-idle.png",
+      "frames": 6,
+      "durationsMs": [
+        280,
+        110,
+        110,
+        140,
+        140,
+        320
+      ],
+      "loop": true,
+      "staticFile": "yarden-tshirt-short.png",
+      "largeExport": {
+        "file": "yarden-tshirt-short-idle-211x148.png",
+        "cell": {
+          "width": 211,
+          "height": 148
+        },
+        "anchor": {
+          "x": 105,
+          "y": 132
+        }
+      },
+      "walkAnimations": {
+        "walk-left": {
+          "file": "yarden-tshirt-short-walk-left.png",
+          "frames": 4,
+          "durationsMs": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "mirrorAllowed": false,
+          "largeExport": {
+            "file": "yarden-tshirt-short-walk-left-211x148.png",
+            "cell": {
+              "width": 211,
+              "height": 148
+            },
+            "anchor": {
+              "x": 105,
+              "y": 132
+            }
+          }
+        },
+        "walk-right": {
+          "file": "yarden-tshirt-short-walk-right.png",
+          "frames": 4,
+          "durationsMs": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "mirrorAllowed": false,
+          "largeExport": {
+            "file": "yarden-tshirt-short-walk-right-211x148.png",
+            "cell": {
+              "width": 211,
+              "height": 148
+            },
+            "anchor": {
+              "x": 105,
+              "y": 132
+            }
+          }
+        },
+        "walk-down": {
+          "file": "yarden-tshirt-short-walk-down.png",
+          "frames": 4,
+          "durationsMs": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "mirrorAllowed": false,
+          "largeExport": {
+            "file": "yarden-tshirt-short-walk-down-211x148.png",
+            "cell": {
+              "width": 211,
+              "height": 148
+            },
+            "anchor": {
+              "x": 105,
+              "y": 132
+            }
+          }
+        },
+        "walk-up": {
+          "file": "yarden-tshirt-short-walk-up.png",
+          "frames": 4,
+          "durationsMs": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "mirrorAllowed": false,
+          "largeExport": {
+            "file": "yarden-tshirt-short-walk-up-211x148.png",
+            "cell": {
+              "width": 211,
+              "height": 148
+            },
+            "anchor": {
+              "x": 105,
+              "y": 132
+            }
+          }
+        }
+      }
+    }
+  },
+  "version": 2,
+  "walkFrames": 4
+}

@@ -14,7 +14,7 @@ function resetChapter2b() {
   chapter2b.runDone = false;
   ch2b.shutterAt = 0; ch2b.slate = ''; ch2b.buff = false;
   for (const enemy of zoneEnemies.run) { resetEnemy(enemy); enemy.looted = false; }
-  bag.length = 0; credits = 0; debt = 0; identityName = ''; scytheFreed = false; isharaOutfit = 'soiree';
+  bag.length = 0; credits = 0; yardenOutfit = ''; debt = 0; identityName = ''; scytheFreed = false; isharaOutfit = 'soiree';
 }
 
 // Butin du run : quatre fragments et deux bourses (canon), un par gobelin sauf le dernier, qui s'enfuit. Le niveau 19 est le plus gros, coupe propre.
@@ -132,7 +132,7 @@ zones.quartier.goal = () => ch2b.goalText || 'Rejoins Ishara devant la porte ↑
 // Dimanche matin : Yarden suit Ishara dans la rue jusqu'à l'impasse (à pied), puis la faille s'ouvre devant elles.
 function impasseScript() {
   return [
-    { run: () => { isharaOutfit = 'course'; enterQuartier(); ch2b.goalText = 'Suis Ishara ←'; } },
+    { run: () => { yardenOutfit = ''; isharaOutfit = 'course'; enterQuartier(); ch2b.goalText = 'Suis Ishara ←'; } },
     { say: ['Dimanche matin. Les rues sont presque vides.'] },
     { moves: [moveOf('ishara', [[-150, 168], [-236, 170]], 85)] },
     { until: () => player.x < -215 },

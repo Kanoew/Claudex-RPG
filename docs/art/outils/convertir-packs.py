@@ -159,6 +159,11 @@ if __name__ == '__main__':
     # Trois monstres du mode libre : bandes de 8 cases de 211 x 148 (4 déplacement, préparation, attaque, dégâts, défaite).
     for source, name in [('insecte-aile', 'insecte'), ('rampant-gris', 'rampant'), ('crabe', 'crabe')]:
         export(art + 'monstres-a-integrer/' + source + '-bande.png', 'assets/monsters/' + name + '.png', 8, colors=128)
+    # Yarden en serviette et en t-shirt gris avec short : repos de 6 cases (96 x 104), sans marche.
+    for name in ['serviette', 'tshirt-short']:
+        export(art + 'yarden-interieur/yarden-' + name + '-idle.png', 'assets/yarden/' + name + '-idle.png', 6, colors=96)
+        for direction in ['left', 'right', 'up', 'down']:
+            export(art + 'yarden-interieur/yarden-' + name + '-walk-' + direction + '.png', 'assets/yarden/' + name + '-walk-' + direction + '.png', 4, colors=96)
     # Homme rouge, golem et tatou : bandes de 12 cases (4 marche, 4 attaque, 2 dégâts, 2 défaite).
     for source, name in [('homme-rouge', 'rouge'), ('golem', 'golem'), ('tatou', 'tatou')]:
         export(art + 'monstres-a-integrer/' + source + '-bande-12.png', 'assets/monsters/' + name + '.png', 12, colors=128)
