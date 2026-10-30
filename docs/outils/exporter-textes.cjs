@@ -14,7 +14,7 @@ const context = vm.createContext({ document: deep(), window: deep(), ResizeObser
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const files = [...html.matchAll(/<script src="([a-z-]+\.js)/g)].map(match => match[1]);
 for (const file of files) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-const data = vm.runInContext('({ opening: openingScript(), rue: sceneScript(), sleep: sleepScript(), mirror: mirrorScript(), spots: apartmentSpots.map(s => ({ id: s.id, label: s.label, lines: s.lines() })), goals: [apartmentGoal()] })', context);
+const data = vm.runInContext('({ opening: openingScript(), rue: sceneScript(), sleep: nightScript(), mirror: mirrorScript(), spots: apartmentSpots.map(s => ({ id: s.id, label: s.label, lines: s.lines() })), goals: [apartmentGoal()] })', context);
 
 const speaker = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
 function render(steps) {
@@ -26,6 +26,7 @@ function render(steps) {
     else if (step.metro === 'show') out.push('- *Le métro (wagon animé)*');
     else if (step.mirror === 'show') out.push('- *Le miroir (portrait de Yarden)*');
     else if (step.music === 'fete') out.push('- *Musique de la fête*');
+    else if (step.tattoo === true) out.push('- *Les tatouages luisent (la faux)*');
   }
   return out.join('\n');
 }
@@ -37,8 +38,8 @@ const parts = [
   '## La rue : Ishara, les deux hommes, la marche, le métro, l’immeuble', '', render(data.rue), '',
   '## L’appartement : objets à examiner', '',
   data.spots.map(s => `- **${s.label}** : ${(s.lines || ['(rien avant la nuit)']).join(' ')}`).join('\n'), '',
-  '## L’appartement : la première nuit', '', render(data.sleep), '',
-  '## Le miroir', '', render(data.mirror), '',
+  '## L’appartement : la première nuit (parquet, agents divins, tatouages)', '', render(data.sleep), '',
+  '## Le miroir, puis le soutien-gorge d’Ishara', '', render(data.mirror), '',
   '## Objectif affiché en haut (appartement)', '', `- ${data.goals[0]}`, ''
 ];
 fs.writeFileSync(path.join(root, 'docs', 'TEXTES.md'), parts.join('\n'));

@@ -4,7 +4,7 @@
 // Trois points : l'entrée dans l'Abysse, la sortie du Troll vers l'antre, l'arrivée dans la ruelle après l'araignée.
 // Si le navigateur refuse le stockage (navigation privée), le jeu continue sans sauvegarde.
 const saveKey = 'yarden-sauvegarde-1';
-const checkpointNames = { abysse: 'Entrée dans l’Abysse', antre: 'Devant l’antre', rue: 'Ruelle d’Helvara', appart: 'Chez Ishara', matin: 'Chez Ishara, le matin' };
+const checkpointNames = { abysse: 'Entrée dans l’Abysse', antre: 'Devant l’antre', rue: 'Ruelle d’Helvara', appart: 'Chez Ishara', nuit: 'Chez Ishara, le soir', matin: 'Chez Ishara, le matin' };
 
 function storage() {
   try { return typeof localStorage !== 'undefined' ? localStorage : null; } catch (error) { return null; }
@@ -59,5 +59,5 @@ function applyCheckpoint(name) {
   enterZone('exterieur', 'south');
   if (name === 'rue') return;
   scene.done = true;
-  if (name === 'appart') { enterApartment('arrive'); startScene(apartmentArrivalSteps()); } else enterApartment('matin');
+  if (name === 'appart') { enterApartment('arrive'); startScene(apartmentArrivalSteps()); } else enterApartment(name === 'matin' ? 'matin' : 'nuit');
 }

@@ -40,9 +40,9 @@ function game(imageMode, keepOpening, store) {
     localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'dialogue.js', 'metro.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-quartier.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-quartier.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, parseStoryLine, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, parseStoryLine, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -256,15 +256,15 @@ const tests = [
       if (g.story.active) g.advanceStory(); else if (g.stats.open) g.closeStats(); else { if (g.scene.free && g.currentZone.id === 'quartier') Object.assign(g.player, { x: 0, y: -50 }); g.update(.05); }
     }
     assert.equal(g.currentZone.id, 'appartement');
-    // Chez Ishara : première nuit, matin, puis le miroir, où le prototype s'arrête pour l'instant.
-    Object.assign(g.player, { x: -170, y: 90 });
-    g.useInteract();
-    for (let guard = 0; guard < 400 && g.home.stage === 'arrive'; guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
-    for (let guard = 0; guard < 400 && (g.scene.active || g.story.active); guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
-    assert.equal(g.home.stage, 'matin');
+    // Chez Ishara : le miroir et le soutien-gorge, la première nuit sur le parquet (agents divins, tatouages), puis le matin.
+    const pump = until => { for (let guard = 0; guard < 800 && !until(); guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); } };
     Object.assign(g.player, { x: 290, y: 28 });
     g.useInteract();
-    for (let guard = 0; guard < 400 && !g.over; guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
+    pump(() => g.home.stage === 'nuit' && !g.scene.active && !g.story.active);
+    assert.equal(g.home.stage, 'nuit');
+    Object.assign(g.player, { x: -170, y: 90 });
+    g.useInteract();
+    pump(() => g.over);
     assert(g.over && g.stage === 'escaped');
     assert(g.elements['result-text'].textContent.includes('Fin du prototype'));
     assert(g.elements['result-details'].textContent.includes('Temps de jeu'));
@@ -830,33 +830,50 @@ const tests = [
     for (let i = 0; i < 30; i++) g.update(.05);
     g.keys.clear();
     assert(g.player.x < -150, 'La porte de la chambre d’appoint est franchissable');
-    // Le miroir reste muet avant la nuit.
-    Object.assign(g.player, { x: 290, y: 28 });
+    // Le parquet ne sert à dormir qu'après la douche et le miroir.
+    Object.assign(g.player, { x: -170, y: 90 });
     g.useInteract();
-    assert(g.story.active);
+    assert(g.story.active && !g.scene.active, 'Avant la douche, le parquet est seulement décrit');
     while (g.story.active) g.advanceStory();
-    assert(!g.scene.active);
   }],
   ['Miroir : texte court adapté, portrait, ni dragon ni collier', () => {
     const g = armed('loaded');
     winSpider(g);
     g.levelUp.active = false;
-    g.enterApartment('matin');
+    g.enterApartment('arrive');
     Object.assign(g.player, { x: 290, y: 28 });
     g.useInteract();
     const said = [];
     let framed = false;
-    for (let guard = 0; guard < 600 && !g.over; guard++) {
+    for (let guard = 0; guard < 900 && !(g.home.stage === 'nuit' && !g.scene.active && !g.story.active); guard++) {
       if (g.story.active) { said.push(g.story.current); if (g.scene.mirror) { framed = true; g.draw(); } g.advanceStory(); } else g.update(.05);
     }
-    assert(g.over && g.scene.mirror === null && framed);
+    assert(g.home.stage === 'nuit' && g.scene.mirror === null && framed);
+    assert(said.some(line => line.includes('problème de géométrie angulaire')) && said.some(line => line.includes('Demain matin, on voit')), 'Le soutien-gorge, sans rien montrer');
+    assert(!said.some(line => /soutien|crochet/i.test(line)), 'Rien d’explicite : seulement le problème de géométrie angulaire');
     const all = said.join('\n');
     assert(all.includes('« ...C’est acceptable. »'));
     assert(all.includes('des yeux violets'), 'Yeux violets dans la version jeu');
     for (const banned of ['Jordan', 'bleu-gris', 'septum', 'piercing', 'Angel', 'ear cuff', 'dragon', 'collier', 'chaîne']) assert(!all.includes(banned), banned);
     assert(!all.includes('—') && !all.includes('–'), 'Pas de tiret cadratin');
-    assert(said.length <= 22, 'Scène courte');
     assert.equal(said.filter(line => /^Tiamat : /.test(line)).length, 4);
+  }],
+  ['Première nuit : parquet, agents divins, tatouages et fin du matin', () => {
+    const g = armed('loaded');
+    winSpider(g);
+    g.levelUp.active = false;
+    g.enterApartment('nuit');
+    Object.assign(g.player, { x: -170, y: 90 });
+    g.useInteract();
+    const said = [];
+    let dark = false, tattoo = false;
+    for (let guard = 0; guard < 600 && !g.over; guard++) {
+      if (g.story.active) { said.push(g.story.current); if (g.scene.dark) dark = true; if (g.scene.tattoo) { tattoo = true; g.draw(); } g.advanceStory(); } else g.update(.05);
+    }
+    assert(g.over && dark && tattoo && g.scene.dark === null && g.scene.tattoo === null);
+    const all = said.join('\n');
+    for (const part of ['Pathétique', 'Ergonomique', 'Plusieurs organisations', 'Coût d’invocation : zéro', 'parquet']) assert(all.includes(part), part);
+    assert(!all.includes('Jordan'));
   }],
   ['Scène de la rue : Yarden fige ses actions, reprise remet la scène à zéro', () => {
     const g = armed('loaded');

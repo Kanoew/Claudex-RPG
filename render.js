@@ -461,6 +461,7 @@ function draw() {
   drawBossMarker(offsetX, offsetY);
   ctx.restore();
   drawSceneMirror();
+  drawSceneNight();
   drawSceneMetro();
   drawSceneCard();
   if (zoneFade > 0) {

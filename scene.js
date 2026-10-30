@@ -6,7 +6,7 @@
 // La scène se joue dans la moitié sud de la ruelle (côté faille, à l'opposé de la fête) : lampadaire éteint,
 // façade sans fenêtre à gauche, grille fermée à droite. Aucune faux, aucun mana, aucune autre violence que le poignet.
 // `free` : une étape « until » rend la main à Yarden jusqu'à ce que sa condition soit vraie.
-const scene = { active: false, free: false, card: null, mirror: null, metro: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
+const scene = { active: false, free: false, card: null, mirror: null, metro: null, dark: null, tattoo: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
 const sceneActors = {};
 // Caméra de scène : elle peut aller regarder ailleurs (la faille, la fête) puis revenir vers Yarden, en glissant.
 const sceneCam = { on: false, x: 0, y: 0, tx: 0, ty: 0, follow: false, last: 0 };
@@ -144,10 +144,15 @@ function startScene(steps = sceneScript()) {
   nextSceneStep();
 }
 
+// Pendant la nuit et les tatouages, le texte ne grise pas l'image derrière lui.
+function seeThrough() {
+  document.getElementById('story-panel').classList.toggle('see-through', !!(scene.dark || scene.tattoo));
+}
+
 function resetScene() {
   sceneCam.on = false;
   audio.override = null;
-  Object.assign(scene, { active: false, free: false, card: null, mirror: null, metro: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
+  Object.assign(scene, { active: false, free: false, card: null, mirror: null, metro: null, dark: null, tattoo: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
   for (const id of Object.keys(sceneActors)) delete sceneActors[id];
 }
 
@@ -175,6 +180,8 @@ function nextSceneStep() {
     if (step.card) { scene.card = { text: step.card, time: 0 }; return; }
     if (step.mirror) { mirrorStep(step.mirror); continue; }
     if (step.metro) { metroStep(step.metro); continue; }
+    if ('dark' in step) { scene.dark = step.dark ? { start: mirrorNow() } : null; seeThrough(); continue; }
+    if ('tattoo' in step) { scene.tattoo = step.tattoo ? { start: mirrorNow() } : null; seeThrough(); continue; }
     if ('camera' in step) { setSceneCamera(step.camera); continue; }
     if ('music' in step) { audio.override = step.music; syncMusic(); continue; }
     if (step.spawn) {

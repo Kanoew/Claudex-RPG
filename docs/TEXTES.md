@@ -80,13 +80,24 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Radiateur** : Des serviettes sèchent sur le radiateur.
 - **Lavabo** : Le robinet met trente secondes à chauffer.
 
-## L’appartement : la première nuit
+## L’appartement : la première nuit (parquet, agents divins, tatouages)
 
 - *Carte plein écran : La première nuit*
-- Yarden passe la nuit sur le parquet de la chambre d’appoint.
+- Le lit est trop mou. Yarden dort par terre, sur le parquet, avec l’oreiller.
+- **Tiamat** : « Pathétique. »
+- **Yarden** : « Ergonomique. »
+- **Yarden** : « Il y a des agents des dieux, à Helvara ? »
+- **Tiamat** : « Plusieurs organisations. »
+- **Yarden** : « Et Ishara ? »
+- **Tiamat** : « Je ne dirai rien là-dessus. »
+- *Les tatouages luisent (la faux)*
+- Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.
+- **Tiamat** : « Tes tatouages sont le vecteur de la faux. »
+- **Tiamat** : « Coût d’invocation : zéro. »
 - Au matin : du café, et des courbatures.
+- *Fin de scène : Le premier run en Abysse arrive à la prochaine étape. Fin du prototype !*
 
-## Le miroir
+## Le miroir, puis le soutien-gorge d’Ishara
 
 - Le robinet met trente secondes à chauffer.
 - *Le miroir (portrait de Yarden)*
@@ -109,8 +120,14 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Un visage qu’elle respecterait, en face.
 - **Yarden (souriante)** : « ...C’est acceptable. »
 - **Tiamat** : « Je sais. »
-- *Fin de scène : Les tatouages arrivent à la prochaine étape. Fin du prototype !*
+- **Yarden** : « Ishara. J’ai un problème de géométrie angulaire. »
+- **Ishara (sourire)** : « Tourne-toi. »
+- **Ishara** : « Voilà. Deux secondes. »
+- **Ishara (inquiete)** : « Et toi, ça va ? Vraiment ? »
+- **Yarden** : « Tout est récent. J’avais rien anticipé. »
+- **Ishara** : « Tiens, un t-shirt gris et un short. Le lit est propre. »
+- **Ishara (sourire)** : « Demain matin, on voit. »
 
 ## Objectif affiché en haut (appartement)
 
-- Explore · la chambre d’appoint est à gauche, dans le couloir
+- Va à la salle de bain, en face de la chambre d’appoint

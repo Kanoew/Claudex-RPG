@@ -2,8 +2,8 @@
 
 // Appartement d'Ishara (chapitre 2) : on le parcourt et on examine ce que le canon de Jordan décrit (section 15 de PROJECT.md).
 // Les textes ne reprennent que le canon, en narration ; Ishara ne dit rien de nouveau ici.
-// Déroulé : arrivée (clés sur le comptoir, bouilloire, thé), exploration libre, première nuit dans la chambre d'appoint,
-// matin (café, courbatures), puis la salle de bain et le miroir (étape suivante : pour l'instant la scène s'arrête là).
+// Déroulé (canon de Jordan, section 26) : arrivée (clés sur le comptoir, thé), la douche et le miroir, le soutien-gorge d'Ishara,
+// puis la première nuit sur le parquet (agents divins, tatouages), puis le matin (café, courbatures). Le run en Abysse vient ensuite.
 const home = { stage: 'arrive' };
 
 const apartmentSpots = [
@@ -17,10 +17,10 @@ const apartmentSpots = [
   { id: 'placard', x: -150, y: 245, r: 56, label: 'Placard', lines: () => ['La chambre est celle de la colocataire, absente : le placard contient ses affaires.'] },
   { id: 'cour', x: -292, y: 90, r: 48, label: 'Fenêtre sur cour', lines: () => ['Une fenêtre sur la cour intérieure. Sous un tapis fin, le parquet.'] },
   { id: 'lit', x: -228, y: 215, r: 58, label: 'Lit', lines: () => ['Un lit simple, aux draps propres.'] },
-  { id: 'parquet', x: -170, y: 90, r: 60, label: 'Parquet', lines: () => ['Le parquet, sous un tapis fin.'], script: () => home.stage === 'arrive' ? sleepScript() : null },
+  { id: 'parquet', x: -170, y: 90, r: 60, label: 'Parquet', lines: () => ['Le parquet, sous un tapis fin.'], script: () => home.stage === 'nuit' ? nightScript() : null },
   { id: 'shampoings', x: 290, y: 100, r: 60, label: 'Douche', lines: () => ['Petite, propre, encombrée par les affaires de deux personnes.', 'Deux shampoings : le violet est celui d’Ishara, le rouge celui de la colocataire.'] },
   { id: 'radiateur', x: 190, y: 105, r: 52, label: 'Radiateur', lines: () => ['Des serviettes sèchent sur le radiateur.'] },
-  { id: 'miroir', x: 290, y: 28, r: 56, label: 'Lavabo', lines: () => ['Le robinet met trente secondes à chauffer.'], script: () => home.stage === 'matin' ? mirrorScript() : null }
+  { id: 'miroir', x: 290, y: 28, r: 56, label: 'Lavabo', lines: () => ['Le robinet met trente secondes à chauffer.'], script: () => home.stage === 'arrive' ? mirrorScript() : null }
 ];
 
 function nearSpot() {
@@ -77,15 +77,25 @@ function apartmentArrivalSteps() {
   ];
 }
 
-function sleepScript() {
+// La première nuit : le lit est trop mou, Yarden dort sur le parquet. Tiamat, les agents divins, puis les tatouages.
+// Répliques de Tiamat sur les agents et sur Ishara : propositions courtes à valider (le canon donne seulement « plusieurs organisations » et une réponse évasive).
+function nightScript() {
   return [
     { card: 'La première nuit', seconds: 2.4 },
-    { run: () => { delete sceneActors.ishara; home.stage = 'matin'; Object.assign(player, { x: -170, y: 90 }); saveCheckpoint('matin'); updateStatus(); } },
-    { say: ['Yarden passe la nuit sur le parquet de la chambre d’appoint.', 'Au matin : du café, et des courbatures.'] },
-    { finish: true }
+    { run: () => { delete sceneActors.ishara; Object.assign(player, { x: -170, y: 90 }); updateStatus(); } },
+    { dark: true },
+    { say: ['Le lit est trop mou. Yarden dort par terre, sur le parquet, avec l’oreiller.', 'Tiamat (voix intérieure) : « Pathétique. »', 'Yarden : « Ergonomique. »'] },
+    { say: ['Yarden : « Il y a des agents des dieux, à Helvara ? »', 'Tiamat : « Plusieurs organisations. »', 'Yarden : « Et Ishara ? »', 'Tiamat : « Je ne dirai rien là-dessus. »'] },
+    { tattoo: true },
+    { say: ['Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.', 'Tiamat : « Tes tatouages sont le vecteur de la faux. »', 'Tiamat : « Coût d’invocation : zéro. »'] },
+    { tattoo: false },
+    { dark: false },
+    { say: ['Au matin : du café, et des courbatures.'] },
+    { run: () => { home.stage = 'matin'; saveCheckpoint('matin'); } },
+    { end: 'Le premier run en Abysse arrive à la prochaine étape. Fin du prototype !' }
   ];
 }
 
 function apartmentGoal() {
-  return home.stage === 'arrive' ? 'Explore · la chambre d’appoint est à gauche, dans le couloir' : 'Va à la salle de bain, en face de la chambre d’appoint';
+  return home.stage === 'arrive' ? 'Va à la salle de bain, en face de la chambre d’appoint' : home.stage === 'nuit' ? 'Va dormir sur le parquet de la chambre d’appoint ←' : 'Le matin';
 }
