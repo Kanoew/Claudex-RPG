@@ -1,0 +1,34 @@
+CÉLESTE — PACK MOUVEMENT
+
+CONTENU
+Repos et marches gauche, droite, haut (dos), bas (face), quatre images chacun.
+Courses gauche et droite : quatre images chacune.
+
+FORMAT
+Une bande horizontale par animation. Chaque bande : 844 × 148 px.
+Cases : 211 × 148. Ancrage fixe : (105,132). Hauteur debout : environ 100 px.
+Fond vert opaque #00FF00, sans ombre ni contour autocollant, aucun canal alpha.
+Échelle commune dans chaque bande ; aucun miroir, aucune rotation pour fabriquer une autre direction.
+En course, les poses inclinées et aériennes peuvent être plus basses que le repos.
+
+DURÉES ET BOUCLES
+Repos : 1000,500,140,1000 ms (respiration et clignement à la troisième image).
+Marches : 150 ms par image.
+Courses : 100 ms par image.
+Toutes les animations sont en boucle. Durées ajustables à la vitesse réelle du jeu.
+
+CONTINUITÉ
+Tenue du chapitre 4 uniquement ; fente de robe à droite anatomique, V sobre, veste à deux boutons dorés, bottines à talon bloc, chaîne, pendentif et créoles.
+La fente est à gauche de l’image de face, à droite de l’image de dos ; elle peut être cachée sur le côté éloigné.
+
+APERÇU
+Ouvrir index.html : lecture, pause, image suivante/précédente, vitesse et repères d’ancrage.
+animations.json décrit les cases et les durées ; animations-data.js permet l’aperçu hors connexion.
+Les originaux haute résolution sont dans sources/ du ZIP seulement, pour garder le dépôt léger.
+Les champs sourceArchiveFile et frameData documentent leur découpe.
+
+INTÉGRATION
+Préparer le détourage et les exports transparents, puis reprendre les ancrages indiqués.
+Conserver les quatre directions distinctes : aucune réflexion horizontale de ces personnages.
+Vérifier la cadence avec la vitesse de déplacement et les transitions repos/marche/course.
+Ce pack fournit les images ; aucune scène ni animation n’est raccordée au moteur.
