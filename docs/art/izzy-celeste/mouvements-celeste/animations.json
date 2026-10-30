@@ -1,0 +1,666 @@
+{
+  "name": "Céleste — mouvements du chapitre 4",
+  "version": 1,
+  "status": "sources sur fond vert, détourage et intégration à réaliser",
+  "background": {
+    "type": "opaque-green",
+    "target": "#00FF00",
+    "note": "Fond vert opaque #00FF00 harmonisé pour les bandes exportées ; sources originales conservées séparément. Aucun canal alpha ni export transparent appliqué."
+  },
+  "animations": {
+    "repos": {
+      "file": "repos.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        1000,
+        500,
+        140,
+        1000
+      ],
+      "loop": true,
+      "facing": "front",
+      "view": "front",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/repos.png",
+      "sourceScale": 0.15625,
+      "frameData": [
+        {
+          "sourceCrop": [
+            85,
+            30,
+            496,
+            680
+          ],
+          "sourceRoot": [
+            281.0,
+            672
+          ],
+          "exportOffset": [
+            74,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            51,
+            24,
+            463,
+            680
+          ],
+          "sourceRoot": [
+            249.0,
+            672
+          ],
+          "exportOffset": [
+            74,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            50,
+            25,
+            464,
+            680
+          ],
+          "sourceRoot": [
+            249.0,
+            672
+          ],
+          "exportOffset": [
+            74,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            45,
+            30,
+            451,
+            680
+          ],
+          "sourceRoot": [
+            239.0,
+            672
+          ],
+          "exportOffset": [
+            75,
+            31
+          ]
+        }
+      ]
+    },
+    "marche-gauche": {
+      "file": "marche-gauche.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true,
+      "facing": "left",
+      "view": "three-quarter-side",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/marche-gauche.png",
+      "sourceScale": 0.1524390243902439,
+      "frameData": [
+        {
+          "sourceCrop": [
+            71,
+            38,
+            518,
+            705
+          ],
+          "sourceRoot": [
+            274.0,
+            697
+          ],
+          "exportOffset": [
+            74,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            32,
+            34,
+            476,
+            705
+          ],
+          "sourceRoot": [
+            244.0,
+            697
+          ],
+          "exportOffset": [
+            73,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            32,
+            35,
+            478,
+            705
+          ],
+          "sourceRoot": [
+            246.0,
+            697
+          ],
+          "exportOffset": [
+            72,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            31,
+            32,
+            474,
+            704
+          ],
+          "sourceRoot": [
+            246.0,
+            696
+          ],
+          "exportOffset": [
+            72,
+            31
+          ]
+        }
+      ]
+    },
+    "marche-droite": {
+      "file": "marche-droite.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true,
+      "facing": "right",
+      "view": "three-quarter-side",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/marche-droite.png",
+      "sourceScale": 0.1529051987767584,
+      "frameData": [
+        {
+          "sourceCrop": [
+            34,
+            26,
+            469,
+            694
+          ],
+          "sourceRoot": [
+            268.0,
+            686
+          ],
+          "exportOffset": [
+            69,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            22,
+            26,
+            441,
+            696
+          ],
+          "sourceRoot": [
+            236.0,
+            688
+          ],
+          "exportOffset": [
+            72,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            31,
+            26,
+            465,
+            694
+          ],
+          "sourceRoot": [
+            262.0,
+            686
+          ],
+          "exportOffset": [
+            70,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            45,
+            26,
+            474,
+            696
+          ],
+          "sourceRoot": [
+            272.0,
+            688
+          ],
+          "exportOffset": [
+            70,
+            31
+          ]
+        }
+      ]
+    },
+    "marche-haut": {
+      "file": "marche-haut.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true,
+      "facing": "up",
+      "view": "back",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/marche-haut.png",
+      "sourceScale": 0.1402524544179523,
+      "frameData": [
+        {
+          "sourceCrop": [
+            53,
+            35,
+            441,
+            764
+          ],
+          "sourceRoot": [
+            247.0,
+            756
+          ],
+          "exportOffset": [
+            78,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            59,
+            35,
+            441,
+            764
+          ],
+          "sourceRoot": [
+            239.0,
+            756
+          ],
+          "exportOffset": [
+            80,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            53,
+            35,
+            440,
+            764
+          ],
+          "sourceRoot": [
+            246.0,
+            756
+          ],
+          "exportOffset": [
+            78,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            59,
+            35,
+            440,
+            764
+          ],
+          "sourceRoot": [
+            238.0,
+            756
+          ],
+          "exportOffset": [
+            80,
+            31
+          ]
+        }
+      ]
+    },
+    "marche-bas": {
+      "file": "marche-bas.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true,
+      "facing": "down",
+      "view": "front",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/marche-bas.png",
+      "sourceScale": 0.14814814814814814,
+      "frameData": [
+        {
+          "sourceCrop": [
+            76,
+            22,
+            490,
+            713
+          ],
+          "sourceRoot": [
+            271.0,
+            705
+          ],
+          "exportOffset": [
+            76,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            72,
+            22,
+            486,
+            713
+          ],
+          "sourceRoot": [
+            265.0,
+            705
+          ],
+          "exportOffset": [
+            76,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            55,
+            22,
+            468,
+            713
+          ],
+          "sourceRoot": [
+            249.0,
+            705
+          ],
+          "exportOffset": [
+            76,
+            31
+          ]
+        },
+        {
+          "sourceCrop": [
+            56,
+            22,
+            469,
+            713
+          ],
+          "sourceRoot": [
+            256.0,
+            705
+          ],
+          "exportOffset": [
+            75,
+            31
+          ]
+        }
+      ]
+    },
+    "course-gauche": {
+      "file": "course-gauche.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "loop": true,
+      "facing": "left",
+      "view": "three-quarter-side",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/course-gauche.png",
+      "sourceScale": 0.2164009111617312,
+      "frameData": [
+        {
+          "sourceCrop": [
+            83,
+            167,
+            448,
+            621
+          ],
+          "sourceRoot": [
+            265.0,
+            613
+          ],
+          "exportOffset": [
+            66,
+            35
+          ]
+        },
+        {
+          "sourceCrop": [
+            71,
+            167,
+            436,
+            621
+          ],
+          "sourceRoot": [
+            259.0,
+            613
+          ],
+          "exportOffset": [
+            64,
+            35
+          ]
+        },
+        {
+          "sourceCrop": [
+            53,
+            166,
+            438,
+            621
+          ],
+          "sourceRoot": [
+            237.0,
+            613
+          ],
+          "exportOffset": [
+            65,
+            35
+          ]
+        },
+        {
+          "sourceCrop": [
+            53,
+            166,
+            433,
+            610
+          ],
+          "sourceRoot": [
+            247.0,
+            613
+          ],
+          "exportOffset": [
+            63,
+            35
+          ]
+        }
+      ]
+    },
+    "course-droite": {
+      "file": "course-droite.png",
+      "frames": 4,
+      "cell": {
+        "width": 211,
+        "height": 148
+      },
+      "anchor": {
+        "x": 105,
+        "y": 132
+      },
+      "durationsMs": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "loop": true,
+      "facing": "right",
+      "view": "three-quarter-side",
+      "mirrorAllowed": false,
+      "drawnSeparately": true,
+      "standingHeightTarget": 100,
+      "sourceArchiveFile": "sources/course-droite.png",
+      "sourceScale": 0.14683153013910355,
+      "frameData": [
+        {
+          "sourceCrop": [
+            20,
+            33,
+            508,
+            696
+          ],
+          "sourceRoot": [
+            274.0,
+            689
+          ],
+          "exportOffset": [
+            68,
+            36
+          ]
+        },
+        {
+          "sourceCrop": [
+            7,
+            34,
+            492,
+            691
+          ],
+          "sourceRoot": [
+            269.0,
+            689
+          ],
+          "exportOffset": [
+            67,
+            36
+          ]
+        },
+        {
+          "sourceCrop": [
+            0,
+            34,
+            490,
+            697
+          ],
+          "sourceRoot": [
+            263.0,
+            689
+          ],
+          "exportOffset": [
+            66,
+            36
+          ]
+        },
+        {
+          "sourceCrop": [
+            3,
+            34,
+            491,
+            663
+          ],
+          "sourceRoot": [
+            274.0,
+            689
+          ],
+          "exportOffset": [
+            65,
+            36
+          ]
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Chaque bande comporte quatre cases de 211 × 148, ancrage commun (105,132), fond vert opaque #00FF00.",
+    "Toutes les directions sont dessinées séparément ; aucun miroir.",
+    "Même référence et proportions de tête que le premier pack ; hauteur debout d’environ 100 px, posture de course légèrement plus basse.",
+    "Repos : respiration et un clignement, troisième case yeux fermés.",
+    "Originaux haute résolution conservés dans le sous-dossier sources/ du ZIP ; seules les bandes légères et leurs guides sont dans le dépôt.",
+    "Détourage et intégration au jeu restent à réaliser.",
+    "Tenue du chapitre 4 uniquement ; fente de robe à droite anatomique, V sobre, veste à deux boutons dorés, bottines à talon bloc, chaîne, pendentif et créoles.",
+    "La fente est à gauche de l’image de face, à droite de l’image de dos ; elle peut être cachée sur le côté éloigné."
+  ]
+}
