@@ -65,6 +65,7 @@ function drawPortrait(who, expression) {
 function showStoryLine(line) {
   const { who, expression, text } = parseStoryLine(line);
   story.current = line;
+  storyShownAt = Date.now();
   const card = document.getElementById('story-card');
   const portrait = document.getElementById('story-portrait');
   const name = document.getElementById('story-name');

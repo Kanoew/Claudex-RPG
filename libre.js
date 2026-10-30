@@ -25,7 +25,7 @@ function unlockFree() {
 
 // Les rues gardent leurs textes d'histoire ; en mode libre, l'objectif devient « cherche la faille ».
 function freeGoal(original) { return () => freeMode.active ? 'Entre dans la faille ✦' : original ? original() : ''; }
-zones.quartier.goal = freeGoal(() => 'Rejoins Ishara devant la porte ↑');
+zones.quartier.goal = freeGoal(zones.quartier.goal);
 zones.marterey.goal = freeGoal(zones.marterey.goal);
 zones.sousgare.goal = freeGoal(zones.sousgare.goal);
 

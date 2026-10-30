@@ -23,10 +23,18 @@ const apartmentSpots = [
   { id: 'miroir', x: 290, y: 28, r: 56, label: 'Lavabo', lines: () => ['Le robinet met trente secondes à chauffer.'], script: () => home.stage === 'arrive' ? mirrorScript() : null }
 ];
 
+// Points examinables par zone : l'appartement d'Ishara et le comptoir de Rémi (chapitre2b.js).
+function spotsOfZone() {
+  if (currentZone.id === 'appartement') return apartmentSpots;
+  if (currentZone.id === 'comptoir') return comptoirSpots;
+  return null;
+}
+
 function nearSpot() {
-  if (currentZone.id !== 'appartement') return null;
+  const spots = spotsOfZone();
+  if (!spots) return null;
   let best = null, bestDistance = Infinity;
-  for (const spot of apartmentSpots) {
+  for (const spot of spots) {
     const distance = Math.hypot(player.x - spot.x, player.y - spot.y);
     if (distance <= spot.r && distance < bestDistance) { best = spot; bestDistance = distance; }
   }
@@ -34,8 +42,8 @@ function nearSpot() {
 }
 
 const interactFree = () => !paused && !combatOver && !document.hidden && !encounterBlocksMovement();
-const hasInteract = () => currentZone.id === 'antre' || currentZone.id === 'appartement';
-const canInteract = () => currentZone.id === 'antre' ? canUseCrystal() : currentZone.id === 'appartement' && interactFree() && nearSpot() !== null;
+const hasInteract = () => currentZone.id === 'antre' || currentZone.id === 'appartement' || currentZone.id === 'comptoir';
+const canInteract = () => currentZone.id === 'antre' ? canUseCrystal() : spotsOfZone() !== null && interactFree() && nearSpot() !== null;
 
 function useInteract() {
   if (currentZone.id === 'antre') { useCrystal(); return; }
@@ -72,7 +80,15 @@ function resetApartment() {
 // Arrivée : les clés, la bouilloire, le thé (canon : thé, puis café ; courbatures ; première nuit).
 function apartmentArrivalSteps() {
   return [
-    { say: ['Troisième étage. Ishara jette ses clés sur le comptoir en rentrant.', 'Ishara[sourire] : « Thé ? »', 'Ishara : « Lait ? Sucre ? »', 'Yarden : « Noir. »', 'Ishara[sourire] : « Femme de goût. »', 'Ishara : « La chambre en trop, c’est la première à gauche. Y’a des trucs dans le placard si t’as besoin, ma coloc met des années à récupérer ses affaires. »', 'Ishara : « Salle de bain en face. Le robinet froid met trente secondes à devenir chaud, c’est normal. »', 'Ishara lance une serviette sans vérifier si Yarden l’attrape. Yarden l’attrape.'] },
+    { say: ['Troisième étage. Ishara jette ses clés sur le comptoir en rentrant.', 'Ishara[sourire] : « Thé ? »', 'Ishara : « Lait ? Sucre ? »', 'Yarden : « Noir. »', 'Ishara[sourire] : « Femme de goût. »', 'Ishara : « La chambre en trop, c’est la première à gauche. Y’a des trucs dans le placard si t’as besoin, ma coloc met des années à récupérer ses affaires. »', 'Ishara : « Salle de bain en face. Le robinet froid met trente secondes à devenir chaud, c’est normal. »'] },
+    // Ishara disparaît dans le couloir, puis revient une serviette à la main.
+    { moves: [{ id: 'ishara', path: [{ x: 120, y: -112 }, { x: 40, y: -20 }, { x: 0, y: 60 }], speed: 110 }] },
+    { set: ['ishara', { visible: false }] },
+    { wait: 1.4 },
+    { run: () => { Object.assign(sceneActors.ishara, { visible: true, prop: 'serviette', face: 1 }); } },
+    { moves: [{ id: 'ishara', path: [{ x: 60, y: -20 }, { x: 200, y: -100 }], speed: 110 }] },
+    { say: ['Ishara lance une serviette sans vérifier si Yarden l’attrape. Yarden l’attrape.'] },
+    { set: ['ishara', { prop: null }] },
     { finish: true }
   ];
 }
@@ -88,7 +104,7 @@ function nightScript() {
     { say: ['Yarden : « Il y a des agents des dieux, à Helvara ? »', 'Tiamat : « Plusieurs organisations. »', 'Yarden : « Et Ishara ? »', 'Tiamat : « Je ne dirai rien là-dessus. »'] },
     { tattoo: true },
     { run: () => { scytheFreed = true; } },
-    { say: ['Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.', 'Tiamat : « Tes tatouages sont le vecteur de la faux. »', 'Tiamat : « Coût d’invocation : zéro. »'] },
+    { say: ['Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.', 'Tiamat : « Tes tatouages sont le vecteur de la faux. »'] },
     { tattoo: false },
     { dark: false },
     { say: ['Au matin : du café, et des courbatures.'] },

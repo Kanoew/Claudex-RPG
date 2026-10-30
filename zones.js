@@ -130,9 +130,9 @@ const zones = {
   // Quartier Sous-gare : l'immeuble Belle Époque « trop normal ».
   sousgare: {
     id: 'sousgare', title: 'LAUSANNE · SOUS-GARE', theme: 'sousgare',
-    room: { x: -260, y: -200, width: 520, height: 380 },
+    room: { x: -260, y: -330, width: 520, height: 510 },
     start: { x: -120, y: 140 },
-    blocks: [{ x: -260, y: -200, width: 520, height: 130, kind: 'belle-epoque' }],
+    blocks: [{ x: -260, y: -330, width: 520, height: 260, kind: 'belle-epoque' }],
     doors: [], enemies: [], props: []
   },
   // Cour intérieure : tout est taillé au millimètre.

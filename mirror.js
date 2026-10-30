@@ -68,10 +68,12 @@ function mirrorSteps() {
     { say: ['Yarden : « Tiamat. »', 'Tiamat : « Oui. »', 'Yarden[agacee] : « C’est quoi, ce style ? »', 'Tiamat : « Le tien. »', 'Yarden[surprise] : « J’ai l’air d’une... gothique. »', 'Tiamat : « Tu as l’air de quelqu’un qu’on remarque et qu’on ne questionne pas. Les humains rangent ce qu’ils voient. Ils te classeront dans "style assumé" et s’arrêteront là. Personne ne cherche un boss de donjon sous du liner. »'] },
     { say: ['Elle regarde encore. Le visage est froid, difficile à lire, avec quelque chose d’affûté dans le regard qui n’appartient à aucune étudiante de vingt ans. Un visage qu’elle respecterait, en face.', 'Yarden[souriante] : « ...C’est acceptable. »', 'Tiamat : « Je sais. »'] },
     { mirror: 'hide' },
+    { card: 'La douche', seconds: 2.2 },
+    { say: ['Trente secondes de froid. Puis l’eau devient chaude, presque trop.'] },
     // Il sort de la douche en serviette et n'arrive pas à fermer les crochets : il va voir Ishara. Dialogue seulement, rien n'est montré.
     { run: () => { sceneActor('ishara', 'ishara', -105, -100, { face: 1 }); } },
     { moves: [{ id: 'yarden', path: [{ x: 200, y: 60 }, { x: 30, y: 60 }, { x: 0, y: -10 }, { x: -60, y: -85 }], speed: 130 }] },
-    { say: ['Yarden : « Ishara. J’ai un problème de géométrie angulaire. »', 'Ishara[sourire] : « Tourne-toi. »', 'Ishara : « Voilà. Deux secondes. »', 'Ishara[inquiete] : « Et toi, ça va ? Vraiment ? »', 'Yarden : « Tout est récent. J’avais rien anticipé. »', 'Ishara : « Tiens, un t-shirt gris et un short. Le lit est propre. »', 'Ishara[sourire] : « Demain matin, on voit. »'] },
+    { say: ['Yarden : « Ishara. J’ai un problème d’agrafe : le soutien-gorge ne veut pas se fermer. »', 'Ishara[sourire] : « Tourne-toi. »', 'Ishara : « Voilà. Deux secondes. »', 'Ishara[inquiete] : « Et toi, ça va ? Vraiment ? »', 'Yarden : « Euh... oui, oui. »', 'Ishara : « Tiens, un t-shirt gris et un short. Le lit est propre. »', 'Yarden : « On verra demain. »'] },
     { run: () => { home.stage = 'nuit'; saveCheckpoint('nuit'); } },
     { finish: true }
   ];

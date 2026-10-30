@@ -38,13 +38,14 @@ h1 { font-size: 13px; letter-spacing: .12em; }
 #app[data-input="keyboard"] #joystick { display: none; }
 #app[data-input="keyboard"] #controls { justify-content: center; }
 #app[data-context="exploration"] #attack, #app[data-context="exploration"] #skill, #app[data-context="exploration"] #dodge { display: none !important; }
-#app[data-context="exploration"][data-input="keyboard"]:not(.has-interaction) #controls { display: none; }
-#app[data-context="dialogue"] #controls, #app[data-context="cinematic"] #controls, #app[data-window] #controls { display: none; }
-#app[data-context="dialogue"] .resources, #app[data-context="cinematic"] .resources { display: none; }
+#app[data-context="exploration"][data-input="keyboard"]:not(.has-interaction) #controls { visibility: hidden; }
+#app[data-input="keyboard"] #controls { min-height: 128px; }
+/* Les commandes restent dans la mise en page, seulement invisibles : le terrain ne change pas de taille quand un texte apparaît. */
+#app[data-context="dialogue"] #controls, #app[data-context="cinematic"] #controls, #app[data-window] #controls { visibility: hidden; pointer-events: none; }
+#app[data-context="dialogue"] .resources, #app[data-context="cinematic"] .resources { visibility: hidden; }
 
 /* Le panneau n'est jamais superposé aux sprites : ruelle en haut, autres scènes en bas. */
-#app > #story-panel:not([hidden]) { position: relative; inset: auto; order: 3; flex: 0 1 auto; min-height: 0; max-height: 44%; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-content: stretch; align-items: end; gap: 10px; padding: 12px; width: min(880px, 100%); margin: 0 auto; background: var(--ux-panel); border: 1px solid #8b78c9; border-radius: 18px; z-index: 6; overflow: hidden; }
-#app[data-story-place="top"] > #story-panel:not([hidden]) { order: 1; }
+#app > #story-panel:not([hidden]) { position: absolute; inset: auto max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); height: 168px; max-height: none; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-content: stretch; align-items: end; gap: 10px; padding: 12px; width: min(880px, calc(100% - 16px)); margin: 0 auto; background: var(--ux-panel); border: 1px solid #8b78c9; border-radius: 18px; z-index: 6; overflow: hidden; }
 #story-card { padding: 0; gap: 12px; align-items: flex-start; border: 0; border-radius: 0; background: transparent; box-shadow: none; backdrop-filter: none; min-height: 0; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; }
 #story-portrait { width: 80px; height: 80px; }
 #story-name { font-size: 12px; letter-spacing: .08em; }
@@ -98,7 +99,7 @@ h1 { font-size: 13px; letter-spacing: .12em; }
 #app[data-input="touch"] #actions #skill { grid-column: 2; grid-row: 1; min-width: 0; width: 82px; height: 64px; padding: 6px 2px; }
 #app[data-input="touch"] #actions #dodge { grid-column: 1; grid-row: 2; min-width: 0; width: 72px; height: 68px; padding: 6px 2px; }
 #app[data-input="touch"] #actions #interact { grid-column: 1; grid-row: 1; min-width: 0; width: 72px; height: 56px; padding: 4px 2px; font-size: 12px; }
-#app[data-input="touch"][data-context="exploration"] #controls { min-height: 128px; }
+#app[data-input="touch"][data-context="exploration"] #controls { min-height: 160px; }
 #app[data-input="touch"][data-context="exploration"] #actions { display: flex; min-height: 108px; align-items: center; }
 #app[data-input="touch"][data-context="exploration"] #actions #interact { width: 140px; font-size: 15px; }
 
@@ -131,9 +132,8 @@ h1 { font-size: 13px; letter-spacing: .12em; }
 
 /* Paysage sur téléphone : le dialogue passe à droite du terrain, pour que la scène garde toute sa hauteur. */
 @media (orientation: landscape) and (max-height: 550px) {
-  #app[data-context="dialogue"] #view { margin-left: 0; margin-right: calc(42% + 8px); }
-  #app > #story-panel:not([hidden]) { position: absolute; top: 62px; right: max(8px, env(safe-area-inset-right)); bottom: 8px; width: 42%; max-height: none; margin: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; align-content: stretch; align-items: stretch; }
-  #app[data-story-place="top"] > #story-panel:not([hidden]) { order: 3; }
+  #app[data-context="dialogue"] #view, #app[data-context="cinematic"] #view { margin-left: 0; margin-right: calc(42% + 8px); }
+  #app > #story-panel:not([hidden]) { position: absolute; top: 62px; right: max(8px, env(safe-area-inset-right)); bottom: 8px; width: 42%; max-height: none; height: auto; margin: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; align-content: stretch; align-items: stretch; }
   .story-actions { flex-direction: row-reverse; justify-content: flex-start; }
   #story-next { flex: 1; }
 }

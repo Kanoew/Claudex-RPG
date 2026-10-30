@@ -128,7 +128,7 @@ function sceneScript() {
     { say: ['Ishara : « Une faille, c’est une porte qui s’ouvre au hasard. Les gens normaux ne la voient pas, et ne peuvent pas entrer. »', 'Yarden : « Continue. »', 'Ishara : « Dedans, c’est l’Abysse : un autre endroit, avec ses créatures, et un temps un peu de travers. »', 'Ishara[sourire] : « Ce qu’on en ramène, ça se revend. C’est comme ça que je paye mon loyer. »', 'Yarden : « D’accord. »'] },
     { metro: 'hide' },
     { run: () => { enterQuartier(); scene.done = true; } },
-    { say: ['Devant l’immeuble d’Ishara. Haussmannien, un peu fatigué, la façade encore belle.'] },
+    { say: ['Devant l’immeuble d’Ishara : un haussmannien un peu fatigué, mais encore beau.'] },
     { moves: [move('ishara', [[0, -40]], 70)] },
     { until: () => Math.hypot(player.x - quartierDoor.x, player.y - quartierDoor.y) < 70 },
     { say: ['Ishara sort ses clés. La porte s’ouvre.'] },
@@ -268,7 +268,10 @@ function sceneActorPose(actor) {
   if (actor.kind === 'ishara') {
     let name = 'idle', speed = 1;
     if (actor.moving) {
-      const horizontal = Math.abs(actor.dirX) > Math.abs(actor.dirY);
+      // Hystérésis : elle ne change d'axe que si l'autre direction domine nettement (évite le clignotement des sprites en suivant).
+      const ax = Math.abs(actor.dirX), ay = Math.abs(actor.dirY), wasHorizontal = actor.axis === 'h';
+      const horizontal = actor.axis ? (wasHorizontal ? ax > ay * .7 : ax > ay * 1.5) : ax > ay;
+      actor.axis = horizontal ? 'h' : 'v';
       const direction = horizontal ? (actor.dirX < 0 ? 'left' : 'right') : (actor.dirY < 0 ? 'up' : 'down');
       // Il n'existe pas de course de face ni de dos : elle court alors avec la marche accélérée.
       if (actor.run && horizontal) name = `run-${direction}`;
@@ -326,6 +329,7 @@ function drawSceneActors(offsetX, offsetY, front) {
       halo.addColorStop(0, `rgba(255, 215, 120, ${.28 + .08 * Math.sin(tt * 3)})`); halo.addColorStop(1, 'rgba(255, 215, 120, 0)');
       ctx.fillStyle = halo; ctx.fillRect(x - 90, actor.y + offsetY - 110, 180, 180);
     }
+    if (actor.prop === 'serviette') { ctx.fillStyle = '#f2efe6'; ctx.fillRect(x + (actor.face > 0 ? 8 : -22), groundY - 40, 14, 18); ctx.fillStyle = '#d6d0c2'; ctx.fillRect(x + (actor.face > 0 ? 8 : -22), groundY - 40, 14, 4); }
     const [width, height] = pose.cell, [anchorX, anchorY] = pose.anchor;
     ctx.save();
     ctx.translate(x, 0);
