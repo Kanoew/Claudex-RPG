@@ -38,6 +38,13 @@ function loadYardenArt() {
     image.onerror = () => { yardenArt.strips[name] = null; };
     image.src = `assets/yarden/${name}.png?v=37`;
   }
+  // Tenues d'intérieur : un repos de six cases, utilisé pour toutes les poses tant que la tenue est portée.
+  for (const name of ['serviette', 'tshirt-short']) {
+    const image = new Image();
+    image.onload = () => { yardenArt.strips['outfit:' + name] = image; };
+    image.onerror = () => { yardenArt.strips['outfit:' + name] = null; };
+    image.src = `assets/yarden/${name}-idle.png?v=67`;
+  }
 }
 
 // Image d'une bande en boucle, d'après le temps écoulé.
@@ -146,8 +153,25 @@ function tintedYardenStrip(clip, strip, color, alpha) {
   return copy;
 }
 
+// Yarden en serviette ou en t-shirt gris : repos clignant, sans cycle de marche (aucune bande de marche n'existe pour ces tenues).
+function drawYardenOutfit(screenX, screenY, strip) {
+  const { cell: [width, height], anchor: [anchorX, anchorY], durations } = yardenClips.idle;
+  const { scale, stand } = yardenCell;
+  const groundY = screenY + player.radius;
+  ctx.fillStyle = '#00000066';
+  ctx.beginPath();
+  ctx.ellipse(screenX, groundY - 1, 15, 5, 0, 0, Math.PI * 2);
+  ctx.fill();
+  let left = (mirrorNow() * 1000) % durations.reduce((sum, value) => sum + value, 0), frame = durations.length - 1;
+  for (let i = 0; i < durations.length; i++) { if (left < durations[i]) { frame = i; break; } left -= durations[i]; }
+  ctx.drawImage(strip, frame * width, 0, width, height, screenX - anchorX * scale, groundY - anchorY * scale, width * scale, height * scale);
+  return groundY - stand * scale;
+}
+
 // Dessine Yarden et renvoie le haut de sa tête à l'écran ; null si les images manquent (disque de secours).
 function drawYardenSprite(screenX, screenY) {
+  const outfit = yardenOutfit && yardenArt.strips['outfit:' + yardenOutfit];
+  if (outfit) return drawYardenOutfit(screenX, screenY, outfit);
   const pose = yardenPose();
   if (!pose) return null;
   const { cell: [width, height], anchor: [anchorX, anchorY] } = yardenClips[pose.clip];

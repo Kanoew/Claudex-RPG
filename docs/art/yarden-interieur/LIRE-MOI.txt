@@ -1,0 +1,38 @@
+YARDEN — SERVIETTE ET T-SHIRT GRIS AVEC SHORT
+
+Deux tenues d'intérieur, reprenant le visage, les lunettes dorées, les yeux
+violets, le chignon noir à mèches gris-lavande et les proportions chibi de Yarden.
+Les tatouages de plumes restent sur le bras droit anatomique ; aucun miroir.
+La marque du flanc reste cachée, sans être déplacée.
+
+Tenues proposées : serviette claire enveloppante ; t-shirt gris à col rond,
+short sombre, pieds nus. Mains nues dans ces deux tenues d'intérieur.
+
+FORMAT DU REPOS ACTUEL
+Case : 96 x 104 pixels ; ancrage : (48,101).
+Hauteur debout : environ 100 pixels.
+yarden-serviette.png et yarden-tshirt-short.png : sprites fixes, une case.
+yarden-serviette-idle.png et yarden-tshirt-short-idle.png : bandes de six cases,
+576 x 104 pixels, mêmes durées que le repos actuel :
+280,110,110,140,140,320 millisecondes ; boucle oui.
+
+Clignement : yeux ouverts, mi-clos, fermés, rouverts, ouverts, ouverts.
+Ces bandes sont des repos, pas des marches ou animations de combat.
+
+FORMAT COMPLEMENTAIRE
+Les fichiers suffixés -211x148 utilisent des cases de 211 x 148 pixels,
+ancrage (105,132), à la même échelle de personnage que les petits exports.
+Les bandes -idle-211x148 font 1266 x 148 pixels ; les sprites fixes font 211 x 148.
+
+FOND
+Fond vert pur #00FF00 opaque, sans sol ni ombre portée.
+Le détourage reste à effectuer avant chargement dans le jeu.
+
+LIVRAISON
+animations.json précise les cases, ancrages, durées, boucles et l'interdiction de miroir.
+Ouvrir index.html à la racine du ZIP pour voir les deux repos.
+Les aperçus GIF et les sources haute résolution restent dans le ZIP, hors dépôt.
+Seul ce dossier exports est destiné à une éventuelle copie dans le dépôt.
+
+Aucune scène ni ressource existante n'a été remplacée. La scène du soutien-gorge
+reste inchangée dans le jeu ; ce pack prépare uniquement les nouvelles tenues.

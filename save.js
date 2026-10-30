@@ -60,6 +60,7 @@ function applyCheckpoint(name) {
   if (name === 'rue') return;
   scene.done = true;
   scytheFreed = !['rue', 'appart', 'nuit'].includes(name);
+  yardenOutfit = name === 'nuit' ? 'tshirt-short' : '';
   if (name === 'marterey') for (const drop of runDrops) if (drop) bag.push({ ...drop });
   if (name === 'sousgare' || name === 'quatreb') credits = 280;
   isharaOutfit = ['impasse', 'matin', 'marterey', 'sousgare', 'quatreb'].includes(name) ? 'course' : 'soiree';

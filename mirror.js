@@ -69,11 +69,14 @@ function mirrorSteps() {
     { say: ['Elle regarde encore. Le visage est froid, difficile à lire, avec quelque chose d’affûté dans le regard qui n’appartient à aucune étudiante de vingt ans. Un visage qu’elle respecterait, en face.', 'Yarden[souriante] : « ...C’est acceptable. »', 'Tiamat : « Je sais. »'] },
     { mirror: 'hide' },
     { card: 'La douche', seconds: 2.2 },
+    { run: () => { yardenOutfit = 'serviette'; } },
     { say: ['Trente secondes de froid. Puis l’eau devient chaude, presque trop.'] },
     // Il sort de la douche en serviette et n'arrive pas à fermer les crochets : il va voir Ishara. Dialogue seulement, rien n'est montré.
     { run: () => { sceneActor('ishara', 'ishara', -105, -100, { face: 1 }); } },
     { moves: [{ id: 'yarden', path: [{ x: 200, y: 60 }, { x: 30, y: 60 }, { x: 0, y: -10 }, { x: -60, y: -85 }], speed: 130 }] },
-    { say: ['Yarden : « Ishara. J’ai un problème d’agrafe : le soutien-gorge ne veut pas se fermer. »', 'Ishara[sourire] : « Tourne-toi. »', 'Ishara : « Voilà. Deux secondes. »', 'Ishara[inquiete] : « Et toi, ça va ? Vraiment ? »', 'Yarden : « Euh... oui, oui. »', 'Ishara : « Tiens, un t-shirt gris et un short. Le lit est propre. »', 'Yarden : « On verra demain. »'] },
+    { say: ['Yarden : « Ishara. J’ai un problème d’agrafe : le soutien-gorge ne veut pas se fermer. »', 'Ishara[sourire] : « Tourne-toi. »', 'Ishara : « Voilà. Deux secondes. »', 'Ishara[inquiete] : « Et toi, ça va ? Vraiment ? »', 'Yarden : « Euh... oui, oui. »', 'Ishara : « Tiens, un t-shirt gris et un short. Le lit est propre. »'] },
+    { run: () => { yardenOutfit = 'tshirt-short'; } },
+    { say: ['Yarden : « On verra demain. »'] },
     { run: () => { home.stage = 'nuit'; saveCheckpoint('nuit'); } },
     { finish: true }
   ];
