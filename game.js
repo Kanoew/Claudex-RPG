@@ -37,6 +37,7 @@ function resetDungeonRun() {
   resetInput();
   resetEncounter();
   resetScene();
+  resetChapter2b();
   resetApartment();
   resetLevelUp();
   loadZone('donjon');
@@ -87,6 +88,7 @@ function update(seconds) {
   zoneFade = Math.max(0, zoneFade - seconds);
   updateEncounter(seconds);
   updateScene(seconds);
+  updateChapter2b(seconds);
   updateLevelUp(seconds);
   if (combatOver || encounterBlocksMovement()) { updateStatus(); updateAttackButton(); return; }
   // Pendant l'apparition du Troll, Yarden peut bouger ; seuls les coups et les ennemis attendent.

@@ -40,6 +40,8 @@ let playerLevel = 1;
 let credits = 0;
 // Faux avant l'ouverture de la faille dans la ruelle du chapitre 1.
 let riftShown = true;
+// Habillages des zones du chapitre 2 (voir render-ch2b.js) : chaque thème fournit floor, solid et tint.
+const themeDrawers = {};
 // Moment (en secondes) où la faille de la ruelle s'est ouverte : elle grandit depuis ce moment.
 let riftOpenedAt = 0;
 // Remplis par loadZone() à partir de la zone courante (voir zones.js).

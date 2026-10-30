@@ -91,8 +91,9 @@ function nightScript() {
     { tattoo: false },
     { dark: false },
     { say: ['Au matin : du café, et des courbatures.'] },
-    { run: () => { home.stage = 'matin'; saveCheckpoint('matin'); } },
-    { end: 'Le premier run en Abysse arrive à la prochaine étape. Fin du prototype !' }
+    { run: () => { home.stage = 'matin'; } },
+    { card: 'Dimanche matin', seconds: 2 },
+    ...impasseScript()
   ];
 }
 

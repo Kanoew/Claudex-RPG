@@ -186,6 +186,7 @@ function drawFacades(offsetX, offsetY) {
 }
 
 function drawRoom(offsetX, offsetY) {
+  const custom = themeDrawers[currentZone.theme];
   const outdoors = currentZone.theme === 'ruelle';
   const crystal = currentZone.theme === 'cristal';
   const indoor = currentZone.theme === 'appart';
@@ -197,7 +198,9 @@ function drawRoom(offsetX, offsetY) {
   ctx.beginPath();
   ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
   ctx.clip();
-  if (street) {
+  if (custom) {
+    custom.floor(offsetX, offsetY);
+  } else if (street) {
     drawQuartierFloor(offsetX, offsetY);
   } else if (indoor) {
     drawAppartFloor(offsetX, offsetY);
@@ -236,6 +239,7 @@ function drawRoom(offsetX, offsetY) {
   walls.forEach((wall, index) => {
     const x = wall.x + offsetX, y = wall.y + offsetY;
     if (crystal) { drawAntreSolid(wall, x, y, index >= 4); return; }
+    if (custom) { custom.solid(wall, x, y, index); return; }
     if (indoor) { drawAppartSolid(wall, x, y, index); return; }
     if (street) { drawQuartierSolid(wall, x, y, index); return; }
     ctx.save();
@@ -274,7 +278,8 @@ function drawRoomShade(x, y) {
   ctx.save();
   const radius = Math.max(240, Math.min(440, Math.hypot(width, height) * .65));
   const shade = ctx.createRadialGradient(x, y, 85, x, y, radius);
-  const tint = currentZone.theme === 'quartier' ? ['#0a0a1400', '#0a0a1424', '#0a0a1470'] : currentZone.theme === 'appart' ? ['#2a160a00', '#2a160a14', '#2a160a58'] : currentZone.theme === 'ruelle' ? ['#050a1800', '#050a1838', '#050a18b4'] : ['#07101b00', '#07101b28', '#07101ba8'];
+  const custom = themeDrawers[currentZone.theme];
+  const tint = custom && custom.tint ? custom.tint : currentZone.theme === 'quartier' ? ['#0a0a1400', '#0a0a1424', '#0a0a1470'] : currentZone.theme === 'appart' ? ['#2a160a00', '#2a160a14', '#2a160a58'] : currentZone.theme === 'ruelle' ? ['#050a1800', '#050a1838', '#050a18b4'] : ['#07101b00', '#07101b28', '#07101ba8'];
   shade.addColorStop(0, tint[0]);
   shade.addColorStop(.6, tint[1]);
   shade.addColorStop(1, tint[2]);

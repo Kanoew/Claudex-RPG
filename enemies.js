@@ -74,6 +74,9 @@ function nextWaypoint(enemy) {
 // Modèles de monstres : une zone n'indique que le type et la position de départ.
 const enemyKinds = {
   goblin: { name: 'Gobelin', art: 'goblin', speed: 95, radius: 14, maxHp: 3, charger: false },
+  // Gobelins du premier run (niveaux 15 à 19) : le sauteur bondit sur Yarden, le fuyard se réfugie dans le couloir sans issue.
+  sauteur: { name: 'Gobelin sauteur', art: 'goblin', speed: 100, radius: 14, maxHp: 3, charger: true },
+  fuyard: { name: 'Gobelin fuyard', art: 'goblin', speed: 115, radius: 14, maxHp: 3, charger: false, flees: true },
   ogre: { name: 'Ogre', art: 'ogre', speed: 80, radius: 14, maxHp: 2, charger: true },
   troll: { name: 'Troll', art: 'troll', speed: 65, radius: 24, maxHp: 8, boss: true, active: false },
   // Grossie en code (x1,5) pour dominer Yarden de la tête : l'image, l'ombre et la zone de collision grandissent ensemble.
@@ -81,13 +84,13 @@ const enemyKinds = {
 };
 
 function makeEnemy(spec) {
-  const enemy = { ...enemyKinds[spec.kind], kind: spec.kind, spawnX: spec.x, spawnY: spec.y, ...(spec.aggro ? { aggro: spec.aggro } : {}) };
+  const enemy = { ...enemyKinds[spec.kind], kind: spec.kind, spawnX: spec.x, spawnY: spec.y, ...(spec.aggro ? { aggro: spec.aggro } : {}), ...(spec.level ? { level: spec.level } : {}), ...(spec.refuge ? { refuge: spec.refuge } : {}) };
   resetEnemy(enemy);
   return enemy;
 }
 
 function resetEnemy(enemy) {
-  Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null, engaged: false, incapacitated: false, sprite: { time: 0, moving: false, face: -1, strike: 0 } });
+  Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, cornered: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null, engaged: false, incapacitated: false, sprite: { time: 0, moving: false, face: -1, strike: 0 } });
   if (enemy.boss) enemy.active = false;
 }
 
@@ -121,6 +124,12 @@ function stepEnemy(enemy, seconds) {
     enemy.engaged = true;
   }
   const reach = enemy.boss ? 105 + player.radius : player.radius + enemy.radius + 8;
+  // Le fuyard court vers son refuge ; acculé au fond du couloir, il se défend comme les autres.
+  if (enemy.flees && enemy.refuge && !enemy.cornered) {
+    const fx = enemy.refuge.x - enemy.x, fy = enemy.refuge.y - enemy.y, flength = Math.hypot(fx, fy);
+    if (flength < 8) enemy.cornered = true;
+    else { const fstep = Math.min(flength, enemy.speed * seconds); movePlayer(fx / flength * fstep, fy / flength * fstep, enemy); return; }
+  }
   if (enemy.charge > 0) {
     const before = { x: enemy.x, y: enemy.y };
     const step = Math.min(seconds, enemy.charge) * 420;
@@ -204,6 +213,7 @@ function drawEnemy(enemy, offsetX, offsetY) {
   ctx.fillRect(ex - 20, barY, 40, 5);
   ctx.fillStyle = enemy.charger ? '#e7c567' : '#df6c82';
   ctx.fillRect(ex - 20, barY, 40 * enemy.hp / enemy.maxHp, 5);
+  if (enemy.level) { ctx.fillStyle = '#eae7f5'; ctx.font = '10px system-ui'; ctx.textAlign = 'center'; ctx.fillText(`Niv. ${enemy.level}`, ex, barY - 3); }
   if (enemy.boss) {
     ctx.fillStyle = '#eae7f5';
     ctx.textAlign = 'center';

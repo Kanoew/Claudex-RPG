@@ -72,6 +72,88 @@ const zones = {
     enemies: [],
     props: []
   },
+  // Chapitre 2, le lendemain matin. Plans inventés à minima ; les canons sont dans PROJECT.md, sections 27 à 29.
+  // Impasse derrière un pressing fermé (dimanche) : la faille est un rectangle d'air légèrement distordu, presque invisible en plein jour.
+  impasse: {
+    id: 'impasse', title: 'LAUSANNE · IMPASSE', theme: 'impasse',
+    room: { x: -170, y: -200, width: 340, height: 360 },
+    start: { x: -100, y: 110 },
+    blocks: [
+      { x: -170, y: -200, width: 150, height: 110, kind: 'pressing' }, { x: 90, y: -200, width: 80, height: 100, kind: 'mur' },
+      { x: 100, y: -20, width: 56, height: 62, kind: 'poubelles' }, { x: -160, y: 20, width: 30, height: 70, kind: 'velo' }
+    ],
+    doors: [], enemies: [], props: []
+  },
+  // Premier run en Abysse sous le niveau 20 : tunnel d'entrée, salle plate, obstacles neutres (piliers de roche), couloir sans issue à l'est.
+  // Sept gobelins de niveau 15 à 19 ; la lumière est ocre (prose du chapitre 2). Pas d'expérience gagnée.
+  run: {
+    id: 'run', title: 'ABYSSE · NIVEAUX 15 À 19', theme: 'ocre',
+    room: { x: -470, y: -300, width: 940, height: 720 },
+    start: { x: 0, y: 380 },
+    blocks: [
+      { x: -470, y: 250, width: 430, height: 170, kind: 'roc' }, { x: 40, y: 250, width: 430, height: 170, kind: 'roc' },
+      { x: 330, y: -300, width: 140, height: 160, kind: 'roc' }, { x: 330, y: -60, width: 140, height: 310, kind: 'roc' },
+      { x: -300, y: -110, width: 56, height: 56, kind: 'pilier' }, { x: -140, y: 50, width: 56, height: 56, kind: 'pilier' },
+      { x: 120, y: -150, width: 56, height: 56, kind: 'pilier' }, { x: 250, y: 60, width: 56, height: 56, kind: 'pilier' },
+      { x: -350, y: 120, width: 56, height: 56, kind: 'pilier' }, { x: 0, y: -40, width: 56, height: 56, kind: 'pilier' }
+    ],
+    doors: [],
+    enemies: [
+      { kind: 'goblin', x: -330, y: -200, aggro: 260, level: 15 }, { kind: 'goblin', x: -180, y: -170, aggro: 260, level: 16 },
+      { kind: 'sauteur', x: 60, y: -230, aggro: 280, level: 17 }, { kind: 'goblin', x: -250, y: 20, aggro: 260, level: 18 },
+      { kind: 'goblin', x: 200, y: -20, aggro: 260, level: 19 }, { kind: 'goblin', x: 20, y: 120, aggro: 260, level: 16 },
+      { kind: 'fuyard', x: 230, y: -100, aggro: 300, level: 15, refuge: { x: 440, y: -100 } }
+    ],
+    props: []
+  },
+  // Rue Marterey : une porte marron sans enseigne entre un kebab et une laverie.
+  marterey: {
+    id: 'marterey', title: 'LAUSANNE · RUE MARTEREY', theme: 'marterey',
+    room: { x: -260, y: -180, width: 520, height: 340 },
+    start: { x: -60, y: 110 },
+    blocks: [
+      { x: -260, y: -180, width: 200, height: 110, kind: 'kebab' }, { x: -60, y: -180, width: 120, height: 110, kind: 'porte-marron' }, { x: 60, y: -180, width: 200, height: 110, kind: 'laverie' }
+    ],
+    doors: [], enemies: [], props: []
+  },
+  // Le comptoir de Rémi : couloir étroit, puis un comptoir avec une lampe spéciale, une balance et une ardoise à la craie. Aucune trace électronique.
+  comptoir: {
+    id: 'comptoir', title: 'LAUSANNE · LE COMPTOIR', theme: 'comptoir',
+    room: { x: -160, y: -200, width: 320, height: 420 },
+    start: { x: 0, y: 180 },
+    blocks: [
+      { x: -160, y: 40, width: 115, height: 180, kind: 'mur-int' }, { x: 45, y: 40, width: 115, height: 180, kind: 'mur-int' },
+      { x: -110, y: -70, width: 220, height: 34, kind: 'comptoir-remi' }
+    ],
+    doors: [], enemies: [], props: []
+  },
+  // Quartier Sous-gare : l'immeuble Belle Époque « trop normal ».
+  sousgare: {
+    id: 'sousgare', title: 'LAUSANNE · SOUS-GARE', theme: 'sousgare',
+    room: { x: -260, y: -200, width: 520, height: 380 },
+    start: { x: -120, y: 140 },
+    blocks: [{ x: -260, y: -200, width: 520, height: 130, kind: 'belle-epoque' }],
+    doors: [], enemies: [], props: []
+  },
+  // Cour intérieure : tout est taillé au millimètre.
+  cour: {
+    id: 'cour', title: 'SOUS-GARE · LA COUR', theme: 'cour',
+    room: { x: -140, y: -200, width: 280, height: 380 },
+    start: { x: 0, y: 140 },
+    blocks: [
+      { x: -140, y: -200, width: 28, height: 380, kind: 'lierre' }, { x: 112, y: -200, width: 28, height: 380, kind: 'lierre' },
+      { x: -90, y: -60, width: 44, height: 44, kind: 'arbuste' }, { x: 46, y: -60, width: 44, height: 44, kind: 'arbuste' }
+    ],
+    doors: [], enemies: [], props: []
+  },
+  // Escalier de pierre jusqu'au 4B : l'air devient plus lourd à chaque étage.
+  escalier: {
+    id: 'escalier', title: 'SOUS-GARE · ESCALIER', theme: 'escalier',
+    room: { x: -90, y: -640, width: 180, height: 900 },
+    start: { x: 0, y: 220 },
+    blocks: [],
+    doors: [], enemies: [], props: []
+  },
   // Appartement d'Ishara (canon de Jordan, section 15 de PROJECT.md) : troisième étage, quartier étudiant, Lausanne.
   // Plan inventé à minima : l'entrée et la cuisine à l'est, le salon à l'ouest, le couloir au sud du salon, la chambre d'appoint
   // à gauche du couloir, la salle de bain en face, la chambre d'Ishara fermée. Palette chaude, jamais de bleu.

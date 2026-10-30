@@ -304,12 +304,20 @@ function drawSceneActors(offsetX, offsetY, front) {
     ctx.fill();
     const pose = sceneActorPose(actor);
     if (!pose) {
-      // Disque de secours si les images ne sont pas chargées.
-      ctx.fillStyle = actor.kind === 'ishara' ? '#6b4a3a' : actor.kind === 'grand' ? '#52677f' : actor.kind === 'compact' ? '#84565e' : '#c4525a';
+      // Silhouette si l'image manque (ou pour Rémi, dont le dessin n'existe pas encore).
+      const body = actor.kind === 'remi' ? '#3c3a46' : actor.kind === 'ishara' ? '#6b4a3a' : actor.kind === 'grand' ? '#52677f' : actor.kind === 'compact' ? '#84565e' : '#c4525a';
+      ctx.fillStyle = body;
+      ctx.fillRect(x - 10, actor.y + offsetY - 4, 20, 22);
       ctx.beginPath();
-      ctx.arc(x, actor.y + offsetY, player.radius, 0, Math.PI * 2);
+      ctx.arc(x, actor.y + offsetY - 12, 9, 0, Math.PI * 2);
       ctx.fill();
       continue;
+    }
+    if (ch2b.buff && actor.kind === 'ishara') {
+      // Le buff d'Ishara : un léger scintillement doré autour d'elle.
+      const tt = mirrorNow(), halo = ctx.createRadialGradient(x, actor.y + offsetY - 20, 6, x, actor.y + offsetY - 20, 90);
+      halo.addColorStop(0, `rgba(255, 215, 120, ${.28 + .08 * Math.sin(tt * 3)})`); halo.addColorStop(1, 'rgba(255, 215, 120, 0)');
+      ctx.fillStyle = halo; ctx.fillRect(x - 90, actor.y + offsetY - 110, 180, 180);
     }
     const [width, height] = pose.cell, [anchorX, anchorY] = pose.anchor;
     ctx.save();

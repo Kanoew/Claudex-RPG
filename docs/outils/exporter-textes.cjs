@@ -12,11 +12,11 @@ const deep = () => new Proxy(function () {}, {
 });
 const context = vm.createContext({ document: deep(), window: deep(), ResizeObserver: class { observe() {} }, requestAnimationFrame() {}, setInterval() { return 0; }, location: { search: '?skip' } });
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-const files = [...html.matchAll(/<script src="([a-z-]+\.js)/g)].map(match => match[1]);
+const files = [...html.matchAll(/<script src="([a-z0-9-]+\.js)/g)].map(match => match[1]);
 for (const file of files) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-const data = vm.runInContext('({ opening: openingScript(), rue: sceneScript(), sleep: nightScript(), mirror: mirrorScript(), spots: apartmentSpots.map(s => ({ id: s.id, label: s.label, lines: s.lines() })), goals: [apartmentGoal()] })', context);
+const data = vm.runInContext('({ opening: openingScript(), rue: sceneScript(), sleep: nightScript(), mirror: mirrorScript(), impasse: impasseScript(), runEnd: runEndScript(), marterey: marteryScript(), comptoir: comptoirScript(), sousgare: sousgareScript(), spots: apartmentSpots.map(s => ({ id: s.id, label: s.label, lines: s.lines() })), goals: [apartmentGoal()] })', context);
 
-const speaker = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
+const speaker = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
 function render(steps) {
   const out = [];
   for (const step of steps) {
@@ -33,13 +33,18 @@ function render(steps) {
 
 const parts = [
   '# Textes du jeu', '',
-  'Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifier à la main. Les textes vivent dans le code (`opening.js`, `scene.js`, `apartment.js`, `mirror.js`, `stats.js`, `hud.js`) ; ce fichier les rassemble pour la relecture. Une ligne `Nom (expression)` indique le visage montré dans la bulle.', '',
+  'Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifier à la main. Les textes vivent dans le code (`opening.js`, `scene.js`, `apartment.js`, `mirror.js`, `chapitre2b.js`, `stats.js`, `hud.js`) ; ce fichier les rassemble pour la relecture. Une ligne `Nom (expression)` indique le visage montré dans la bulle.', '',
   '## Ouverture : la ruelle et la faille', '', render(data.opening), '',
   '## La rue : Ishara, les deux hommes, la marche, le métro, l’immeuble', '', render(data.rue), '',
   '## L’appartement : objets à examiner', '',
   data.spots.map(s => `- **${s.label}** : ${(s.lines || ['(rien avant la nuit)']).join(' ')}`).join('\n'), '',
   '## L’appartement : la première nuit (parquet, agents divins, tatouages)', '', render(data.sleep), '',
   '## Le miroir, puis le soutien-gorge d’Ishara', '', render(data.mirror), '',
+  '## Le lendemain matin : l’impasse et la faille', '', render(data.impasse), '',
+  '## Fin du run : le butin', '', render(data.runEnd), '',
+  '## Rue Marterey : la porte marron', '', render(data.marterey), '',
+  '## Le comptoir de Rémi', '', render(data.comptoir), '',
+  '## Le 4B : Sous-gare, la cour, l’escalier', '', render(data.sousgare), '',
   '## Objectif affiché en haut (appartement)', '', `- ${data.goals[0]}`, ''
 ];
 fs.writeFileSync(path.join(root, 'docs', 'TEXTES.md'), parts.join('\n'));

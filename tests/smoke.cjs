@@ -40,9 +40,9 @@ function game(imageMode, keepOpening, store) {
     localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-quartier.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'chapitre2b.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-quartier.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, parseStoryLine, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, parseStoryLine, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -264,7 +264,21 @@ const tests = [
     assert.equal(g.home.stage, 'nuit');
     Object.assign(g.player, { x: -170, y: 90 });
     g.useInteract();
-    pump(() => g.over);
+    // Le lendemain matin : impasse, run (sept gobelins), comptoir (280 crédits), 4B.
+    const seen = new Set();
+    for (let guard = 0; guard < 6000 && !g.over; guard++) {
+      seen.add(g.currentZone.id);
+      if (g.story.active) { g.advanceStory(); continue; }
+      if (g.scene.free) {
+        if (g.currentZone.id === 'impasse') Object.assign(g.player, { x: 41, y: -150 });
+        else if (g.currentZone.id === 'escalier') Object.assign(g.player, { x: 0, y: g.player.y - 40 });
+        else if (g.currentZone.id === 'quartier') Object.assign(g.player, { x: 0, y: -50 });
+      }
+      if (g.currentZone.id === 'run' && !g.scene.active) for (const enemy of g.zoneEnemies.run) enemy.hp = 0;
+      g.update(.05);
+    }
+    for (const zone of ['impasse', 'run', 'marterey', 'comptoir', 'sousgare', 'cour', 'escalier']) assert(seen.has(zone), zone);
+    assert.equal(g.credits, 280, 'Premier argent : 280 crédits');
     assert(g.over && g.stage === 'escaped');
     assert(g.elements['result-text'].textContent.includes('Fin du prototype'));
     assert(g.elements['result-details'].textContent.includes('Temps de jeu'));
@@ -547,7 +561,7 @@ const tests = [
     assert.equal(g.enemies[2].active, false);
     assert.equal(g.boss, g.enemies[2]);
     assert.equal(g.activeEnemies(), g.enemies);
-    assert.equal(g.allEnemies().length, g.enemies.length + g.zoneEnemies.exterieur.length + g.zoneEnemies.antre.length);
+    assert.equal(g.allEnemies().length, Object.values(g.zoneEnemies).reduce((sum, list) => sum + list.length, 0));
     // Chargement d’une zone : les références de room et de walls restent valables.
     const room = g.room, walls = g.walls;
     g.zones.test = { id: 'test', title: 'TEST', theme: 'pierre', room: { x: -100, y: -80, width: 200, height: 160 }, blocks: [{ x: 0, y: 0, width: 20, height: 20 }], start: { x: 0, y: 0 }, doors: [], enemies: [] };
@@ -867,13 +881,47 @@ const tests = [
     g.useInteract();
     const said = [];
     let dark = false, tattoo = false;
-    for (let guard = 0; guard < 600 && !g.over; guard++) {
+    for (let guard = 0; guard < 600 && !(g.scene.free && g.currentZone.id === 'impasse'); guard++) {
       if (g.story.active) { said.push(g.story.current); if (g.scene.dark) dark = true; if (g.scene.tattoo) { tattoo = true; g.draw(); } g.advanceStory(); } else g.update(.05);
     }
-    assert(g.over && dark && tattoo && g.scene.dark === null && g.scene.tattoo === null);
+    assert(g.currentZone.id === 'impasse' && dark && tattoo && g.scene.dark === null && g.scene.tattoo === null);
     const all = said.join('\n');
     for (const part of ['Pathétique', 'Ergonomique', 'Plusieurs organisations', 'Coût d’invocation : zéro', 'parquet']) assert(all.includes(part), part);
     assert(!all.includes('Jordan'));
+  }],
+  ['Run en Abysse : sept gobelins de niveau 15 à 19, sauteur, fuyard, Ishara derrière, aucune expérience', () => {
+    const g = armed('loaded');
+    winSpider(g);
+    g.levelUp.active = false;
+    const run = g.zoneEnemies.run;
+    assert.equal(run.length, 7);
+    assert(run.every(e => e.level >= 15 && e.level <= 19));
+    assert.equal(run[2].kind, 'sauteur', 'Le troisième est un sauteur');
+    assert(run[2].charger);
+    assert.equal(run[6].kind, 'fuyard', 'Le septième fuit');
+    g.startScene(g.impasseScript());
+    for (let guard = 0; guard < 80 && !(g.scene.free && g.currentZone.id === 'impasse'); guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
+    Object.assign(g.player, { x: 41, y: -150 });
+    for (let guard = 0; guard < 80 && g.currentZone.id !== 'run'; guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
+    assert.equal(g.currentZone.id, 'run');
+    assert(g.player.armed && g.scene.active === false);
+    // Ishara suit Yarden à trois mètres au plus.
+    Object.assign(g.player, { x: 0, y: 150 });
+    for (let i = 0; i < 80; i++) g.update(.05);
+    const ishara = g.sceneActors.ishara;
+    assert(Math.hypot(ishara.x - g.player.x, ishara.y - g.player.y) <= 112, 'Ishara reste à portée');
+    // Le fuyard court vers son refuge au fond du couloir.
+    const fuyard = run[6];
+    Object.assign(g.player, { x: 0, y: -100 });
+    for (let i = 0; i < 160 && !fuyard.cornered; i++) { g.update(.05); g.player.hp = g.player.maxHp; }
+    assert(fuyard.cornered && fuyard.x > 330, 'Le fuyard est acculé dans le couloir sans issue');
+    // Tous tombés : le butin, puis la rue Marterey ; l'expérience n'augmente pas.
+    const level = g.player.maxHp;
+    for (const enemy of run) enemy.hp = 0;
+    g.update(.05);
+    assert(g.scene.active, 'Le butin se raconte');
+    assert.equal(g.player.maxHp, level);
+    assert(!g.player.exp && !g.xp);
   }],
   ['Scène de la rue : Yarden fige ses actions, reprise remet la scène à zéro', () => {
     const g = armed('loaded');
