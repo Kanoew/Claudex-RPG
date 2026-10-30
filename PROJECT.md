@@ -11,6 +11,13 @@
 - Tailles de référence (Yarden = 1,0) : Ishara environ 1,05 ; le grand environ 1,4 et le compact environ 1,17 ; gobelin 0,9, ogre 1,25, Troll environ 2,0.
 - Avant de produire de nouvelles images, vérifier à quelle catégorie appartient le personnage.
 
+## Livraison des ressources visuelles (règle de Jordan du 30 octobre 2026)
+
+- Pour les nouvelles livraisons, ne pousser dans le dépôt que les exports : bandes et portraits aux dimensions prévues, sur fond vert, avec `animations.json` et `LIRE-MOI.txt`.
+- Les originaux haute résolution restent dans le ZIP livré à Jordan, jamais dans les dossiers du dépôt. Le ZIP contient aussi les aperçus (`index.html` et leurs fichiers nécessaires) ; ceux-ci ne sont plus ajoutés au dépôt.
+- Cette règle remplace, pour les nouvelles livraisons, les anciennes consignes demandant de conserver les originaux dans `docs/art/`.
+- Les fichiers déjà présents restent en place pour laisser à Jordan le temps de les récupérer. Aucune suppression ni réécriture de l’historique sans demande explicite.
+
 ## Cadre canonique — identité, ton et apparence (précisions du 28 octobre 2026)
 
 Ces consignes de Jordan priment sur les anciennes hypothèses de conception. Le jeu adapte le roman dark fantasy **Le Sang de Tiamat**. Ne pas inventer de lore manquant : demander à Jordan.
@@ -94,6 +101,8 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 - Jordan : teste sur téléphone, valide, décide de passer à l'étape suivante
 
 ## 8. Journal (à compléter après chaque étape)
+
+30 octobre 2026 — Règle de livraison visuelle mise à jour : seuls les exports sur fond vert, `animations.json` et `LIRE-MOI.txt` sont ajoutés au dépôt pour les prochains packs. Les originaux haute résolution et les aperçus restent dans le ZIP livré à Jordan. Les fichiers existants sont conservés, sans suppression ni réécriture de l’historique.
 
 30 octobre 2026 — Mouvements de Céleste en tenue du chapitre 4 dans `docs/art/izzy-celeste/mouvements-celeste/` : repos, quatre marches et deux courses latérales, sept bandes de quatre cases dessinées séparément. Cases 211 × 148, ancrage (105,132), hauteur debout d’environ 100 px ; fente de robe à droite anatomique, V sobre, veste à deux boutons dorés, bottines à talon bloc et bijoux conservés. Fonds verts opaques, aucun miroir. Les deux packs totalisent 48 images ; formats, ancrages, marges, durées, boucles et aperçus mobiles contrôlés. Originaux dans les ZIP, aucune modification du moteur.
 
