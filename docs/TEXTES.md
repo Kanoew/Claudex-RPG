@@ -1,6 +1,6 @@
 # Textes du jeu
 
-Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifier à la main. Les textes vivent dans le code (`opening.js`, `scene.js`, `apartment.js`, `mirror.js`, `stats.js`, `hud.js`) ; ce fichier les rassemble pour la relecture. Une ligne `Nom (expression)` indique le visage montré dans la bulle.
+Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifier à la main. Les textes vivent dans le code (`opening.js`, `scene.js`, `apartment.js`, `mirror.js`, `chapitre2b.js`, `stats.js`, `hud.js`) ; ce fichier les rassemble pour la relecture. Une ligne `Nom (expression)` indique le visage montré dans la bulle.
 
 ## Ouverture : la ruelle et la faille
 
@@ -80,13 +80,28 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Radiateur** : Des serviettes sèchent sur le radiateur.
 - **Lavabo** : Le robinet met trente secondes à chauffer.
 
-## L’appartement : la première nuit
+## L’appartement : la première nuit (parquet, agents divins, tatouages)
 
 - *Carte plein écran : La première nuit*
-- Yarden passe la nuit sur le parquet de la chambre d’appoint.
+- Le lit est trop mou. Yarden dort par terre, sur le parquet, avec l’oreiller.
+- **Tiamat** : « Pathétique. »
+- **Yarden** : « Ergonomique. »
+- **Yarden** : « Il y a des agents des dieux, à Helvara ? »
+- **Tiamat** : « Plusieurs organisations. »
+- **Yarden** : « Et Ishara ? »
+- **Tiamat** : « Je ne dirai rien là-dessus. »
+- *Les tatouages luisent (la faux)*
+- Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.
+- **Tiamat** : « Tes tatouages sont le vecteur de la faux. »
+- **Tiamat** : « Coût d’invocation : zéro. »
 - Au matin : du café, et des courbatures.
+- *Carte plein écran : Dimanche matin*
+- Une impasse derrière un pressing fermé : c’est dimanche.
+- Dans l’air, un rectangle légèrement distordu, presque invisible en plein jour.
+- **Yarden** : « Niveau estimé : 16, 17. Espace restreint. Probablement du territorial. »
+- **Ishara** : « Je reste derrière toi. »
 
-## Le miroir
+## Le miroir, puis le soutien-gorge d’Ishara
 
 - Le robinet met trente secondes à chauffer.
 - *Le miroir (portrait de Yarden)*
@@ -109,8 +124,124 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Un visage qu’elle respecterait, en face.
 - **Yarden (souriante)** : « ...C’est acceptable. »
 - **Tiamat** : « Je sais. »
-- *Fin de scène : Les tatouages arrivent à la prochaine étape. Fin du prototype !*
+- **Yarden** : « Ishara. J’ai un problème de géométrie angulaire. »
+- **Ishara (sourire)** : « Tourne-toi. »
+- **Ishara** : « Voilà. Deux secondes. »
+- **Ishara (inquiete)** : « Et toi, ça va ? Vraiment ? »
+- **Yarden** : « Tout est récent. J’avais rien anticipé. »
+- **Ishara** : « Tiens, un t-shirt gris et un short. Le lit est propre. »
+- **Ishara (sourire)** : « Demain matin, on voit. »
+
+## Le lendemain matin : l’impasse et la faille
+
+- Une impasse derrière un pressing fermé : c’est dimanche.
+- Dans l’air, un rectangle légèrement distordu, presque invisible en plein jour.
+- **Yarden** : « Niveau estimé : 16, 17. Espace restreint. Probablement du territorial. »
+- **Ishara** : « Je reste derrière toi. »
+
+## Fin du run : le butin
+
+- Les sept créatures sont tombées. Ishara prélève les matériaux.
+- Quatre fragments cristallins de tailles variables, deux petites bourses de fibres : des griffes, de la chair dense de haut niveau.
+- Le plus gros fragment est de niveau 19, et sa coupe est propre.
+- Aucune expérience gagnée.
+- *Carte plein écran : Quarante minutes dedans, deux heures dehors.*
+- Rue Marterey, Lausanne. Dix heures.
+- Le kebab ouvre ses rideaux. Ishara appuie sur l’interphone, puis une seconde fois : il a l’air cassé, mais il marche.
+- Un couloir étroit. De l’encens bon marché, et quelque chose de plus minéral dessous.
+- Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur celui de niveau 19.
+- **Rémi** : « Avec quelle lame ? Quel type ? »
+- **Yarden** : « Le type qui coupe. »
+- Rémi écrit 280 sur l’ardoise.
+- **Ishara** : « La dernière fois, un run équivalent valait 220. »
+- **Rémi** : « Le 19 est propre. Coupe franche, ni brûlure ni impact contondant. C’est rare à ce niveau : supplément. »
+- Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.
+- **Ishara** : « On partage. 280 chacun. »
+- **Rémi** : « Dites-moi quel type de lame fait des coupes comme ça. »
+- **Tiamat** : « Tu viens de laisser une trace. Les receleurs parlent. »
+- Premier argent gagné dans ce monde : 280 crédits.
+- *Le métro (wagon animé)*
+- Le M2, direction Sous-gare.
+- Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
+- Des géraniums au deuxième étage.
+- Ishara compose le digicode.
+- La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
+- Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
+- Plus haut, plus chargé.
+- Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
+- Le buff d’Ishara se déclenche : un léger scintillement doré.
+- **Félix** : « Je vous attendais. »
+- *Fin de scène : Le chapitre 3 arrive à la prochaine étape. Fin du prototype !*
+
+## Rue Marterey : la porte marron
+
+- Rue Marterey, Lausanne. Dix heures.
+- Le kebab ouvre ses rideaux. Ishara appuie sur l’interphone, puis une seconde fois : il a l’air cassé, mais il marche.
+- Un couloir étroit. De l’encens bon marché, et quelque chose de plus minéral dessous.
+- Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur celui de niveau 19.
+- **Rémi** : « Avec quelle lame ? Quel type ? »
+- **Yarden** : « Le type qui coupe. »
+- Rémi écrit 280 sur l’ardoise.
+- **Ishara** : « La dernière fois, un run équivalent valait 220. »
+- **Rémi** : « Le 19 est propre. Coupe franche, ni brûlure ni impact contondant. C’est rare à ce niveau : supplément. »
+- Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.
+- **Ishara** : « On partage. 280 chacun. »
+- **Rémi** : « Dites-moi quel type de lame fait des coupes comme ça. »
+- **Tiamat** : « Tu viens de laisser une trace. Les receleurs parlent. »
+- Premier argent gagné dans ce monde : 280 crédits.
+- *Le métro (wagon animé)*
+- Le M2, direction Sous-gare.
+- Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
+- Des géraniums au deuxième étage.
+- Ishara compose le digicode.
+- La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
+- Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
+- Plus haut, plus chargé.
+- Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
+- Le buff d’Ishara se déclenche : un léger scintillement doré.
+- **Félix** : « Je vous attendais. »
+- *Fin de scène : Le chapitre 3 arrive à la prochaine étape. Fin du prototype !*
+
+## Le comptoir de Rémi
+
+- Un couloir étroit. De l’encens bon marché, et quelque chose de plus minéral dessous.
+- Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur celui de niveau 19.
+- **Rémi** : « Avec quelle lame ? Quel type ? »
+- **Yarden** : « Le type qui coupe. »
+- Rémi écrit 280 sur l’ardoise.
+- **Ishara** : « La dernière fois, un run équivalent valait 220. »
+- **Rémi** : « Le 19 est propre. Coupe franche, ni brûlure ni impact contondant. C’est rare à ce niveau : supplément. »
+- Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.
+- **Ishara** : « On partage. 280 chacun. »
+- **Rémi** : « Dites-moi quel type de lame fait des coupes comme ça. »
+- **Tiamat** : « Tu viens de laisser une trace. Les receleurs parlent. »
+- Premier argent gagné dans ce monde : 280 crédits.
+- *Le métro (wagon animé)*
+- Le M2, direction Sous-gare.
+- Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
+- Des géraniums au deuxième étage.
+- Ishara compose le digicode.
+- La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
+- Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
+- Plus haut, plus chargé.
+- Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
+- Le buff d’Ishara se déclenche : un léger scintillement doré.
+- **Félix** : « Je vous attendais. »
+- *Fin de scène : Le chapitre 3 arrive à la prochaine étape. Fin du prototype !*
+
+## Le 4B : Sous-gare, la cour, l’escalier
+
+- Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
+- Des géraniums au deuxième étage.
+- Ishara compose le digicode.
+- La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
+- Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
+- Plus haut, plus chargé.
+- Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
+- Le buff d’Ishara se déclenche : un léger scintillement doré.
+- **Félix** : « Je vous attendais. »
+- *Fin de scène : Le chapitre 3 arrive à la prochaine étape. Fin du prototype !*
 
 ## Objectif affiché en haut (appartement)
 
-- Explore · la chambre d’appoint est à gauche, dans le couloir
+- Va à la salle de bain, en face de la chambre d’appoint

@@ -6,7 +6,7 @@
 // La scène se joue dans la moitié sud de la ruelle (côté faille, à l'opposé de la fête) : lampadaire éteint,
 // façade sans fenêtre à gauche, grille fermée à droite. Aucune faux, aucun mana, aucune autre violence que le poignet.
 // `free` : une étape « until » rend la main à Yarden jusqu'à ce que sa condition soit vraie.
-const scene = { active: false, free: false, card: null, mirror: null, metro: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
+const scene = { active: false, free: false, card: null, mirror: null, metro: null, dark: null, tattoo: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] };
 const sceneActors = {};
 // Caméra de scène : elle peut aller regarder ailleurs (la faille, la fête) puis revenir vers Yarden, en glissant.
 const sceneCam = { on: false, x: 0, y: 0, tx: 0, ty: 0, follow: false, last: 0 };
@@ -30,7 +30,7 @@ function cameraFocus() {
   return sceneCam;
 }
 const sceneArt = { strips: {} };
-const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, inconnus: { cell: [211, 148], anchor: [105, 132] }, fete: { cell: [128, 148], anchor: [64, 132] } };
+const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, course: { cell: [140, 115], anchor: [70, 111] }, remi: { cell: [120, 124], anchor: [60, 120] }, felix: { cell: [120, 124], anchor: [60, 120] }, inconnus: { cell: [211, 148], anchor: [105, 132] }, fete: { cell: [128, 148], anchor: [64, 132] } };
 // Inconnu 1 (grand) et Inconnu 2 (compact) : chibi, regardent à gauche ; on les retourne pour la droite (figurants anonymes).
 const inconnuClips = {
   'repos': { frames: 2, durations: [900, 900] }, 'marche-gauche': { frames: 4, durations: [170, 170, 170, 170] },
@@ -43,7 +43,8 @@ const isharaClips = {
   'walk-up': [150, 150, 150, 150], 'walk-down': [150, 150, 150, 150], 'run-left': [100, 90, 100, 90], 'run-right': [100, 90, 100, 90]
 };
 const sceneFiles = [...Object.keys(isharaClips).map(name => `ishara/${name}`),
-  ...['1', '2'].flatMap(n => ['repos', 'marche-gauche'].map(clip => `inconnus/inconnu-${n}-${clip}`)), 'inconnus/inconnu-2-poignet', 'inconnus/inconnu-2-recul', 'fete/danseur', 'fete/danseuse'];
+  ...['1', '2'].flatMap(n => ['repos', 'marche-gauche'].map(clip => `inconnus/inconnu-${n}-${clip}`)), 'inconnus/inconnu-2-poignet', 'inconnus/inconnu-2-recul', 'fete/danseur', 'fete/danseuse', 'remi/remi-comptoir', 'felix/felix-bureau',
+  ...Object.keys(isharaClips).map(name => `course/${name}`)];
 
 function loadSceneArt() {
   if (typeof Image === 'undefined') return;
@@ -51,7 +52,7 @@ function loadSceneArt() {
     const image = new Image();
     image.onload = () => { sceneArt.strips[key] = image; };
     image.onerror = () => { sceneArt.strips[key] = null; };
-    image.src = `assets/npcs/${key.startsWith('ishara') ? 'ishara/chibi/' + key.slice(7) : key}.png?v=49`;
+    image.src = `assets/npcs/${key.startsWith('ishara') ? 'ishara/chibi/' + key.slice(7) : key.startsWith('course') ? 'ishara/' + key : key}.png?v=56`;
   }
 }
 
@@ -144,10 +145,15 @@ function startScene(steps = sceneScript()) {
   nextSceneStep();
 }
 
+// Pendant la nuit et les tatouages, le texte ne grise pas l'image derrière lui.
+function seeThrough() {
+  document.getElementById('story-panel').classList.toggle('see-through', !!(scene.dark || scene.tattoo));
+}
+
 function resetScene() {
   sceneCam.on = false;
   audio.override = null;
-  Object.assign(scene, { active: false, free: false, card: null, mirror: null, metro: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
+  Object.assign(scene, { active: false, free: false, card: null, mirror: null, metro: null, dark: null, tattoo: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
   for (const id of Object.keys(sceneActors)) delete sceneActors[id];
 }
 
@@ -175,6 +181,8 @@ function nextSceneStep() {
     if (step.card) { scene.card = { text: step.card, time: 0 }; return; }
     if (step.mirror) { mirrorStep(step.mirror); continue; }
     if (step.metro) { metroStep(step.metro); continue; }
+    if ('dark' in step) { scene.dark = step.dark ? { start: mirrorNow() } : null; seeThrough(); continue; }
+    if ('tattoo' in step) { scene.tattoo = step.tattoo ? { start: mirrorNow() } : null; seeThrough(); continue; }
     if ('camera' in step) { setSceneCamera(step.camera); continue; }
     if ('music' in step) { audio.override = step.music; syncMusic(); continue; }
     if (step.spawn) {
@@ -266,9 +274,15 @@ function sceneActorPose(actor) {
       if (actor.run && horizontal) name = `run-${direction}`;
       else { name = `walk-${direction}`; if (actor.run) speed = 1.8; }
     }
-    const key = `ishara/${name}`;
+    const course = isharaOutfit === 'course';
+    const key = `${course ? 'course' : 'ishara'}/${name}`;
     if (!sceneArt.strips[key]) return null;
-    return { strip: sceneArt.strips[key], frame: sceneFrame(isharaClips[name], actor.time * speed), flip: false, ...sceneCells.ishara };
+    return { strip: sceneArt.strips[key], frame: sceneFrame(isharaClips[name], actor.time * speed), flip: false, ...(course ? sceneCells.course : sceneCells.ishara) };
+  }
+  if (actor.kind === 'remi' || actor.kind === 'felix') {
+    const key = actor.kind === 'remi' ? 'remi/remi-comptoir' : 'felix/felix-bureau';
+    if (!sceneArt.strips[key]) return null;
+    return { strip: sceneArt.strips[key], frame: sceneFrame(actor.kind === 'remi' ? [260, 260, 260, 900] : [400, 300, 400, 900], actor.time), flip: false, ...sceneCells[actor.kind] };
   }
   if (actor.kind === 'danseur' || actor.kind === 'danseuse') {
     const key = `fete/${actor.kind}`;
@@ -297,12 +311,20 @@ function drawSceneActors(offsetX, offsetY, front) {
     ctx.fill();
     const pose = sceneActorPose(actor);
     if (!pose) {
-      // Disque de secours si les images ne sont pas chargées.
-      ctx.fillStyle = actor.kind === 'ishara' ? '#6b4a3a' : actor.kind === 'grand' ? '#52677f' : actor.kind === 'compact' ? '#84565e' : '#c4525a';
+      // Silhouette si l'image manque (ou pour Rémi, dont le dessin n'existe pas encore).
+      const body = actor.kind === 'remi' ? '#3c3a46' : actor.kind === 'ishara' ? '#6b4a3a' : actor.kind === 'grand' ? '#52677f' : actor.kind === 'compact' ? '#84565e' : '#c4525a';
+      ctx.fillStyle = body;
+      ctx.fillRect(x - 10, actor.y + offsetY - 4, 20, 22);
       ctx.beginPath();
-      ctx.arc(x, actor.y + offsetY, player.radius, 0, Math.PI * 2);
+      ctx.arc(x, actor.y + offsetY - 12, 9, 0, Math.PI * 2);
       ctx.fill();
       continue;
+    }
+    if (ch2b.buff && actor.kind === 'ishara') {
+      // Le buff d'Ishara : un léger scintillement doré autour d'elle.
+      const tt = mirrorNow(), halo = ctx.createRadialGradient(x, actor.y + offsetY - 20, 6, x, actor.y + offsetY - 20, 90);
+      halo.addColorStop(0, `rgba(255, 215, 120, ${.28 + .08 * Math.sin(tt * 3)})`); halo.addColorStop(1, 'rgba(255, 215, 120, 0)');
+      ctx.fillStyle = halo; ctx.fillRect(x - 90, actor.y + offsetY - 110, 180, 180);
     }
     const [width, height] = pose.cell, [anchorX, anchorY] = pose.anchor;
     ctx.save();

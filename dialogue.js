@@ -3,10 +3,10 @@
 // Affichage des répliques : une ligne « Nom : « texte » » devient une bulle avec le nom et un visage. La voix de Tiamat est une voix
 // intérieure : bulle violette en italique, avec la pierre bleue, jamais un visage. Les inconnus ont une silhouette. Le récit n'a ni nom ni visage.
 const portraitArt = {};
-const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant'];
-const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2' };
+const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant', 'remi-neutre', 'felix-neutre', 'ishara-course-neutre', 'ishara-course-sourire', 'ishara-course-inquiete'];
+const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2', 'Rémi': 'remi', 'Félix': 'felix' };
 // « Nom[expression] : « texte » » ; l'expression est facultative (neutre par défaut).
-const speakerPattern = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
+const speakerPattern = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
 
 function loadPortraits() {
   if (typeof Image === 'undefined') return;
@@ -14,7 +14,7 @@ function loadPortraits() {
     const image = new Image();
     image.onload = () => { portraitArt[name] = image; };
     image.onerror = () => { portraitArt[name] = null; };
-    image.src = `assets/portraits/${name}.png?v=49`;
+    image.src = `assets/portraits/${name}.png?v=58`;
   }
 }
 
@@ -30,7 +30,9 @@ function drawPortrait(who, expression) {
   const size = canvas.width;
   pen.clearRect(0, 0, size, size);
   const base = portraitBase[who];
-  const image = base && (portraitArt[`${base}-${expression}`] || portraitArt[`${base}-neutre`]);
+  // En tenue de course, Ishara a son propre visage  ; les autres expressions gardent l'ancien dessin.
+  const course = base === 'ishara' && isharaOutfit === 'course' && (portraitArt[`ishara-course-${expression}`] || portraitArt['ishara-course-neutre', 'ishara-course-sourire', 'ishara-course-inquiete']);
+  const image = course || (base && (portraitArt[`${base}-${expression}`] || portraitArt[`${base}-neutre`]));
   if (image) {
     pen.fillStyle = '#2b3347'; pen.fillRect(0, 0, size, size);
     pen.drawImage(image, 0, 0, size, size);
