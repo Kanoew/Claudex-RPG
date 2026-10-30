@@ -18,6 +18,7 @@ function updateHud() {
   const chip = document.getElementById('level-chip');
   if (chip) { chip.hidden = !abyssReached; hudText('level-chip', `NIV. ${playerLevel}`); }
   updateBagHud();
+  updateFreeHud();
   const app = document.getElementById('app');
   if (app) app.classList.toggle('prologue', !abyssReached);
   hudMeter('hp-meter', player.hp, player.maxHp);
