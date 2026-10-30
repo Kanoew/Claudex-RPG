@@ -14,10 +14,10 @@ const monsterClips = {
   insecte: { cell: [211, 148], anchor: [105, 132], stand: 100, reach: 100, walk: [0, 1, 2, 3], walkSeconds: .09, windup: 4, strike: 5, hurt: 6, strikeSeconds: .2 },
   rampant: { cell: [211, 148], anchor: [105, 132], stand: 85, reach: 100, walk: [0, 1, 2, 3], walkSeconds: .13, windup: 4, strike: 5, hurt: 6, strikeSeconds: .2 },
   crabe: { cell: [211, 148], anchor: [105, 132], stand: 72, reach: 100, walk: [0, 1, 2, 3], walkSeconds: .17, windup: 4, strike: 5, hurt: 6, strikeSeconds: .2 },
-  // Trois monstres de profil, animés par transformations (bande fabriquée par convertir-packs.py ; cases de 260 x 190, pieds à 172).
-  rouge: { cell: [260, 190], anchor: [130, 172], stand: 108, reach: 116, walk: [0, 1, 2, 3], walkSeconds: .11, windup: 4, strike: 5, hurt: 6, strikeSeconds: .2 },
-  golem: { cell: [260, 190], anchor: [130, 172], stand: 140, reach: 150, walk: [0, 1, 2, 3], walkSeconds: .2, windup: 4, strike: 5, hurt: 6, strikeSeconds: .3 },
-  tatou: { cell: [260, 190], anchor: [130, 172], stand: 80, reach: 92, walk: [0, 1, 2, 3], walkSeconds: .12, windup: 4, strike: 5, hurt: 6, strikeSeconds: .2 },
+  // Homme rouge, golem, tatou (pack de 12 cases de 211 x 148) : 0 à 3 marche, 4 à 7 attaque (4 annonce, 6 impact), 8 et 9 dégâts, 10 et 11 défaite.
+  rouge: { cell: [211, 148], anchor: [105, 132], stand: 100, reach: 112, walk: [0, 1, 2, 3], walkSeconds: .12, windup: 4, strike: 6, hurt: 8, strikeSeconds: .2 },
+  golem: { cell: [211, 148], anchor: [105, 132], stand: 108, reach: 132, walk: [0, 1, 2, 3], walkSeconds: .19, windup: 4, strike: 6, hurt: 8, strikeSeconds: .3 },
+  tatou: { cell: [211, 148], anchor: [105, 132], stand: 75, reach: 90, walk: [0, 1, 2, 3], walkSeconds: .13, windup: 4, strike: 6, hurt: 8, strikeSeconds: .2 },
   spider: { cell: [224, 168], anchor: [112, 158], stand: 125, reach: 125, walk: [0, 1, 2, 3], walkSeconds: .1, windup: 4, strike: 5, hurt: 6, blinded: 7, incapacitated: 8, strikeSeconds: .22 }
 };
 const monsterArt = { strips: {} };
@@ -28,7 +28,7 @@ function loadMonsterArt() {
     const image = new Image();
     image.onload = () => { monsterArt.strips[name] = image; };
     image.onerror = () => { monsterArt.strips[name] = null; };
-    image.src = `assets/monsters/${name}.png?v=63`;
+    image.src = `assets/monsters/${name}.png?v=64`;
   }
 }
 
