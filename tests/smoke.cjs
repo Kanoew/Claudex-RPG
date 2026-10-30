@@ -381,7 +381,7 @@ const tests = [
     assert.equal(g.yardenFrame('running-left', .84), 7);
     assert.equal(g.yardenFrame('walk-down', .89), 0);
     // Toutes les bandes chargées : une seule image dessinée, sans retournement, collisions inchangées.
-    assert(Object.keys(g.yardenArt.strips).length === 14 && Object.values(g.yardenArt.strips).every(Boolean));
+    assert(Object.keys(g.yardenArt.strips).length === 22 && Object.values(g.yardenArt.strips).every(Boolean));
     const hitbox = JSON.stringify([g.player.x, g.player.y, g.player.radius]);
     g.calls.length = 0;
     g.draw();

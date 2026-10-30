@@ -36,3 +36,18 @@ Seul ce dossier exports est destiné à une éventuelle copie dans le dépôt.
 
 Aucune scène ni ressource existante n'a été remplacée. La scène du soutien-gorge
 reste inchangée dans le jeu ; ce pack prépare uniquement les nouvelles tenues.
+
+MARCHES AJOUTEES
+Pour chacune des deux tenues : walk-left (gauche), walk-right (droite),
+walk-down (face) et walk-up (dos), dessinées séparément sans miroir.
+Quatre cases par bande ; 150 ms par case ; boucle de 600 ms.
+Petits exports : 384 x 104 pixels, cases de 96 x 104, ancrage (48,101).
+Grands exports suffixés -211x148 : 844 x 148 pixels, ancrage (105,132).
+Les repos précédents restent dans le pack.
+
+Les nouvelles marches ont QUATRE cases, pas les huit des anciennes marches
+verticales de Yarden : utiliser le manifeste pour configurer leur raccordement.
+Aucune marche n'est produite en retournant sa direction opposée.
+La main gauche tient la serviette ; les tatouages restent au bras droit,
+avec occultation naturelle selon l'angle.
+Les nouveaux GIF se trouvent dans apercus ; les originaux restent dans sources.

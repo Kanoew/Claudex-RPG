@@ -43,7 +43,13 @@ function loadYardenArt() {
     const image = new Image();
     image.onload = () => { yardenArt.strips['outfit:' + name] = image; };
     image.onerror = () => { yardenArt.strips['outfit:' + name] = null; };
-    image.src = `assets/yarden/${name}-idle.png?v=67`;
+    image.src = `assets/yarden/${name}-idle.png?v=68`;
+    for (const direction of ['left', 'right', 'up', 'down']) {
+      const walk = new Image();
+      walk.onload = () => { yardenArt.strips[`outfit:${name}:${direction}`] = walk; };
+      walk.onerror = () => { yardenArt.strips[`outfit:${name}:${direction}`] = null; };
+      walk.src = `assets/yarden/${name}-walk-${direction}.png?v=68`;
+    }
   }
 }
 
@@ -154,8 +160,12 @@ function tintedYardenStrip(clip, strip, color, alpha) {
 }
 
 // Yarden en serviette ou en t-shirt gris : repos clignant, sans cycle de marche (aucune bande de marche n'existe pour ces tenues).
-function drawYardenOutfit(screenX, screenY, strip) {
-  const { cell: [width, height], anchor: [anchorX, anchorY], durations } = yardenClips.idle;
+function drawYardenOutfit(screenX, screenY, idleStrip) {
+  const { cell: [width, height], anchor: [anchorX, anchorY], durations: idleDurations } = yardenClips.idle;
+  // En marche : la bande de la direction (quatre cases, 150 ms) ; sinon le repos qui cligne.
+  const direction = yardenSprite.axis === 'v' ? (yardenSprite.vertical === 'up' ? 'up' : 'down') : (yardenSprite.side === 'left' ? 'left' : 'right');
+  const walk = yardenSprite.moving && yardenArt.strips[`outfit:${yardenOutfit}:${direction}`];
+  const strip = walk || idleStrip, durations = walk ? [150, 150, 150, 150] : idleDurations;
   const { scale, stand } = yardenCell;
   const groundY = screenY + player.radius;
   ctx.fillStyle = '#00000066';
