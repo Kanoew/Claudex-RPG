@@ -95,6 +95,8 @@ Fin de test : soit ce donjon est jouable, soit on sait précisément pourquoi c'
 
 ## 8. Journal (à compléter après chaque étape)
 
+30 octobre 2026 — Premier pack d’Izzy et de Céleste dans `docs/art/personnages-a-venir/premier-pack/` : trois portraits chacune (neutre, sourire, puis narquoise pour Izzy / alerte pour Céleste) et un repos de face par personnage. Repos en cases 211 × 148, ancrage (105,132), hauteur debout de 100 px ; portraits individuels 256 × 256 et bandes par personnage. Corps raccourcis, têtes agrandies pour rejoindre Ishara, contour lilas retiré ; V de Céleste remonté et fente placée à droite anatomique. Fonds verts opaques, sources, manifeste et aperçu. Ressources seules, sans ajout de scène ni raccordement au moteur.
+
 29 octobre 2026 — Onze portraits de dialogue dans `docs/art/portraits-dialogue/` : quatre expressions de Yarden aux yeux violets, trois d’Ishara et deux pour chaque inconnu. Fichiers individuels 256 × 256 et bandes par personnage, fond vert opaque, aucun miroir ni portrait de Tiamat. Les durées du manifeste servent à feuilleter les expressions statiques dans l’aperçu. Les quatre packs complémentaires totalisent 55 cases ; dimensions, durées, ancrages, marges et vert des exports contrôlés, quatre aperçus vérifiés dans le navigateur. Aucun changement du moteur ; détourage et intégration restent à réaliser.
 
 29 octobre 2026 — Deux danseurs de fête en chibi dans `docs/art/ruelle/danseurs/` : six poses de face chacun, boucle douce, cases 128 × 148 et ancrage (64,132), hauteur debout visée de 100 px. Tenues validées : fille en robe rouge aux cheveux noirs attachés ; garçon en t-shirt pêche, pantalon brun et cheveux noirs courts. Sources vertes, manifeste et aperçu, sans raccordement au moteur.
@@ -367,3 +369,6 @@ Références de travail dans `docs/art/personnages-a-venir/` (`izzy-facade-chibi
 - Izzy façade : garder tatouage à gauche, bijoux, palette rouge, noir, or. Le halo et les manchettes dorées appartiennent à la tenue de combat.
 
 **Premier pack à demander** : pour chacune, trois portraits (neutre, sourire, une expression forte, à choisir par Jordan) et un repos de face. Les références sont sur la branche `ccr-7c0e09b8-1rbfts`, pas encore sur `main` tant que la pull request n'est pas fusionnée.
+
+
+**Premier pack préparé (30 octobre 2026).** Ressources dans `docs/art/personnages-a-venir/premier-pack/` : les originaux ci-dessus restent les références de départ. Expressions fortes retenues pour cette livraison : sourire en coin narquois et un sourcil levé pour Izzy ; inquiétude pressée, essoufflée et alerte pour Céleste. Deux repos statiques de face à environ 100 px de haut et six portraits statiques 256 × 256, sans miroir. Les corrections de proportions et de tenue ci-dessus sont appliquées aux nouvelles ressources. Aucun halo ou manchette pour Izzy façade. Fonds verts opaques avec manifeste et aperçu ; détourage, raccordement et apparition dans une scène restent à réaliser. La date d’entrée d’Izzy dans le jeu n’est pas fixée ici.
