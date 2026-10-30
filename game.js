@@ -184,7 +184,8 @@ loadWeaponArt();
 if (typeof location !== 'undefined' && /[?&]skip\b/.test(location.search)) skipOpening(); else { titleBackdrop(); openMenu('title'); }
 requestAnimationFrame(frame);
 
-document.getElementById('story-next').addEventListener('click', advanceStory);
+// Un appui qui suit de près l'ouverture du texte est ignoré : le pouce visait « Examiner », pas « Continuer ».
+document.getElementById('story-next').addEventListener('click', () => { if (Date.now() - storyShownAt < 300) return; advanceStory(); });
 const interactButton = document.getElementById('interact');
 interactButton.addEventListener('pointerdown', event => {
   if (event.pointerType === 'mouse' && event.button !== 0) return;

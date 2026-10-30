@@ -99,14 +99,14 @@ def export_chapter2b(art):
     ref = (idle[0][2] - idle[0][1])
     for r, name in enumerate(names):
         cells = alpha_cells(sheet, [(c * cw, r * rh, (c + 1) * cw, (r + 1) * rh) for c in range(4)], 1)
-        # une seule échelle pour toutes les bandes : la case de repos mesure 104 px
-        scale = 104 / ref
+        # une seule échelle pour toutes les bandes : la case de repos mesure 92 px
+        scale = 92 / ref
         cells[0] = cells[0]
         place_scaled(cells, scale, 140, 115, (70, 111), 'assets/npcs/ishara/course/' + name + '.png')
     for name, cell_w in [('remi-comptoir', 120), ('felix-bureau', 120)]:
         rgba = key(art + 'ch2b/' + name.replace('remi-comptoir', 'remi-comptoir').replace('felix-bureau', 'felix-bureau') + '.webp')
         cells = alpha_cells(rgba, [(c * 500, 0, (c + 1) * 500, 667) for c in range(4)], 1)
-        place(cells, 118, cell_w, 124, (cell_w // 2, 120), 'assets/npcs/' + ('remi' if name.startswith('remi') else 'felix') + '/' + name + '.png')
+        place(cells, 100, cell_w, 124, (cell_w // 2, 120), 'assets/npcs/' + ('remi' if name.startswith('remi') else 'felix') + '/' + name + '.png')
     busts = key(art + 'ch2b/portraits-ishara-remi-felix.webp')
     extra = key(art + 'ch2b/portraits-ishara-course-expressions.webp')
     half = extra.shape[1] // 2

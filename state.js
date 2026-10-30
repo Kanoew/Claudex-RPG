@@ -42,6 +42,7 @@ let credits = 0;
 const bag = [];
 let scytheFreed = false;
 // Chapitre 3 : la dette envers Félix et le nom sur les papiers.
+let storyShownAt = 0;
 let debt = 0;
 let identityName = '';
 let isharaOutfit = 'soiree';

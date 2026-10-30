@@ -3,7 +3,7 @@
 // Décors du chapitre 2 (le lendemain matin) : l'impasse, le run en Abysse, la rue Marterey, le comptoir de Rémi, le 4B et son escalier.
 // Tout est dessiné en code, dans des rectangles qui suivent les collisions. Plans, couleurs et détails sont inventés à minima ;
 // les éléments canon sont dans PROJECT.md (sections 27 à 29).
-const ch2b = { shutterAt: 0, slate: '', buff: false, paperStillAt: 0 };
+const ch2b = { shutterAt: 0, slate: '', buff: false, paperStillAt: 0, riftAt: 0, goalText: '' };
 
 function ch2bRect(offsetX, offsetY) {
   return (x, y, w, h, color) => { ctx.fillStyle = color; ctx.fillRect(x + offsetX, y + offsetY, w, h); };
@@ -24,9 +24,17 @@ themeDrawers.impasse = {
     rect(-170, -90, 340, 8, '#6b6a72');
     // Le rectangle d'air distordu : presque invisible en plein jour, juste un léger tremblement.
     const t = mirrorNow(), x0 = 18 + offsetX, y0 = -190 + offsetY;
+    // Avant la révélation, le tremblement est à peine visible ; ensuite la faille s'ouvre, violette, en un peu plus d'une seconde.
+    const open = ch2b.riftAt ? Math.min(1, (t - ch2b.riftAt) / 1.2) : 0;
+    if (open > 0) {
+      const gx = x0 + 23, gy = y0 + 48, glow = ctx.createRadialGradient(gx, gy, 4, gx, gy, 20 + 70 * open);
+      glow.addColorStop(0, `rgba(190, 150, 255, ${.55 * open})`); glow.addColorStop(1, 'rgba(190, 150, 255, 0)');
+      ctx.fillStyle = glow; ctx.fillRect(gx - 100, gy - 100, 200, 200);
+      ctx.fillStyle = `rgba(60, 30, 120, ${.5 * open})`; ctx.fillRect(x0 - 2, y0, 50, 96 * open);
+    }
     ctx.save();
-    ctx.globalAlpha = .16 + .05 * Math.sin(t * 2.4);
-    ctx.strokeStyle = '#dfe8ff'; ctx.lineWidth = 2;
+    ctx.globalAlpha = .08 + .04 * Math.sin(t * 2.4) + .7 * open;
+    ctx.strokeStyle = open ? '#d8c2ff' : '#dfe8ff'; ctx.lineWidth = 2;
     ctx.beginPath();
     for (let i = 0; i <= 8; i++) { const yy = y0 + i * 12, wob = Math.sin(t * 3 + i) * 2; ctx.lineTo(x0 + wob, yy); }
     for (let i = 8; i >= 0; i--) { const yy = y0 + i * 12, wob = Math.sin(t * 3 + i + 2) * 2; ctx.lineTo(x0 + 46 + wob, yy); }
@@ -151,7 +159,7 @@ themeDrawers.sousgare = {
   tint: ['#00000000', '#00000012', '#0a0a1438'],
   floor(offsetX, offsetY) {
     const rect = ch2bRect(offsetX, offsetY);
-    rect(-260, -200, 520, 380, '#4d4d55');
+    rect(-260, -330, 520, 510, '#4d4d55');
     rect(-260, -70, 520, 60, '#a8a296');
     ctx.strokeStyle = '#00000022'; for (let x = -260; x < 260; x += 52) { ctx.beginPath(); ctx.moveTo(x + offsetX, -70 + offsetY); ctx.lineTo(x + offsetX, -10 + offsetY); ctx.stroke(); }
     rect(-260, -10, 520, 6, '#c2bcae');
@@ -161,16 +169,22 @@ themeDrawers.sousgare = {
     ctx.save();
     if (index < 4) fill('#15131a', 0, 0, w, h);
     else {
-      // Façade impeccable : pierre crème, fenêtres alignées, géraniums rouges au deuxième étage, porte et digicode.
+      // Façade impeccable de quatre étages : pierre crème, fenêtres alignées, géraniums rouges au deuxième étage, porte et digicode.
       fill('#e3d9c0', 0, 0, w, h); fill('#c9bea2', 0, h - 12, w, 12); fill('#f1e9d4', 0, 0, w, 8);
-      for (let i = 0; i < 6; i++) {
-        const wx = 26 + i * 84; if (wx > 220 && wx < 300) continue;
-        fill('#4a4a52', wx - 3, 18, 44, 60); fill('#f3e2a8', wx, 22, 38, 52); fill('#4a4a52', wx + 18, 22, 2, 52);
-        fill('#3f6b3a', wx - 4, 70, 46, 8);
-        for (let j = 0; j < 6; j++) fill('#d9304a', wx - 2 + j * 8, 66, 5, 5);
+      const floorH = 62;
+      for (let f = 0; f < 4; f++) {
+        const fy = h - 12 - (f + 1) * floorH + 8 + (f === 0 ? 0 : 0);   // f = 0 : rez ; 1 : premier ; 2 : deuxième ; 3 : troisième
+        fill('#d2c7aa', 0, fy + floorH - 8, w, 4);                         // corniche entre les étages
+        for (let i = 0; i < 6; i++) {
+          const wx = 26 + i * 84; if (f === 0 && wx > 220 && wx < 300) continue;
+          if (f === 0) { fill('#4a4a52', wx - 3, fy + 8, 44, 38); fill('#6c6f78', wx, fy + 12, 38, 30); continue; }
+          fill('#4a4a52', wx - 3, fy + 6, 44, 46); fill('#f3e2a8', wx, fy + 10, 38, 38); fill('#4a4a52', wx + 18, fy + 10, 2, 38);
+          if (f === 2) { fill('#3f6b3a', wx - 5, fy + 44, 48, 9); for (let j = 0; j < 6; j++) fill('#d9304a', wx - 3 + j * 8, fy + 39, 5, 6); }
+        }
       }
-      fill('#3a3a42', 238, 36, 44, 88); fill('#55555f', 242, 40, 36, 84); fill('#d9b24a', 270, 82, 4, 4);
-      fill('#22222a', 296, 66, 14, 24); fill('#8a8a95', 299, 70, 8, 4); fill('#8a8a95', 299, 77, 8, 4); fill('#8a8a95', 299, 84, 8, 4);
+      const doorY = h - 12 - 88;
+      fill('#3a3a42', 238, doorY, 44, 88); fill('#55555f', 242, doorY + 4, 36, 84); fill('#d9b24a', 270, doorY + 46, 4, 4);
+      fill('#22222a', 296, doorY + 30, 14, 24); fill('#8a8a95', 299, doorY + 34, 8, 4); fill('#8a8a95', 299, doorY + 41, 8, 4); fill('#8a8a95', 299, doorY + 48, 8, 4);
     }
     ctx.restore();
   }
@@ -263,18 +277,33 @@ themeDrawers.escalier = {
   tint: ['#00000000', '#0a081410', '#0a0814a0'],
   floor(offsetX, offsetY) {
     const rect = ch2bRect(offsetX, offsetY);
-    rect(-90, -640, 180, 900, '#6e6a66');
+    rect(-90, -640, 180, 900, '#3a3733');
+    // Chaque marche : le dessus (clair), son arête qui accroche la lumière, puis la contremarche dans l'ombre.
     for (let y = -640; y < 260; y += 22) {
-      rect(-90, y, 180, 20, '#7a7672'); rect(-90, y + 18, 180, 3, '#4a4642');
-      rect(-40, y + 2, 80, 16, '#8d8985');   // le creux au centre, usé par les pas
+      rect(-70, y, 140, 13, '#8c8782');           // dessus
+      rect(-70, y, 140, 2, '#b3aea8');            // arête éclairée
+      rect(-70, y + 13, 140, 9, '#4d4945');       // contremarche
+      rect(-70, y + 19, 140, 3, '#2f2c29');       // ombre portée
+      rect(-34, y + 3, 68, 8, '#767170');         // creux au centre, usé par les pas
     }
-    // Paliers : un par étage, tous les 225 pixels.
-    for (let f = 0; f < 4; f++) rect(-90, 200 - f * 225 - 20, 180, 18, '#5a5652');
+    // Paliers : un par étage, une dalle plus large avec une porte sur le côté.
+    for (let f = 0; f < 4; f++) {
+      const ly = 200 - f * 225;
+      rect(-70, ly - 24, 140, 26, '#a39e98'); rect(-70, ly - 24, 140, 3, '#c4bfb9'); rect(-70, ly + 2, 140, 3, '#2f2c29');
+      if (f > 0) { rect(-68, ly - 22, 14, 20, '#52412f'); rect(-66, ly - 20, 10, 16, '#6b543b'); }
+    }
+    // Murs de pierre à gauche, mur et rampe de bois à droite.
+    for (let y = -640; y < 260; y += 18) {
+      rect(-90, y, 20, 18, y % 36 === 0 ? '#57534e' : '#4a4642'); rect(-90, y, 20, 1, '#2f2c29');
+      rect(70, y, 20, 18, y % 36 === 0 ? '#4a4642' : '#57534e'); rect(70, y, 20, 1, '#2f2c29');
+    }
+    rect(60, -640, 4, 900, '#6b4a2e');
+    for (let y = -640; y < 260; y += 22) rect(59, y + 4, 6, 6, '#4f3520');
     // Plus on monte, plus l'air est lourd : voile sombre et violacé qui s'épaissit.
     const progress = Math.max(0, Math.min(1, (200 - player.y) / 820));
     ctx.fillStyle = `rgba(30, 14, 60, ${progress * .5})`;
     ctx.fillRect(-90 + offsetX, -640 + offsetY, 180, 900);
-    // La porte du 4B, entrouverte, en haut : lumière chaude.
+    // La porte du 4B, en haut : lumière chaude.
     rect(-30, -640, 60, 20, '#2a2118');
     const spill = ctx.createLinearGradient(0, -640 + offsetY, 0, -520 + offsetY);
     spill.addColorStop(0, 'rgba(255, 207, 138, .7)'); spill.addColorStop(1, 'rgba(255, 207, 138, 0)');

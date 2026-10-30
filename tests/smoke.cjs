@@ -296,9 +296,10 @@ const tests = [
       maxBag = Math.max(maxBag, g.bag.length);
       if (g.story.active) { g.advanceStory(); continue; }
       if (g.scene.free) {
-        if (g.currentZone.id === 'impasse') Object.assign(g.player, { x: 41, y: -150 });
+        if (g.currentZone.id === 'impasse') Object.assign(g.player, g.chapter2b.runDone ? { x: -100, y: 145 } : { x: 41, y: -150 });
         else if (g.currentZone.id === 'escalier') Object.assign(g.player, { x: 0, y: g.player.y - 40 });
-        else if (g.currentZone.id === 'quartier') Object.assign(g.player, { x: 0, y: -50 });
+        else if (g.currentZone.id === 'comptoir') Object.assign(g.player, { x: 0, y: -25 });
+        else if (g.currentZone.id === 'quartier') Object.assign(g.player, g.home.stage === 'matin' ? { x: -230, y: 170 } : { x: 0, y: -50 });
       }
       if (g.currentZone.id === 'run' && !g.scene.active) for (const enemy of g.zoneEnemies.run) enemy.hp = 0;
       g.update(.05);
@@ -898,8 +899,8 @@ const tests = [
       if (g.story.active) { said.push(g.story.current); if (g.scene.mirror) { framed = true; g.draw(); } g.advanceStory(); } else g.update(.05);
     }
     assert(g.home.stage === 'nuit' && g.scene.mirror === null && framed);
-    assert(said.some(line => line.includes('problème de géométrie angulaire')) && said.some(line => line.includes('Demain matin, on voit')), 'Le soutien-gorge, sans rien montrer');
-    assert(!said.some(line => /soutien|crochet/i.test(line)), 'Rien d’explicite : seulement le problème de géométrie angulaire');
+    assert(said.some(line => line.includes('problème d’agrafe')) && said.some(line => line.includes('On verra demain')), 'Le soutien-gorge, sans rien montrer');
+    assert(!said.some(line => /nue|seins|poitrine/i.test(line)), 'Rien d’explicite : seulement le problème d’agrafe');
     const all = said.join('\n');
     assert(all.includes('« ...C’est acceptable. »'));
     assert(all.includes('des yeux violets'), 'Yeux violets dans la version jeu');
@@ -916,12 +917,12 @@ const tests = [
     g.useInteract();
     const said = [];
     let dark = false, tattoo = false;
-    for (let guard = 0; guard < 600 && !(g.scene.free && g.currentZone.id === 'impasse'); guard++) {
+    for (let guard = 0; guard < 600 && !(g.scene.free && g.currentZone.id === 'quartier'); guard++) {
       if (g.story.active) { said.push(g.story.current); if (g.scene.dark) dark = true; if (g.scene.tattoo) { tattoo = true; g.draw(); } g.advanceStory(); } else g.update(.05);
     }
-    assert(g.currentZone.id === 'impasse' && dark && tattoo && g.scene.dark === null && g.scene.tattoo === null);
+    assert(g.currentZone.id === 'quartier' && dark && tattoo && g.scene.dark === null && g.scene.tattoo === null);
     const all = said.join('\n');
-    for (const part of ['Pathétique', 'Ergonomique', 'Plusieurs organisations', 'Coût d’invocation : zéro', 'parquet']) assert(all.includes(part), part);
+    for (const part of ['Pathétique', 'Ergonomique', 'Plusieurs organisations', 'parquet']) assert(all.includes(part), part);
     assert(!all.includes('Jordan'));
   }],
   ['Run en Abysse : sept gobelins de niveau 15 à 19, sauteur, fuyard, Ishara derrière, aucune expérience', () => {
@@ -935,9 +936,12 @@ const tests = [
     assert(run[2].charger);
     assert.equal(run[6].kind, 'fuyard', 'Le septième fuit');
     g.startScene(g.impasseScript());
-    for (let guard = 0; guard < 80 && !(g.scene.free && g.currentZone.id === 'impasse'); guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
+    for (let guard = 0; guard < 80 && !(g.scene.free && g.currentZone.id === 'quartier'); guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
+    Object.assign(g.player, { x: -230, y: 170 });
+    for (let guard = 0; guard < 200 && !(g.scene.free && g.currentZone.id === 'impasse'); guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
+    assert.equal(g.currentZone.id, 'impasse', 'On marche jusqu’à l’impasse');
     Object.assign(g.player, { x: 41, y: -150 });
-    for (let guard = 0; guard < 80 && g.currentZone.id !== 'run'; guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
+    for (let guard = 0; guard < 200 && g.currentZone.id !== 'run'; guard++) { if (g.story.active) g.advanceStory(); else g.update(.05); }
     assert.equal(g.currentZone.id, 'run');
     assert(g.player.armed && g.scene.active === false);
     // Ishara suit Yarden à trois mètres au plus.
@@ -1329,6 +1333,19 @@ const tests = [
     assert(!g.elements['map-panel'].hidden && g.stats.open);
     g.closeMap();
     assert(g.elements['map-panel'].hidden && !g.stats.open);
+    // Les rues se suivent : par le bord est, quartier -> Marterey -> Sous-gare, et retour par l'ouest.
+    Object.assign(g.player, { x: 240, y: 150 });
+    g.updateFree();
+    assert.equal(g.currentZone.id, 'marterey');
+    Object.assign(g.player, { x: 240, y: 100 });
+    g.updateFree();
+    assert.equal(g.currentZone.id, 'sousgare');
+    Object.assign(g.player, { x: -240, y: 100 });
+    g.updateFree(); g.updateFree();
+    assert.equal(g.currentZone.id, 'marterey');
+    Object.assign(g.player, { x: -240, y: 100 });
+    g.updateFree();
+    assert.equal(g.currentZone.id, 'quartier');
     const seen = new Set();
     for (let round = 0; round < 6; round++) {
       Object.assign(g.player, { x: g.freeSpots.quartier.x, y: g.freeSpots.quartier.y });

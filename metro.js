@@ -42,7 +42,7 @@ function drawSceneMetro() {
   ctx.fillStyle = '#5c372b'; ctx.fillRect(width - 90, floorY - 82, 90, 14);
   // Les deux personnages, un peu penchés par le mouvement.
   const scale = yardenCell.scale * 2.3, lean = Math.sin(t * 1.8) * .025;
-  const yarden = yardenArt.strips.idle, ishara = sceneArt.strips['ishara/idle'];
+  const yarden = yardenArt.strips.idle, ishara = sceneArt.strips[isharaOutfit === 'course' ? 'course/idle' : 'ishara/idle'];
   const place = (strip, cell, anchor, frame, x, flip) => {
     if (!strip) return;
     ctx.save();
@@ -53,6 +53,7 @@ function drawSceneMetro() {
     ctx.restore();
   };
   place(yarden, [96, 104], [48, 101], Math.floor(t * 1.3) % 6, width * .5 - 70, false);
-  place(ishara, [86, 115], [43, 111], Math.floor(t * 1.1) % 4, width * .5 + 50, false);
+  if (isharaOutfit === 'course') place(ishara, [140, 115], [70, 111], Math.floor(t * 1.1) % 4, width * .5 + 50, false);
+  else place(ishara, [86, 115], [43, 111], Math.floor(t * 1.1) % 4, width * .5 + 50, false);
   ctx.restore();
 }

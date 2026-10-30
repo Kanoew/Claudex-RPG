@@ -10,7 +10,7 @@ const deep = () => new Proxy(function () {}, {
   get: (_, key) => key === Symbol.toPrimitive ? () => 0 : key === 'length' ? 0 : deep(),
   apply: () => deep(), construct: () => deep(), set: () => true
 });
-const context = vm.createContext({ document: deep(), window: deep(), ResizeObserver: class { observe() {} }, requestAnimationFrame() {}, setInterval() { return 0; }, location: { search: '?skip' } });
+const context = vm.createContext({ document: deep(), window: deep(), ResizeObserver: class { observe() {} }, MutationObserver: class { observe() {} }, requestAnimationFrame() {}, setInterval() { return 0; }, location: { search: '?skip' } });
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const files = [...html.matchAll(/<script src="([a-z0-9-]+\.js)/g)].map(match => match[1]);
 for (const file of files) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });

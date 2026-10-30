@@ -52,7 +52,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « Dedans, c’est l’Abysse : un autre endroit, avec ses créatures, et un temps un peu de travers. »
 - **Ishara (sourire)** : « Ce qu’on en ramène, ça se revend. C’est comme ça que je paye mon loyer. »
 - **Yarden** : « D’accord. »
-- Devant l’immeuble d’Ishara. Haussmannien, un peu fatigué, la façade encore belle.
+- Devant l’immeuble d’Ishara : un haussmannien un peu fatigué, mais encore beau.
 - Ishara sort ses clés. La porte s’ouvre.
 - Troisième étage. Ishara jette ses clés sur le comptoir en rentrant.
 - **Ishara (sourire)** : « Thé ? »
@@ -93,13 +93,19 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - *Les tatouages luisent (la faux)*
 - Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.
 - **Tiamat** : « Tes tatouages sont le vecteur de la faux. »
-- **Tiamat** : « Coût d’invocation : zéro. »
 - Au matin : du café, et des courbatures.
 - *Carte plein écran : Dimanche matin*
+- Dimanche matin. Les rues sont presque vides.
 - Une impasse derrière un pressing fermé : c’est dimanche.
 - Dans l’air, un rectangle légèrement distordu, presque invisible en plein jour.
-- **Yarden** : « Niveau estimé : 16, 17. Espace restreint. Probablement du territorial. »
-- **Ishara** : « Je reste derrière toi. »
+- **Yarden** : « Niveau estimé 16-17, il s’agit d’un espace restreint. »
+- **Ishara (inquiete)** : « Hein, quoi ?! »
+- **Ishara (inquiete)** : « Comment ?! »
+- **Ishara** : « Je t’accompagne, ou je reste derrière toi ? »
+- **Yarden** : « Derrière. »
+- **Ishara** : « Tu es de quel niveau, au juste ? »
+- **Yarden** : « Vingt-quatre. »
+- **Ishara (inquiete)** : « ...D’accord. Derrière toi, alors. »
 
 ## Le miroir, puis le soutien-gorge d’Ishara
 
@@ -124,26 +130,34 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Un visage qu’elle respecterait, en face.
 - **Yarden (souriante)** : « ...C’est acceptable. »
 - **Tiamat** : « Je sais. »
-- **Yarden** : « Ishara. J’ai un problème de géométrie angulaire. »
+- *Carte plein écran : La douche*
+- Trente secondes de froid. Puis l’eau devient chaude, presque trop.
+- **Yarden** : « Ishara. J’ai un problème d’agrafe : le soutien-gorge ne veut pas se fermer. »
 - **Ishara (sourire)** : « Tourne-toi. »
 - **Ishara** : « Voilà. Deux secondes. »
 - **Ishara (inquiete)** : « Et toi, ça va ? Vraiment ? »
-- **Yarden** : « Tout est récent. J’avais rien anticipé. »
+- **Yarden** : « Euh... oui, oui. »
 - **Ishara** : « Tiens, un t-shirt gris et un short. Le lit est propre. »
-- **Ishara (sourire)** : « Demain matin, on voit. »
+- **Yarden** : « On verra demain. »
 
 ## Le lendemain matin : l’impasse et la faille
 
+- Dimanche matin. Les rues sont presque vides.
 - Une impasse derrière un pressing fermé : c’est dimanche.
 - Dans l’air, un rectangle légèrement distordu, presque invisible en plein jour.
-- **Yarden** : « Niveau estimé : 16, 17. Espace restreint. Probablement du territorial. »
-- **Ishara** : « Je reste derrière toi. »
+- **Yarden** : « Niveau estimé 16-17, il s’agit d’un espace restreint. »
+- **Ishara (inquiete)** : « Hein, quoi ?! »
+- **Ishara (inquiete)** : « Comment ?! »
+- **Ishara** : « Je t’accompagne, ou je reste derrière toi ? »
+- **Yarden** : « Derrière. »
+- **Ishara** : « Tu es de quel niveau, au juste ? »
+- **Yarden** : « Vingt-quatre. »
+- **Ishara (inquiete)** : « ...D’accord. Derrière toi, alors. »
 
 ## Fin du run : le butin
 
 - Les sept créatures sont tombées. Ishara prélève les matériaux.
-- Quatre fragments cristallins de tailles variables, deux petites bourses de fibres : des griffes, de la chair dense de haut niveau.
-- Le plus gros fragment est de niveau 19, et sa coupe est propre.
+- Quatre fragments, deux bourses. Le plus gros : niveau 19, coupe propre.
 - Aucune expérience gagnée.
 - *Carte plein écran : Quarante minutes dedans, deux heures dehors.*
 - Rue Marterey, Lausanne. Dix heures.
@@ -163,7 +177,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - *Le métro (wagon animé)*
 - Le M2, direction Sous-gare.
 - Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
-- Des géraniums au deuxième étage.
+- Quatre étages, des fenêtres alignées. Des géraniums au deuxième.
 - Ishara compose le digicode.
 - La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
 - Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
@@ -262,7 +276,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - *Le métro (wagon animé)*
 - Le M2, direction Sous-gare.
 - Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
-- Des géraniums au deuxième étage.
+- Quatre étages, des fenêtres alignées. Des géraniums au deuxième.
 - Ishara compose le digicode.
 - La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
 - Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
@@ -359,7 +373,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - *Le métro (wagon animé)*
 - Le M2, direction Sous-gare.
 - Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
-- Des géraniums au deuxième étage.
+- Quatre étages, des fenêtres alignées. Des géraniums au deuxième.
 - Ishara compose le digicode.
 - La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
 - Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
@@ -442,7 +456,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 ## Le 4B : Sous-gare, la cour, l’escalier
 
 - Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
-- Des géraniums au deuxième étage.
+- Quatre étages, des fenêtres alignées. Des géraniums au deuxième.
 - Ishara compose le digicode.
 - La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
 - Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
