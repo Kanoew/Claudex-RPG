@@ -55,9 +55,11 @@ for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) {
   });
 }
 window.addEventListener('keydown', event => {
+  if (event.defaultPrevented) return;
+  if (typeof uxHandlesKeyboard === 'function' && uxHandlesKeyboard(event)) return;
   if (menu.open) return;
   if (story.active) {
-    if (event.key === 'Tab') { event.preventDefault(); document.getElementById('story-next').focus(); }
+    if (event.key === 'Tab' && typeof uxHandlesKeyboard !== 'function') { event.preventDefault(); document.getElementById('story-next').focus(); }
     if (['Enter', 'Space'].includes(event.code)) {
       event.preventDefault();
       if (!event.repeat) advanceStory();

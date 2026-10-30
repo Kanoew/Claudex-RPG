@@ -101,6 +101,7 @@ menuButtons.stats.addEventListener('click', () => { menuPanel.hidden = true; ope
 const pauseButton = document.getElementById('pause-button');
 pauseButton.addEventListener('click', () => { if (!menu.open && !combatOver) openMenu('pause'); else if (menu.open && menu.kind === 'pause') closeMenu(); });
 window.addEventListener('keydown', event => {
+  if (event.defaultPrevented) return;
   if (event.code === 'Escape' && !event.repeat && !combatOver && !(menu.open && menu.kind === 'title')) {
     event.preventDefault();
     if (menu.open && menu.view === 'settings') { showMenuView('main'); menuButtons.settings.focus(); } else if (menu.open) closeMenu(); else if (!story.active) openMenu('pause');

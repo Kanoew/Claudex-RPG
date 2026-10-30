@@ -40,8 +40,9 @@ function updateHud() {
 }
 
 function updateButtonHints() {
+  const tactile = typeof uxTouchMode === 'function' && uxTouchMode();
   const wait = time => `${time.toFixed(1).replace('.', ',')} s`;
-  hudText('attack-hint', !player.armed ? 'À récupérer' : scytheSealed() ? 'Scellée' : attack.cooldown > 0 ? wait(attack.cooldown) : 'Espace');
-  hudText('skill-hint', !player.armed ? 'À récupérer' : scytheSealed() ? 'Scellée' : skill.cooldown > 0 ? wait(skill.cooldown) : player.mana < skill.cost ? 'Mana insuffisant' : `${skill.cost} mana · E`);
-  hudText('dodge-hint', dodge.cooldown > 0 ? wait(dodge.cooldown) : 'Gratuite · Maj');
+  hudText('attack-hint', !player.armed ? 'À récupérer' : scytheSealed() ? 'Scellée' : attack.cooldown > 0 ? wait(attack.cooldown) : tactile ? 'Gratuite' : 'Espace');
+  hudText('skill-hint', !player.armed ? 'À récupérer' : scytheSealed() ? 'Scellée' : skill.cooldown > 0 ? wait(skill.cooldown) : player.mana < skill.cost ? 'Mana requis' : `${skill.cost} mana${tactile ? '' : ' · E'}`);
+  hudText('dodge-hint', dodge.cooldown > 0 ? wait(dodge.cooldown) : tactile ? 'Gratuite' : 'Gratuite · Maj');
 }
