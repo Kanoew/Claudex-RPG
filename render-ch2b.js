@@ -50,16 +50,16 @@ themeDrawers.impasse = {
 
 // ---------- Run en Abysse : roche sèche, lumière ocre, poussière en suspension ----------
 themeDrawers.ocre = {
-  tint: ['#3a200a00', '#3a200a22', '#2a1606a0'],
+  tint: ['#1c3a1000', '#1c3a1024', '#12220aa0'],
   floor(offsetX, offsetY) {
     const rect = ch2bRect(offsetX, offsetY);
-    rect(-470, -300, 940, 720, '#6a4a2c');
+    rect(-470, -300, 940, 720, '#56522e');
     ctx.strokeStyle = '#00000026'; ctx.lineWidth = 1;
     for (let x = -470; x < 470; x += 64) { ctx.beginPath(); ctx.moveTo(x + offsetX, -300 + offsetY); ctx.lineTo(x + offsetX + 20, 420 + offsetY); ctx.stroke(); }
     for (let y = -300; y < 420; y += 72) { ctx.beginPath(); ctx.moveTo(-470 + offsetX, y + offsetY); ctx.lineTo(470 + offsetX, y + offsetY + 12); ctx.stroke(); }
     // Poussière chaude qui flotte : l'élément d'ambiance.
     const t = mirrorNow();
-    ctx.fillStyle = '#ffd9a0';
+    ctx.fillStyle = '#e4efa8';
     for (let i = 0; i < 46; i++) {
       const px = -470 + ((i * 97 + t * (6 + i % 5)) % 940), py = -300 + ((i * 53 + Math.sin(t * .5 + i) * 18 + 720) % 720);
       ctx.globalAlpha = .12 + .1 * Math.sin(t + i);
@@ -72,10 +72,10 @@ themeDrawers.ocre = {
     ctx.save();
     if (wall.kind === 'pilier') {
       fill('#00000040', 5, 7, w, h);
-      fill('#7d5a38', 0, 0, w, h); fill('#9a7249', 4, 4, w - 8, 10); fill('#4f3722', 0, h - 8, w, 8);
-      ctx.strokeStyle = '#4f3722'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x + 14, y + 16); ctx.lineTo(x + 22, y + h - 14); ctx.stroke();
+      fill('#6b6a3c', 0, 0, w, h); fill('#8a8a4e', 4, 4, w - 8, 10); fill('#3f3f22', 0, h - 8, w, 8);
+      ctx.strokeStyle = '#3f3f22'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x + 14, y + 16); ctx.lineTo(x + 22, y + h - 14); ctx.stroke();
     } else {
-      fill('#3b2616', 0, 0, w, h); fill('#4a301c', 0, 0, w, Math.min(10, h)); fill('#2a190d', 0, h - 6, w, 6);
+      fill('#2f3220', 0, 0, w, h); fill('#3c4128', 0, 0, w, Math.min(10, h)); fill('#1d200f', 0, h - 6, w, 6);
       ctx.strokeStyle = '#2a190d'; ctx.lineWidth = 2;
       for (let i = 0; i < Math.min(5, w / 50); i++) { ctx.beginPath(); ctx.moveTo(x + 14 + i * 56, y + 14); ctx.lineTo(x + 30 + i * 56, y + Math.min(h - 10, 60)); ctx.stroke(); }
     }

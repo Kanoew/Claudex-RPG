@@ -12,10 +12,10 @@ function game(imageMode, keepOpening, store) {
   const listeners = {};
   const elements = {};
   let patterns = 0;
-  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-card', 'story-portrait', 'story-name', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-music', 'menu-effects', 'menu-music-volume', 'menu-effects-volume', 'menu-settings', 'menu-back', 'menu-main', 'menu-settings-view', 'menu-vignette', 'level-chip', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close']) {
+  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-card', 'story-portrait', 'story-name', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-music', 'menu-effects', 'menu-music-volume', 'menu-effects-volume', 'menu-settings', 'menu-back', 'menu-main', 'menu-settings-view', 'menu-vignette', 'level-chip', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close', 'bag-panel', 'bag-body', 'bag-close', 'bag-button', 'credit-chip', 'loot-toast']) {
     elements[id] = {
       hidden: id === 'result', style: { setProperty(name, value) { this[name] = value; } }, offsetWidth: 54, textContent: '', attributes: {},
-      classList: { toggle() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {}, focus() {},
+      classList: { toggle() {}, add() {}, remove() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {}, focus() {},
       getBoundingClientRect: () => ({ left: 0, top: 0, width: 366, height: 500 }),
       addEventListener: (name, fn) => (listeners[id + ':' + name] ??= []).push(fn),
       hasPointerCapture: () => false, setPointerCapture() {}, releasePointerCapture() {}
@@ -40,9 +40,9 @@ function game(imageMode, keepOpening, store) {
     localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'chapitre2b.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-quartier.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'chapitre2b.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'bag.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-quartier.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, parseStoryLine, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, parseStoryLine, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -249,6 +249,11 @@ const tests = [
     assert(!g.over, 'La sortie du donjon mène à la deuxième salle');
     assert.equal(g.currentZone.id, 'antre');
     winSpider(g);
+    // Dans la ruelle, la faux ne répond plus : elle se réveille avec les tatouages.
+    assert(g.scytheSealed(), 'Faux scellée après le premier donjon');
+    g.startAttack(false);
+    assert.equal(g.attack.remaining, 0, 'Aucun coup tant que la faux est scellée');
+    assert.equal(g.isharaOutfit, 'soiree');
     // Yarden remonte la ruelle : la scène du chapitre 2 se joue, puis c'est la fin du prototype.
     Object.assign(g.player, { x: 0, y: -45 });
     g.update(.05);
@@ -266,8 +271,10 @@ const tests = [
     g.useInteract();
     // Le lendemain matin : impasse, run (sept gobelins), comptoir (280 crédits), 4B.
     const seen = new Set();
+    let maxBag = 0;
     for (let guard = 0; guard < 6000 && !g.over; guard++) {
       seen.add(g.currentZone.id);
+      maxBag = Math.max(maxBag, g.bag.length);
       if (g.story.active) { g.advanceStory(); continue; }
       if (g.scene.free) {
         if (g.currentZone.id === 'impasse') Object.assign(g.player, { x: 41, y: -150 });
@@ -279,6 +286,10 @@ const tests = [
     }
     for (const zone of ['impasse', 'run', 'marterey', 'comptoir', 'sousgare', 'cour', 'escalier']) assert(seen.has(zone), zone);
     assert.equal(g.credits, 280, 'Premier argent : 280 crédits');
+    assert(g.scytheFreed && !g.scytheSealed(), 'Faux libérée par les tatouages');
+    assert.equal(maxBag, 6, 'Quatre fragments et deux bourses dans le sac');
+    assert.equal(g.bag.length, 0, 'Butin vendu chez Rémi');
+    assert.equal(g.isharaOutfit, 'course', 'Ishara garde sa tenue de course');
     assert(g.over && g.stage === 'escaped');
     assert(g.elements['result-text'].textContent.includes('Fin du prototype'));
     assert(g.elements['result-details'].textContent.includes('Temps de jeu'));
@@ -1258,7 +1269,7 @@ const tests = [
     const g = armed('loaded');
     g.loadWeaponArt(); g.loadPortraits(); g.loadSceneArt();
     assert(g.weaponArt.glow && g.weaponArt.base && g.weaponArt.empowered, 'Images de la faux chargées');
-    assert(Object.keys(g.portraitArt).length === 11 && Object.values(g.portraitArt).every(Boolean));
+    assert(Object.keys(g.portraitArt).length === 13 && Object.values(g.portraitArt).every(Boolean));
     g.calls.length = 0;
     g.startAttack(false);
     g.draw();

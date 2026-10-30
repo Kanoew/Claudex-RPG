@@ -82,6 +82,22 @@
     #opponents { color: var(--muted); }
     #level-chip { padding: 3px 9px; border: 1px solid var(--edge); border-radius: 999px; background: #2b2146; color: var(--accent-soft); font: 700 10px system-ui; letter-spacing: .12em; white-space: nowrap; }
     #level-chip[hidden] { display: none; }
+    #credit-chip, #bag-button { padding: 3px 9px; border: 1px solid var(--edge); border-radius: 999px; background: #2b2146; color: var(--accent-soft); font: 700 10px system-ui; letter-spacing: .08em; white-space: nowrap; }
+    #bag-button { min-height: 0; cursor: pointer; }
+    #credit-chip[hidden], #bag-button[hidden] { display: none; }
+    #bag-panel:not([hidden]) { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 14px; padding: 24px; background: radial-gradient(120% 90% at 50% 20%, #2d2150f7, #0d0b15fa); text-align: center; z-index: 4; }
+    #bag-title { margin: 0; font: 600 24px Georgia, serif; letter-spacing: .2em; }
+    #bag-body { width: min(340px, 100%); padding: 16px; border: 1px solid #8b78c9; border-radius: 18px; background: var(--glass); font-size: 14px; text-align: left; }
+    .bag-credits { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 10px; margin-bottom: 8px; border-bottom: 1px solid #8b78c966; }
+    .bag-credits strong { font-size: 26px; }
+    .bag-row { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; }
+    .bag-row b { color: var(--accent-soft); font-weight: 600; text-align: right; }
+    .bag-empty { padding: 8px 0; color: var(--muted); }
+    #bag-close { width: min(300px, 100%); min-height: 52px; border: 1px solid #8b78c9; border-radius: 16px; background: linear-gradient(#3b2f5f, #2a2144); color: var(--ink); font: bold 15px system-ui; }
+    #loot-toast { position: absolute; left: 50%; bottom: 150px; transform: translateX(-50%); padding: 6px 14px; border: 1px solid #8b78c9; border-radius: 999px; background: #1a1430ee; color: var(--ink); font: 600 13px system-ui; pointer-events: none; z-index: 3; }
+    #loot-toast[hidden] { display: none; }
+    #loot-toast.show { animation: loot-pop 2.2s ease-out forwards; }
+    @keyframes loot-pop { 0% { opacity: 0; transform: translate(-50%, 10px); } 12% { opacity: 1; transform: translate(-50%, 0); } 80% { opacity: 1; } 100% { opacity: 0; } }
     .meter { height: 11px; border: 1px solid var(--edge); border-radius: 999px; background: #181226; }
     .meter::before { border-radius: 999px; background: linear-gradient(90deg, #c4609a, #f4b7d8); }
     #mana-meter::before { background: linear-gradient(90deg, #7b8cff, #d5dcff); }
@@ -153,40 +169,41 @@
   </style>
   <script src="enemies.js?v=55" defer></script>
   <script src="dungeon.js?v=49" defer></script>
-  <script src="hud.js?v=55" defer></script>
+  <script src="hud.js?v=56" defer></script>
   <script src="zones.js?v=55" defer></script>
-  <script src="state.js?v=55" defer></script>
+  <script src="state.js?v=56" defer></script>
   <script src="yarden-sprite.js?v=42" defer></script>
   <script src="monster-sprite.js?v=46" defer></script>
   <script src="encounter.js?v=48" defer></script>
-  <script src="scene.js?v=55" defer></script>
-  <script src="chapitre2b.js?v=55" defer></script>
-  <script src="apartment.js?v=55" defer></script>
+  <script src="scene.js?v=56" defer></script>
+  <script src="chapitre2b.js?v=56" defer></script>
+  <script src="apartment.js?v=56" defer></script>
   <script src="metro.js?v=50" defer></script>
   <script src="night.js?v=54" defer></script>
   <script src="mirror.js?v=53" defer></script>
-  <script src="dialogue.js?v=55" defer></script>
+  <script src="dialogue.js?v=56" defer></script>
   <script src="levelup.js?v=50" defer></script>
   <script src="stats.js?v=51" defer></script>
-  <script src="save.js?v=55" defer></script>
+  <script src="bag.js?v=56" defer></script>
+  <script src="save.js?v=56" defer></script>
   <script src="audio.js?v=51" defer></script>
   <script src="opening.js?v=52" defer></script>
   <script src="weapon-art.js?v=51" defer></script>
-  <script src="render-ch2b.js?v=55" defer></script>
+  <script src="render-ch2b.js?v=56" defer></script>
   <script src="render-quartier.js?v=51" defer></script>
   <script src="render-appart.js?v=44" defer></script>
   <script src="render-antre.js?v=42" defer></script>
   <script src="render.js?v=53" defer></script>
-  <script src="combat.js?v=48" defer></script>
+  <script src="combat.js?v=56" defer></script>
   <script src="input.js?v=44" defer></script>
   <script src="movement.js?v=42" defer></script>
   <script src="menu.js?v=51" defer></script>
-  <script src="game.js?v=55" defer></script>
+  <script src="game.js?v=56" defer></script>
 </head>
 <body>
   <main id="app">
     <header>
-      <div class="brand"><h1>YARDEN</h1><span id="level-chip" hidden>NIV. 1</span><span id="opponents">Chapitre 1</span><button id="pause-button" type="button" aria-label="Pause">II</button></div>
+      <div class="brand"><h1>YARDEN</h1><span id="level-chip" hidden>NIV. 1</span><span id="credit-chip" hidden>0 ¢</span><button id="bag-button" type="button" hidden>Sac</button><span id="opponents">Chapitre 1</span><button id="pause-button" type="button" aria-label="Pause">II</button></div>
       <div class="resources">
         <div><div class="meter-label"><span>VIE</span><span id="hp-value">5 / 5</span></div><div class="meter" id="hp-meter" role="progressbar" aria-label="Points de vie de Yarden" aria-valuemin="0" aria-valuemax="5" aria-valuenow="5"></div></div>
         <div><div class="meter-label"><span>MANA</span><span id="mana-value">30 / 30</span></div><div class="meter" id="mana-meter" role="progressbar" aria-label="Mana de Yarden" aria-valuemin="0" aria-valuemax="30" aria-valuenow="30"></div></div>
@@ -203,6 +220,8 @@
         <div id="menu-settings-view" hidden><button id="menu-music" type="button">Musique : activée</button><label class="slider">Volume de la musique<input id="menu-music-volume" type="range" min="0" max="100" step="5" value="60"></label><button id="menu-effects" type="button">Effets : activés</button><label class="slider">Volume des effets<input id="menu-effects-volume" type="range" min="0" max="100" step="5" value="60"></label><button id="menu-back" type="button">Retour</button></div>
         <canvas id="menu-vignette" width="360" height="170" hidden aria-hidden="true"></canvas>
       </div>
+      <div id="bag-panel" role="dialog" aria-modal="true" aria-labelledby="bag-title" hidden><h2 id="bag-title">Sac</h2><div id="bag-body" role="group"></div><button id="bag-close" type="button">Fermer</button></div>
+      <div id="loot-toast" role="status" hidden></div>
       <div id="stats-panel" role="dialog" aria-modal="true" aria-labelledby="stats-title" hidden><h2 id="stats-title">Yarden</h2><div id="stats-body" role="group"></div><button id="stats-close" type="button">Fermer</button></div>
       <div id="story-panel" role="dialog" aria-modal="true" aria-labelledby="story-text" hidden><div id="story-card"><canvas id="story-portrait" width="144" height="144" hidden></canvas><div id="story-body"><p id="story-name" hidden></p><p id="story-text"></p></div></div><button id="story-next" type="button">Continuer</button></div>
     </div>

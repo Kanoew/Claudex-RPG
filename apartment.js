@@ -87,6 +87,7 @@ function nightScript() {
     { say: ['Le lit est trop mou. Yarden dort par terre, sur le parquet, avec l’oreiller.', 'Tiamat (voix intérieure) : « Pathétique. »', 'Yarden : « Ergonomique. »'] },
     { say: ['Yarden : « Il y a des agents des dieux, à Helvara ? »', 'Tiamat : « Plusieurs organisations. »', 'Yarden : « Et Ishara ? »', 'Tiamat : « Je ne dirai rien là-dessus. »'] },
     { tattoo: true },
+    { run: () => { scytheFreed = true; } },
     { say: ['Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.', 'Tiamat : « Tes tatouages sont le vecteur de la faux. »', 'Tiamat : « Coût d’invocation : zéro. »'] },
     { tattoo: false },
     { dark: false },

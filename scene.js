@@ -30,7 +30,7 @@ function cameraFocus() {
   return sceneCam;
 }
 const sceneArt = { strips: {} };
-const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, inconnus: { cell: [211, 148], anchor: [105, 132] }, fete: { cell: [128, 148], anchor: [64, 132] } };
+const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, course: { cell: [140, 115], anchor: [70, 111] }, remi: { cell: [120, 124], anchor: [60, 120] }, felix: { cell: [120, 124], anchor: [60, 120] }, inconnus: { cell: [211, 148], anchor: [105, 132] }, fete: { cell: [128, 148], anchor: [64, 132] } };
 // Inconnu 1 (grand) et Inconnu 2 (compact) : chibi, regardent à gauche ; on les retourne pour la droite (figurants anonymes).
 const inconnuClips = {
   'repos': { frames: 2, durations: [900, 900] }, 'marche-gauche': { frames: 4, durations: [170, 170, 170, 170] },
@@ -43,7 +43,8 @@ const isharaClips = {
   'walk-up': [150, 150, 150, 150], 'walk-down': [150, 150, 150, 150], 'run-left': [100, 90, 100, 90], 'run-right': [100, 90, 100, 90]
 };
 const sceneFiles = [...Object.keys(isharaClips).map(name => `ishara/${name}`),
-  ...['1', '2'].flatMap(n => ['repos', 'marche-gauche'].map(clip => `inconnus/inconnu-${n}-${clip}`)), 'inconnus/inconnu-2-poignet', 'inconnus/inconnu-2-recul', 'fete/danseur', 'fete/danseuse'];
+  ...['1', '2'].flatMap(n => ['repos', 'marche-gauche'].map(clip => `inconnus/inconnu-${n}-${clip}`)), 'inconnus/inconnu-2-poignet', 'inconnus/inconnu-2-recul', 'fete/danseur', 'fete/danseuse', 'remi/remi-comptoir', 'felix/felix-bureau',
+  ...Object.keys(isharaClips).map(name => `course/${name}`)];
 
 function loadSceneArt() {
   if (typeof Image === 'undefined') return;
@@ -51,7 +52,7 @@ function loadSceneArt() {
     const image = new Image();
     image.onload = () => { sceneArt.strips[key] = image; };
     image.onerror = () => { sceneArt.strips[key] = null; };
-    image.src = `assets/npcs/${key.startsWith('ishara') ? 'ishara/chibi/' + key.slice(7) : key}.png?v=49`;
+    image.src = `assets/npcs/${key.startsWith('ishara') ? 'ishara/chibi/' + key.slice(7) : key.startsWith('course') ? 'ishara/' + key : key}.png?v=56`;
   }
 }
 
@@ -273,9 +274,15 @@ function sceneActorPose(actor) {
       if (actor.run && horizontal) name = `run-${direction}`;
       else { name = `walk-${direction}`; if (actor.run) speed = 1.8; }
     }
-    const key = `ishara/${name}`;
+    const course = isharaOutfit === 'course';
+    const key = `${course ? 'course' : 'ishara'}/${name}`;
     if (!sceneArt.strips[key]) return null;
-    return { strip: sceneArt.strips[key], frame: sceneFrame(isharaClips[name], actor.time * speed), flip: false, ...sceneCells.ishara };
+    return { strip: sceneArt.strips[key], frame: sceneFrame(isharaClips[name], actor.time * speed), flip: false, ...(course ? sceneCells.course : sceneCells.ishara) };
+  }
+  if (actor.kind === 'remi' || actor.kind === 'felix') {
+    const key = actor.kind === 'remi' ? 'remi/remi-comptoir' : 'felix/felix-bureau';
+    if (!sceneArt.strips[key]) return null;
+    return { strip: sceneArt.strips[key], frame: sceneFrame(actor.kind === 'remi' ? [260, 260, 260, 900] : [400, 300, 400, 900], actor.time), flip: false, ...sceneCells[actor.kind] };
   }
   if (actor.kind === 'danseur' || actor.kind === 'danseuse') {
     const key = `fete/${actor.kind}`;

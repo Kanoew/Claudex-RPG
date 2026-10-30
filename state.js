@@ -38,6 +38,10 @@ let abyssReached = true;
 let playerLevel = 1;
 // Monnaie du jeu : des crédits (le chapitre 2 commence à 0).
 let credits = 0;
+// Le sac à dos : butin ramassé et pas encore vendu ; la faux reste scellée dans la ruelle jusqu'à la première nuit ; tenue d'Ishara (soiree, puis course).
+const bag = [];
+let scytheFreed = false;
+let isharaOutfit = 'soiree';
 // Faux avant l'ouverture de la faille dans la ruelle du chapitre 1.
 let riftShown = true;
 // Habillages des zones du chapitre 2 (voir render-ch2b.js) : chaque thème fournit floor, solid et tint.

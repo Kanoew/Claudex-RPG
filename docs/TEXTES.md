@@ -155,7 +155,8 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Rémi écrit 280 sur l’ardoise.
 - **Ishara** : « La dernière fois, un run équivalent valait 220. »
 - **Rémi** : « Le 19 est propre. Coupe franche, ni brûlure ni impact contondant. C’est rare à ce niveau : supplément. »
-- Rémi pose les billets. Yarden les range dans la poche intérieure de sa veste.
+- Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.
+- **Ishara** : « On partage. 280 chacun. »
 - **Rémi** : « Dites-moi quel type de lame fait des coupes comme ça. »
 - **Tiamat** : « Tu viens de laisser une trace. Les receleurs parlent. »
 - Premier argent gagné dans ce monde : 280 crédits.
@@ -183,7 +184,8 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Rémi écrit 280 sur l’ardoise.
 - **Ishara** : « La dernière fois, un run équivalent valait 220. »
 - **Rémi** : « Le 19 est propre. Coupe franche, ni brûlure ni impact contondant. C’est rare à ce niveau : supplément. »
-- Rémi pose les billets. Yarden les range dans la poche intérieure de sa veste.
+- Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.
+- **Ishara** : « On partage. 280 chacun. »
 - **Rémi** : « Dites-moi quel type de lame fait des coupes comme ça. »
 - **Tiamat** : « Tu viens de laisser une trace. Les receleurs parlent. »
 - Premier argent gagné dans ce monde : 280 crédits.
@@ -209,7 +211,8 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Rémi écrit 280 sur l’ardoise.
 - **Ishara** : « La dernière fois, un run équivalent valait 220. »
 - **Rémi** : « Le 19 est propre. Coupe franche, ni brûlure ni impact contondant. C’est rare à ce niveau : supplément. »
-- Rémi pose les billets. Yarden les range dans la poche intérieure de sa veste.
+- Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.
+- **Ishara** : « On partage. 280 chacun. »
 - **Rémi** : « Dites-moi quel type de lame fait des coupes comme ça. »
 - **Tiamat** : « Tu viens de laisser une trace. Les receleurs parlent. »
 - Premier argent gagné dans ce monde : 280 crédits.

@@ -59,6 +59,10 @@ function applyCheckpoint(name) {
   enterZone('exterieur', 'south');
   if (name === 'rue') return;
   scene.done = true;
+  scytheFreed = !['rue', 'appart', 'nuit'].includes(name);
+  if (name === 'marterey') for (const drop of runDrops) if (drop) bag.push({ ...drop });
+  if (name === 'sousgare') credits = 280;
+  isharaOutfit = ['impasse', 'matin', 'marterey', 'sousgare'].includes(name) ? 'course' : 'soiree';
   if (name === 'appart') { enterApartment('arrive'); startScene(apartmentArrivalSteps()); }
   else if (name === 'impasse' || name === 'matin') startScene(impasseScript());
   else if (name === 'marterey') startScene(marteryScript());

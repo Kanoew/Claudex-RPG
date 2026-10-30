@@ -3,8 +3,8 @@
 // Affichage des répliques : une ligne « Nom : « texte » » devient une bulle avec le nom et un visage. La voix de Tiamat est une voix
 // intérieure : bulle violette en italique, avec la pierre bleue, jamais un visage. Les inconnus ont une silhouette. Le récit n'a ni nom ni visage.
 const portraitArt = {};
-const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant'];
-const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2' };
+const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant', 'remi-neutre', 'felix-neutre'];
+const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2', 'Rémi': 'remi', 'Félix': 'felix' };
 // « Nom[expression] : « texte » » ; l'expression est facultative (neutre par défaut).
 const speakerPattern = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
 

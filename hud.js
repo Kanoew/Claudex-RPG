@@ -17,6 +17,7 @@ function hudMeter(id, value, max) {
 function updateHud() {
   const chip = document.getElementById('level-chip');
   if (chip) { chip.hidden = !abyssReached; hudText('level-chip', `NIV. ${playerLevel}`); }
+  updateBagHud();
   const app = document.getElementById('app');
   if (app) app.classList.toggle('prologue', !abyssReached);
   hudMeter('hp-meter', player.hp, player.maxHp);
@@ -39,7 +40,7 @@ function updateHud() {
 
 function updateButtonHints() {
   const wait = time => `${time.toFixed(1).replace('.', ',')} s`;
-  hudText('attack-hint', !player.armed ? 'À récupérer' : attack.cooldown > 0 ? wait(attack.cooldown) : 'Espace');
-  hudText('skill-hint', !player.armed ? 'À récupérer' : skill.cooldown > 0 ? wait(skill.cooldown) : player.mana < skill.cost ? 'Mana insuffisant' : `${skill.cost} mana · E`);
+  hudText('attack-hint', !player.armed ? 'À récupérer' : scytheSealed() ? 'Scellée' : attack.cooldown > 0 ? wait(attack.cooldown) : 'Espace');
+  hudText('skill-hint', !player.armed ? 'À récupérer' : scytheSealed() ? 'Scellée' : skill.cooldown > 0 ? wait(skill.cooldown) : player.mana < skill.cost ? 'Mana insuffisant' : `${skill.cost} mana · E`);
   hudText('dodge-hint', dodge.cooldown > 0 ? wait(dodge.cooldown) : 'Gratuite · Maj');
 }

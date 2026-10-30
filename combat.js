@@ -2,9 +2,12 @@
 
 // Coups de faux, fauchage, esquive et boutons d'action.
 
+// Après le Troll et l'araignée, la faux ne répond plus à Yarden dans la ruelle : elle se réveille avec les tatouages (première nuit).
+function scytheSealed() { return encounter.complete && !scytheFreed; }
+
 function startAttack(empowered = false) {
   const cost = empowered ? skill.cost : 0;
-  if (!player.armed || paused || combatOver || encounterBlocksMovement() || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
+  if (!player.armed || scytheSealed() || paused || combatOver || encounterBlocksMovement() || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
   player.mana -= cost;
   if (empowered) skill.cooldown = skill.recovery;
   Object.assign(attack, { empowered, damage: empowered ? 2 : 1, duration: empowered ? .3 : .22, recovery: empowered ? .8 : .5, range: empowered ? 110 : 72 });
@@ -19,10 +22,10 @@ function startAttack(empowered = false) {
 
 function updateAttackButton() {
   const blocked = paused || combatOver || encounterBlocksMovement();
-  const recovering = blocked || !player.armed || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0;
+  const recovering = blocked || !player.armed || scytheSealed() || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0;
   attackButton.classList.toggle('recovering', recovering);
   attackButton.setAttribute('aria-disabled', String(recovering));
-  const unavailable = blocked || !player.armed || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || skill.cooldown > 0 || player.mana < skill.cost;
+  const unavailable = blocked || !player.armed || scytheSealed() || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || skill.cooldown > 0 || player.mana < skill.cost;
   skillButton.classList.toggle('recovering', unavailable);
   skillButton.setAttribute('aria-disabled', String(unavailable));
   dodgeButton.classList.toggle('recovering', blocked || bossDelay > 0 || dodge.cooldown > 0);

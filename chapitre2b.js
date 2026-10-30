@@ -13,7 +13,35 @@ const runDeadCount = () => zoneEnemies.run.filter(enemy => enemy.hp <= 0).length
 function resetChapter2b() {
   chapter2b.runDone = false;
   ch2b.shutterAt = 0; ch2b.slate = ''; ch2b.buff = false;
-  for (const enemy of zoneEnemies.run) resetEnemy(enemy);
+  for (const enemy of zoneEnemies.run) { resetEnemy(enemy); enemy.looted = false; }
+  bag.length = 0; credits = 0; scytheFreed = false; isharaOutfit = 'soiree';
+}
+
+// Butin du run : quatre fragments et deux bourses (canon), un par gobelin sauf le dernier, qui s'enfuit. Le niveau 19 est le plus gros, coupe propre.
+const runDrops = [
+  { name: 'Fragment cristallin', level: 15 }, { name: 'Bourse de fibres', level: 16 }, { name: 'Fragment cristallin', level: 17 },
+  { name: 'Bourse de fibres', level: 18 }, { name: 'Fragment cristallin', level: 19, note: 'coupe propre' }, { name: 'Fragment cristallin', level: 16 }, null
+];
+
+function lootToast(text) {
+  const node = document.getElementById('loot-toast');
+  if (!node) return;
+  node.textContent = text;
+  node.hidden = false;
+  node.classList.remove('show');
+  void node.offsetWidth;
+  node.classList.add('show');
+}
+
+function collectRunLoot() {
+  zoneEnemies.run.forEach((enemy, index) => {
+    if (enemy.hp > 0 || enemy.looted) return;
+    enemy.looted = true;
+    const drop = runDrops[index];
+    if (!drop) return;
+    bag.push({ ...drop });
+    lootToast(`+ ${drop.name} · niv. ${drop.level}`);
+  });
 }
 
 zones.impasse.goal = () => 'Rejoins la faille ↑';
@@ -93,7 +121,7 @@ const above = y => () => player.y < y;
 // L'impasse, derrière un pressing fermé : la faille est un rectangle d'air distordu.
 function impasseScript() {
   return [
-    { run: enterImpasse },
+    { run: () => { isharaOutfit = 'course'; enterImpasse(); } },
     { say: ['Une impasse derrière un pressing fermé : c’est dimanche.', 'Dans l’air, un rectangle légèrement distordu, presque invisible en plein jour.'] },
     { say: ['Yarden : « Niveau estimé : 16, 17. Espace restreint. Probablement du territorial. »', 'Ishara : « Je reste derrière toi. »'] },
     { until: nearPlayer(impasseRift.x, impasseRift.y, 70) },
@@ -131,8 +159,8 @@ function comptoirScript() {
     { say: ['Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur celui de niveau 19.', 'Rémi : « Avec quelle lame ? Quel type ? »', 'Yarden : « Le type qui coupe. »'] },
     { run: () => { ch2b.slate = '280'; } },
     { say: ['Rémi écrit 280 sur l’ardoise.', 'Ishara : « La dernière fois, un run équivalent valait 220. »', 'Rémi : « Le 19 est propre. Coupe franche, ni brûlure ni impact contondant. C’est rare à ce niveau : supplément. »'] },
-    { run: () => { credits += 280; } },
-    { say: ['Rémi pose les billets. Yarden les range dans la poche intérieure de sa veste.', 'Rémi : « Dites-moi quel type de lame fait des coupes comme ça. »', 'Tiamat (voix intérieure) : « Tu viens de laisser une trace. Les receleurs parlent. »', 'Premier argent gagné dans ce monde : 280 crédits.'] },
+    { run: () => { credits += 280; bag.length = 0; } },
+    { say: ['Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.', 'Ishara : « On partage. 280 chacun. »', 'Rémi : « Dites-moi quel type de lame fait des coupes comme ça. »', 'Tiamat (voix intérieure) : « Tu viens de laisser une trace. Les receleurs parlent. »', 'Premier argent gagné dans ce monde : 280 crédits.'] },
     { run: () => { ch2b.slate = ''; } },
     { metro: 'show' },
     { say: ['Le M2, direction Sous-gare.'] },
@@ -179,6 +207,7 @@ function followIshara(seconds) {
 }
 
 function updateChapter2b(seconds) {
+  if (currentZone.id === 'run') collectRunLoot();
   if (!scene.active || scene.free) followIshara(seconds);
   if (currentZone.id === 'run' && !chapter2b.runDone && !scene.active && !story.active && zoneEnemies.run.every(enemy => enemy.hp <= 0)) {
     chapter2b.runDone = true;

@@ -38,6 +38,7 @@ function resetDungeonRun() {
   resetEncounter();
   resetScene();
   resetChapter2b();
+  resetBag();
   resetApartment();
   resetLevelUp();
   loadZone('donjon');
