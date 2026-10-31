@@ -316,7 +316,7 @@ function drawStoneDoor(x, y, open, label) {
 }
 
 // La faille : une déchirure verticale en forme de bouche, aux bords d'un bleu profond, qui ramène dans l'Abysse.
-function drawFaille(x, y, label) {
+function drawFaille(x, y, label, arrow = true) {
   // La faille s'ouvre en grandissant, ses bords ondulent, et des éclats bleus sont aspirés vers son centre.
   const now = mirrorNow(), grow = Math.min(1, Math.max(.05, (now - riftOpenedAt) / 1.3));
   const wave = Math.sin(now * 3.2) * 4 * grow, wide = 30 * grow;
@@ -351,7 +351,7 @@ function drawFaille(x, y, label) {
   ctx.fillStyle = '#cfe1ff';
   ctx.font = 'bold 11px system-ui';
   ctx.textAlign = 'center';
-  ctx.fillText(label + ' ↓', x, y + 49);
+  ctx.fillText(label + (arrow ? ' ↓' : ''), x, y + 49);
   ctx.restore();
 }
 

@@ -206,7 +206,7 @@ function drawFreeRift(offsetX, offsetY) {
   // La même faille que dans la ruelle d'Helvara : bords qui ondulent, éclats aspirés, lueur bleue, toujours grande ouverte.
   const opened = riftOpenedAt;
   riftOpenedAt = mirrorNow() - 5;
-  drawFaille(point.x + offsetX, point.y + offsetY - 14, currentZone.id === 'faille' ? 'RETOUR' : 'FAILLE');
+  drawFaille(point.x + offsetX, point.y + offsetY - 14, currentZone.id === 'faille' ? 'RETOUR' : 'FAILLE', false);
   riftOpenedAt = opened;
 }
 
