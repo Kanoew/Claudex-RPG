@@ -610,6 +610,26 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Niveau 24. Yarden Weiss.
 - *Fin de scène : Les papiers seront prêts dans trois jours. Fin du prototype !*
 
+## Le comptoir de Rémi : objets à examiner
+
+- **Encens** : De l’encens bon marché, et quelque chose de plus minéral dessous.
+- **Balance** : Une balance de précision, posée sur le comptoir.
+- **Ardoise** : Une ardoise à la craie, accrochée au mur. Aucune trace électronique.
+- **Lampe** : Une lampe à spectre particulier : la lumière a une teinte verte, presque froide.
+- **Porte** : La porte marron, derrière elles. L’interphone ne fonctionne qu’à moitié.
+
+## Objectifs affichés en haut, par lieu
+
+- **quartier** : Rejoins Ishara devant la porte ↑
+- **impasse** : Rejoins la faille ↑
+- **run** : Vaincs les gobelins (0/7)
+- **marterey** : Suis Ishara
+- **comptoir** : Rémi évalue le butin
+- **sousgare** : Suis Ishara
+- **cour** : Suis Ishara
+- **escalier** : Monte ↑
+- **quatreb** : Parle à Félix
+
 ## Objectif affiché en haut (appartement)
 
 - Va à la salle de bain, en face de la chambre d’appoint

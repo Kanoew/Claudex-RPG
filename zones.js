@@ -47,7 +47,7 @@ const zones = {
     ],
     doors: [
       { side: 'south', x: 0, half: 44, label: 'ABYSSE', needs: 'riftOpen', to: 'donjon', arrive: 'start' },
-      { side: 'north', x: 0, half: 44, label: 'RUE', end: 'Yarden a rejoint la rue. Fin du prototype !' }
+      { side: 'north', x: 0, half: 44, label: 'RUE', needs: 'streetOpen', sealed: 'PLUS TARD' }
     ],
     // Réveil de Yarden au chapitre 1, adossée au mur de gauche.
     start: { x: -180, y: 235 },

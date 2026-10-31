@@ -16,6 +16,10 @@ const files = [...html.matchAll(/<script src="([a-z0-9-]+\.js)/g)].map(match => 
 for (const file of files) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
 const data = vm.runInContext('({ opening: openingScript(), rue: sceneScript(), sleep: nightScript(), mirror: mirrorScript(), impasse: impasseScript(), runEnd: runEndScript(), marterey: marteryScript(), comptoir: comptoirScript(), sousgare: sousgareScript(), quatreb: quatrebScript(), spots: apartmentSpots.map(s => ({ id: s.id, label: s.label, lines: s.lines() })), goals: [apartmentGoal()] })', context);
 
+// Extras : objets du comptoir et objectifs par lieu (écrits dans un second appel, plus lisible).
+data.comptoirSpots = vm.runInContext('comptoirSpots.map(spot => ({ label: spot.label, lines: spot.lines() }))', context);
+data.zoneGoals = vm.runInContext(`Object.entries(zones).filter(entry => entry[1].goal).map(entry => { let goal = ""; try { goal = entry[1].goal(); } catch (error) { goal = "(dépend de la partie)"; } return { id: entry[0], goal }; })`, context);
+
 const speaker = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
 function render(steps) {
   const out = [];
@@ -46,6 +50,8 @@ const parts = [
   '## Le comptoir de Rémi', '', render(data.comptoir), '',
   '## Le 4B : Sous-gare, la cour, l’escalier', '', render(data.sousgare), '',
   '## Chapitre 3 : le 4B, Félix, les papiers', '', render(data.quatreb), '',
+  '## Le comptoir de Rémi : objets à examiner', '', data.comptoirSpots.map(s => `- **${s.label}** : ${s.lines.join(' ')}`).join('\n'), '',
+  '## Objectifs affichés en haut, par lieu', '', data.zoneGoals.map(z => `- **${z.id}** : ${z.goal}`).join('\n'), '',
   '## Objectif affiché en haut (appartement)', '', `- ${data.goals[0]}`, ''
 ];
 fs.writeFileSync(path.join(root, 'docs', 'TEXTES.md'), parts.join('\n'));
