@@ -4,7 +4,7 @@
 // et un donjon tiré au hasard à chaque entrée : 2 ou 3 décors, 5 à 8 monstres, puis un chef. Ni butin, ni vente, ni expérience.
 // Rien ici ne touche à l'histoire : la dette de Félix reste la même.
 const freeKey = 'yarden-mode-libre';
-const freeMode = { active: false, clears: 0, from: 'quartier', done: false, rng: Math.random, mapOpen: false };
+const freeMode = { active: false, clears: 0, from: 'quartier', done: false, rng: Math.random, mapOpen: false, destination: null, mapSelected: null };
 
 // Les trois quartiers où s'ouvrent des failles : position de la faille dans la rue et niveau de base des monstres.
 const freeSpots = {
@@ -26,7 +26,13 @@ function unlockFree() {
 }
 
 // Les rues gardent leurs textes d'histoire ; en mode libre, l'objectif devient « cherche la faille ».
-function freeGoal(original) { return () => freeMode.active ? 'Entre dans la faille ✦' : original ? original() : ''; }
+function freeGoal(original) {
+  return () => {
+    if (!freeMode.active) return original ? original() : '';
+    const direction = freeDirection(freeMode.destination);
+    return direction ? `${direction === 'east' ? '→' : '←'} ${freeSpots[freeMode.destination].label} · à pied` : 'Entre dans la faille ✦';
+  };
+}
 zones.quartier.goal = freeGoal(zones.quartier.goal);
 zones.marterey.goal = freeGoal(zones.marterey.goal);
 zones.sousgare.goal = freeGoal(zones.sousgare.goal);
@@ -101,6 +107,7 @@ function walkToStreet(id, side) {
   const lane = zones[id].start.y;
   player.y = Math.max(lane - 60, Math.min(lane + 40, player.y));
   zoneFade = .1;
+  if (freeMode.destination === id) freeMode.destination = null;
   updateStatus();
 }
 
@@ -111,6 +118,7 @@ function startFreeMode() {
   paused = false;
   freeMode.active = true;
   freeMode.clears = 0;
+  freeMode.destination = null;
   scene.active = false; scene.done = true;
   scytheFreed = true;
   player.armed = true;
@@ -179,7 +187,9 @@ function drawFreeMinimap() {
     ctx.fillText(freeSpots[id].short, x + w / 2, y0 + 10);
   });
   ctx.fillStyle = '#ffe3a8'; ctx.font = '9px system-ui'; ctx.textAlign = 'left';
-  ctx.fillText(currentZone.id === 'faille' ? '✦ Dans une faille' : '✦ Une faille par rue', x0, y0 + h + 12);
+  const direction = freeDirection(freeMode.destination);
+  const hint = direction ? `${direction === 'east' ? '→' : '←'} ${freeSpots[freeMode.destination].short}` : '✦ Une faille par rue';
+  ctx.fillText(currentZone.id === 'faille' ? '✦ Dans une faille' : hint, x0, y0 + h + 12);
   ctx.restore();
 }
 
@@ -213,16 +223,62 @@ function drawFreeRift(offsetX, offsetY) {
 // ---------- La carte ----------
 const mapPanel = document.getElementById('map-panel');
 
+// Itinéraire fondé uniquement sur les liaisons jouables, sans géographie supplémentaire.
+function freeRoute(target) {
+  const here = currentZone.id === 'faille' ? freeMode.from : currentZone.id;
+  const queue = [[here]], seen = new Set([here]);
+  while (queue.length) {
+    const path = queue.shift(), last = path[path.length - 1];
+    if (last === target) return path;
+    for (const next of Object.values(freeLinks[last] || {})) {
+      if (!seen.has(next)) { seen.add(next); queue.push([...path, next]); }
+    }
+  }
+  return [];
+}
+
+function freeDirection(target) {
+  const path = freeRoute(target);
+  return path.length > 1 ? Object.keys(freeLinks[path[0]]).find(side => freeLinks[path[0]][side] === path[1]) : null;
+}
+
+function renderFreeMap() {
+  const here = currentZone.id === 'faille' ? freeMode.from : currentZone.id;
+  const selected = freeMode.mapSelected, spot = freeSpots[selected], path = freeRoute(selected);
+  const inRift = currentZone.id === 'faille';
+  const nodes = Object.entries(freeSpots).map(([id, item], index) =>
+    `<button id="map-spot-${id}" class="map-district${here === id ? ' here' : ''}" type="button" data-map-spot="${id}" aria-pressed="${selected === id}"${here === id ? ' aria-current="location"' : ''}><span class="map-number" aria-hidden="true">0${index + 1}</span><span>${item.label}</span><small>${here === id ? inRift ? 'Faille en cours ici' : 'Vous êtes ici' : 'Sélectionner'}</small></button>${index < 2 ? '<div class="map-street" aria-hidden="true"><span>↕</span></div>' : ''}`
+  ).join('');
+  const direction = freeDirection(selected) === 'east' ? 'droite' : 'gauche';
+  const instruction = inRift ? 'Revenez dans la rue pour suivre un itinéraire.' : selected === here ? 'Une faille est accessible dans cette rue.' : `Sortez par le bord ${direction} de la rue. Déplacement à pied.`;
+  document.getElementById('map-list').innerHTML =
+    `<p class="map-location">${inRift ? 'Dans une faille · ' : 'Vous êtes ici · '}${freeSpots[here].label}</p><p class="map-caption">Plan schématique · liaisons du mode libre</p><div class="map-layout"><div class="map-plan" role="group" aria-label="Quartiers reliés">${nodes}</div><section class="map-detail" aria-labelledby="map-selected-title"><span class="map-eyebrow">Quartier sélectionné</span><h3 id="map-selected-title">${spot.label}</h3><p class="map-level">Failles · niv. ${spot.base + Math.min(freeMode.clears, 6)} et plus</p><p>Une faille par rue. Ni butin, ni expérience.</p><p class="map-itinerary">${path.map(id => freeSpots[id].label).join(' → ')}</p><p>${instruction}</p><button type="button" data-map-go${inRift || selected === here || !path.length ? ' disabled' : ''}>${selected === here ? 'Vous êtes ici' : 'Y aller'}</button></section></div>`;
+}
+
+function selectMapSpot(id) {
+  if (!freeMode.mapOpen || !freeSpots[id]) return;
+  freeMode.mapSelected = id;
+  renderFreeMap();
+  document.getElementById(`map-spot-${id}`)?.focus();
+  document.getElementById('map-selected-title')?.scrollIntoView({ block: 'nearest' });
+}
+
+function followMapRoute() {
+  const id = freeMode.mapSelected;
+  if (!freeMode.mapOpen || currentZone.id === 'faille' || !freeDirection(id)) return;
+  freeMode.destination = id;
+  closeMap();
+  updateStatus();
+}
+
 function openMap() {
   if (!freeMode.active || stats.open) return;
   resetInput();
   stats.open = true;
   stats.from = null;
   freeMode.mapOpen = true;
-  // Plan des rues : trois quartiers reliés par leurs bords, la position actuelle marquée. Aucun voyage rapide : on marche.
-  const here = currentZone.id === 'faille' ? freeMode.from : currentZone.id;
-  const nodes = Object.entries(freeSpots).map(([id, spot], index) => `<div class="map-node${here === id ? ' here' : ''}"><span>${spot.label}</span><b>Failles · niv. ${spot.base} et plus</b>${here === id ? '<i>Tu es ici</i>' : ''}</div>${index < 2 ? '<div class="map-link" aria-hidden="true">↕ rue ↕</div>' : ''}`).join('');
-  document.getElementById('map-list').innerHTML = nodes + '<p class="map-note">Sors par le bord de la rue pour passer à la suivante. Chaque quartier a une faille.</p>';
+  freeMode.mapSelected = freeMode.destination || (currentZone.id === 'faille' ? freeMode.from : currentZone.id);
+  renderFreeMap();
   mapPanel.hidden = false;
   document.getElementById('map-close').focus();
   updateAttackButton();
@@ -233,6 +289,7 @@ function closeMap() {
   freeMode.mapOpen = false;
   mapPanel.hidden = true;
   stats.open = false;
+  resetInput();
   lastTime = null;
   canvas.focus();
   updateAttackButton();
@@ -247,9 +304,15 @@ function updateFreeHud() {
 
 function resetFree() {
   freeMode.active = false; freeMode.done = false; freeMode.mapOpen = false; freeMode.clears = 0;
+  freeMode.destination = null; freeMode.mapSelected = null;
   mapPanel.hidden = true;
 }
 
 document.getElementById('map-button').addEventListener('click', openMap);
 document.getElementById('map-close').addEventListener('click', closeMap);
+document.getElementById('map-list').addEventListener('click', event => {
+  const spot = event.target.closest('[data-map-spot]');
+  if (spot) selectMapSpot(spot.dataset.mapSpot);
+  else if (event.target.closest('[data-map-go]')) followMapRoute();
+});
 document.getElementById('free-button').addEventListener('click', startFreeMode);
