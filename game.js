@@ -62,7 +62,7 @@ function resetDungeonRun() {
   elapsed = 0;
   result.hidden = true;
   resultDelay = 0;
-  zoneFade = 0;
+  resetZoneTransition();
   resetYardenSprite();
   retryButton.blur();
   updateStatus();
@@ -86,11 +86,11 @@ function update(seconds) {
     }
   }
   // Le fondu d'arrivée continue pendant un texte : sinon l'écran reste noir derrière lui.
-  if (story.active && !paused && !document.hidden) zoneFade = Math.max(0, zoneFade - seconds);
+  if (story.active && !paused && !document.hidden) tickZoneTransition(seconds);
   if (combatOver || paused || document.hidden || story.active || menu.open || stats.open) return;
   elapsed += seconds;
   syncMusic();
-  zoneFade = Math.max(0, zoneFade - seconds);
+  tickZoneTransition(seconds);
   updateEncounter(seconds);
   updateScene(seconds);
   updateChapter2b(seconds);

@@ -100,13 +100,15 @@ function enterHub(id) {
 
 // Passage d'une rue à l'autre : on arrive du côté opposé, à hauteur du départ de la nouvelle rue.
 function walkToStreet(id, side) {
+  const previousY = player.y;
   enterHub(id);
   const r = zones[id].room;
   player.x = side === 'west' ? r.x + 56 : r.x + r.width - 56;
   // On garde à peu près la hauteur d'où l'on vient, pour que la rue paraisse continue ; le fondu est très bref.
   const lane = zones[id].start.y;
-  player.y = Math.max(lane - 60, Math.min(lane + 40, player.y));
+  player.y = Math.max(lane - 60, Math.min(lane + 40, previousY));
   zoneFade = .1;
+  zoneTransition.duration = .1;
   if (freeMode.destination === id) freeMode.destination = null;
   updateStatus();
 }

@@ -8,8 +8,8 @@ Les dialogues occupent une zone séparée du terrain : au-dessus de la ruelle po
 
 ## Vérifications
 
-- `node tests/smoke.cjs` : 41 scénarios de logique réussis au 31 octobre 2026.
-- Carte, session du 31 octobre : vérification navigateur tentée mais bloquée au lancement de Chromium par le sandbox (`Operation not permitted`). Les quatre formats 360 × 640, 390 × 844, 844 × 390 et 1440 × 900 restent à contrôler pour cette modification, y compris la vraie scène du poignet et le miroir. Les vérifications Chromium ci-dessous concernent les livraisons précédentes.
+- `node tests/smoke.cjs` : 43 scénarios de logique réussis au 31 octobre 2026.
+- Carte et transitions, session du 31 octobre : vérification navigateur tentée mais bloquée au lancement de Chromium par le sandbox (`Operation not permitted`). Les quatre formats 360 × 640, 390 × 844, 844 × 390 et 1440 × 900 restent à contrôler pour cette modification, y compris la vraie scène du poignet et le miroir. Les vérifications Chromium ci-dessous concernent les livraisons précédentes.
 - Chromium : 390 × 844, 360 × 640, 844 × 390, 1440 × 900 ; fenêtres, titre, sac, statistiques, carte du mode libre et véritable scène du poignet. Navigation Tab confinée, pause puis retour à la même réplique, texte de 24 px et commandes choisies manuellement.
 - Vérifications complémentaires : paysage 667 × 375, dialogue long défilant, déplacement et attaque par deux contacts tactiles simultanés.
 - Ces essais émulent les entrées mobiles ; ils ne mesurent pas la fluidité ni le confort des pouces sur un téléphone réel.
@@ -25,6 +25,8 @@ Les dialogues occupent une zone séparée du terrain : au-dessus de la ruelle po
 ## Carte et transitions (31 octobre 2026)
 
 La grande carte représente les liaisons déjà jouables entre Quartier étudiant, Rue Marterey et Sous-gare. C'est un schéma, sans échelle ni géographie canonique ajoutée. La position actuelle et le quartier sélectionné ont des repères distincts. Sélectionner un quartier affiche le niveau actuel de ses failles et le trajet ; « Y aller » ferme la carte et indique la direction dans l'objectif et le mini-plan. On continue à marcher par les bords des rues. Dans une faille, la carte reste consultable et le départ est désactivé. Le niveau des failles, les crédits, la dette et les sauvegardes ne changent pas.
+
+Les transitions mélangent brièvement la dernière vue affichée avec l'arrivée, en conservant une seule capture en mémoire. Première visite dans la partie : 0,4 s ; visite répétée : 0,18 s ; passage entre rues : 0,1 s. Le nom du lieu apparaît brièvement hors dialogues et scènes. Le déplacement reste actif pendant le fondu, sans attendre un nouvel appui ; l'attaque et l'esquive en cours sont annulées. Aucun changement aux transitions sonores : les quartiers partagent déjà le thème ville, et l'entrée en Abysse change de thème par le système existant. Le Canvas principal n'est pas redimensionné par le fondu ; le correctif de redimensionnement dans `input.js` reste intact.
 
 Essai complémentaire après intégration : Carte → Sous-gare → « Y aller » depuis le Quartier étudiant ; suivre la flèche à travers Marterey sans téléportation. Revenir plusieurs fois, pouce maintenu puis relâché, et vérifier l'arrêt immédiat. Entrer dans une faille, consulter la carte et vérifier que « Y aller » est désactivé ; vaincre les ennemis et ressortir. Recharger une sauvegarde de l'histoire, rejouer le poignet puis le miroir et tourner l'écran pendant un dialogue. Vérifier que les animations restent dégagées et qu'aucun flash n'apparaît. Ces essais restent à faire sur téléphone réel.
 

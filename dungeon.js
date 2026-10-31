@@ -14,6 +14,7 @@ function doorAtPlayer() {
 
 // Passage d'une zone à l'autre : Yarden arrive devant la porte d'en face, à bonne distance pour ne pas la retraverser.
 function enterZone(id, arrival) {
+  beginZoneTransition(id);
   loadZone(id);
   if (id === 'donjon') abyssReached = true;
   if (arrival === 'start') {
@@ -27,7 +28,6 @@ function enterZone(id, arrival) {
   // On coupe le coup et l'esquive en cours, mais pas le joystick : le pouce est peut-être encore posé.
   attack.remaining = 0;
   dodge.remaining = 0;
-  zoneFade = .4;
   updateStatus();
   updateAttackButton();
 }
