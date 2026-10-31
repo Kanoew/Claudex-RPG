@@ -167,3 +167,10 @@ if __name__ == '__main__':
     # Homme rouge, golem et tatou : bandes de 12 cases (4 marche, 4 attaque, 2 dégâts, 2 défaite).
     for source, name in [('homme-rouge', 'rouge'), ('golem', 'golem'), ('tatou', 'tatou')]:
         export(art + 'monstres-a-integrer/' + source + '-bande-12.png', 'assets/monsters/' + name + '.png', 12, colors=128)
+    # Céleste (chapitre 4) : repos, marches et portraits de dialogue.
+    import os
+    os.makedirs('assets/npcs/celeste', exist_ok=True)
+    for name in ['repos', 'marche-gauche', 'marche-droite', 'marche-haut', 'marche-bas']:
+        export(art + 'izzy-celeste/mouvements-celeste/' + name + '.png', 'assets/npcs/celeste/' + name + '.png', 4, colors=128)
+    for name in ['neutre', 'sourire', 'alerte']:
+        export(art + 'izzy-celeste/celeste-portraits-' + name + '.png', 'assets/portraits/celeste-' + name + '.png', 1, colors=96, size=(144, 144))

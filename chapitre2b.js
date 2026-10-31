@@ -220,7 +220,7 @@ function sousgareScript() {
 // Ishara reste derrière Yarden, à trois mètres au plus (canon). Elle ne se bat jamais.
 function followIshara(seconds) {
   const actor = sceneActors.ishara;
-  if (!actor || !['run', 'escalier'].includes(currentZone.id)) return;
+  if (!actor || !['run', 'escalier', 'square'].includes(currentZone.id)) return;
   const dx = player.x - actor.x, dy = player.y - actor.y, distance = Math.hypot(dx, dy);
   actor.time += seconds;
   // Départ au-delà de 95 px, arrêt en deçà de 75 px : pas de va-et-vient d'animation autour d'un seuil unique.
