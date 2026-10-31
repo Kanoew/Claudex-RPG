@@ -439,3 +439,23 @@ M2, quartier Sous-gare, façade Belle Époque « trop normale », digicode, gér
 ## 31. Mode libre (décidé avec Jordan, 30 octobre 2026)
 
 Hors histoire, ouvert à la fin du prototype pour passer le temps : une carte de Lausanne, des failles dans les rues, un donjon différent à chaque entrée. **Décisions de Jordan** : pas de butin, pas de vente, pas d'XP ; accès par un menu « Mode libre » à la fin du prototype ; la dette de Félix (520) reste réglée au chapitre 5 avec l'argent d'Izzy. **Monstres** : l'insecte ailé, le rampant gris et le crabe sont animés et dans le jeu (pack de Jordan, `assets/monsters/`) ; l'homme rouge, le golem de pierre et le tatou ont leur pack de 12 cases (pack de Jordan). Le boss du mode libre est le Troll existant en version simple (`chef`, 10 PV), pas un nouveau boss.
+
+## 32. Suite du jeu : « Saison 2 », chapitres 4 à 10 (résumé grossier fourni par Jordan, 31 octobre 2026)
+
+**Statut** : plan d'ensemble seulement, pas un canon exact. Rien n'est implémenté. Le jeu s'arrête à la fin du chapitre 3 (sortie du 4B, niveau 24, dette de 520). Les noms, chiffres et ordre de ce résumé sont à vérifier avec le texte du roman avant d'écrire une scène. Les montants sont en francs dans le résumé (« CHF ») ; dans le jeu, ce sont des crédits (entorse déjà en place).
+
+**Acte II : La Signature (chapitres 4 et 5)**
+- **Ch4** : nuit blanche sur le parquet ; chasse à l'aube ; rupture urbaine de niveau 28 (combat de rue sale, fuite de gaz) ; l'équipe au carnet (Thot, qui archive sans poser de questions) ; retour en sang et rencontre avec Céleste dans son propre lit ; Ishara « se souvient » de l'araignée (fil ouvert au chapitre 3).
+- **Ch5** : attribution de 6 points en VIT ; descente en ville ; Izzy (niveau 70) à Saint-François, qui lit une page blanche ; retrait des 520 au bancomat ; récupération des papiers chez Félix (Yarden Weiss existe) ; piège à la sortie : trois costumes devant le 4B.
+
+**Acte III : Deux Cages (chapitres 6 et 7)**
+- **Ch6** : l'enveloppe rendue par le chef de Thot (exactement 520) ; déduction du bancomat ; traque d'Izzy au Flon par l'anneau d'évitement ; remboursement cash ; montée au 16e étage d'Ouchy ; Jordan pose la boîte.
+- **Ch7** : visite de la maison marchande ; cours d'économie légale (la provenance, le ratio ×2) ; 104 000 sur la table ; Céleste à l'intake rapporte le faux souvenir de la cuisine ; Izzy brise sa règle et demande « T'es qui » ; Jordan refuse.
+
+**Acte IV : Ce qu'on emprunte et ce qu'on signe (chapitres 8 à 10)**
+- **Ch8** : Jordan sème Izzy dans les escaliers ; run en Abysse niveau 15 à 19 avec Ishara, combat à mains nues pour salir la marque (mains en sang) ; Ishara prend deux niveaux (niveau 13) mais explose (« T'avais qu'à demander. Et toi t'as préféré me l'acheter. ») ; Céleste accepte d'être garante.
+- **Ch9** : nuit à Ouchy ; Izzy en t-shirt gris pose l'ultimatum du 40 (12 à 13 000, elle ne prend rien, elle regarde) ; bascule de Tiamat (« Dis non », Jordan ne dit pas non) ; lundi : Céleste signe garante, Ishara vend au comptoir Est (640, moins 60 pour l'état), Vasseur note l'écrasement dans la colonne état.
+- **Ch10** : stand de nouilles (Jordan repousse ses 320 au 15) ; seul à Ouchy (inspection tactique, chambre sans fenêtre, livre de cuisine dédicacé, désastre du risotto) ; retour d'Izzy : contrat de parrainage marraine/nièce (10 %, 6 mois) ; clause de sortie unilatérale ; Jordan donne son nom complet (Yarden Weiss) ; bascule de point de vue sur Izzy, seule dans sa chambre aveugle.
+
+**Ce qui est déjà prêt côté jeu** : packs de portraits et mouvements d'Izzy et de Céleste (`docs/art/izzy-celeste/`), sac et crédits, dette, mode libre, système de scènes, décors réutilisables. **Ce qui manquerait** : lieux (appartement de Céleste, Saint-François, bancomat, Flon, tour d'Ouchy et son 16e étage, maison marchande, stand de nouilles, comptoir Est), personnages (Thot et son chef, Vasseur, les trois costumes), mécaniques (écran d'attribution des points de statistiques, combat à mains nues, combat de rue niveau 28), et les textes exacts de chaque chapitre.
+
