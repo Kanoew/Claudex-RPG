@@ -7,20 +7,20 @@
 const home = { stage: 'arrive' };
 
 const apartmentSpots = [
-  { id: 'fenetre', x: -190, y: -262, r: 62, label: 'Fenêtre', lines: () => ['Des plantes sur le rebord de la fenêtre : c’est par là qu’entre la lumière.', 'Dehors, les toits de Lausanne virent à l’orange sale. Une mouette, un scooter.'] },
-  { id: 'livres', x: -285, y: -232, r: 52, label: 'Livres', lines: () => ['Une pile de livres, rangés selon une logique qui n’appartient qu’à Ishara.'] },
+  { id: 'fenetre', x: -190, y: -262, r: 62, label: 'Fenêtre', lines: () => ['Des plantes sur le rebord. Dehors, les toits virent à l’orange sale. Une mouette, un scooter.'] },
+  { id: 'livres', x: -285, y: -232, r: 52, label: 'Livres', lines: () => ['Des livres empilés dans l’ordre qu’Ishara est la seule à comprendre.'] },
   { id: 'tablebasse', x: -185, y: -148, r: 62, label: 'Table basse', lines: () => ['Deux tasses sur la table basse : une vide, une à moitié pleine.'] },
-  { id: 'canape', x: -185, y: -68, r: 72, label: 'Canapé', lines: () => ['Le canapé fait face à la table basse. Pas de télé.'] },
-  { id: 'table', x: 0, y: -100, r: 58, label: 'Table', lines: () => ['Une table que personne n’utilise. Ici, on mange debout, au comptoir.'] },
-  { id: 'comptoir', x: 190, y: -150, r: 58, label: 'Comptoir', lines: () => ['Le comptoir s’ouvre sur le salon. Les clés d’Ishara y sont jetées ; la bouilloire est visible depuis le canapé.'] },
+  { id: 'canape', x: -185, y: -68, r: 72, label: 'Canapé', lines: () => ['Le canapé fait face à la table basse.'] },
+  { id: 'table', x: 0, y: -100, r: 58, label: 'Table', lines: () => ['Une table, vide, comme souvent ici.'] },
+  { id: 'comptoir', x: 190, y: -150, r: 58, label: 'Comptoir', lines: () => ['Le comptoir, les clés, la bouilloire.'] },
   { id: 'porte-ishara', x: 40, y: 225, r: 52, label: 'Porte fermée', lines: () => ['La porte est fermée.'] },
-  { id: 'placard', x: -150, y: 245, r: 56, label: 'Placard', lines: () => ['La chambre est celle de la colocataire, absente : le placard contient ses affaires.'] },
-  { id: 'cour', x: -292, y: 90, r: 48, label: 'Fenêtre sur cour', lines: () => ['Une fenêtre sur la cour intérieure. Sous un tapis fin, le parquet.'] },
+  { id: 'placard', x: -150, y: 245, r: 56, label: 'Placard', lines: () => ['Le placard contient des affaires qui ne sont pas les tiennes.'] },
+  { id: 'cour', x: -292, y: 90, r: 48, label: 'Fenêtre sur cour', lines: () => ['Elle voit la cour intérieure.'] },
   { id: 'lit', x: -228, y: 215, r: 58, label: 'Lit', lines: () => ['Un lit simple, aux draps propres.'] },
-  { id: 'parquet', x: -170, y: 90, r: 60, label: 'Parquet', lines: () => ['Le parquet, sous un tapis fin.'], script: () => home.stage === 'nuit' ? nightScript() : null },
-  { id: 'shampoings', x: 290, y: 100, r: 60, label: 'Douche', lines: () => ['Petite, propre, encombrée par les affaires de deux personnes.', 'Deux shampoings : le violet est celui d’Ishara, le rouge celui de la colocataire.'] },
+  { id: 'parquet', x: -170, y: 90, r: 60, label: 'Parquet', lines: () => ['Le parquet, et un tapis fin.'], script: () => home.stage === 'nuit' ? nightScript() : null },
+  { id: 'shampoings', x: 290, y: 100, r: 60, label: 'Douche', lines: () => ['Petite, propre, fonctionnelle. Deux shampoings. Violet, Ishara. Rouge, la coloc.'] },
   { id: 'radiateur', x: 190, y: 105, r: 52, label: 'Radiateur', lines: () => ['Des serviettes sèchent sur le radiateur.'] },
-  { id: 'miroir', x: 290, y: 28, r: 56, label: 'Lavabo', lines: () => ['Le robinet met trente secondes à chauffer.'], script: () => home.stage === 'arrive' ? mirrorScript() : null }
+  { id: 'miroir', x: 290, y: 28, r: 56, label: 'Lavabo', lines: () => ['Le robinet. Simple, efficace.'], script: () => home.stage === 'arrive' ? mirrorScript() : null }
 ];
 
 // Points examinables par zone : l'appartement d'Ishara et le comptoir de Rémi (chapitre2b.js).
@@ -80,7 +80,7 @@ function resetApartment() {
 // Arrivée : les clés, la bouilloire, le thé (canon : thé, puis café ; courbatures ; première nuit).
 function apartmentArrivalSteps() {
   return [
-    { say: ['Troisième étage. Ishara jette ses clés sur le comptoir en rentrant.', 'Ishara[sourire] : « Thé ? »', 'Ishara : « Lait ? Sucre ? »', 'Yarden : « Noir. »', 'Ishara[sourire] : « Femme de goût. »', 'Ishara : « La chambre en trop, c’est la première à gauche. Y’a des trucs dans le placard si t’as besoin, ma coloc met des années à récupérer ses affaires. »', 'Ishara : « Salle de bain en face. Le robinet froid met trente secondes à devenir chaud, c’est normal. »'] },
+    { say: ['Troisième étage. Ishara jette ses clés sur le comptoir en rentrant.', 'Ishara[sourire] : « Thé ? »', 'Ishara : « Lait ? Sucre ? »', 'Yarden : « Noir. »', 'Ishara[sourire] : « Femme de goût. »', 'Ishara : « La chambre en trop, c’est la première à gauche. Y’a des trucs dans le placard. Ma coloc revient pas tout de suite, fais comme chez toi. »', 'Ishara : « Salle de bain en face. Le robinet froid met trente secondes à devenir chaud, c’est normal. »'] },
     // Ishara disparaît dans le couloir, puis revient une serviette à la main.
     { moves: [{ id: 'ishara', path: [{ x: 120, y: -112 }, { x: 40, y: -20 }, { x: 0, y: 60 }], speed: 110 }] },
     { set: ['ishara', { visible: false }] },
@@ -100,14 +100,14 @@ function nightScript() {
     { card: 'La première nuit', seconds: 2.4 },
     { run: () => { delete sceneActors.ishara; Object.assign(player, { x: -170, y: 90 }); updateStatus(); } },
     { dark: true },
-    { say: ['Le lit est trop mou. Yarden dort par terre, sur le parquet, avec l’oreiller.', 'Tiamat (voix intérieure) : « Pathétique. »', 'Yarden : « Ergonomique. »'] },
+    { say: ['Le lit est trop mou. Yarden ne semble pas habituée à ce genre de confort. Elle dort par terre, avec l’oreiller.', 'Tiamat (voix intérieure) : « Pathétique. »', 'Yarden : « J’ai connu pire. »'] },
     { say: ['Yarden : « Il y a des agents des dieux, à Helvara ? »', 'Tiamat : « Plusieurs organisations. »', 'Yarden : « Et Ishara ? »', 'Tiamat : « Je ne dirai rien là-dessus. »'] },
     { tattoo: true },
     { run: () => { scytheFreed = true; } },
-    { say: ['Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.', 'Tiamat : « Tes tatouages sont le vecteur de la faux. »'] },
+    { say: ['Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.', 'Tiamat : « Tes tatouages portent la faux. C’est à toi. »'] },
     { tattoo: false },
     { dark: false },
-    { say: ['Au matin : du café, et des courbatures.'] },
+    { say: ['Au matin : du café, du thé et des courbatures.'] },
     { run: () => { home.stage = 'matin'; } },
     { card: 'Dimanche matin', seconds: 2 },
     ...impasseScript()

@@ -12,7 +12,7 @@ function openingScript() {
     { say: [
       'Helvara, de nuit. Yarden se réveille dans une ruelle, adossée à un mur de briques.',
       'Plus loin, une fête bat son plein : musique, rires. Personne ne la remarque.',
-      'Niveau 1. Un corps plus petit, une voix plus haute. Ses souvenirs de combat sont en morceaux.',
+      'Niveau 1. Un corps qui n’était pas là avant. Trop léger, voix trop haute. Ses souvenirs de combat sont en morceaux.',
       'Tiamat (voix intérieure) : « Réveillée ? Ne cherche pas derrière toi, je suis partout. »',
       'Tiamat : « Tu régnais sur un donjon de 182 étages, à Valstygheim. »',
       'Tiamat : « Tu étais trop grand pour qu’ils te comptent. »',
@@ -22,11 +22,11 @@ function openingScript() {
     { wait: .9 },
     { run: () => { riftShown = true; riftOpenedAt = mirrorNow(); updateStatus(); } },
     { wait: 1.6 },
-    { say: ['Tiamat : « C’est moi qui l’ai ouverte. La traverser sera ton choix. »'] },
+    { say: ['Tiamat : « C’est moi qui l’ai ouverte. »'] },
     { camera: null },
     { until: () => Math.hypot(player.x - openingRift.x, player.y - openingRift.y) < 100 },
     { moves: [{ id: 'yarden', path: [{ x: openingRift.x, y: openingRift.y - 10 }], speed: 150 }] },
-    { say: ['Tiamat : « L’Abysse est trop dangereux pour une niveau 1. Je t’accompagne. »'] },
+    { say: ['Tiamat : « Ce corps est niveau 1. Je t’accompagne. »'] },
     { run: () => { enterZone('donjon', 'start'); saveCheckpoint('abysse'); } },
     { finish: true }
   ];

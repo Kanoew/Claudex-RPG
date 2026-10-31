@@ -847,7 +847,7 @@ const tests = [
     const ids = g.apartmentSpots.map(s => s.id);
     for (const id of ['fenetre', 'livres', 'tablebasse', 'canape', 'table', 'comptoir', 'porte-ishara', 'placard', 'lit', 'parquet', 'shampoings', 'radiateur', 'miroir']) assert(ids.includes(id), id);
     const texts = g.apartmentSpots.map(s => (s.lines() || []).join(' ')).join(' ');
-    for (const part of ['plantes', 'deux tasses', 'Pas de télé', 'mange debout', 'bouilloire', 'La porte est fermée', 'shampoings', 'serviettes', 'trente secondes']) assert(texts.toLowerCase().includes(part.toLowerCase()), part);
+    for (const part of ['plantes', 'deux tasses', 'table basse', 'comptoir', 'bouilloire', 'La porte est fermée', 'shampoings', 'serviettes', 'robinet']) assert(texts.toLowerCase().includes(part.toLowerCase()), part);
     assert(!/bleu/i.test(texts));
     // Chaque point examinable a une place libre, à portée, pour un disque de la taille de Yarden.
     const blocked = (x, y) => g.walls.some(w => x > w.x - 13 && x < w.x + w.width + 13 && y > w.y - 13 && y < w.y + w.height + 13);
@@ -899,14 +899,14 @@ const tests = [
       if (g.story.active) { said.push(g.story.current); if (g.scene.mirror) { framed = true; g.draw(); } g.advanceStory(); } else g.update(.05);
     }
     assert(g.home.stage === 'nuit' && g.scene.mirror === null && framed);
-    assert(said.some(line => line.includes('problème d’agrafe')) && said.some(line => line.includes('On verra demain')), 'Le soutien-gorge, sans rien montrer');
-    assert(!said.some(line => /nue|seins|poitrine/i.test(line)), 'Rien d’explicite : seulement le problème d’agrafe');
+    assert(said.some(line => line.includes('L’agrafe est dans le dos')) && said.some(line => line.includes('On verra demain')), 'Le soutien-gorge, sans rien montrer');
+    assert(!said.some(line => /nue|seins|poitrine/i.test(line)), 'Rien d’explicite : seulement l’agrafe');
     const all = said.join('\n');
     assert(all.includes('« ...C’est acceptable. »'));
     assert(all.includes('des yeux violets'), 'Yeux violets dans la version jeu');
     for (const banned of ['Jordan', 'bleu-gris', 'septum', 'piercing', 'Angel', 'ear cuff', 'dragon', 'collier', 'chaîne']) assert(!all.includes(banned), banned);
     assert(!all.includes('—') && !all.includes('–'), 'Pas de tiret cadratin');
-    assert.equal(said.filter(line => /^Tiamat : /.test(line)).length, 4);
+    assert.equal(said.filter(line => /^Tiamat : /.test(line)).length, 5);
   }],
   ['Première nuit : parquet, agents divins, tatouages et fin du matin', () => {
     const g = armed('loaded');
@@ -922,7 +922,7 @@ const tests = [
     }
     assert(g.currentZone.id === 'quartier' && dark && tattoo && g.scene.dark === null && g.scene.tattoo === null);
     const all = said.join('\n');
-    for (const part of ['Pathétique', 'Ergonomique', 'Plusieurs organisations', 'parquet']) assert(all.includes(part), part);
+    for (const part of ['Pathétique', 'J’ai connu pire', 'Plusieurs organisations', 'par terre']) assert(all.includes(part), part);
     assert(!all.includes('Jordan'));
   }],
   ['Run en Abysse : sept gobelins de niveau 15 à 19, sauteur, fuyard, Ishara derrière, aucune expérience', () => {
