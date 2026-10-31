@@ -203,15 +203,11 @@ function drawFreeRift(offsetX, offsetY) {
   if (freeSpots[currentZone.id]) point = freeSpots[currentZone.id];
   else if (currentZone.id === 'faille' && freeMode.done) point = zones.faille.start;
   if (!point) return;
-  const t = mirrorNow(), x = point.x + offsetX, y = point.y + offsetY;
-  const glow = ctx.createRadialGradient(x, y - 20, 4, x, y - 20, 70);
-  glow.addColorStop(0, 'rgba(190, 150, 255, .55)'); glow.addColorStop(1, 'rgba(190, 150, 255, 0)');
-  ctx.fillStyle = glow; ctx.fillRect(x - 70, y - 90, 140, 140);
-  ctx.strokeStyle = '#d8c2ff'; ctx.lineWidth = 2;
-  ctx.beginPath();
-  for (let i = 0; i <= 12; i++) { const yy = y - 52 + i * 9; const wobble = Math.sin(t * 3 + i * .9) * 2.5; if (i === 0) ctx.moveTo(x - 17 + wobble, yy); else ctx.lineTo(x - 17 + wobble, yy); }
-  for (let i = 12; i >= 0; i--) { const yy = y - 52 + i * 9; const wobble = Math.sin(t * 3 + i * .9 + 2) * 2.5; ctx.lineTo(x + 17 + wobble, yy); }
-  ctx.closePath(); ctx.fillStyle = 'rgba(70, 40, 130, .5)'; ctx.fill(); ctx.stroke();
+  // La même faille que dans la ruelle d'Helvara : bords qui ondulent, éclats aspirés, lueur bleue, toujours grande ouverte.
+  const opened = riftOpenedAt;
+  riftOpenedAt = mirrorNow() - 5;
+  drawFaille(point.x + offsetX, point.y + offsetY - 14, currentZone.id === 'faille' ? 'RETOUR' : 'FAILLE');
+  riftOpenedAt = opened;
 }
 
 // ---------- La carte ----------
