@@ -10,7 +10,7 @@ try {
 } catch (error) { /* Les réglages restent utilisables sans stockage. */ }
 let uxAutomaticInput = window.matchMedia('(pointer: coarse)').matches ? 'touch' : 'keyboard';
 let uxModal = null;
-const uxPanels = ['menu-panel', 'stats-panel', 'bag-panel', 'map-panel', 'result'].map(id => document.getElementById(id));
+const uxPanels = ['menu-panel', 'stats-panel', 'bag-panel', 'map-panel', 'history-panel', 'result'].map(id => document.getElementById(id));
 const uxStory = document.getElementById('story-panel');
 
 function uxTouchMode() { return (uxPrefs.input === 'auto' ? uxAutomaticInput : uxPrefs.input) === 'touch'; }
@@ -62,7 +62,18 @@ const uxStoryPause = document.createElement('button');
 uxStoryPause.id = 'story-pause'; uxStoryPause.type = 'button'; uxStoryPause.textContent = 'Pause';
 uxStoryPause.addEventListener('click', () => openMenu('pause'));
 uxStoryActions.append(uxStoryPause);
+uxStoryActions.append(document.getElementById('story-history'));
 uxStory.append(uxStoryActions);
+
+// La zone de lecture reste au-dessus du terrain durant toute la scène de la ruelle,
+// y compris ses animations sans texte. Sa position suit la hauteur réelle de l'en-tête.
+function uxMeasureHeader() {
+  const top = Math.round(uxApp.querySelector('header').getBoundingClientRect().bottom - uxApp.getBoundingClientRect().top + 8);
+  const value = `${top}px`;
+  if (uxApp.style.getPropertyValue('--story-top') !== value) uxApp.style.setProperty('--story-top', value);
+}
+new ResizeObserver(uxMeasureHeader).observe(uxApp.querySelector('header'));
+uxMeasureHeader();
 
 const uxInputSelect = document.getElementById('ux-input');
 const uxTextSlider = document.getElementById('ux-text-size');
@@ -151,6 +162,7 @@ document.addEventListener('keydown', event => {
   } else if (event.code === 'Escape' && !event.repeat) {
     event.preventDefault(); event.stopPropagation();
     if (panel.id === 'bag-panel') closeBag();
+    else if (panel.id === 'history-panel') closeDialogueHistory();
     else if (panel.id === 'map-panel') closeMap();
     else if (panel.id === 'stats-panel') closeStats();
     else if (panel === uxStory) openMenu('pause');

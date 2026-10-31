@@ -391,22 +391,10 @@ function draw() {
   drawDungeon(offsetX, offsetY);
   drawFreeRift(offsetX, offsetY);
   drawRoomShade(screenX, screenY);
+  const lights = sceneLights();
+  drawLightShadows(offsetX, offsetY, lights);
   drawEncounter(offsetX, offsetY);
   drawSceneActors(offsetX, offsetY, false);
-  ctx.fillStyle = '#b5afca';
-  ctx.font = '12px system-ui';
-  ctx.textAlign = 'left';
-  ctx.fillText(currentZone.title, 14, 24);
-  if (debugMode) {
-    const lines = [
-      `stage ${stage} · delay ${bossDelay.toFixed(2)} · pause ${paused} · fin ${combatOver}`,
-      `doigt ${input.pointerId} · joy ${input.x.toFixed(2)},${input.y.toFixed(2)}`,
-      `reset ${debugInfo.resets} (dernier : ${debugInfo.last})`,
-      `yarden ${Math.round(player.x)},${Math.round(player.y)} · boss ${Math.round(boss.x)},${Math.round(boss.y)} actif ${boss.active}`
-    ];
-    ctx.fillStyle = '#ffd36b';
-    lines.forEach((line, i) => ctx.fillText(line, 14, (boss.active ? 84 : 44) + i * 16));
-  }
   for (const enemy of activeEnemies()) drawEnemy(enemy, offsetX, offsetY);
   if (attack.remaining > 0) {
     ctx.save();
@@ -463,6 +451,22 @@ function draw() {
   ctx.textAlign = 'center';
   ctx.fillText('Yarden', screenX, labelY);
   drawSceneActors(offsetX, offsetY, true);
+  drawSceneLighting(offsetX, offsetY, lights);
+  if (freeMode.active && !scene.active) drawFreeMinimap();
+  ctx.fillStyle = '#b5afca';
+  ctx.font = '12px system-ui';
+  ctx.textAlign = 'left';
+  ctx.fillText(currentZone.title, 14, 24);
+  if (debugMode) {
+    const lines = [
+      `stage ${stage} · delay ${bossDelay.toFixed(2)} · pause ${paused} · fin ${combatOver}`,
+      `doigt ${input.pointerId} · joy ${input.x.toFixed(2)},${input.y.toFixed(2)}`,
+      `reset ${debugInfo.resets} (dernier : ${debugInfo.last})`,
+      `yarden ${Math.round(player.x)},${Math.round(player.y)} · boss ${Math.round(boss.x)},${Math.round(boss.y)} actif ${boss.active}`
+    ];
+    ctx.fillStyle = '#ffd36b';
+    lines.forEach((line, i) => ctx.fillText(line, 14, (boss.active ? 84 : 44) + i * 16));
+  }
   drawSpotMarkers(offsetX, offsetY);
   drawLevelUp(screenX, screenY);
   drawBossMarker(offsetX, offsetY);

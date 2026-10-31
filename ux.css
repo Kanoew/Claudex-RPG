@@ -54,7 +54,36 @@ h1 { font-size: 13px; letter-spacing: .12em; }
 .story-actions { display: flex; flex-direction: column; gap: 6px; align-items: stretch; }
 #story-pause { min-height: 40px; border: 1px solid #8b78c9; border-radius: 12px; background: #2b2141; color: #f4effc; font: inherit; }
 #story-card.tiamat { background: transparent; box-shadow: none; }
-#story-card.tiamat #story-text { font-style: normal; }
+
+/* Les trois voix gardent la même surface de lecture ; seul leur traitement change. */
+#app > #story-panel { --dialogue-height: 184px; }
+#app > #story-panel:not([hidden]) { height: var(--dialogue-height); }
+#story-text { white-space: pre-wrap; }
+#story-card.narration #story-name { color: #cfc4b4; letter-spacing: .12em; }
+#story-card.narration #story-text { color: #e0d9cd; }
+#app > #story-panel[data-voice="narration"] { border-color: #8a7d70; }
+#app > #story-panel[data-voice="inner"] { border-color: #b298e9; background: #22162ff5; box-shadow: inset 4px 0 #9472d1; }
+#story-card.tiamat #story-text { color: #e6d9ff; font-style: italic; }
+#story-history { min-height: 48px; padding: 8px 10px; border: 1px solid #8b78c9; border-radius: 12px; background: #2b2141; color: #f4effc; font: inherit; }
+.story-actions #story-pause { min-height: 48px; }
+#history-body { margin: 0; padding: 0; list-style: none; }
+.history-line { padding: 14px 16px; margin: 0 0 12px; border-left: 3px solid #8c789f; background: #211a2c; border-radius: 0 12px 12px 0; }
+.history-line b { color: #e0c58f; font-size: 13px; }
+.history-line p { margin: 7px 0 0; font-size: var(--reading-size); line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.history-line.inner { border-color: #b298e9; background: #291b39; }
+.history-line.inner p { color: #e6d9ff; font-style: italic; }
+.history-line.narration { border-color: #8a7d70; }
+.history-line.narration b, .history-line.narration p { color: #e0d9cd; }
+
+/* En portrait et sur PC, la lecture remplace la place des commandes pendant
+   toute la scène : aucun aller-retour du décor entre deux répliques. */
+@media (orientation: portrait), (min-height: 551px) {
+  #app[data-story-place="top"][data-context="dialogue"] #view,
+  #app[data-story-place="top"][data-context="cinematic"] #view { margin-top: 192px; }
+  #app[data-story-place="top"][data-context="dialogue"] #controls,
+  #app[data-story-place="top"][data-context="cinematic"] #controls { height: 0; min-height: 0; padding: 0; overflow: hidden; }
+  #app[data-story-place="top"] > #story-panel:not([hidden]) { top: var(--story-top, 120px); bottom: auto; }
+}
 
 /* Fenêtres sur toute l'application : titre et fermeture fixes, contenu défilant. */
 #app > .ux-window:not([hidden]) { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 14px; padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); background: radial-gradient(100% 100% at 50% 0%, #302147fa, #100c19fc); border-radius: 16px; text-align: left; z-index: 20; overflow: hidden; }
@@ -113,7 +142,7 @@ h1 { font-size: 13px; letter-spacing: .12em; }
 #loot-toast { max-width: calc(100% - 24px); width: max-content; text-align: center; border-radius: 12px; }
 
 @media (max-width: 600px) {
-  #app > #story-panel:not([hidden]) { grid-template-columns: 1fr; gap: 8px; padding: 10px; }
+  #app > #story-panel:not([hidden]) { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; align-items: stretch; gap: 8px; padding: 10px; }
   #story-next { justify-self: end; min-height: 48px; }
   .story-actions { flex-direction: row-reverse; }
   #story-pause { min-height: 48px; padding: 8px 14px; }
