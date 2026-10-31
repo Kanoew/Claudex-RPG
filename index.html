@@ -182,7 +182,7 @@
     }
     @media (orientation: landscape) and (max-width: 750px) { .resources { max-width: 55%; } }
   </style>
-  <link rel="stylesheet" href="ux.css?v=72">
+  <link rel="stylesheet" href="ux.css?v=74">
   <script src="enemies.js?v=63" defer></script>
   <script src="dungeon.js?v=73" defer></script>
   <script src="hud.js?v=62" defer></script>
@@ -191,7 +191,7 @@
   <script src="transitions.js?v=73" defer></script>
   <script src="yarden-sprite.js?v=68" defer></script>
   <script src="monster-sprite.js?v=64" defer></script>
-  <script src="encounter.js?v=48" defer></script>
+  <script src="encounter.js?v=74" defer></script>
   <script src="scene.js?v=65" defer></script>
   <script src="chapitre2b.js?v=67" defer></script>
   <script src="chapitre3.js?v=60" defer></script>
@@ -199,7 +199,7 @@
   <script src="metro.js?v=65" defer></script>
   <script src="night.js?v=54" defer></script>
   <script src="mirror.js?v=67" defer></script>
-  <script src="dialogue.js?v=65" defer></script>
+  <script src="dialogue.js?v=74" defer></script>
   <script src="levelup.js?v=50" defer></script>
   <script src="stats.js?v=59" defer></script>
   <script src="bag.js?v=59" defer></script>
@@ -217,7 +217,7 @@
   <script src="input.js?v=62" defer></script>
   <script src="movement.js?v=42" defer></script>
   <script src="menu.js?v=62" defer></script>
-  <script src="ux.js?v=65" defer></script>
+  <script src="ux.js?v=74" defer></script>
   <script src="game.js?v=73" defer></script>
 </head>
 <body>
@@ -245,7 +245,8 @@
       <div id="map-panel" role="dialog" aria-modal="true" aria-labelledby="map-title" hidden><h2 id="map-title">Lausanne</h2><div id="map-list"></div><button id="map-close" type="button">Fermer</button></div>
       <div id="loot-toast" role="status" hidden></div>
       <div id="stats-panel" role="dialog" aria-modal="true" aria-labelledby="stats-title" hidden><h2 id="stats-title">Yarden</h2><div id="stats-body" role="group"></div><button id="stats-close" type="button">Fermer</button></div>
-      <div id="story-panel" role="dialog" aria-modal="true" aria-labelledby="story-text" hidden><div id="story-card"><canvas id="story-portrait" width="144" height="144" hidden></canvas><div id="story-body"><p id="story-name" hidden></p><p id="story-text"></p></div></div><button id="story-next" type="button">Continuer</button></div>
+      <div id="history-panel" role="dialog" aria-modal="true" aria-labelledby="history-title" hidden><h2 id="history-title">Dernières répliques</h2><ol id="history-body"></ol><button id="history-close" type="button">Retour au dialogue</button></div>
+      <div id="story-panel" role="dialog" aria-modal="true" aria-labelledby="story-text" hidden><div id="story-card"><canvas id="story-portrait" width="144" height="144" hidden></canvas><div id="story-body"><p id="story-name" hidden></p><p id="story-text"></p></div></div><button id="story-next" type="button">Continuer</button><button id="story-history" type="button">Historique</button></div>
     </div>
     <div id="controls">
       <div id="joystick" aria-label="Joystick tactile de déplacement"><div id="stick"></div></div>

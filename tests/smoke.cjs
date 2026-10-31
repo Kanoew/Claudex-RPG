@@ -12,7 +12,7 @@ function game(imageMode, keepOpening, store) {
   const listeners = {};
   const elements = {};
   let patterns = 0;
-  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-card', 'story-portrait', 'story-name', 'story-next', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-music', 'menu-effects', 'menu-music-volume', 'menu-effects-volume', 'menu-settings', 'menu-back', 'menu-main', 'menu-settings-view', 'menu-vignette', 'level-chip', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close', 'menu-free', 'map-panel', 'map-list', 'map-close', 'map-button', 'free-button', 'bag-panel', 'bag-body', 'bag-close', 'bag-button', 'credit-chip', 'loot-toast']) {
+  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-card', 'story-portrait', 'story-name', 'story-next', 'story-history', 'history-panel', 'history-body', 'history-close', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-music', 'menu-effects', 'menu-music-volume', 'menu-effects-volume', 'menu-settings', 'menu-back', 'menu-main', 'menu-settings-view', 'menu-vignette', 'level-chip', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close', 'menu-free', 'map-panel', 'map-list', 'map-close', 'map-button', 'free-button', 'bag-panel', 'bag-body', 'bag-close', 'bag-button', 'credit-chip', 'loot-toast']) {
     elements[id] = {
       hidden: id === 'result', style: { setProperty(name, value) { this[name] = value; } }, offsetWidth: 54, textContent: '', attributes: {},
       classList: { toggle() {}, add() {}, remove() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {}, focus() {},
@@ -42,7 +42,7 @@ function game(imageMode, keepOpening, store) {
   // Même ordre et portées globales que les scripts defer de la page.
   for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'bag.js', 'libre.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-quartier.js', 'render-appart.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, parseStoryLine, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -810,18 +810,32 @@ const tests = [
     g.update(.05);
     assert(g.scene.active);
     const said = [];
-    let metroSeen = false;
+    let metroSeen = false, wristSeen = false, recoilSeen = false;
     for (let guard = 0; guard < 20000 && !(g.currentZone.id === 'appartement' && !g.scene.active); guard++) {
-      if (g.story.active) { said.push(g.story.current); if (g.scene.metro) { metroSeen = true; g.draw(); } g.advanceStory(); continue; }
+      if (g.story.active) {
+        said.push(g.story.current);
+        if (g.sceneActors.compact && g.sceneActors.compact.mode === 'stumble') {
+          wristSeen = true;
+          const before = JSON.stringify([g.player.x, g.player.y, g.sceneActors.compact]);
+          g.calls.length = 0; g.draw();
+          assert(g.calls.some(c => c[0] === 'drawImage' && c[1] === g.sceneArt.strips['inconnus/inconnu-2-poignet']), 'La vraie pose du poignet est dessinée');
+          g.openDialogueHistory(); g.advanceStory(); g.update(.5); g.closeDialogueHistory();
+          assert.equal(JSON.stringify([g.player.x, g.player.y, g.sceneActors.compact]), before, 'L’historique conserve le moment du poignet');
+        }
+        if (g.scene.metro) { metroSeen = true; g.draw(); }
+        g.advanceStory(); continue;
+      }
       if (g.stats.open) { g.closeStats(); continue; }
       if (g.scene.free && g.currentZone.id === 'quartier') Object.assign(g.player, { x: 0, y: -50 });
       g.update(.05);
+      if (g.sceneActors.compact && g.sceneActors.compact.variant === 'recul') { recoilSeen = true; g.draw(); }
       if (g.scene.metro) metroSeen = true;
       if (guard % 40 === 0) g.draw();
     }
     assert(g.scene.done && !g.scene.active && g.currentZone.id === 'appartement', 'La scène mène à l’appartement');
     assert(said.some(line => line.includes('Troisième étage')));
     assert(metroSeen, 'Le métro est montré');
+    assert(wristSeen && recoilSeen, 'Le poignet et le recul sont rejoués');
     assert(said.some(line => line.includes('Éveillés')) && said.some(line => line.includes('Tu aurais pu entrer')));
     assert(said.every(line => !/donjon/i.test(line)), 'Ishara et le récit disent faille et Abysse, jamais donjon');
     assert(said.some(line => line.includes('Pardon, désolée')));
@@ -1467,6 +1481,59 @@ const tests = [
     assert.equal(g.currentZone.id, 'exterieur');
     assert(g.encounter.complete && !g.scene.active && g.player.hp === 7);
     assert(g.zoneTransition.remaining > 0);
+  }],
+  ['Dialogues : voix distinctes, début du texte et portrait neutre de course', () => {
+    const g = game('loaded');
+    g.elements['story-card'].scrollTop = 120;
+    g.showStoryLine('La porte reste ouverte.');
+    assert.equal(g.elements['story-card'].scrollTop, 0);
+    assert.equal(g.elements['story-panel'].attributes['data-voice'], 'narration');
+    assert.equal(g.elements['story-name'].textContent, 'NARRATION');
+    assert(g.elements['story-portrait'].hidden);
+    g.showStoryLine('Tiamat : « Observe. »');
+    assert.equal(g.elements['story-panel'].attributes['data-voice'], 'inner');
+    assert.equal(g.elements['story-name'].textContent, 'TIAMAT · VOIX INTÉRIEURE');
+    g.showStoryLine('Ishara[sourire] : « Viens. »');
+    assert.equal(g.elements['story-panel'].attributes['data-voice'], 'speech');
+    assert.equal(g.elements['story-text'].textContent, 'Viens.');
+    g.startFreeMode();
+    g.elements['story-portrait'].getContext = g.elements.game.getContext;
+    g.calls.length = 0;
+    g.drawPortrait('Ishara', 'surprise');
+    assert(g.calls.some(c => c[0] === 'drawImage' && c[1] === g.portraitArt['ishara-course-neutre']), 'Une expression absente utilise le neutre de la bonne tenue');
+  }],
+  ['Historique : uniquement les répliques lues, aucun saut de scène ni changement de sauvegarde', () => {
+    const g = game('loaded');
+    let runs = 0;
+    g.startScene([{ say: ['Ishara : « <b>Viens</b> & regarde. »', 'Tiamat : « Pas encore. »'] }, { run: () => runs++ }]);
+    g.saveCheckpoint('abysse');
+    const saved = JSON.stringify(g.readSave()), current = g.story.current;
+    const remaining = g.story.lines.length;
+    g.openDialogueHistory();
+    assert(g.dialogueLog.open && !g.elements['history-panel'].hidden);
+    assert(g.elements['history-body'].innerHTML.includes('&lt;b&gt;Viens&lt;/b&gt; &amp; regarde.'));
+    assert(!g.elements['history-body'].innerHTML.includes('Pas encore.'), 'Pas de réplique future');
+    g.advanceStory(); g.update(.5);
+    assert.equal(g.story.current, current);
+    assert.equal(g.story.lines.length, remaining);
+    assert.equal(runs, 0);
+    g.closeDialogueHistory();
+    assert(g.elements['history-panel'].hidden && !g.dialogueLog.open);
+    assert.equal(g.story.current, current);
+    g.advanceStory();
+    assert(g.story.current.includes('Pas encore.'));
+    assert.equal(runs, 0);
+    assert.equal(JSON.stringify(g.readSave()), saved);
+    g.advanceStory(); assert.equal(runs, 1, 'La scène continue seulement après le dernier Continuer');
+  }],
+  ['Historique : taille bornée et remise à zéro à la reprise', () => {
+    const g = game('loaded');
+    for (let i = 0; i < 45; i++) g.showStoryLine(`Réplique ${i}`);
+    assert.equal(g.dialogueLog.entries.length, 40);
+    assert.equal(g.dialogueLog.entries[0].text, 'Réplique 5');
+    g.applyCheckpoint('rue');
+    assert.equal(g.dialogueLog.entries.length, 0);
+    assert(!g.dialogueLog.open && g.elements['history-panel'].hidden);
   }],
   ['Antre : reprendre après une mort réinitialise le combat sans refaire le Troll', () => {
     const g = beginSpider(armed());

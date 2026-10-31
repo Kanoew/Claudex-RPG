@@ -8,7 +8,7 @@ Les dialogues occupent une zone séparée du terrain : au-dessus de la ruelle po
 
 ## Vérifications
 
-- `node tests/smoke.cjs` : 43 scénarios de logique réussis au 31 octobre 2026.
+- `node tests/smoke.cjs` : 46 scénarios de logique réussis au 31 octobre 2026.
 - Carte et transitions, session du 31 octobre : vérification navigateur tentée mais bloquée au lancement de Chromium par le sandbox (`Operation not permitted`). Les quatre formats 360 × 640, 390 × 844, 844 × 390 et 1440 × 900 restent à contrôler pour cette modification, y compris la vraie scène du poignet et le miroir. Les vérifications Chromium ci-dessous concernent les livraisons précédentes.
 - Chromium : 390 × 844, 360 × 640, 844 × 390, 1440 × 900 ; fenêtres, titre, sac, statistiques, carte du mode libre et véritable scène du poignet. Navigation Tab confinée, pause puis retour à la même réplique, texte de 24 px et commandes choisies manuellement.
 - Vérifications complémentaires : paysage 667 × 375, dialogue long défilant, déplacement et attaque par deux contacts tactiles simultanés.
@@ -37,3 +37,13 @@ La mise en page ne constitue pas une certification d'accessibilité. Les contras
 - Grand écran : le décor est agrandi jusqu'à ×2 quand le terrain mesure au moins 620 px de large (`resize` dans `input.js`) ; jamais sur téléphone.
 - Paysage téléphone avec dialogue : le panneau passe à droite du terrain (`ux.css`, fin du fichier).
 - Grand écran : jauges et objectif limités à 640 px.
+
+## Dialogues (31 octobre 2026)
+
+Dans la ruelle, la zone de dialogue reste au-dessus du terrain pendant les répliques et les animations sans texte. Elle occupe la place libérée par les commandes de scène, pour conserver de la hauteur au terrain. L'en-tête est mesuré pour placer le panneau sans le recouvrir. En paysage court, la disposition reste latérale. Le cadrage du poignet et le redessin immédiat lors d'un vrai redimensionnement restent actifs. Le panneau mesure 184 px en portrait et sur PC ; son contenu défile, les actions restent accessibles et chaque nouvelle réplique revient au début du texte.
+
+La narration porte un libellé sobre sans portrait ; la parole garde le nom et le portrait ; Tiamat garde son œil stylisé et le libellé de voix intérieure, avec bordure violette et texte en italique. Les textes et leur ordre restent inchangés. Le bouton « Historique » ouvre les 40 dernières répliques affichées dans une fenêtre défilante ; « Retour au dialogue » ou Échap revient à la réplique en cours. L'historique ne rejoue aucune action, ne révèle aucune ligne à venir et n'est pas enregistré ; une reprise de point de passage le remet à zéro. L'apparition progressive du texte n'est pas ajoutée.
+
+Validation logique : distinction des voix, portrait de repli, historique sans texte futur ni effet sur la sauvegarde ou la progression, limite de 40 répliques. Chromium refuse toujours de démarrer dans le sandbox (`Operation not permitted`) : aucune nouvelle vérification visuelle aux quatre formats demandés n'est revendiquée.
+
+À tester avant fusion : ruelle en portrait puis paysage (poignet et recul entièrement visibles), plusieurs répliques courtes puis longues à 24 px, Historique → Retour → Continuer, Échap et Tab sur PC, Pause/Reprendre, puis miroir et nuit. Comparer l'appartement chaud et l'antre froid, vérifier les annonces des ennemis et les failles du mode libre. Répéter sur téléphone réel : une émulation ne suffit pas pour juger la fluidité et le confort.
