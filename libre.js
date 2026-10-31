@@ -8,9 +8,9 @@ const freeMode = { active: false, clears: 0, from: 'quartier', done: false, rng:
 
 // Les trois quartiers où s'ouvrent des failles : position de la faille dans la rue et niveau de base des monstres.
 const freeSpots = {
-  quartier: { x: 120, y: 150, label: 'Quartier étudiant', base: 8 },
-  marterey: { x: 150, y: 60, label: 'Rue Marterey', base: 14 },
-  sousgare: { x: 150, y: 100, label: 'Sous-gare', base: 20 }
+  quartier: { x: 120, y: 150, label: 'Quartier étudiant', short: 'Quartier', base: 8 },
+  marterey: { x: 150, y: 60, label: 'Rue Marterey', short: 'Marterey', base: 14 },
+  sousgare: { x: 150, y: 100, label: 'Sous-gare', short: 'Sous-gare', base: 20 }
 };
 const freeThemes = ['pierre', 'cristal', 'ocre'];
 // Les rues se suivent : on sort par le bord est ou ouest pour passer à la rue voisine (la carte montre le plan).
@@ -97,7 +97,10 @@ function walkToStreet(id, side) {
   enterHub(id);
   const r = zones[id].room;
   player.x = side === 'west' ? r.x + 56 : r.x + r.width - 56;
-  player.y = zones[id].start.y;
+  // On garde à peu près la hauteur d'où l'on vient, pour que la rue paraisse continue ; le fondu est très bref.
+  const lane = zones[id].start.y;
+  player.y = Math.max(lane - 60, Math.min(lane + 40, player.y));
+  zoneFade = .1;
   updateStatus();
 }
 
@@ -159,18 +162,40 @@ function updateFree(seconds = 0) {
   }
 }
 
+// Mini-plan permanent en haut à droite du terrain : les trois rues reliées, la position actuelle en clair, une étoile quand une faille est ouverte.
+function drawFreeMinimap() {
+  const ids = Object.keys(freeSpots), here = currentZone.id === 'faille' ? freeMode.from : currentZone.id;
+  const w = 46, h = 14, gap = 8, total = ids.length * w + (ids.length - 1) * gap;
+  const x0 = width - total - 12, y0 = 34;
+  ctx.save();
+  ctx.globalAlpha = .9;
+  ctx.fillStyle = '#120d22cc'; ctx.beginPath(); (ctx.roundRect || ctx.rect).call(ctx, x0 - 6, y0 - 8, total + 12, h + 24, 8); ctx.fill();
+  ids.forEach((id, i) => {
+    const x = x0 + i * (w + gap), active = id === here;
+    if (i < ids.length - 1) { ctx.fillStyle = '#8b78c9'; ctx.fillRect(x + w, y0 + h / 2 - 1, gap, 2); }
+    ctx.fillStyle = active ? '#d8c2ff' : '#3b2f5f'; ctx.beginPath(); (ctx.roundRect || ctx.rect).call(ctx, x, y0, w, h, 4); ctx.fill();
+    ctx.strokeStyle = '#8b78c9'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = active ? '#24162f' : '#cbbbf0'; ctx.font = '8px system-ui'; ctx.textAlign = 'center';
+    ctx.fillText(freeSpots[id].short, x + w / 2, y0 + 10);
+  });
+  ctx.fillStyle = '#ffe3a8'; ctx.font = '9px system-ui'; ctx.textAlign = 'left';
+  ctx.fillText(currentZone.id === 'faille' ? '✦ Dans une faille' : '✦ Une faille par rue', x0, y0 + h + 12);
+  ctx.restore();
+}
+
 // La faille : un rectangle d'air déformé, violet ; dans la salle, le même signe sert de sortie une fois le chef vaincu.
 function drawFreeRift(offsetX, offsetY) {
   if (!freeMode.active) return;
+  if (!scene.active) drawFreeMinimap();
   const links = freeLinks[currentZone.id];
   if (links) {
     ctx.save();
     ctx.font = '11px system-ui'; ctx.fillStyle = '#e4d8ff'; ctx.strokeStyle = '#e4d8ff'; ctx.lineWidth = 2;
     const y = zones[currentZone.id].start.y + offsetY, pulse = 3 * Math.sin(mirrorNow() * 3);
     for (const [side, id] of Object.entries(links)) {
-      const east = side === 'east', x = (east ? room.x + room.width - 22 : room.x + 22) + offsetX, dir = east ? 1 : -1;
+      const east = side === 'east', x = (east ? room.x + room.width - 30 : room.x + 30) + offsetX, dir = east ? 1 : -1;
       ctx.beginPath(); ctx.moveTo(x - 6 * dir + pulse * dir, y - 10); ctx.lineTo(x + 2 * dir + pulse * dir, y); ctx.lineTo(x - 6 * dir + pulse * dir, y + 10); ctx.stroke();
-      ctx.textAlign = east ? 'right' : 'left'; ctx.fillText(freeSpots[id].label, x - 12 * dir, y - 16);
+      ctx.textAlign = east ? 'right' : 'left'; ctx.fillText(freeSpots[id].short, x - 4 * dir, y - 16);
     }
     ctx.restore();
   }
@@ -178,15 +203,11 @@ function drawFreeRift(offsetX, offsetY) {
   if (freeSpots[currentZone.id]) point = freeSpots[currentZone.id];
   else if (currentZone.id === 'faille' && freeMode.done) point = zones.faille.start;
   if (!point) return;
-  const t = mirrorNow(), x = point.x + offsetX, y = point.y + offsetY;
-  const glow = ctx.createRadialGradient(x, y - 20, 4, x, y - 20, 70);
-  glow.addColorStop(0, 'rgba(190, 150, 255, .55)'); glow.addColorStop(1, 'rgba(190, 150, 255, 0)');
-  ctx.fillStyle = glow; ctx.fillRect(x - 70, y - 90, 140, 140);
-  ctx.strokeStyle = '#d8c2ff'; ctx.lineWidth = 2;
-  ctx.beginPath();
-  for (let i = 0; i <= 12; i++) { const yy = y - 52 + i * 9; const wobble = Math.sin(t * 3 + i * .9) * 2.5; if (i === 0) ctx.moveTo(x - 17 + wobble, yy); else ctx.lineTo(x - 17 + wobble, yy); }
-  for (let i = 12; i >= 0; i--) { const yy = y - 52 + i * 9; const wobble = Math.sin(t * 3 + i * .9 + 2) * 2.5; ctx.lineTo(x + 17 + wobble, yy); }
-  ctx.closePath(); ctx.fillStyle = 'rgba(70, 40, 130, .5)'; ctx.fill(); ctx.stroke();
+  // La même faille que dans la ruelle d'Helvara : bords qui ondulent, éclats aspirés, lueur bleue, toujours grande ouverte.
+  const opened = riftOpenedAt;
+  riftOpenedAt = mirrorNow() - 5;
+  drawFaille(point.x + offsetX, point.y + offsetY - 14, currentZone.id === 'faille' ? 'RETOUR' : 'FAILLE', false);
+  riftOpenedAt = opened;
 }
 
 // ---------- La carte ----------
