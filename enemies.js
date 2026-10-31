@@ -79,7 +79,7 @@ const enemyKinds = {
   fuyard: { name: 'Gobelin fuyard', art: 'goblin', speed: 115, radius: 14, maxHp: 3, charger: false, flees: true },
   // Monstres du mode libre (pack de Jordan) : l'insecte vole vite, le rampant bondit, le crabe est lent et solide.
   // Créature de la rupture du chapitre 4 (niveau 28) : le rampant gris en attendant son dessin (chitine sombre, sans yeux visibles).
-  chitine: { name: 'Créature de la rupture', art: 'rampant', speed: 150, radius: 16, maxHp: 6, charger: true },
+  chitine: { name: 'Créature de la rupture', art: 'creature', scale: .67, speed: 150, radius: 16, maxHp: 6, charger: true },
   insecte: { name: 'Insecte ailé', art: 'insecte', speed: 125, radius: 12, maxHp: 2, charger: false },
   rampant: { name: 'Rampant gris', art: 'rampant', speed: 105, radius: 15, maxHp: 3, charger: true },
   crabe: { name: 'Crabe', art: 'crabe', speed: 60, radius: 18, maxHp: 5, charger: false },

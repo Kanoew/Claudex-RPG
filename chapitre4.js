@@ -53,12 +53,14 @@ function ruptureScene() {
   return [
     { run: enterSquare },
     { say: ['Un square, tôt le matin. Personne, ou presque.'] },
-    { run: () => { ch4.tearAt = mirrorNow(); ch4.broken = true; playSfx('hit'); sceneActor('creature', 'creature', 0, -110, { face: -1 }); sceneActor('jogger', 'passant', 250, 40, { face: -1 }); } },
+    { run: () => { ch4.tearAt = mirrorNow(); ch4.broken = true; playSfx('hit'); sceneActor('creature', 'sheet', 0, -110, { sheet: 'creature', face: -1 }); sceneActor('jogger', 'sheet', 250, 40, { sheet: 'jogger', face: -1 }); } },
     { wait: .9 },
     { say: ['La faille ne s’ouvre pas : elle se déchire d’un coup. Une pression qui claque les tympans, un éclair bleu-noir.', 'Les lampadaires proches explosent. Du verre partout.', 'Un jogger, à trente mètres. Une fenêtre qui s’allume au deuxième étage de l’immeuble d’en face.'] },
+    { run: () => { sceneActors.jogger.pose = 'startle'; } },
     { say: ['Niveau 28. Chitine sombre, longue, basse sur pattes, des membres qui plient dans le mauvais sens, une tête sans yeux visibles.', 'Elle vise le vivant le plus proche : le jogger. Pas Yarden.'] },
     { say: ['Yarden tend la main droite et garde la lame courte, une forme refermée : une serpe noire dans le poing, pour que les civils ne voient qu’un reflet.', 'Le Voile grince.'] },
     { say: ['Yarden : « ISHARA. Le jogger. Fais-le partir. »'] },
+    { run: () => { sceneActors.jogger.pose = null; } },
     { moves: [moveOf('ishara', [[160, 60]], 190), moveOf('creature', [[200, 30]], 150)] },
     { say: ['Ishara : « COURS ! GAZ ! FUITE DE GAZ ! COURS ! »'] },
     { moves: [moveOf('jogger', [[330, 40]], 170)] },
@@ -79,7 +81,7 @@ function ruptureScene() {
 
 function equipeScene() {
   return [
-    { run: () => { for (let i = 0; i < 6; i++) sceneActor('op' + i, 'operateur', -150 + i * 60, 280, { face: 1 }); } },
+    { run: () => { const team = ['chef-technique', 'operateur-a', 'operateur-b', 'operatrice-c', 'operateur-d', 'operatrice-e']; team.forEach((sheet, i) => sceneActor('op' + i, 'sheet', -150 + i * 60, 280, { sheet, face: 1 })); } },
     { say: ['Six opérateurs, aucun écusson, aucune électronique, un carnet manuscrit. Ils arrivent quatre à cinq minutes après la rupture, sans gyrophare.'] },
     { moves: [0, 1, 2, 3, 4, 5].map(i => moveOf('op' + i, [[-150 + i * 60, 130 + (i % 2) * 24]], 140)) },
     { say: ['Le chef lit la coupe franche sur la carcasse avant de regarder Yarden.', 'Chef : « T’es affiliée à qui ? »', 'Yarden : « Personne. »', 'Chef : « Ton nom. »'] },
