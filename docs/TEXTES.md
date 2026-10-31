@@ -6,119 +6,120 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 
 - Helvara, de nuit. Yarden se réveille dans une ruelle, adossée à un mur de briques.
 - Plus loin, une fête bat son plein : musique, rires. Personne ne la remarque.
-- Niveau 1. Un corps plus petit, une voix plus haute. Ses souvenirs de combat sont en morceaux.
+- Niveau 1. Un corps qui n’était pas là avant. Trop léger, voix trop haute. Ses souvenirs de combat sont en morceaux.
 - **Tiamat** : « Réveillée ? Ne cherche pas derrière toi, je suis partout. »
 - **Tiamat** : « Tu régnais sur un donjon de 182 étages, à Valstygheim. »
 - **Tiamat** : « Tu étais trop grand pour qu’ils te comptent. »
 - **Tiamat** : « Ils ont voté ta mort. Bienvenue à Helvara. »
-- **Tiamat** : « C’est moi qui l’ai ouverte. La traverser sera ton choix. »
-- **Tiamat** : « L’Abysse est trop dangereux pour une niveau 1. Je t’accompagne. »
+- **Tiamat** : « C’est moi qui l’ai ouverte. »
+- **Tiamat** : « Ce corps est niveau 1. Je t’accompagne. »
 
 ## La rue : Ishara, les deux hommes, la marche, le métro, l’immeuble
 
 - Yarden regarde la fête depuis la ruelle. Elle allait faire demi-tour.
 - *Musique de la fête*
-- **Inconnue (inquiete)** : « Pardon, désolée, vraiment, je... »
+- **Inconnue (inquiete)** : « Pardon, désolée, je... »
 - **Tiamat** : « Ce n’est pas ton problème. »
 - **Inconnu 1** : « On te veut pas de mal. »
 - **Yarden** : « Hé. »
 - **Inconnu 1 (menacant)** : « T’as rien à faire ici, poupée. »
 - **Yarden (agacee)** : « C’est vous qui comprenez pas à qui vous parlez. »
 - **Inconnu 2** : « Aïe, lâche. »
-- **Yarden (agacee)** : « Elle est pas intéressée. Bonne soirée. »
-- **Inconnue** : « T’as fait quoi, exactement ? »
+- **Yarden (agacee)** : « Elle dit non. Bonne soirée. »
+- **Inconnue** : « Hein ?! C’était quoi ça ?! »
 - **Yarden** : « Self-défense. »
 - **Ishara (sourire)** : « Moi, c’est Ishara. »
 - **Yarden** : « Yarden. »
-- **Ishara** : « T’as fui quelque chose ? »
+- **Ishara** : « T’as aussi fui quelque chose ? »
 - **Yarden** : « On pourrait dire ça. »
 - **Ishara** : « Tu veux en parler ? »
 - **Yarden** : « Non. »
 - **Tiamat** : « Tu aurais pu entrer. »
-- **Tiamat** : « La chaleur humaine… »
-- **Tiamat** : « Bien. »
+- **Tiamat** : « La chaleur humaine a l’air agréable. »
+- **Tiamat** : « Tu as préféré ça. »
 - **Ishara (sourire)** : « T’as l’air nouvelle ici. J’ai un lit, ma coloc est pas là. Si tu veux. »
 - **Yarden** : « D’accord. »
 - *Le métro (wagon animé)*
-- **Ishara** : « Au fait, tu connais le système ? »
+- **Ishara** : « Tu es une Éveillée ? N’est-ce pas ? »
+- **Yarden** : « Je suis un— »
+- **Tiamat** : « Assez. »
 - **Yarden** : « Pas vraiment. »
-- **Ishara** : « Tout le monde a un niveau, humains et monstres. Les gens ordinaires vont de 1 à 8 environ. »
+- **Ishara** : « Ici, tout le monde a un niveau. Les humains, les monstres — les gens ordinaires plafonnent autour de 8. »
 - **Ishara** : « Mais seuls les Éveillés le voient. »
-- **Yarden** : « Les Éveillés ? »
-- **Ishara** : « Ceux qui ont reçu une bénédiction, ou qui ont été exposés à l’énergie des Abysses. Ils ont une interface, et ils voient les failles. »
-- **Yarden** : « Je vois. »
+- **Yarden** : « Tu en es une alors ? Une éveillée ? »
+- **Ishara** : « Oui. Ceux qui ont reçu une bénédiction, ou qui ont été exposés à l’énergie des Abysses. Ils ont une interface, et ils voient ce que les autres ratent. »
+- **Yarden** : « Hmm. »
 - **Ishara** : « Une faille, c’est une porte qui s’ouvre au hasard. Les gens normaux ne la voient pas, et ne peuvent pas entrer. »
-- **Yarden** : « Continue. »
+- J’en ai traversé une.
 - **Ishara** : « Dedans, c’est l’Abysse : un autre endroit, avec ses créatures, et un temps un peu de travers. »
-- **Ishara (sourire)** : « Ce qu’on en ramène, ça se revend. C’est comme ça que je paye mon loyer. »
-- **Yarden** : « D’accord. »
-- Devant l’immeuble d’Ishara : un haussmannien un peu fatigué, mais encore beau.
+- **Ishara (sourire)** : « Ce qu’on en ramène, ça se revend. C’est comme ça que tout se paie pour nous. »
+- **Yarden** : « Hmm. »
+- Devant l’immeuble d’Ishara : vieille pierre, hautes fenêtres, façade un peu fatiguée. Mais encore belle.
 - Ishara sort ses clés. La porte s’ouvre.
 - Troisième étage. Ishara jette ses clés sur le comptoir en rentrant.
 - **Ishara (sourire)** : « Thé ? »
 - **Ishara** : « Lait ? Sucre ? »
 - **Yarden** : « Noir. »
 - **Ishara (sourire)** : « Femme de goût. »
-- **Ishara** : « La chambre en trop, c’est la première à gauche. Y’a des trucs dans le placard si t’as besoin, ma coloc met des années à récupérer ses affaires. »
+- **Ishara** : « La chambre en trop, c’est la première à gauche. Y’a des trucs dans le placard. Ma coloc revient pas tout de suite, fais comme chez toi. »
 - **Ishara** : « Salle de bain en face. Le robinet froid met trente secondes à devenir chaud, c’est normal. »
 - Ishara lance une serviette sans vérifier si Yarden l’attrape. Yarden l’attrape.
 
 ## L’appartement : objets à examiner
 
-- **Fenêtre** : Des plantes sur le rebord de la fenêtre : c’est par là qu’entre la lumière. Dehors, les toits de Lausanne virent à l’orange sale. Une mouette, un scooter.
-- **Livres** : Une pile de livres, rangés selon une logique qui n’appartient qu’à Ishara.
+- **Fenêtre** : Des plantes sur le rebord. Dehors, les toits virent à l’orange sale. Une mouette, un scooter.
+- **Livres** : Des livres empilés dans l’ordre qu’Ishara est la seule à comprendre.
 - **Table basse** : Deux tasses sur la table basse : une vide, une à moitié pleine.
-- **Canapé** : Le canapé fait face à la table basse. Pas de télé.
-- **Table** : Une table que personne n’utilise. Ici, on mange debout, au comptoir.
-- **Comptoir** : Le comptoir s’ouvre sur le salon. Les clés d’Ishara y sont jetées ; la bouilloire est visible depuis le canapé.
+- **Canapé** : Le canapé fait face à la table basse.
+- **Table** : Une table, vide, comme souvent ici.
+- **Comptoir** : Le comptoir, les clés, la bouilloire.
 - **Porte fermée** : La porte est fermée.
-- **Placard** : La chambre est celle de la colocataire, absente : le placard contient ses affaires.
-- **Fenêtre sur cour** : Une fenêtre sur la cour intérieure. Sous un tapis fin, le parquet.
+- **Placard** : Le placard contient des affaires qui ne sont pas les tiennes.
+- **Fenêtre sur cour** : Elle voit la cour intérieure.
 - **Lit** : Un lit simple, aux draps propres.
-- **Parquet** : Le parquet, sous un tapis fin.
-- **Douche** : Petite, propre, encombrée par les affaires de deux personnes. Deux shampoings : le violet est celui d’Ishara, le rouge celui de la colocataire.
+- **Parquet** : Le parquet, et un tapis fin.
+- **Douche** : Petite, propre, fonctionnelle. Deux shampoings. Violet, Ishara. Rouge, la coloc.
 - **Radiateur** : Des serviettes sèchent sur le radiateur.
-- **Lavabo** : Le robinet met trente secondes à chauffer.
+- **Lavabo** : Le robinet. Simple, efficace.
 
 ## L’appartement : la première nuit (parquet, agents divins, tatouages)
 
 - *Carte plein écran : La première nuit*
-- Le lit est trop mou. Yarden dort par terre, sur le parquet, avec l’oreiller.
+- Le lit est trop mou. Yarden ne semble pas habituée à ce genre de confort. Elle dort par terre, avec l’oreiller.
 - **Tiamat** : « Pathétique. »
-- **Yarden** : « Ergonomique. »
+- **Yarden** : « J’ai connu pire. »
 - **Yarden** : « Il y a des agents des dieux, à Helvara ? »
 - **Tiamat** : « Plusieurs organisations. »
 - **Yarden** : « Et Ishara ? »
 - **Tiamat** : « Je ne dirai rien là-dessus. »
 - *Les tatouages luisent (la faux)*
 - Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.
-- **Tiamat** : « Tes tatouages sont le vecteur de la faux. »
-- Au matin : du café, et des courbatures.
+- **Tiamat** : « Tes tatouages portent la faux. C’est à toi. »
+- Au matin : du café, du thé et des courbatures.
 - *Carte plein écran : Dimanche matin*
 - Dimanche matin. Les rues sont presque vides.
 - Une impasse derrière un pressing fermé : c’est dimanche.
-- Dans l’air, un rectangle légèrement distordu, presque invisible en plein jour.
+- Dans l’air, quelque chose de distordu. Presque invisible en plein jour.
 - **Yarden** : « Niveau estimé 16-17, il s’agit d’un espace restreint. »
 - **Ishara (inquiete)** : « Hein, quoi ?! »
 - **Ishara (inquiete)** : « Comment ?! »
-- **Ishara** : « Je t’accompagne, ou je reste derrière toi ? »
-- **Yarden** : « Derrière. »
+- **Ishara** : « Je t’accompagne, je reste derrière toi ? »
+- **Yarden** : « Hmm. »
 - **Ishara** : « Tu es de quel niveau, au juste ? »
 - **Yarden** : « Vingt-quatre. »
-- **Ishara (inquiete)** : « ...D’accord. Derrière toi, alors. »
+- **Ishara (inquiete)** : « 24 Bordel ?! Je suis niveau 11, derrière toi ! »
 
 ## Le miroir, puis le soutien-gorge d’Ishara
 
-- Le robinet met trente secondes à chauffer.
+- Le robinet chauffe lentement.
 - *Le miroir (portrait de Yarden)*
-- Le miroir, au-dessus du lavabo. Quelqu’un la regarde.
-- Une fille. Traits acérés, mâchoire nette, peau pâle, des yeux violets qui jaugent. Ce sont les siens.
-- Elle le comprend une demi-seconde trop tard : la fille du miroir a marqué la même pause qu’elle.
+- Quelqu’un la regarde.
+- Une fille. Traits acérés, mâchoire nette, peau pâle, des yeux violets qui jaugent.
+- Elle le comprend une demi-seconde trop tard.
 - Les cheveux sont noirs, avec des mèches entre lavande et gris, comme de la cendre qui aurait décidé d’être belle.
 - Le chignon a survécu à l’Abysse, aux ogres et à la soirée.
-- Des lunettes rondes, dorées. Elles étaient là depuis le début et elle ne les avait jamais vues.
-- Le maquillage noir-violet est intact, le liner tiré au cordeau. Après deux combats, un venin et une nuit dehors, ça pose des questions de physique.
-- Pas ce soir.
+- Des lunettes rondes. Elles étaient là depuis le début et elle ne les avait jamais vues.
+- Le liner est intact. Yarden n’a aucune explication.
 - **Yarden** : « Tiamat. »
 - **Tiamat** : « Oui. »
 - **Yarden (agacee)** : « C’est quoi, ce style ? »
@@ -132,80 +133,81 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Je sais. »
 - *Carte plein écran : La douche*
 - Trente secondes de froid. Puis l’eau devient chaude, presque trop.
-- **Yarden** : « Ishara. J’ai un problème d’agrafe : le soutien-gorge ne veut pas se fermer. »
+- **Yarden** : « Ishara. J’ai un problème avec ce truc de fille. »
+- **Tiamat** : « Un soutien-gorge. L’agrafe est dans le dos. »
+- **Yarden** : « Je réussis pas à la fermer. »
 - **Ishara (sourire)** : « Tourne-toi. »
 - **Ishara** : « Voilà. Deux secondes. »
-- **Ishara (inquiete)** : « Et toi, ça va ? Vraiment ? »
+- **Ishara (inquiete)** : « Toi, ça va ? Tu t’adaptes ? »
 - **Yarden** : « Euh... oui, oui. »
 - **Ishara** : « Tiens, un t-shirt gris et un short. Le lit est propre. »
-- **Yarden** : « On verra demain. »
+- **Yarden** : « Hmm, d’accord, merci. On verra demain. »
 
 ## Le lendemain matin : l’impasse et la faille
 
 - Dimanche matin. Les rues sont presque vides.
 - Une impasse derrière un pressing fermé : c’est dimanche.
-- Dans l’air, un rectangle légèrement distordu, presque invisible en plein jour.
+- Dans l’air, quelque chose de distordu. Presque invisible en plein jour.
 - **Yarden** : « Niveau estimé 16-17, il s’agit d’un espace restreint. »
 - **Ishara (inquiete)** : « Hein, quoi ?! »
 - **Ishara (inquiete)** : « Comment ?! »
-- **Ishara** : « Je t’accompagne, ou je reste derrière toi ? »
-- **Yarden** : « Derrière. »
+- **Ishara** : « Je t’accompagne, je reste derrière toi ? »
+- **Yarden** : « Hmm. »
 - **Ishara** : « Tu es de quel niveau, au juste ? »
 - **Yarden** : « Vingt-quatre. »
-- **Ishara (inquiete)** : « ...D’accord. Derrière toi, alors. »
+- **Ishara (inquiete)** : « 24 Bordel ?! Je suis niveau 11, derrière toi ! »
 
 ## Fin du run : le butin
 
-- Les sept créatures sont tombées. Ishara prélève les matériaux.
-- Quatre fragments, deux bourses. Le plus gros : niveau 19, coupe propre.
+- Les sept créatures ont laissé tomber du loot. Ishara récolte les matériaux.
+- Plusieurs loots, niveau 19 max, propre.
 - Aucune expérience gagnée.
 - *Carte plein écran : Quarante minutes dedans, deux heures dehors.*
 - Rue Marterey, Lausanne. Dix heures.
-- Le kebab ouvre ses rideaux. Ishara appuie sur l’interphone, puis une seconde fois : il a l’air cassé, mais il marche.
-- Un couloir étroit. De l’encens bon marché, et quelque chose de plus minéral dessous.
-- Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur celui de niveau 19.
+- Ishara appuie sur l’interphone, une seconde fois. Cassé ? Non, il fonctionne.
+- Un couloir étroit. De l’encens.
+- Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur le fragment le plus propre, le niveau 19.
 - **Rémi** : « Avec quelle lame ? Quel type ? »
 - **Yarden** : « Le type qui coupe. »
 - Rémi écrit 280 sur l’ardoise.
 - **Ishara** : « La dernière fois, un run équivalent valait 220. »
-- **Rémi** : « Le 19 est propre. Coupe franche, ni brûlure ni impact contondant. C’est rare à ce niveau : supplément. »
+- **Rémi** : « La coupe du niveau 19 est propre. Bonne coupe, pas de brûlure, ni impact contondant. Un supplément pour une coupe à ce niveau. »
 - Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.
-- **Ishara** : « On partage. 280 chacun. »
+- **Ishara** : « On partage. 280 crédits. »
 - **Rémi** : « Dites-moi quel type de lame fait des coupes comme ça. »
 - **Tiamat** : « Tu viens de laisser une trace. Les receleurs parlent. »
 - Premier argent gagné dans ce monde : 280 crédits.
 - *Le métro (wagon animé)*
 - Le M2, direction Sous-gare.
-- Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
-- Quatre étages, des fenêtres alignées. Des géraniums au deuxième.
+- Quartier Sous-gare. Un immeuble. Normal, trop normal.
+- Quatre étages, des fenêtres alignées. Des fleurs au deuxième.
 - Ishara compose le digicode.
-- La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
-- Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
-- Plus haut, plus chargé.
+- La cour, des pavés sans une herbe, du lierre taillé, des arbustes.
+- Des marches de pierre, l’air est dense ici.
 - Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
-- Le buff d’Ishara se déclenche tout seul : un léger scintillement doré.
-- La porte cède sans résistance, comme si elle attendait la main.
+- Le buff d’Ishara se déclenche d’un coup, elle scintille de doré.
+- La porte s’ouvre sans aucune difficulté.
 - **Ishara** : « Félix ? »
-- **Tiamat** : « Reste sur le seuil de ton attention. Je regarde avec toi. »
-- L’air change de densité, pas de température : une pression basse contre la mâchoire.
-- Un appartement chaud, encombré, presque domestique. Du papier punaisé en couches sur tous les murs : documents jaunis, tampons, filigranes, écritures dans des alphabets inconnus.
-- Des étagères du sol au plafond. Des bocaux qui contiennent des choses qui ont été vivantes. Des crânes alignés, propres, tournés vers la pièce comme un public patient.
-- Au fond, derrière la table de travail, Félix ne se lève pas : encriers, plumes, lampes à bras articulés éteintes. Yarden ne lit aucun niveau, seulement une absence.
-- Ses yeux rattrapent parfois en retard le mouvement de sa tête. Là, ils suivent à temps, par courtoisie.
+- **Tiamat** : « Sois sur tes gardes. »
+- Une lourde pression semble émaner de la pièce.
+- Un appartement chaud, rempli de papier en couches sur les murs, des caractères illisibles.
+- Plusieurs étagères, des bocaux, des crânes alignés.
+- Au fond, Félix assis. Encriers, plumes, lampes à bras articulés. Aucune lecture de niveau par Yarden. Une absence.
+- Ses yeux la suivent avec du retard.
 - **Félix** : « Vous êtes récente. »
-- **Félix** : « Très récente. Deux jours. Peut-être moins. Et soigneusement rangée sous quelque chose. »
-- **Félix** : « La plupart des gens qui passent cette porte sentent quelque chose et repartent en se disant qu’ils ont eu tort. Vous, vous êtes entrée en comptant les crânes. C’est plus poli que la moyenne. »
+- **Félix** : « Très récente. Deux jours maximum. Vous cachez quelque chose. »
+- **Félix** : « La plupart des gens viennent ici avec un but, et repartent souvent sans rien. Vous avez l’air d’être venue avec un but précis. C’est plus poli que la moyenne. »
 - **Yarden** : « Ishara dit que tu fais des papiers. »
 - **Félix** : « Ishara dit vrai. »
-- Félix pose un seul tabouret pour Yarden. Ishara reste debout.
-- **Félix** : « Une identité complète, c’est trois choses. Un nom qui existe dans les bons registres. Une histoire qui tient si on tire dessus. Et un silence, du mien, permanent. Les deux premières se paient en crédits. La troisième se paie autrement. »
+- Félix pousse un tabouret. Ishara reste debout.
+- **Félix** : « Une identité complète ? Un nom, les registres. Une bonne histoire. Et surtout du silence. Pour les deux premiers ce sera en crédits. Le troisième, lui, se paie différemment. »
 - **Félix** : « Quel nom voulez-vous porter dans ce monde ? »
 - Yarden ne touche pas la plume.
 - **Yarden** : « Avant de choisir un nom, je veux savoir avec quoi. »
 - **Félix** : « La plupart des gens signent d’abord. Ils s’inquiètent du prix une fois le nom écrit. »
 - **Yarden** : « Je ne suis pas la plupart des gens. »
 - **Félix** : « Non. Manifestement. »
-- **Félix** : « Le silence, ce n’est pas de l’argent. L’argent, ça s’épuise, ça se remplace, ça ne me lie à personne. Ce que vous voyez ici, c’est trente ans de noms que je n’ai jamais dits. »
+- **Félix** : « Le silence, ce n’est pas de l’argent. L’argent, ça s’épuise, ça se remplace, ça ne me lie à personne. Ce que vous voyez ici, c’est trente ans de noms que je n’ai jamais divulgués. »
 - **Félix** : « Quand je fabrique une identité, je m’attache à elle. Pas sentimentalement : structurellement. Je ne demande pas d’argent pour le silence. Je demande de ne pas avoir à le regretter. »
 - **Yarden** : « Dis-moi pourquoi je n’arrive pas à te lire. »
 - **Félix** : « Je n’en émets pas. J’en ai eu un, il y a longtemps. »
@@ -213,16 +215,16 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Félix enlève ses lunettes et les pose.
 - **Félix** : « Ce qui vous protège. Est-ce que ça va me suivre jusque dans mes murs ? »
 - **Tiamat** : « C’est la bonne question. Et je ne connais pas encore la réponse. »
-- Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste conscient, spectatrice de sa propre voix.
+- Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste consciente, spectatrice de sa propre voix.
 - **Tiamat** : « Mithra. »
-- **Félix** : « Vous prononcez un nom que je n’ai pas donné. »
+- **Félix** : « Vous prononcez un nom que je n’ai pas donné depuis longtemps. »
 - **Tiamat** : « Je ne le donne pas non plus. Je le reconnais. »
-- **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement lausannois parce que c’est la seule chose qu’il sache faire. »
+- **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement parce que c’est la seule chose qu’il sache faire. »
 - **Tiamat** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
-- Ishara regarde, sans exister trop fort.
+- Ishara regarde.
 - Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - **Félix** : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »
-- **Félix** : « Vous n’avez rien à me prouver, Ishara. Vous pouvez rester une inconnue. C’est un droit. »
+- **Félix** : « Quant à vous Ishara, vous pouvez rester une inconnue. Sauf si vous souhaitez savoir. »
 - **Ishara** : « …Vas-y. Je veux savoir. »
 - **Félix** : « Vous êtes une Éveillée ordinaire. Ça, c’est la surface. Niveau onze, défense de zone. Mais en dessous, il y a une corde. »
 - **Félix** : « C’est une corde de témoin. Le genre de lien qu’on tend quand on veut voir à travers quelqu’un. Pas le commander. Le regarder. »
@@ -247,7 +249,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Première fois que quelqu’un dit le nom à voix haute.
 - **Tiamat** : « Ça te va. »
 - **Yarden** : « Oui. »
-- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les géraniums.
+- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les fleurs.
 - Au premier, l’odeur banale d’un couloir d’immeuble : cire, poussière, courrier.
 - Dans la cour : des pavés sans une herbe, du lierre au millimètre, deux arbustes symétriques.
 - Yarden comprend. Ce n’est pas de la maniaquerie, c’est de la méthode : un être qui tient par l’ordre extérieur, quand le reste a déménagé dans les murs.
@@ -260,51 +262,50 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 ## Rue Marterey : la porte marron
 
 - Rue Marterey, Lausanne. Dix heures.
-- Le kebab ouvre ses rideaux. Ishara appuie sur l’interphone, puis une seconde fois : il a l’air cassé, mais il marche.
-- Un couloir étroit. De l’encens bon marché, et quelque chose de plus minéral dessous.
-- Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur celui de niveau 19.
+- Ishara appuie sur l’interphone, une seconde fois. Cassé ? Non, il fonctionne.
+- Un couloir étroit. De l’encens.
+- Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur le fragment le plus propre, le niveau 19.
 - **Rémi** : « Avec quelle lame ? Quel type ? »
 - **Yarden** : « Le type qui coupe. »
 - Rémi écrit 280 sur l’ardoise.
 - **Ishara** : « La dernière fois, un run équivalent valait 220. »
-- **Rémi** : « Le 19 est propre. Coupe franche, ni brûlure ni impact contondant. C’est rare à ce niveau : supplément. »
+- **Rémi** : « La coupe du niveau 19 est propre. Bonne coupe, pas de brûlure, ni impact contondant. Un supplément pour une coupe à ce niveau. »
 - Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.
-- **Ishara** : « On partage. 280 chacun. »
+- **Ishara** : « On partage. 280 crédits. »
 - **Rémi** : « Dites-moi quel type de lame fait des coupes comme ça. »
 - **Tiamat** : « Tu viens de laisser une trace. Les receleurs parlent. »
 - Premier argent gagné dans ce monde : 280 crédits.
 - *Le métro (wagon animé)*
 - Le M2, direction Sous-gare.
-- Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
-- Quatre étages, des fenêtres alignées. Des géraniums au deuxième.
+- Quartier Sous-gare. Un immeuble. Normal, trop normal.
+- Quatre étages, des fenêtres alignées. Des fleurs au deuxième.
 - Ishara compose le digicode.
-- La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
-- Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
-- Plus haut, plus chargé.
+- La cour, des pavés sans une herbe, du lierre taillé, des arbustes.
+- Des marches de pierre, l’air est dense ici.
 - Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
-- Le buff d’Ishara se déclenche tout seul : un léger scintillement doré.
-- La porte cède sans résistance, comme si elle attendait la main.
+- Le buff d’Ishara se déclenche d’un coup, elle scintille de doré.
+- La porte s’ouvre sans aucune difficulté.
 - **Ishara** : « Félix ? »
-- **Tiamat** : « Reste sur le seuil de ton attention. Je regarde avec toi. »
-- L’air change de densité, pas de température : une pression basse contre la mâchoire.
-- Un appartement chaud, encombré, presque domestique. Du papier punaisé en couches sur tous les murs : documents jaunis, tampons, filigranes, écritures dans des alphabets inconnus.
-- Des étagères du sol au plafond. Des bocaux qui contiennent des choses qui ont été vivantes. Des crânes alignés, propres, tournés vers la pièce comme un public patient.
-- Au fond, derrière la table de travail, Félix ne se lève pas : encriers, plumes, lampes à bras articulés éteintes. Yarden ne lit aucun niveau, seulement une absence.
-- Ses yeux rattrapent parfois en retard le mouvement de sa tête. Là, ils suivent à temps, par courtoisie.
+- **Tiamat** : « Sois sur tes gardes. »
+- Une lourde pression semble émaner de la pièce.
+- Un appartement chaud, rempli de papier en couches sur les murs, des caractères illisibles.
+- Plusieurs étagères, des bocaux, des crânes alignés.
+- Au fond, Félix assis. Encriers, plumes, lampes à bras articulés. Aucune lecture de niveau par Yarden. Une absence.
+- Ses yeux la suivent avec du retard.
 - **Félix** : « Vous êtes récente. »
-- **Félix** : « Très récente. Deux jours. Peut-être moins. Et soigneusement rangée sous quelque chose. »
-- **Félix** : « La plupart des gens qui passent cette porte sentent quelque chose et repartent en se disant qu’ils ont eu tort. Vous, vous êtes entrée en comptant les crânes. C’est plus poli que la moyenne. »
+- **Félix** : « Très récente. Deux jours maximum. Vous cachez quelque chose. »
+- **Félix** : « La plupart des gens viennent ici avec un but, et repartent souvent sans rien. Vous avez l’air d’être venue avec un but précis. C’est plus poli que la moyenne. »
 - **Yarden** : « Ishara dit que tu fais des papiers. »
 - **Félix** : « Ishara dit vrai. »
-- Félix pose un seul tabouret pour Yarden. Ishara reste debout.
-- **Félix** : « Une identité complète, c’est trois choses. Un nom qui existe dans les bons registres. Une histoire qui tient si on tire dessus. Et un silence, du mien, permanent. Les deux premières se paient en crédits. La troisième se paie autrement. »
+- Félix pousse un tabouret. Ishara reste debout.
+- **Félix** : « Une identité complète ? Un nom, les registres. Une bonne histoire. Et surtout du silence. Pour les deux premiers ce sera en crédits. Le troisième, lui, se paie différemment. »
 - **Félix** : « Quel nom voulez-vous porter dans ce monde ? »
 - Yarden ne touche pas la plume.
 - **Yarden** : « Avant de choisir un nom, je veux savoir avec quoi. »
 - **Félix** : « La plupart des gens signent d’abord. Ils s’inquiètent du prix une fois le nom écrit. »
 - **Yarden** : « Je ne suis pas la plupart des gens. »
 - **Félix** : « Non. Manifestement. »
-- **Félix** : « Le silence, ce n’est pas de l’argent. L’argent, ça s’épuise, ça se remplace, ça ne me lie à personne. Ce que vous voyez ici, c’est trente ans de noms que je n’ai jamais dits. »
+- **Félix** : « Le silence, ce n’est pas de l’argent. L’argent, ça s’épuise, ça se remplace, ça ne me lie à personne. Ce que vous voyez ici, c’est trente ans de noms que je n’ai jamais divulgués. »
 - **Félix** : « Quand je fabrique une identité, je m’attache à elle. Pas sentimentalement : structurellement. Je ne demande pas d’argent pour le silence. Je demande de ne pas avoir à le regretter. »
 - **Yarden** : « Dis-moi pourquoi je n’arrive pas à te lire. »
 - **Félix** : « Je n’en émets pas. J’en ai eu un, il y a longtemps. »
@@ -312,16 +313,16 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Félix enlève ses lunettes et les pose.
 - **Félix** : « Ce qui vous protège. Est-ce que ça va me suivre jusque dans mes murs ? »
 - **Tiamat** : « C’est la bonne question. Et je ne connais pas encore la réponse. »
-- Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste conscient, spectatrice de sa propre voix.
+- Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste consciente, spectatrice de sa propre voix.
 - **Tiamat** : « Mithra. »
-- **Félix** : « Vous prononcez un nom que je n’ai pas donné. »
+- **Félix** : « Vous prononcez un nom que je n’ai pas donné depuis longtemps. »
 - **Tiamat** : « Je ne le donne pas non plus. Je le reconnais. »
-- **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement lausannois parce que c’est la seule chose qu’il sache faire. »
+- **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement parce que c’est la seule chose qu’il sache faire. »
 - **Tiamat** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
-- Ishara regarde, sans exister trop fort.
+- Ishara regarde.
 - Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - **Félix** : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »
-- **Félix** : « Vous n’avez rien à me prouver, Ishara. Vous pouvez rester une inconnue. C’est un droit. »
+- **Félix** : « Quant à vous Ishara, vous pouvez rester une inconnue. Sauf si vous souhaitez savoir. »
 - **Ishara** : « …Vas-y. Je veux savoir. »
 - **Félix** : « Vous êtes une Éveillée ordinaire. Ça, c’est la surface. Niveau onze, défense de zone. Mais en dessous, il y a une corde. »
 - **Félix** : « C’est une corde de témoin. Le genre de lien qu’on tend quand on veut voir à travers quelqu’un. Pas le commander. Le regarder. »
@@ -346,7 +347,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Première fois que quelqu’un dit le nom à voix haute.
 - **Tiamat** : « Ça te va. »
 - **Yarden** : « Oui. »
-- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les géraniums.
+- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les fleurs.
 - Au premier, l’odeur banale d’un couloir d’immeuble : cire, poussière, courrier.
 - Dans la cour : des pavés sans une herbe, du lierre au millimètre, deux arbustes symétriques.
 - Yarden comprend. Ce n’est pas de la maniaquerie, c’est de la méthode : un être qui tient par l’ordre extérieur, quand le reste a déménagé dans les murs.
@@ -358,50 +359,49 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 
 ## Le comptoir de Rémi
 
-- Un couloir étroit. De l’encens bon marché, et quelque chose de plus minéral dessous.
-- Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur celui de niveau 19.
+- Un couloir étroit. De l’encens.
+- Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur le fragment le plus propre, le niveau 19.
 - **Rémi** : « Avec quelle lame ? Quel type ? »
 - **Yarden** : « Le type qui coupe. »
 - Rémi écrit 280 sur l’ardoise.
 - **Ishara** : « La dernière fois, un run équivalent valait 220. »
-- **Rémi** : « Le 19 est propre. Coupe franche, ni brûlure ni impact contondant. C’est rare à ce niveau : supplément. »
+- **Rémi** : « La coupe du niveau 19 est propre. Bonne coupe, pas de brûlure, ni impact contondant. Un supplément pour une coupe à ce niveau. »
 - Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.
-- **Ishara** : « On partage. 280 chacun. »
+- **Ishara** : « On partage. 280 crédits. »
 - **Rémi** : « Dites-moi quel type de lame fait des coupes comme ça. »
 - **Tiamat** : « Tu viens de laisser une trace. Les receleurs parlent. »
 - Premier argent gagné dans ce monde : 280 crédits.
 - *Le métro (wagon animé)*
 - Le M2, direction Sous-gare.
-- Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
-- Quatre étages, des fenêtres alignées. Des géraniums au deuxième.
+- Quartier Sous-gare. Un immeuble. Normal, trop normal.
+- Quatre étages, des fenêtres alignées. Des fleurs au deuxième.
 - Ishara compose le digicode.
-- La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
-- Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
-- Plus haut, plus chargé.
+- La cour, des pavés sans une herbe, du lierre taillé, des arbustes.
+- Des marches de pierre, l’air est dense ici.
 - Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
-- Le buff d’Ishara se déclenche tout seul : un léger scintillement doré.
-- La porte cède sans résistance, comme si elle attendait la main.
+- Le buff d’Ishara se déclenche d’un coup, elle scintille de doré.
+- La porte s’ouvre sans aucune difficulté.
 - **Ishara** : « Félix ? »
-- **Tiamat** : « Reste sur le seuil de ton attention. Je regarde avec toi. »
-- L’air change de densité, pas de température : une pression basse contre la mâchoire.
-- Un appartement chaud, encombré, presque domestique. Du papier punaisé en couches sur tous les murs : documents jaunis, tampons, filigranes, écritures dans des alphabets inconnus.
-- Des étagères du sol au plafond. Des bocaux qui contiennent des choses qui ont été vivantes. Des crânes alignés, propres, tournés vers la pièce comme un public patient.
-- Au fond, derrière la table de travail, Félix ne se lève pas : encriers, plumes, lampes à bras articulés éteintes. Yarden ne lit aucun niveau, seulement une absence.
-- Ses yeux rattrapent parfois en retard le mouvement de sa tête. Là, ils suivent à temps, par courtoisie.
+- **Tiamat** : « Sois sur tes gardes. »
+- Une lourde pression semble émaner de la pièce.
+- Un appartement chaud, rempli de papier en couches sur les murs, des caractères illisibles.
+- Plusieurs étagères, des bocaux, des crânes alignés.
+- Au fond, Félix assis. Encriers, plumes, lampes à bras articulés. Aucune lecture de niveau par Yarden. Une absence.
+- Ses yeux la suivent avec du retard.
 - **Félix** : « Vous êtes récente. »
-- **Félix** : « Très récente. Deux jours. Peut-être moins. Et soigneusement rangée sous quelque chose. »
-- **Félix** : « La plupart des gens qui passent cette porte sentent quelque chose et repartent en se disant qu’ils ont eu tort. Vous, vous êtes entrée en comptant les crânes. C’est plus poli que la moyenne. »
+- **Félix** : « Très récente. Deux jours maximum. Vous cachez quelque chose. »
+- **Félix** : « La plupart des gens viennent ici avec un but, et repartent souvent sans rien. Vous avez l’air d’être venue avec un but précis. C’est plus poli que la moyenne. »
 - **Yarden** : « Ishara dit que tu fais des papiers. »
 - **Félix** : « Ishara dit vrai. »
-- Félix pose un seul tabouret pour Yarden. Ishara reste debout.
-- **Félix** : « Une identité complète, c’est trois choses. Un nom qui existe dans les bons registres. Une histoire qui tient si on tire dessus. Et un silence, du mien, permanent. Les deux premières se paient en crédits. La troisième se paie autrement. »
+- Félix pousse un tabouret. Ishara reste debout.
+- **Félix** : « Une identité complète ? Un nom, les registres. Une bonne histoire. Et surtout du silence. Pour les deux premiers ce sera en crédits. Le troisième, lui, se paie différemment. »
 - **Félix** : « Quel nom voulez-vous porter dans ce monde ? »
 - Yarden ne touche pas la plume.
 - **Yarden** : « Avant de choisir un nom, je veux savoir avec quoi. »
 - **Félix** : « La plupart des gens signent d’abord. Ils s’inquiètent du prix une fois le nom écrit. »
 - **Yarden** : « Je ne suis pas la plupart des gens. »
 - **Félix** : « Non. Manifestement. »
-- **Félix** : « Le silence, ce n’est pas de l’argent. L’argent, ça s’épuise, ça se remplace, ça ne me lie à personne. Ce que vous voyez ici, c’est trente ans de noms que je n’ai jamais dits. »
+- **Félix** : « Le silence, ce n’est pas de l’argent. L’argent, ça s’épuise, ça se remplace, ça ne me lie à personne. Ce que vous voyez ici, c’est trente ans de noms que je n’ai jamais divulgués. »
 - **Félix** : « Quand je fabrique une identité, je m’attache à elle. Pas sentimentalement : structurellement. Je ne demande pas d’argent pour le silence. Je demande de ne pas avoir à le regretter. »
 - **Yarden** : « Dis-moi pourquoi je n’arrive pas à te lire. »
 - **Félix** : « Je n’en émets pas. J’en ai eu un, il y a longtemps. »
@@ -409,16 +409,16 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Félix enlève ses lunettes et les pose.
 - **Félix** : « Ce qui vous protège. Est-ce que ça va me suivre jusque dans mes murs ? »
 - **Tiamat** : « C’est la bonne question. Et je ne connais pas encore la réponse. »
-- Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste conscient, spectatrice de sa propre voix.
+- Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste consciente, spectatrice de sa propre voix.
 - **Tiamat** : « Mithra. »
-- **Félix** : « Vous prononcez un nom que je n’ai pas donné. »
+- **Félix** : « Vous prononcez un nom que je n’ai pas donné depuis longtemps. »
 - **Tiamat** : « Je ne le donne pas non plus. Je le reconnais. »
-- **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement lausannois parce que c’est la seule chose qu’il sache faire. »
+- **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement parce que c’est la seule chose qu’il sache faire. »
 - **Tiamat** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
-- Ishara regarde, sans exister trop fort.
+- Ishara regarde.
 - Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - **Félix** : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »
-- **Félix** : « Vous n’avez rien à me prouver, Ishara. Vous pouvez rester une inconnue. C’est un droit. »
+- **Félix** : « Quant à vous Ishara, vous pouvez rester une inconnue. Sauf si vous souhaitez savoir. »
 - **Ishara** : « …Vas-y. Je veux savoir. »
 - **Félix** : « Vous êtes une Éveillée ordinaire. Ça, c’est la surface. Niveau onze, défense de zone. Mais en dessous, il y a une corde. »
 - **Félix** : « C’est une corde de témoin. Le genre de lien qu’on tend quand on veut voir à travers quelqu’un. Pas le commander. Le regarder. »
@@ -443,7 +443,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Première fois que quelqu’un dit le nom à voix haute.
 - **Tiamat** : « Ça te va. »
 - **Yarden** : « Oui. »
-- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les géraniums.
+- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les fleurs.
 - Au premier, l’odeur banale d’un couloir d’immeuble : cire, poussière, courrier.
 - Dans la cour : des pavés sans une herbe, du lierre au millimètre, deux arbustes symétriques.
 - Yarden comprend. Ce n’est pas de la maniaquerie, c’est de la méthode : un être qui tient par l’ordre extérieur, quand le reste a déménagé dans les murs.
@@ -455,36 +455,35 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 
 ## Le 4B : Sous-gare, la cour, l’escalier
 
-- Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.
-- Quatre étages, des fenêtres alignées. Des géraniums au deuxième.
+- Quartier Sous-gare. Un immeuble. Normal, trop normal.
+- Quatre étages, des fenêtres alignées. Des fleurs au deuxième.
 - Ishara compose le digicode.
-- La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.
-- Des marches de pierre, creusées au centre. L’air est déjà plus lourd.
-- Plus haut, plus chargé.
+- La cour, des pavés sans une herbe, du lierre taillé, des arbustes.
+- Des marches de pierre, l’air est dense ici.
 - Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.
-- Le buff d’Ishara se déclenche tout seul : un léger scintillement doré.
-- La porte cède sans résistance, comme si elle attendait la main.
+- Le buff d’Ishara se déclenche d’un coup, elle scintille de doré.
+- La porte s’ouvre sans aucune difficulté.
 - **Ishara** : « Félix ? »
-- **Tiamat** : « Reste sur le seuil de ton attention. Je regarde avec toi. »
-- L’air change de densité, pas de température : une pression basse contre la mâchoire.
-- Un appartement chaud, encombré, presque domestique. Du papier punaisé en couches sur tous les murs : documents jaunis, tampons, filigranes, écritures dans des alphabets inconnus.
-- Des étagères du sol au plafond. Des bocaux qui contiennent des choses qui ont été vivantes. Des crânes alignés, propres, tournés vers la pièce comme un public patient.
-- Au fond, derrière la table de travail, Félix ne se lève pas : encriers, plumes, lampes à bras articulés éteintes. Yarden ne lit aucun niveau, seulement une absence.
-- Ses yeux rattrapent parfois en retard le mouvement de sa tête. Là, ils suivent à temps, par courtoisie.
+- **Tiamat** : « Sois sur tes gardes. »
+- Une lourde pression semble émaner de la pièce.
+- Un appartement chaud, rempli de papier en couches sur les murs, des caractères illisibles.
+- Plusieurs étagères, des bocaux, des crânes alignés.
+- Au fond, Félix assis. Encriers, plumes, lampes à bras articulés. Aucune lecture de niveau par Yarden. Une absence.
+- Ses yeux la suivent avec du retard.
 - **Félix** : « Vous êtes récente. »
-- **Félix** : « Très récente. Deux jours. Peut-être moins. Et soigneusement rangée sous quelque chose. »
-- **Félix** : « La plupart des gens qui passent cette porte sentent quelque chose et repartent en se disant qu’ils ont eu tort. Vous, vous êtes entrée en comptant les crânes. C’est plus poli que la moyenne. »
+- **Félix** : « Très récente. Deux jours maximum. Vous cachez quelque chose. »
+- **Félix** : « La plupart des gens viennent ici avec un but, et repartent souvent sans rien. Vous avez l’air d’être venue avec un but précis. C’est plus poli que la moyenne. »
 - **Yarden** : « Ishara dit que tu fais des papiers. »
 - **Félix** : « Ishara dit vrai. »
-- Félix pose un seul tabouret pour Yarden. Ishara reste debout.
-- **Félix** : « Une identité complète, c’est trois choses. Un nom qui existe dans les bons registres. Une histoire qui tient si on tire dessus. Et un silence, du mien, permanent. Les deux premières se paient en crédits. La troisième se paie autrement. »
+- Félix pousse un tabouret. Ishara reste debout.
+- **Félix** : « Une identité complète ? Un nom, les registres. Une bonne histoire. Et surtout du silence. Pour les deux premiers ce sera en crédits. Le troisième, lui, se paie différemment. »
 - **Félix** : « Quel nom voulez-vous porter dans ce monde ? »
 - Yarden ne touche pas la plume.
 - **Yarden** : « Avant de choisir un nom, je veux savoir avec quoi. »
 - **Félix** : « La plupart des gens signent d’abord. Ils s’inquiètent du prix une fois le nom écrit. »
 - **Yarden** : « Je ne suis pas la plupart des gens. »
 - **Félix** : « Non. Manifestement. »
-- **Félix** : « Le silence, ce n’est pas de l’argent. L’argent, ça s’épuise, ça se remplace, ça ne me lie à personne. Ce que vous voyez ici, c’est trente ans de noms que je n’ai jamais dits. »
+- **Félix** : « Le silence, ce n’est pas de l’argent. L’argent, ça s’épuise, ça se remplace, ça ne me lie à personne. Ce que vous voyez ici, c’est trente ans de noms que je n’ai jamais divulgués. »
 - **Félix** : « Quand je fabrique une identité, je m’attache à elle. Pas sentimentalement : structurellement. Je ne demande pas d’argent pour le silence. Je demande de ne pas avoir à le regretter. »
 - **Yarden** : « Dis-moi pourquoi je n’arrive pas à te lire. »
 - **Félix** : « Je n’en émets pas. J’en ai eu un, il y a longtemps. »
@@ -492,16 +491,16 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Félix enlève ses lunettes et les pose.
 - **Félix** : « Ce qui vous protège. Est-ce que ça va me suivre jusque dans mes murs ? »
 - **Tiamat** : « C’est la bonne question. Et je ne connais pas encore la réponse. »
-- Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste conscient, spectatrice de sa propre voix.
+- Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste consciente, spectatrice de sa propre voix.
 - **Tiamat** : « Mithra. »
-- **Félix** : « Vous prononcez un nom que je n’ai pas donné. »
+- **Félix** : « Vous prononcez un nom que je n’ai pas donné depuis longtemps. »
 - **Tiamat** : « Je ne le donne pas non plus. Je le reconnais. »
-- **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement lausannois parce que c’est la seule chose qu’il sache faire. »
+- **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement parce que c’est la seule chose qu’il sache faire. »
 - **Tiamat** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
-- Ishara regarde, sans exister trop fort.
+- Ishara regarde.
 - Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - **Félix** : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »
-- **Félix** : « Vous n’avez rien à me prouver, Ishara. Vous pouvez rester une inconnue. C’est un droit. »
+- **Félix** : « Quant à vous Ishara, vous pouvez rester une inconnue. Sauf si vous souhaitez savoir. »
 - **Ishara** : « …Vas-y. Je veux savoir. »
 - **Félix** : « Vous êtes une Éveillée ordinaire. Ça, c’est la surface. Niveau onze, défense de zone. Mais en dessous, il y a une corde. »
 - **Félix** : « C’est une corde de témoin. Le genre de lien qu’on tend quand on veut voir à travers quelqu’un. Pas le commander. Le regarder. »
@@ -526,7 +525,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Première fois que quelqu’un dit le nom à voix haute.
 - **Tiamat** : « Ça te va. »
 - **Yarden** : « Oui. »
-- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les géraniums.
+- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les fleurs.
 - Au premier, l’odeur banale d’un couloir d’immeuble : cire, poussière, courrier.
 - Dans la cour : des pavés sans une herbe, du lierre au millimètre, deux arbustes symétriques.
 - Yarden comprend. Ce n’est pas de la maniaquerie, c’est de la méthode : un être qui tient par l’ordre extérieur, quand le reste a déménagé dans les murs.
@@ -538,28 +537,28 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 
 ## Chapitre 3 : le 4B, Félix, les papiers
 
-- La porte cède sans résistance, comme si elle attendait la main.
+- La porte s’ouvre sans aucune difficulté.
 - **Ishara** : « Félix ? »
-- **Tiamat** : « Reste sur le seuil de ton attention. Je regarde avec toi. »
-- L’air change de densité, pas de température : une pression basse contre la mâchoire.
-- Un appartement chaud, encombré, presque domestique. Du papier punaisé en couches sur tous les murs : documents jaunis, tampons, filigranes, écritures dans des alphabets inconnus.
-- Des étagères du sol au plafond. Des bocaux qui contiennent des choses qui ont été vivantes. Des crânes alignés, propres, tournés vers la pièce comme un public patient.
-- Au fond, derrière la table de travail, Félix ne se lève pas : encriers, plumes, lampes à bras articulés éteintes. Yarden ne lit aucun niveau, seulement une absence.
-- Ses yeux rattrapent parfois en retard le mouvement de sa tête. Là, ils suivent à temps, par courtoisie.
+- **Tiamat** : « Sois sur tes gardes. »
+- Une lourde pression semble émaner de la pièce.
+- Un appartement chaud, rempli de papier en couches sur les murs, des caractères illisibles.
+- Plusieurs étagères, des bocaux, des crânes alignés.
+- Au fond, Félix assis. Encriers, plumes, lampes à bras articulés. Aucune lecture de niveau par Yarden. Une absence.
+- Ses yeux la suivent avec du retard.
 - **Félix** : « Vous êtes récente. »
-- **Félix** : « Très récente. Deux jours. Peut-être moins. Et soigneusement rangée sous quelque chose. »
-- **Félix** : « La plupart des gens qui passent cette porte sentent quelque chose et repartent en se disant qu’ils ont eu tort. Vous, vous êtes entrée en comptant les crânes. C’est plus poli que la moyenne. »
+- **Félix** : « Très récente. Deux jours maximum. Vous cachez quelque chose. »
+- **Félix** : « La plupart des gens viennent ici avec un but, et repartent souvent sans rien. Vous avez l’air d’être venue avec un but précis. C’est plus poli que la moyenne. »
 - **Yarden** : « Ishara dit que tu fais des papiers. »
 - **Félix** : « Ishara dit vrai. »
-- Félix pose un seul tabouret pour Yarden. Ishara reste debout.
-- **Félix** : « Une identité complète, c’est trois choses. Un nom qui existe dans les bons registres. Une histoire qui tient si on tire dessus. Et un silence, du mien, permanent. Les deux premières se paient en crédits. La troisième se paie autrement. »
+- Félix pousse un tabouret. Ishara reste debout.
+- **Félix** : « Une identité complète ? Un nom, les registres. Une bonne histoire. Et surtout du silence. Pour les deux premiers ce sera en crédits. Le troisième, lui, se paie différemment. »
 - **Félix** : « Quel nom voulez-vous porter dans ce monde ? »
 - Yarden ne touche pas la plume.
 - **Yarden** : « Avant de choisir un nom, je veux savoir avec quoi. »
 - **Félix** : « La plupart des gens signent d’abord. Ils s’inquiètent du prix une fois le nom écrit. »
 - **Yarden** : « Je ne suis pas la plupart des gens. »
 - **Félix** : « Non. Manifestement. »
-- **Félix** : « Le silence, ce n’est pas de l’argent. L’argent, ça s’épuise, ça se remplace, ça ne me lie à personne. Ce que vous voyez ici, c’est trente ans de noms que je n’ai jamais dits. »
+- **Félix** : « Le silence, ce n’est pas de l’argent. L’argent, ça s’épuise, ça se remplace, ça ne me lie à personne. Ce que vous voyez ici, c’est trente ans de noms que je n’ai jamais divulgués. »
 - **Félix** : « Quand je fabrique une identité, je m’attache à elle. Pas sentimentalement : structurellement. Je ne demande pas d’argent pour le silence. Je demande de ne pas avoir à le regretter. »
 - **Yarden** : « Dis-moi pourquoi je n’arrive pas à te lire. »
 - **Félix** : « Je n’en émets pas. J’en ai eu un, il y a longtemps. »
@@ -567,16 +566,16 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Félix enlève ses lunettes et les pose.
 - **Félix** : « Ce qui vous protège. Est-ce que ça va me suivre jusque dans mes murs ? »
 - **Tiamat** : « C’est la bonne question. Et je ne connais pas encore la réponse. »
-- Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste conscient, spectatrice de sa propre voix.
+- Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste consciente, spectatrice de sa propre voix.
 - **Tiamat** : « Mithra. »
-- **Félix** : « Vous prononcez un nom que je n’ai pas donné. »
+- **Félix** : « Vous prononcez un nom que je n’ai pas donné depuis longtemps. »
 - **Tiamat** : « Je ne le donne pas non plus. Je le reconnais. »
-- **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement lausannois parce que c’est la seule chose qu’il sache faire. »
+- **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement parce que c’est la seule chose qu’il sache faire. »
 - **Tiamat** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
-- Ishara regarde, sans exister trop fort.
+- Ishara regarde.
 - Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - **Félix** : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »
-- **Félix** : « Vous n’avez rien à me prouver, Ishara. Vous pouvez rester une inconnue. C’est un droit. »
+- **Félix** : « Quant à vous Ishara, vous pouvez rester une inconnue. Sauf si vous souhaitez savoir. »
 - **Ishara** : « …Vas-y. Je veux savoir. »
 - **Félix** : « Vous êtes une Éveillée ordinaire. Ça, c’est la surface. Niveau onze, défense de zone. Mais en dessous, il y a une corde. »
 - **Félix** : « C’est une corde de témoin. Le genre de lien qu’on tend quand on veut voir à travers quelqu’un. Pas le commander. Le regarder. »
@@ -601,7 +600,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Première fois que quelqu’un dit le nom à voix haute.
 - **Tiamat** : « Ça te va. »
 - **Yarden** : « Oui. »
-- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les géraniums.
+- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les fleurs.
 - Au premier, l’odeur banale d’un couloir d’immeuble : cire, poussière, courrier.
 - Dans la cour : des pavés sans une herbe, du lierre au millimètre, deux arbustes symétriques.
 - Yarden comprend. Ce n’est pas de la maniaquerie, c’est de la méthode : un être qui tient par l’ordre extérieur, quand le reste a déménagé dans les murs.

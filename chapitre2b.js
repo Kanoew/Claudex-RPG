@@ -137,12 +137,12 @@ function impasseScript() {
     { moves: [moveOf('ishara', [[-150, 168], [-236, 170]], 85)] },
     { until: () => player.x < -215 },
     { run: () => { ch2b.goalText = ''; ch2b.riftAt = 0; enterImpasse(); } },
-    { say: ['Une impasse derrière un pressing fermé : c’est dimanche.', 'Dans l’air, un rectangle légèrement distordu, presque invisible en plein jour.'] },
+    { say: ['Une impasse derrière un pressing fermé : c’est dimanche.', 'Dans l’air, quelque chose de distordu. Presque invisible en plein jour.'] },
     { say: ['Yarden : « Niveau estimé 16-17, il s’agit d’un espace restreint. »'] },
     { say: ['Ishara[inquiete] : « Hein, quoi ?! »'] },
     { run: () => { ch2b.riftAt = mirrorNow(); } },
     { wait: 1.5 },
-    { say: ['Ishara[inquiete] : « Comment ?! »', 'Ishara : « Je t’accompagne, ou je reste derrière toi ? »', 'Yarden : « Derrière. »', 'Ishara : « Tu es de quel niveau, au juste ? »', 'Yarden : « Vingt-quatre. »', 'Ishara[inquiete] : « ...D’accord. Derrière toi, alors. »'] },
+    { say: ['Ishara[inquiete] : « Comment ?! »', 'Ishara : « Je t’accompagne, je reste derrière toi ? »', 'Yarden : « Hmm. »', 'Ishara : « Tu es de quel niveau, au juste ? »', 'Yarden : « Vingt-quatre. »', 'Ishara[inquiete] : « 24 Bordel ?! Je suis niveau 11, derrière toi ! »'] },
     { until: nearPlayer(impasseRift.x, impasseRift.y, 70) },
     { run: enterRun },
     { finish: true }
@@ -152,7 +152,7 @@ function impasseScript() {
 // Après le dernier gobelin : le butin, les deux heures dehors, puis la suite du chapitre.
 function runEndScript() {
   return [
-    { say: ['Les sept créatures sont tombées. Ishara prélève les matériaux.', 'Quatre fragments, deux bourses. Le plus gros : niveau 19, coupe propre.', 'Aucune expérience gagnée.'] },
+    { say: ['Les sept créatures ont laissé tomber du loot. Ishara récolte les matériaux.', 'Plusieurs loots, niveau 19 max, propre.', 'Aucune expérience gagnée.'] },
     { card: 'Quarante minutes dedans, deux heures dehors.', seconds: 2.6 },
     { run: () => { enterImpasse(false); sceneActors.ishara.x = 20; sceneActors.ishara.y = -90; Object.assign(player, { x: 40, y: -120 }); ch2b.goalText = 'Suis Ishara ↓'; } },
     { moves: [moveOf('ishara', [[-60, 40], [-110, 150]], 85)] },
@@ -169,7 +169,7 @@ function marteryScript() {
     { moves: [moveOf('ishara', [[18, -52]], 90), moveOf('yarden', [[-26, -42]], 90, { delay: .5 })] },
     { run: () => { ch2b.shutterAt = mirrorNow(); } },
     { wait: 1.8 },
-    { say: ['Le kebab ouvre ses rideaux. Ishara appuie sur l’interphone, puis une seconde fois : il a l’air cassé, mais il marche.'] },
+    { say: ['Ishara appuie sur l’interphone, une seconde fois. Cassé ? Non, il fonctionne.'] },
     ...comptoirScript()
   ];
 }
@@ -177,15 +177,15 @@ function marteryScript() {
 function comptoirScript() {
   return [
     { run: () => { enterComptoir(); ch2b.goalText = 'Regarde autour de toi, puis rejoins le comptoir'; } },
-    { say: ['Un couloir étroit. De l’encens bon marché, et quelque chose de plus minéral dessous.'] },
+    { say: ['Un couloir étroit. De l’encens.'] },
     { until: () => player.y < -18 && Math.abs(player.x) < 100 },
     { run: () => { ch2b.goalText = ''; } },
     { moves: [moveOf('ishara', [[-60, -12]], 95), moveOf('yarden', [[20, -12]], 95)] },
-    { say: ['Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur celui de niveau 19.', 'Rémi : « Avec quelle lame ? Quel type ? »', 'Yarden : « Le type qui coupe. »'] },
+    { say: ['Rémi examine les fragments, un par un, sans un mot. Il s’arrête sur le fragment le plus propre, le niveau 19.', 'Rémi : « Avec quelle lame ? Quel type ? »', 'Yarden : « Le type qui coupe. »'] },
     { run: () => { ch2b.slate = '280'; } },
-    { say: ['Rémi écrit 280 sur l’ardoise.', 'Ishara : « La dernière fois, un run équivalent valait 220. »', 'Rémi : « Le 19 est propre. Coupe franche, ni brûlure ni impact contondant. C’est rare à ce niveau : supplément. »'] },
+    { say: ['Rémi écrit 280 sur l’ardoise.', 'Ishara : « La dernière fois, un run équivalent valait 220. »', 'Rémi : « La coupe du niveau 19 est propre. Bonne coupe, pas de brûlure, ni impact contondant. Un supplément pour une coupe à ce niveau. »'] },
     { run: () => { credits += 280; bag.length = 0; } },
-    { say: ['Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.', 'Ishara : « On partage. 280 chacun. »', 'Rémi : « Dites-moi quel type de lame fait des coupes comme ça. »', 'Tiamat (voix intérieure) : « Tu viens de laisser une trace. Les receleurs parlent. »', 'Premier argent gagné dans ce monde : 280 crédits.'] },
+    { say: ['Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.', 'Ishara : « On partage. 280 crédits. »', 'Rémi : « Dites-moi quel type de lame fait des coupes comme ça. »', 'Tiamat (voix intérieure) : « Tu viens de laisser une trace. Les receleurs parlent. »', 'Premier argent gagné dans ce monde : 280 crédits.'] },
     { run: () => { ch2b.slate = ''; } },
     { metro: 'show' },
     { say: ['Le M2, direction Sous-gare.'] },
@@ -197,24 +197,22 @@ function comptoirScript() {
 function sousgareScript() {
   return [
     { run: enterSousgare },
-    { say: ['Quartier Sous-gare. Un immeuble Belle Époque, impeccable. Trop normal.'] },
+    { say: ['Quartier Sous-gare. Un immeuble. Normal, trop normal.'] },
     { camera: { x: 0, y: -230 } },
-    { say: ['Quatre étages, des fenêtres alignées. Des géraniums au deuxième.'] },
+    { say: ['Quatre étages, des fenêtres alignées. Des fleurs au deuxième.'] },
     { camera: null },
     { moves: [moveOf('ishara', [[46, -38]], 80), moveOf('yarden', [[2, -38]], 80, { delay: .4 })] },
     { say: ['Ishara compose le digicode.'] },
     { run: enterCour },
-    { say: ['La cour : des pavés sans une herbe, du lierre taillé au millimètre, deux arbustes en symétrie parfaite.'] },
+    { say: ['La cour, des pavés sans une herbe, du lierre taillé, des arbustes.'] },
     { moves: [moveOf('ishara', [[-20, -170]], 85), moveOf('yarden', [[10, -150]], 85, { delay: .4 })] },
     { run: enterEscalier },
     { until: above(-60) },
-    { say: ['Des marches de pierre, creusées au centre. L’air est déjà plus lourd.'] },
-    { until: above(-300) },
-    { say: ['Plus haut, plus chargé.'] },
+    { say: ['Des marches de pierre, l’air est dense ici.'] },
     { until: above(-530) },
     { say: ['Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.'] },
     { run: () => { ch2b.buff = true; } },
-    { say: ['Le buff d’Ishara se déclenche tout seul : un léger scintillement doré.'] },
+    { say: ['Le buff d’Ishara se déclenche d’un coup, elle scintille de doré.'] },
     ...quatrebScript()
   ];
 }
