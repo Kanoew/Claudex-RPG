@@ -79,6 +79,35 @@ h1 { font-size: 13px; letter-spacing: .12em; }
 .bag-row b { margin-left: auto; }
 #map-list { width: 100%; }
 #map-list button { min-height: 64px; }
+/* Un plan de liaisons, sans échelle ni orientation géographique canonique. */
+#map-list { display: block; }
+.map-location { margin: 0 0 6px; color: #ffe3a8; font: 600 16px/1.5 system-ui; }
+.map-caption { margin: 0 0 22px; color: #c5b8d8; font: 14px/1.5 system-ui; }
+.map-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.map-plan { position: relative; padding: 22px 16px; border: 1px solid #514164; border-radius: 20px; background: repeating-linear-gradient(90deg, transparent 0 35px, #b496d40b 36px 37px), repeating-linear-gradient(0deg, transparent 0 35px, #b496d40b 36px 37px), radial-gradient(ellipse at 70% 50%, #372448, #110e1c); }
+#map-list .map-district { position: relative; width: 88%; min-height: 96px; gap: 6px; border-radius: 5px 18px 5px 18px; padding: 14px; background: linear-gradient(130deg, #31273f, #191421); border-color: #89759e; font-size: 16px; line-height: 1.4; box-shadow: 5px 6px 0 #08070d88; }
+#map-list .map-district:nth-of-type(2) { margin-left: 12%; }
+#map-list .map-district:nth-of-type(3) { margin-left: 4%; }
+.map-number { color: #aa93bf; font: 12px/1 system-ui; letter-spacing: .2em; }
+#map-list .map-district small { color: #c8bbdc; font: 14px/1.4 system-ui; }
+#map-list .map-district.here { border-left: 4px solid #ffe3a8; }
+#map-list .map-district.here small { color: #ffe3a8; }
+#map-list .map-district[aria-pressed="true"] { border-color: #d8baff; background: linear-gradient(130deg, #513961, #291e39); box-shadow: 0 0 0 2px #b68ae144, 5px 6px 0 #08070d88; }
+.map-street { height: 34px; margin-left: 47%; width: 12px; border-left: 2px solid #b294cf; border-right: 2px solid #5b466f; color: #e1c3fc; text-align: center; line-height: 34px; }
+.map-street span { background: #1d1428; }
+.map-detail { padding: 20px; border: 1px solid #7d668e; border-top: 3px solid #c6a0ed; border-radius: 16px; background: #1b1526; font: 16px/1.55 system-ui; }
+.map-eyebrow { font-size: 12px; letter-spacing: .1em; color: #c7afd9; }
+.map-detail h3 { margin: 10px 0; font: 600 24px/1.25 Georgia, serif; }
+.map-detail p { margin: 12px 0; }
+.map-level { color: #e2c8ff; }
+.map-itinerary { padding: 12px 0; border-block: 1px solid #514164; color: #e6d8f4; }
+#map-list .map-detail button { width: 100%; min-height: 52px; justify-content: center; text-align: center; background: #d7c1f5; color: #24162f; font-size: 16px; }
+#map-list .map-detail button:disabled { background: #33283f; color: #c6bdd2; border-color: #665775; cursor: default; }
+@media (max-width: 600px) {
+  .map-layout { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .map-plan { padding: 16px; }
+  #map-list .map-district { min-height: 88px; }
+}
 #app > #result:not([hidden]) { align-items: center; overflow-y: auto; }
 #result-text { padding-top: 24px; max-width: 540px; }
 #loot-toast { max-width: calc(100% - 24px); width: max-content; text-align: center; border-radius: 12px; }
