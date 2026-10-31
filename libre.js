@@ -198,7 +198,6 @@ function drawFreeMinimap() {
 // La faille : un rectangle d'air déformé, violet ; dans la salle, le même signe sert de sortie une fois le chef vaincu.
 function drawFreeRift(offsetX, offsetY) {
   if (!freeMode.active) return;
-  if (!scene.active) drawFreeMinimap();
   const links = freeLinks[currentZone.id];
   if (links) {
     ctx.save();
