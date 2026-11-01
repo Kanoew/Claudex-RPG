@@ -1,0 +1,18 @@
+YARDEN — CHAPITRES 7 À 9
+
+Décompresser tout le ZIP, puis ouvrir apercu.html.
+Pour une lecture rapide sur téléphone, ouvrir les GIF du dossier apercus-gif.
+
+bandes/ : une bande verte par animation, cases 211 × 148.
+bandes-completes/ : toutes les cases d’un personnage ou d’une tenue.
+portraits/ : 11 bustes en 256 × 256.
+objets/ : les onze pièces de la vente sur leur plateau.
+apercus-png/ : copies transparentes utilisées par le lecteur d’animations.
+animations.json : fichiers, index, durées, boucles et ancrages.
+CONTROLE.csv et FICHE-DE-CONTROLE.md : vérifications et limites.
+
+Céleste est châtain. Les deux directions de Yarden ont été générées séparément.
+Les séquences d’action ne doivent pas boucler : conserver leur dernière case
+ou revenir à la garde selon l’état du jeu.
+
+Pas encore intégrés au jeu. Aucun changement de code, sauvegarde ou publication.
