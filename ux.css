@@ -54,7 +54,36 @@ h1 { font-size: 13px; letter-spacing: .12em; }
 .story-actions { display: flex; flex-direction: column; gap: 6px; align-items: stretch; }
 #story-pause { min-height: 40px; border: 1px solid #8b78c9; border-radius: 12px; background: #2b2141; color: #f4effc; font: inherit; }
 #story-card.tiamat { background: transparent; box-shadow: none; }
-#story-card.tiamat #story-text { font-style: normal; }
+
+/* Les trois voix gardent la même surface de lecture ; seul leur traitement change. */
+#app > #story-panel { --dialogue-height: 184px; }
+#app > #story-panel:not([hidden]) { height: var(--dialogue-height); }
+#story-text { white-space: pre-wrap; }
+#story-card.narration #story-name { color: #cfc4b4; letter-spacing: .12em; }
+#story-card.narration #story-text { color: #e0d9cd; }
+#app > #story-panel[data-voice="narration"] { border-color: #8a7d70; }
+#app > #story-panel[data-voice="inner"] { border-color: #b298e9; background: #22162ff5; box-shadow: inset 4px 0 #9472d1; }
+#story-card.tiamat #story-text { color: #e6d9ff; font-style: italic; }
+#story-history { min-height: 48px; padding: 8px 10px; border: 1px solid #8b78c9; border-radius: 12px; background: #2b2141; color: #f4effc; font: inherit; }
+.story-actions #story-pause { min-height: 48px; }
+#history-body { margin: 0; padding: 0; list-style: none; }
+.history-line { padding: 14px 16px; margin: 0 0 12px; border-left: 3px solid #8c789f; background: #211a2c; border-radius: 0 12px 12px 0; }
+.history-line b { color: #e0c58f; font-size: 13px; }
+.history-line p { margin: 7px 0 0; font-size: var(--reading-size); line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.history-line.inner { border-color: #b298e9; background: #291b39; }
+.history-line.inner p { color: #e6d9ff; font-style: italic; }
+.history-line.narration { border-color: #8a7d70; }
+.history-line.narration b, .history-line.narration p { color: #e0d9cd; }
+
+/* En portrait et sur PC, la lecture remplace la place des commandes pendant
+   toute la scène : aucun aller-retour du décor entre deux répliques. */
+@media (orientation: portrait), (min-height: 551px) {
+  #app[data-story-place="top"][data-context="dialogue"] #view,
+  #app[data-story-place="top"][data-context="cinematic"] #view { margin-top: 192px; }
+  #app[data-story-place="top"][data-context="dialogue"] #controls,
+  #app[data-story-place="top"][data-context="cinematic"] #controls { height: 0; min-height: 0; padding: 0; overflow: hidden; }
+  #app[data-story-place="top"] > #story-panel:not([hidden]) { top: var(--story-top, 120px); bottom: auto; }
+}
 
 /* Fenêtres sur toute l'application : titre et fermeture fixes, contenu défilant. */
 #app > .ux-window:not([hidden]) { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 14px; padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); background: radial-gradient(100% 100% at 50% 0%, #302147fa, #100c19fc); border-radius: 16px; text-align: left; z-index: 20; overflow: hidden; }
@@ -79,12 +108,41 @@ h1 { font-size: 13px; letter-spacing: .12em; }
 .bag-row b { margin-left: auto; }
 #map-list { width: 100%; }
 #map-list button { min-height: 64px; }
+/* Un plan de liaisons, sans échelle ni orientation géographique canonique. */
+#map-list { display: block; }
+.map-location { margin: 0 0 6px; color: #ffe3a8; font: 600 16px/1.5 system-ui; }
+.map-caption { margin: 0 0 22px; color: #c5b8d8; font: 14px/1.5 system-ui; }
+.map-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.map-plan { position: relative; padding: 22px 16px; border: 1px solid #514164; border-radius: 20px; background: repeating-linear-gradient(90deg, transparent 0 35px, #b496d40b 36px 37px), repeating-linear-gradient(0deg, transparent 0 35px, #b496d40b 36px 37px), radial-gradient(ellipse at 70% 50%, #372448, #110e1c); }
+#map-list .map-district { position: relative; width: 88%; min-height: 96px; gap: 6px; border-radius: 5px 18px 5px 18px; padding: 14px; background: linear-gradient(130deg, #31273f, #191421); border-color: #89759e; font-size: 16px; line-height: 1.4; box-shadow: 5px 6px 0 #08070d88; }
+#map-list .map-district:nth-of-type(2) { margin-left: 12%; }
+#map-list .map-district:nth-of-type(3) { margin-left: 4%; }
+.map-number { color: #aa93bf; font: 12px/1 system-ui; letter-spacing: .2em; }
+#map-list .map-district small { color: #c8bbdc; font: 14px/1.4 system-ui; }
+#map-list .map-district.here { border-left: 4px solid #ffe3a8; }
+#map-list .map-district.here small { color: #ffe3a8; }
+#map-list .map-district[aria-pressed="true"] { border-color: #d8baff; background: linear-gradient(130deg, #513961, #291e39); box-shadow: 0 0 0 2px #b68ae144, 5px 6px 0 #08070d88; }
+.map-street { height: 34px; margin-left: 47%; width: 12px; border-left: 2px solid #b294cf; border-right: 2px solid #5b466f; color: #e1c3fc; text-align: center; line-height: 34px; }
+.map-street span { background: #1d1428; }
+.map-detail { padding: 20px; border: 1px solid #7d668e; border-top: 3px solid #c6a0ed; border-radius: 16px; background: #1b1526; font: 16px/1.55 system-ui; }
+.map-eyebrow { font-size: 12px; letter-spacing: .1em; color: #c7afd9; }
+.map-detail h3 { margin: 10px 0; font: 600 24px/1.25 Georgia, serif; }
+.map-detail p { margin: 12px 0; }
+.map-level { color: #e2c8ff; }
+.map-itinerary { padding: 12px 0; border-block: 1px solid #514164; color: #e6d8f4; }
+#map-list .map-detail button { width: 100%; min-height: 52px; justify-content: center; text-align: center; background: #d7c1f5; color: #24162f; font-size: 16px; }
+#map-list .map-detail button:disabled { background: #33283f; color: #c6bdd2; border-color: #665775; cursor: default; }
+@media (max-width: 600px) {
+  .map-layout { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .map-plan { padding: 16px; }
+  #map-list .map-district { min-height: 88px; }
+}
 #app > #result:not([hidden]) { align-items: center; overflow-y: auto; }
 #result-text { padding-top: 24px; max-width: 540px; }
 #loot-toast { max-width: calc(100% - 24px); width: max-content; text-align: center; border-radius: 12px; }
 
 @media (max-width: 600px) {
-  #app > #story-panel:not([hidden]) { grid-template-columns: 1fr; gap: 8px; padding: 10px; }
+  #app > #story-panel:not([hidden]) { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; align-items: stretch; gap: 8px; padding: 10px; }
   #story-next { justify-self: end; min-height: 48px; }
   .story-actions { flex-direction: row-reverse; }
   #story-pause { min-height: 48px; padding: 8px 14px; }

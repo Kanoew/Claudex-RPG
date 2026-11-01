@@ -18,7 +18,7 @@ function showStory(lines, done) {
 }
 
 function advanceStory() {
-  if (!story.active || menu.open || paused || document.hidden) return;
+  if (!story.active || menu.open || dialogueLog.open || paused || document.hidden) return;
   if (story.lines.length) {
     showStoryLine(story.lines.shift());
     return;
@@ -34,6 +34,7 @@ function advanceStory() {
 }
 
 function resetEncounter() {
+  resetDialogueHistory();
   antreResonance.until = 0;
   Object.assign(encounter, { phase: 'waiting', elapsed: 0, blind: 0, slow: 0, fall: 0, complete: false });
   encounter.projectiles.length = 0;

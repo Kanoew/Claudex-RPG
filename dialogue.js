@@ -3,6 +3,8 @@
 // Affichage des répliques : une ligne « Nom : « texte » » devient une bulle avec le nom et un visage. La voix de Tiamat est une voix
 // intérieure : bulle violette en italique, avec la pierre bleue, jamais un visage. Les inconnus ont une silhouette. Le récit n'a ni nom ni visage.
 const portraitArt = {};
+// Seulement les répliques déjà affichées ; rien n'est ajouté à la sauvegarde.
+const dialogueLog = { entries: [], open: false, limit: 40 };
 const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant', 'remi-neutre', 'felix-neutre', 'celeste-neutre', 'celeste-sourire', 'celeste-alerte', 'ishara-course-neutre', 'ishara-course-sourire', 'ishara-course-inquiete'];
 const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2', 'Rémi': 'remi', 'Félix': 'felix', 'Céleste': 'celeste' };
 // « Nom[expression] : « texte » » ; l'expression est facultative (neutre par défaut).
@@ -31,7 +33,7 @@ function drawPortrait(who, expression) {
   pen.clearRect(0, 0, size, size);
   const base = portraitBase[who];
   // En tenue de course, Ishara a son propre visage  ; les autres expressions gardent l'ancien dessin.
-  const course = base === 'ishara' && isharaOutfit === 'course' && (portraitArt[`ishara-course-${expression}`] || portraitArt['ishara-course-neutre', 'ishara-course-sourire', 'ishara-course-inquiete']);
+  const course = base === 'ishara' && isharaOutfit === 'course' && (portraitArt[`ishara-course-${expression}`] || portraitArt['ishara-course-neutre']);
   const image = course || (base && (portraitArt[`${base}-${expression}`] || portraitArt[`${base}-neutre`]));
   if (image) {
     pen.fillStyle = '#2b3347'; pen.fillRect(0, 0, size, size);
@@ -71,9 +73,48 @@ function showStoryLine(line) {
   const name = document.getElementById('story-name');
   card.classList.toggle('tiamat', who === 'Tiamat');
   card.classList.toggle('speaker', who !== null);
+  card.classList.toggle('narration', who === null);
+  document.getElementById('story-panel').setAttribute('data-voice', who === 'Tiamat' ? 'inner' : who ? 'speech' : 'narration');
+  card.scrollTop = 0;
   portrait.hidden = who === null;
-  name.hidden = who === null;
-  name.textContent = who === 'Tiamat' ? 'TIAMAT · VOIX INTÉRIEURE' : who === null ? '' : who.toUpperCase();
+  name.hidden = false;
+  name.textContent = who === 'Tiamat' ? 'TIAMAT · VOIX INTÉRIEURE' : who === null ? 'NARRATION' : who.toUpperCase();
   document.getElementById('story-text').textContent = text;
   if (who !== null) drawPortrait(who, expression);
+  dialogueLog.entries.push({ who, text });
+  if (dialogueLog.entries.length > dialogueLog.limit) dialogueLog.entries.shift();
 }
+
+function storyEscape(text) {
+  return text.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+}
+
+function openDialogueHistory() {
+  if (!story.active || menu.open || dialogueLog.open) return;
+  resetInput();
+  dialogueLog.open = true;
+  document.getElementById('history-body').innerHTML = dialogueLog.entries.map(({ who, text }) =>
+    `<li class="history-line ${who === 'Tiamat' ? 'inner' : who ? 'speech' : 'narration'}"><b>${storyEscape(who === 'Tiamat' ? 'Tiamat · voix intérieure' : who || 'Narration')}</b><p>${storyEscape(text)}</p></li>`
+  ).join('');
+  document.getElementById('history-panel').hidden = false;
+  const body = document.getElementById('history-body').parentElement;
+  if (body) body.scrollTop = body.scrollHeight;
+  document.getElementById('history-close').focus();
+}
+
+function closeDialogueHistory() {
+  if (!dialogueLog.open) return;
+  dialogueLog.open = false;
+  document.getElementById('history-panel').hidden = true;
+  resetInput();
+  document.getElementById('story-next').focus();
+}
+
+function resetDialogueHistory() {
+  dialogueLog.entries.length = 0;
+  dialogueLog.open = false;
+  document.getElementById('history-panel').hidden = true;
+}
+
+document.getElementById('story-history').addEventListener('click', openDialogueHistory);
+document.getElementById('history-close').addEventListener('click', closeDialogueHistory);
