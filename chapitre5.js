@@ -46,7 +46,7 @@ function cityScene() {
     { say: ['Izzy[narquoise] : « J’ai un studio à Ouchy. Il est vide. Il est à toi. »', 'Yarden se ferme.'] },
     { say: ['Izzy : « Je t’achète trois jours. »'] },
     { say: ['Izzy : « Trois jours, payés d’avance. Cinq cent vingt. Tu marches où je marche, t’es là quand je suis là. Tu réponds à aucune question. »', 'Elle n’achète pas des réponses. Elle achète le droit de regarder.'] },
-    { say: ['Izzy retire 600 au distributeur, compte, rend 80 et lui tend 520. Elle ne regarde pas le solde.', 'L’échéance tombe au jour 7.'] },
+    { say: ['Izzy retire 520 au distributeur : un montant hors menu, tapé à la main, sans une hésitation. Aucun arrondi, aucun reliquat. Elle compte les billets en les lui tendant, et elle ne regarde pas le solde.', 'L’échéance tombe au jour 7.'] },
     { run: () => { credits = 520; izzyContract.active = true; lootToast('+ 520 crédits'); } },
     { say: ['Izzy : « Ton nom. »', 'Yarden : « Yarden. »', 'Troisième fois qu’elle le donne : à une inconnue, contre de l’argent.'] },
     { say: ['Izzy répète le nom. Il sort trop doux, et elle referme trop tard.', 'Izzy[sourire] : « J’ai pas besoin de ton numéro. T’as accepté mon argent. Tu crois que tu peux disparaître dans cette ville ? »'] }
@@ -60,8 +60,8 @@ function felixScene() {
     { say: ['Yarden pose les 520. Félix les prend sans les compter.'] },
     { run: () => { credits = 0; debt = 0; identityName = 'Yarden Weiss'; } },
     { say: ['Les papiers étaient prêts depuis la veille au soir. Un beau dossier : une nuit à écrire le nom trois cent quarante fois.', 'Félix : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »'] },
-    { say: ['Félix : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »', 'Félix : « Vous êtes venue couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »', 'Yarden a brisé sa règle du chapitre 3 sans s’en apercevoir.'] },
-    { say: ['Félix : « Bonne journée, monsieur Weiss. »'] }
+    { say: ['Félix : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »', 'Félix : « Vous êtes venu couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »', 'Yarden a brisé sa propre règle du chapitre 3 sans s’en apercevoir.'] },
+    { say: ['Ce n’est pas Félix qui parle : c’est le 4B. L’homme fabrique, le lieu perçoit.', 'Le 4B : « Bonne journée, monsieur Weiss. »'] }
   ];
 }
 
