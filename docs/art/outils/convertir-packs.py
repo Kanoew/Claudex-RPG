@@ -195,3 +195,16 @@ if __name__ == '__main__':
         export(art + 'izzy-celeste/mouvements-izzy/' + name + '.png', 'assets/npcs/izzy/' + name + '.png', 4, colors=128)
     for name in ['neutre', 'sourire', 'narquoise']:
         export(art + 'izzy-celeste/izzy-portraits-' + name + '.png', 'assets/portraits/izzy-' + name + '.png', 1, colors=96, size=(144, 144))
+    # Chapitres 7 à 9 : bandes animées (cases de 211 x 148), portraits et pièces de la vente, détourés.
+    import glob
+    os.makedirs('assets/npcs/ch7-9', exist_ok=True)
+    os.makedirs('assets/objets', exist_ok=True)
+    for path in sorted(glob.glob(art + 'ch7-9/bandes/*.png')):
+        name = os.path.basename(path)
+        frames = Image.open(path).width // 211
+        export(path, 'assets/npcs/ch7-9/' + name, frames, colors=128)
+    for path in sorted(glob.glob(art + 'ch7-9/portraits/*.png')):
+        export(path, 'assets/portraits/' + os.path.basename(path), 1, colors=96, size=(144, 144))
+    for path in sorted(glob.glob(art + 'ch7-9/objets/*.png')):
+        export(path, 'assets/objets/' + os.path.basename(path), 1, colors=96, clean=False)
+

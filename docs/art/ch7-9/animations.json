@@ -1,0 +1,1030 @@
+{
+  "cell": [
+    211,
+    148
+  ],
+  "anchor": [
+    105,
+    132
+  ],
+  "background": "#00FF00",
+  "portraits_size": [
+    256,
+    256
+  ],
+  "mirror": false,
+  "characters": {
+    "vieille-maison": {
+      "label": "Vieille femme de la maison",
+      "clips": {
+        "repos": {
+          "file": "bandes/vieille-maison-repos.png",
+          "preview": "apercus-gif/vieille-maison-repos.gif",
+          "frames": 4,
+          "durations": [
+            1000,
+            500,
+            140,
+            1000
+          ],
+          "loop": true,
+          "complete_start": 0,
+          "alpha_file": "apercus-png/vieille-maison-repos.png"
+        }
+      },
+      "complete_file": "bandes-completes/vieille-maison.png",
+      "total_frames": 4,
+      "default": "repos"
+    },
+    "homme-gris": {
+      "label": "Homme au costume gris",
+      "clips": {
+        "repos": {
+          "file": "bandes/homme-gris-repos.png",
+          "preview": "apercus-gif/homme-gris-repos.gif",
+          "frames": 4,
+          "durations": [
+            1000,
+            500,
+            140,
+            1000
+          ],
+          "loop": true,
+          "complete_start": 0,
+          "alpha_file": "apercus-png/homme-gris-repos.png"
+        },
+        "marche-gauche": {
+          "file": "bandes/homme-gris-marche-gauche.png",
+          "preview": "apercus-gif/homme-gris-marche-gauche.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 4,
+          "alpha_file": "apercus-png/homme-gris-marche-gauche.png"
+        },
+        "marche-droite": {
+          "file": "bandes/homme-gris-marche-droite.png",
+          "preview": "apercus-gif/homme-gris-marche-droite.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 8,
+          "alpha_file": "apercus-png/homme-gris-marche-droite.png"
+        },
+        "manipule": {
+          "file": "bandes/homme-gris-manipule.png",
+          "preview": "apercus-gif/homme-gris-manipule.gif",
+          "frames": 4,
+          "durations": [
+            240,
+            240,
+            240,
+            240
+          ],
+          "loop": false,
+          "complete_start": 12,
+          "alpha_file": "apercus-png/homme-gris-manipule.png"
+        }
+      },
+      "complete_file": "bandes-completes/homme-gris.png",
+      "total_frames": 16,
+      "default": "manipule"
+    },
+    "concierge": {
+      "label": "Concierge d’Ouchy",
+      "clips": {
+        "repos": {
+          "file": "bandes/concierge-repos.png",
+          "preview": "apercus-gif/concierge-repos.gif",
+          "frames": 4,
+          "durations": [
+            1000,
+            500,
+            140,
+            1000
+          ],
+          "loop": true,
+          "complete_start": 0,
+          "alpha_file": "apercus-png/concierge-repos.png"
+        },
+        "marche-gauche": {
+          "file": "bandes/concierge-marche-gauche.png",
+          "preview": "apercus-gif/concierge-marche-gauche.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 4,
+          "alpha_file": "apercus-png/concierge-marche-gauche.png"
+        },
+        "marche-droite": {
+          "file": "bandes/concierge-marche-droite.png",
+          "preview": "apercus-gif/concierge-marche-droite.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 8,
+          "alpha_file": "apercus-png/concierge-marche-droite.png"
+        }
+      },
+      "complete_file": "bandes-completes/concierge.png",
+      "total_frames": 12,
+      "default": "repos"
+    },
+    "vasseur": {
+      "label": "Vasseur",
+      "clips": {
+        "repos": {
+          "file": "bandes/vasseur-repos.png",
+          "preview": "apercus-gif/vasseur-repos.gif",
+          "frames": 4,
+          "durations": [
+            1000,
+            500,
+            140,
+            1000
+          ],
+          "loop": true,
+          "complete_start": 0,
+          "alpha_file": "apercus-png/vasseur-repos.png"
+        },
+        "marche-gauche": {
+          "file": "bandes/vasseur-marche-gauche.png",
+          "preview": "apercus-gif/vasseur-marche-gauche.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 4,
+          "alpha_file": "apercus-png/vasseur-marche-gauche.png"
+        },
+        "marche-droite": {
+          "file": "bandes/vasseur-marche-droite.png",
+          "preview": "apercus-gif/vasseur-marche-droite.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 8,
+          "alpha_file": "apercus-png/vasseur-marche-droite.png"
+        },
+        "inspecte-ecrit": {
+          "file": "bandes/vasseur-inspecte-ecrit.png",
+          "preview": "apercus-gif/vasseur-inspecte-ecrit.gif",
+          "frames": 4,
+          "durations": [
+            240,
+            240,
+            240,
+            240
+          ],
+          "loop": false,
+          "complete_start": 12,
+          "alpha_file": "apercus-png/vasseur-inspecte-ecrit.png"
+        }
+      },
+      "complete_file": "bandes-completes/vasseur.png",
+      "total_frames": 16,
+      "default": "inspecte-ecrit"
+    },
+    "celeste-intake": {
+      "label": "Céleste · intake",
+      "clips": {
+        "repos": {
+          "file": "bandes/celeste-intake-repos.png",
+          "preview": "apercus-gif/celeste-intake-repos.gif",
+          "frames": 4,
+          "durations": [
+            1000,
+            500,
+            140,
+            1000
+          ],
+          "loop": true,
+          "complete_start": 0,
+          "alpha_file": "apercus-png/celeste-intake-repos.png"
+        },
+        "marche-gauche": {
+          "file": "bandes/celeste-intake-marche-gauche.png",
+          "preview": "apercus-gif/celeste-intake-marche-gauche.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 4,
+          "alpha_file": "apercus-png/celeste-intake-marche-gauche.png"
+        },
+        "marche-droite": {
+          "file": "bandes/celeste-intake-marche-droite.png",
+          "preview": "apercus-gif/celeste-intake-marche-droite.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 8,
+          "alpha_file": "apercus-png/celeste-intake-marche-droite.png"
+        },
+        "marche-bas": {
+          "file": "bandes/celeste-intake-marche-bas.png",
+          "preview": "apercus-gif/celeste-intake-marche-bas.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 12,
+          "alpha_file": "apercus-png/celeste-intake-marche-bas.png"
+        },
+        "ecrit": {
+          "file": "bandes/celeste-intake-ecrit.png",
+          "preview": "apercus-gif/celeste-intake-ecrit.gif",
+          "frames": 4,
+          "durations": [
+            240,
+            240,
+            240,
+            240
+          ],
+          "loop": false,
+          "complete_start": 16,
+          "alpha_file": "apercus-png/celeste-intake-ecrit.png"
+        },
+        "marche-haut": {
+          "file": "bandes/celeste-intake-marche-haut.png",
+          "preview": "apercus-gif/celeste-intake-marche-haut.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 20,
+          "alpha_file": "apercus-png/celeste-intake-marche-haut.png"
+        }
+      },
+      "complete_file": "bandes-completes/celeste-intake.png",
+      "total_frames": 24,
+      "default": "ecrit"
+    },
+    "celeste-quotidien": {
+      "label": "Céleste · chaussettes",
+      "clips": {
+        "repos": {
+          "file": "bandes/celeste-quotidien-repos.png",
+          "preview": "apercus-gif/celeste-quotidien-repos.gif",
+          "frames": 4,
+          "durations": [
+            1000,
+            500,
+            140,
+            1000
+          ],
+          "loop": true,
+          "complete_start": 0,
+          "alpha_file": "apercus-png/celeste-quotidien-repos.png"
+        },
+        "marche-gauche": {
+          "file": "bandes/celeste-quotidien-marche-gauche.png",
+          "preview": "apercus-gif/celeste-quotidien-marche-gauche.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 4,
+          "alpha_file": "apercus-png/celeste-quotidien-marche-gauche.png"
+        },
+        "marche-droite": {
+          "file": "bandes/celeste-quotidien-marche-droite.png",
+          "preview": "apercus-gif/celeste-quotidien-marche-droite.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 8,
+          "alpha_file": "apercus-png/celeste-quotidien-marche-droite.png"
+        },
+        "marche-haut": {
+          "file": "bandes/celeste-quotidien-marche-haut.png",
+          "preview": "apercus-gif/celeste-quotidien-marche-haut.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 12,
+          "alpha_file": "apercus-png/celeste-quotidien-marche-haut.png"
+        },
+        "marche-bas": {
+          "file": "bandes/celeste-quotidien-marche-bas.png",
+          "preview": "apercus-gif/celeste-quotidien-marche-bas.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 16,
+          "alpha_file": "apercus-png/celeste-quotidien-marche-bas.png"
+        }
+      },
+      "complete_file": "bandes-completes/celeste-quotidien.png",
+      "total_frames": 20,
+      "default": "repos"
+    },
+    "celeste-manteau": {
+      "label": "Céleste · manteau et foulard",
+      "clips": {
+        "repos": {
+          "file": "bandes/celeste-manteau-repos.png",
+          "preview": "apercus-gif/celeste-manteau-repos.gif",
+          "frames": 4,
+          "durations": [
+            1000,
+            500,
+            140,
+            1000
+          ],
+          "loop": true,
+          "complete_start": 0,
+          "alpha_file": "apercus-png/celeste-manteau-repos.png"
+        },
+        "marche-gauche": {
+          "file": "bandes/celeste-manteau-marche-gauche.png",
+          "preview": "apercus-gif/celeste-manteau-marche-gauche.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 4,
+          "alpha_file": "apercus-png/celeste-manteau-marche-gauche.png"
+        },
+        "marche-droite": {
+          "file": "bandes/celeste-manteau-marche-droite.png",
+          "preview": "apercus-gif/celeste-manteau-marche-droite.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 8,
+          "alpha_file": "apercus-png/celeste-manteau-marche-droite.png"
+        },
+        "marche-haut": {
+          "file": "bandes/celeste-manteau-marche-haut.png",
+          "preview": "apercus-gif/celeste-manteau-marche-haut.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 12,
+          "alpha_file": "apercus-png/celeste-manteau-marche-haut.png"
+        },
+        "marche-bas": {
+          "file": "bandes/celeste-manteau-marche-bas.png",
+          "preview": "apercus-gif/celeste-manteau-marche-bas.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 16,
+          "alpha_file": "apercus-png/celeste-manteau-marche-bas.png"
+        }
+      },
+      "complete_file": "bandes-completes/celeste-manteau.png",
+      "total_frames": 20,
+      "default": "repos"
+    },
+    "izzy-tshirt-gris": {
+      "label": "Izzy · t-shirt gris",
+      "clips": {
+        "repos": {
+          "file": "bandes/izzy-tshirt-gris-repos.png",
+          "preview": "apercus-gif/izzy-tshirt-gris-repos.gif",
+          "frames": 4,
+          "durations": [
+            1000,
+            500,
+            140,
+            1000
+          ],
+          "loop": true,
+          "complete_start": 0,
+          "alpha_file": "apercus-png/izzy-tshirt-gris-repos.png"
+        },
+        "marche-gauche": {
+          "file": "bandes/izzy-tshirt-gris-marche-gauche.png",
+          "preview": "apercus-gif/izzy-tshirt-gris-marche-gauche.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 4,
+          "alpha_file": "apercus-png/izzy-tshirt-gris-marche-gauche.png"
+        },
+        "marche-droite": {
+          "file": "bandes/izzy-tshirt-gris-marche-droite.png",
+          "preview": "apercus-gif/izzy-tshirt-gris-marche-droite.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 8,
+          "alpha_file": "apercus-png/izzy-tshirt-gris-marche-droite.png"
+        },
+        "marche-haut": {
+          "file": "bandes/izzy-tshirt-gris-marche-haut.png",
+          "preview": "apercus-gif/izzy-tshirt-gris-marche-haut.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 12,
+          "alpha_file": "apercus-png/izzy-tshirt-gris-marche-haut.png"
+        },
+        "marche-bas": {
+          "file": "bandes/izzy-tshirt-gris-marche-bas.png",
+          "preview": "apercus-gif/izzy-tshirt-gris-marche-bas.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 16,
+          "alpha_file": "apercus-png/izzy-tshirt-gris-marche-bas.png"
+        }
+      },
+      "complete_file": "bandes-completes/izzy-tshirt-gris.png",
+      "total_frames": 20,
+      "default": "repos"
+    },
+    "yarden-mains-nues": {
+      "label": "Yarden · mains nues",
+      "clips": {
+        "garde-gauche": {
+          "file": "bandes/yarden-mains-nues-garde-gauche.png",
+          "preview": "apercus-gif/yarden-mains-nues-garde-gauche.gif",
+          "frames": 4,
+          "durations": [
+            1000,
+            500,
+            140,
+            1000
+          ],
+          "loop": true,
+          "complete_start": 0,
+          "alpha_file": "apercus-png/yarden-mains-nues-garde-gauche.png"
+        },
+        "marche-gauche": {
+          "file": "bandes/yarden-mains-nues-marche-gauche.png",
+          "preview": "apercus-gif/yarden-mains-nues-marche-gauche.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 4,
+          "alpha_file": "apercus-png/yarden-mains-nues-marche-gauche.png"
+        },
+        "course-gauche": {
+          "file": "bandes/yarden-mains-nues-course-gauche.png",
+          "preview": "apercus-gif/yarden-mains-nues-course-gauche.gif",
+          "frames": 4,
+          "durations": [
+            100,
+            100,
+            100,
+            100
+          ],
+          "loop": true,
+          "complete_start": 8,
+          "alpha_file": "apercus-png/yarden-mains-nues-course-gauche.png"
+        },
+        "garde-droite": {
+          "file": "bandes/yarden-mains-nues-garde-droite.png",
+          "preview": "apercus-gif/yarden-mains-nues-garde-droite.gif",
+          "frames": 4,
+          "durations": [
+            1000,
+            500,
+            140,
+            1000
+          ],
+          "loop": true,
+          "complete_start": 12,
+          "alpha_file": "apercus-png/yarden-mains-nues-garde-droite.png"
+        },
+        "marche-droite": {
+          "file": "bandes/yarden-mains-nues-marche-droite.png",
+          "preview": "apercus-gif/yarden-mains-nues-marche-droite.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 16,
+          "alpha_file": "apercus-png/yarden-mains-nues-marche-droite.png"
+        },
+        "course-droite": {
+          "file": "bandes/yarden-mains-nues-course-droite.png",
+          "preview": "apercus-gif/yarden-mains-nues-course-droite.gif",
+          "frames": 4,
+          "durations": [
+            100,
+            100,
+            100,
+            100
+          ],
+          "loop": true,
+          "complete_start": 20,
+          "alpha_file": "apercus-png/yarden-mains-nues-course-droite.png"
+        },
+        "direct-gauche": {
+          "file": "bandes/yarden-mains-nues-direct-gauche.png",
+          "preview": "apercus-gif/yarden-mains-nues-direct-gauche.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "impact_frames": [
+            2,
+            3
+          ],
+          "complete_start": 24,
+          "alpha_file": "apercus-png/yarden-mains-nues-direct-gauche.png"
+        },
+        "croise-gauche": {
+          "file": "bandes/yarden-mains-nues-croise-gauche.png",
+          "preview": "apercus-gif/yarden-mains-nues-croise-gauche.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "impact_frames": [
+            2,
+            3
+          ],
+          "complete_start": 30,
+          "alpha_file": "apercus-png/yarden-mains-nues-croise-gauche.png"
+        },
+        "ecrasement-gauche": {
+          "file": "bandes/yarden-mains-nues-ecrasement-gauche.png",
+          "preview": "apercus-gif/yarden-mains-nues-ecrasement-gauche.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "impact_frames": [
+            2,
+            3
+          ],
+          "complete_start": 36,
+          "alpha_file": "apercus-png/yarden-mains-nues-ecrasement-gauche.png"
+        },
+        "direct-droite": {
+          "file": "bandes/yarden-mains-nues-direct-droite.png",
+          "preview": "apercus-gif/yarden-mains-nues-direct-droite.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "impact_frames": [
+            2,
+            3
+          ],
+          "complete_start": 42,
+          "alpha_file": "apercus-png/yarden-mains-nues-direct-droite.png"
+        },
+        "croise-droite": {
+          "file": "bandes/yarden-mains-nues-croise-droite.png",
+          "preview": "apercus-gif/yarden-mains-nues-croise-droite.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "impact_frames": [
+            2,
+            3
+          ],
+          "complete_start": 48,
+          "alpha_file": "apercus-png/yarden-mains-nues-croise-droite.png"
+        },
+        "ecrasement-droite": {
+          "file": "bandes/yarden-mains-nues-ecrasement-droite.png",
+          "preview": "apercus-gif/yarden-mains-nues-ecrasement-droite.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "impact_frames": [
+            2,
+            3
+          ],
+          "complete_start": 54,
+          "alpha_file": "apercus-png/yarden-mains-nues-ecrasement-droite.png"
+        },
+        "esquive-gauche": {
+          "file": "bandes/yarden-mains-nues-esquive-gauche.png",
+          "preview": "apercus-gif/yarden-mains-nues-esquive-gauche.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "complete_start": 60,
+          "alpha_file": "apercus-png/yarden-mains-nues-esquive-gauche.png"
+        },
+        "degats-gauche": {
+          "file": "bandes/yarden-mains-nues-degats-gauche.png",
+          "preview": "apercus-gif/yarden-mains-nues-degats-gauche.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "complete_start": 66,
+          "alpha_file": "apercus-png/yarden-mains-nues-degats-gauche.png"
+        },
+        "defaite-gauche": {
+          "file": "bandes/yarden-mains-nues-defaite-gauche.png",
+          "preview": "apercus-gif/yarden-mains-nues-defaite-gauche.gif",
+          "frames": 6,
+          "durations": [
+            130,
+            130,
+            160,
+            180,
+            200,
+            900
+          ],
+          "loop": false,
+          "complete_start": 72,
+          "alpha_file": "apercus-png/yarden-mains-nues-defaite-gauche.png"
+        },
+        "esquive-droite": {
+          "file": "bandes/yarden-mains-nues-esquive-droite.png",
+          "preview": "apercus-gif/yarden-mains-nues-esquive-droite.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "complete_start": 78,
+          "alpha_file": "apercus-png/yarden-mains-nues-esquive-droite.png"
+        },
+        "degats-droite": {
+          "file": "bandes/yarden-mains-nues-degats-droite.png",
+          "preview": "apercus-gif/yarden-mains-nues-degats-droite.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "complete_start": 84,
+          "alpha_file": "apercus-png/yarden-mains-nues-degats-droite.png"
+        },
+        "defaite-droite": {
+          "file": "bandes/yarden-mains-nues-defaite-droite.png",
+          "preview": "apercus-gif/yarden-mains-nues-defaite-droite.gif",
+          "frames": 6,
+          "durations": [
+            130,
+            130,
+            160,
+            180,
+            200,
+            900
+          ],
+          "loop": false,
+          "complete_start": 90,
+          "alpha_file": "apercus-png/yarden-mains-nues-defaite-droite.png"
+        }
+      },
+      "complete_file": "bandes-completes/yarden-mains-nues.png",
+      "total_frames": 96,
+      "default": "direct-droite"
+    },
+    "ishara-dague": {
+      "label": "Ishara · dague courte",
+      "clips": {
+        "garde": {
+          "file": "bandes/ishara-dague-garde.png",
+          "preview": "apercus-gif/ishara-dague-garde.gif",
+          "frames": 4,
+          "durations": [
+            1000,
+            500,
+            140,
+            1000
+          ],
+          "loop": true,
+          "complete_start": 0,
+          "alpha_file": "apercus-png/ishara-dague-garde.png"
+        },
+        "coup-dague": {
+          "file": "bandes/ishara-dague-coup-dague.png",
+          "preview": "apercus-gif/ishara-dague-coup-dague.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "impact_frames": [
+            2,
+            3
+          ],
+          "complete_start": 4,
+          "alpha_file": "apercus-png/ishara-dague-coup-dague.png"
+        },
+        "acheve-au-sol": {
+          "file": "bandes/ishara-dague-acheve-au-sol.png",
+          "preview": "apercus-gif/ishara-dague-acheve-au-sol.gif",
+          "frames": 6,
+          "durations": [
+            100,
+            100,
+            80,
+            80,
+            100,
+            140
+          ],
+          "loop": false,
+          "complete_start": 10,
+          "alpha_file": "apercus-png/ishara-dague-acheve-au-sol.png"
+        },
+        "marche-gauche": {
+          "file": "bandes/ishara-dague-marche-gauche.png",
+          "preview": "apercus-gif/ishara-dague-marche-gauche.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 16,
+          "alpha_file": "apercus-png/ishara-dague-marche-gauche.png"
+        },
+        "marche-droite": {
+          "file": "bandes/ishara-dague-marche-droite.png",
+          "preview": "apercus-gif/ishara-dague-marche-droite.gif",
+          "frames": 4,
+          "durations": [
+            150,
+            150,
+            150,
+            150
+          ],
+          "loop": true,
+          "complete_start": 20,
+          "alpha_file": "apercus-png/ishara-dague-marche-droite.png"
+        }
+      },
+      "complete_file": "bandes-completes/ishara-dague.png",
+      "total_frames": 24,
+      "default": "coup-dague"
+    }
+  },
+  "portraits": [
+    {
+      "id": "vieille-maison-neutre",
+      "file": "portraits/vieille-maison-neutre.png"
+    },
+    {
+      "id": "homme-gris-neutre",
+      "file": "portraits/homme-gris-neutre.png"
+    },
+    {
+      "id": "concierge-neutre",
+      "file": "portraits/concierge-neutre.png"
+    },
+    {
+      "id": "vasseur-neutre",
+      "file": "portraits/vasseur-neutre.png"
+    },
+    {
+      "id": "celeste-intake-neutre",
+      "file": "portraits/celeste-intake-neutre.png"
+    },
+    {
+      "id": "celeste-intake-contrariee",
+      "file": "portraits/celeste-intake-contrariee.png"
+    },
+    {
+      "id": "celeste-quotidien-neutre",
+      "file": "portraits/celeste-quotidien-neutre.png"
+    },
+    {
+      "id": "celeste-quotidien-fatiguee",
+      "file": "portraits/celeste-quotidien-fatiguee.png"
+    },
+    {
+      "id": "izzy-gris-neutre",
+      "file": "portraits/izzy-gris-neutre.png"
+    },
+    {
+      "id": "izzy-gris-fatiguee",
+      "file": "portraits/izzy-gris-fatiguee.png"
+    },
+    {
+      "id": "izzy-gris-fermee",
+      "file": "portraits/izzy-gris-fermee.png"
+    }
+  ],
+  "objects": [
+    {
+      "id": "noyau-1",
+      "file": "objets/noyau-1.png"
+    },
+    {
+      "id": "noyau-2",
+      "file": "objets/noyau-2.png"
+    },
+    {
+      "id": "noyau-3",
+      "file": "objets/noyau-3.png"
+    },
+    {
+      "id": "plaque-1",
+      "file": "objets/plaque-1.png"
+    },
+    {
+      "id": "plaque-2",
+      "file": "objets/plaque-2.png"
+    },
+    {
+      "id": "glande-bocal",
+      "file": "objets/glande-bocal.png"
+    },
+    {
+      "id": "griffe",
+      "file": "objets/griffe.png"
+    },
+    {
+      "id": "inconnu-1",
+      "file": "objets/inconnu-1.png"
+    },
+    {
+      "id": "inconnu-2",
+      "file": "objets/inconnu-2.png"
+    },
+    {
+      "id": "inconnu-3",
+      "file": "objets/inconnu-3.png"
+    },
+    {
+      "id": "inconnu-4",
+      "file": "objets/inconnu-4.png"
+    }
+  ]
+}

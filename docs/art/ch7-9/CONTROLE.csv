@@ -1,0 +1,57 @@
+Personnage;Animation;Cases;Dimensions case;Ancrage;Fond;Durees ms;Boucle;Controle technique
+vieille-maison;repos;4;211x148;105,132;00FF00;1000 / 500 / 140 / 1000;True;OK
+homme-gris;repos;4;211x148;105,132;00FF00;1000 / 500 / 140 / 1000;True;OK
+homme-gris;marche-gauche;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+homme-gris;marche-droite;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+homme-gris;manipule;4;211x148;105,132;00FF00;240 / 240 / 240 / 240;False;OK
+concierge;repos;4;211x148;105,132;00FF00;1000 / 500 / 140 / 1000;True;OK
+concierge;marche-gauche;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+concierge;marche-droite;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+vasseur;repos;4;211x148;105,132;00FF00;1000 / 500 / 140 / 1000;True;OK
+vasseur;marche-gauche;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+vasseur;marche-droite;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+vasseur;inspecte-ecrit;4;211x148;105,132;00FF00;240 / 240 / 240 / 240;False;OK
+celeste-intake;repos;4;211x148;105,132;00FF00;1000 / 500 / 140 / 1000;True;OK
+celeste-intake;marche-gauche;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+celeste-intake;marche-droite;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+celeste-intake;marche-bas;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+celeste-intake;ecrit;4;211x148;105,132;00FF00;240 / 240 / 240 / 240;False;OK
+celeste-intake;marche-haut;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+celeste-quotidien;repos;4;211x148;105,132;00FF00;1000 / 500 / 140 / 1000;True;OK
+celeste-quotidien;marche-gauche;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+celeste-quotidien;marche-droite;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+celeste-quotidien;marche-haut;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+celeste-quotidien;marche-bas;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+celeste-manteau;repos;4;211x148;105,132;00FF00;1000 / 500 / 140 / 1000;True;OK
+celeste-manteau;marche-gauche;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+celeste-manteau;marche-droite;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+celeste-manteau;marche-haut;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+celeste-manteau;marche-bas;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+izzy-tshirt-gris;repos;4;211x148;105,132;00FF00;1000 / 500 / 140 / 1000;True;OK
+izzy-tshirt-gris;marche-gauche;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+izzy-tshirt-gris;marche-droite;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+izzy-tshirt-gris;marche-haut;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+izzy-tshirt-gris;marche-bas;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+yarden-mains-nues;garde-gauche;4;211x148;105,132;00FF00;1000 / 500 / 140 / 1000;True;OK
+yarden-mains-nues;marche-gauche;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+yarden-mains-nues;course-gauche;4;211x148;105,132;00FF00;100 / 100 / 100 / 100;True;OK
+yarden-mains-nues;garde-droite;4;211x148;105,132;00FF00;1000 / 500 / 140 / 1000;True;OK
+yarden-mains-nues;marche-droite;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+yarden-mains-nues;course-droite;4;211x148;105,132;00FF00;100 / 100 / 100 / 100;True;OK
+yarden-mains-nues;direct-gauche;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+yarden-mains-nues;croise-gauche;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+yarden-mains-nues;ecrasement-gauche;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+yarden-mains-nues;direct-droite;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+yarden-mains-nues;croise-droite;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+yarden-mains-nues;ecrasement-droite;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+yarden-mains-nues;esquive-gauche;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+yarden-mains-nues;degats-gauche;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+yarden-mains-nues;defaite-gauche;6;211x148;105,132;00FF00;130 / 130 / 160 / 180 / 200 / 900;False;OK
+yarden-mains-nues;esquive-droite;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+yarden-mains-nues;degats-droite;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+yarden-mains-nues;defaite-droite;6;211x148;105,132;00FF00;130 / 130 / 160 / 180 / 200 / 900;False;OK
+ishara-dague;garde;4;211x148;105,132;00FF00;1000 / 500 / 140 / 1000;True;OK
+ishara-dague;coup-dague;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+ishara-dague;acheve-au-sol;6;211x148;105,132;00FF00;100 / 100 / 80 / 80 / 100 / 140;False;OK
+ishara-dague;marche-gauche;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
+ishara-dague;marche-droite;4;211x148;105,132;00FF00;150 / 150 / 150 / 150;True;OK
