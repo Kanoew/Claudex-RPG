@@ -18,6 +18,8 @@ const monsterClips = {
   rouge: { cell: [211, 148], anchor: [105, 132], stand: 100, reach: 112, walk: [0, 1, 2, 3], walkSeconds: .12, windup: 4, strike: 6, hurt: 8, strikeSeconds: .2 },
   golem: { cell: [211, 148], anchor: [105, 132], stand: 108, reach: 132, walk: [0, 1, 2, 3], walkSeconds: .19, windup: 4, strike: 6, hurt: 8, strikeSeconds: .3 },
   tatou: { cell: [211, 148], anchor: [105, 132], stand: 75, reach: 90, walk: [0, 1, 2, 3], walkSeconds: .13, windup: 4, strike: 6, hurt: 8, strikeSeconds: .2 },
+  // Créature de la rupture (niveau 28, pack de Jordan) : 0 à 3 charge, 4 annonce, 5 coup, 6 dégâts, 7 chute (cases de 256 x 224, pieds à 206).
+  creature: { cell: [256, 224], anchor: [128, 206], stand: 110, reach: 140, walk: [0, 1, 2, 3], walkSeconds: .1, windup: 4, strike: 5, hurt: 6, strikeSeconds: .25 },
   spider: { cell: [224, 168], anchor: [112, 158], stand: 125, reach: 125, walk: [0, 1, 2, 3], walkSeconds: .1, windup: 4, strike: 5, hurt: 6, blinded: 7, incapacitated: 8, strikeSeconds: .22 }
 };
 const monsterArt = { strips: {} };
@@ -28,7 +30,7 @@ function loadMonsterArt() {
     const image = new Image();
     image.onload = () => { monsterArt.strips[name] = image; };
     image.onerror = () => { monsterArt.strips[name] = null; };
-    image.src = `assets/monsters/${name}.png?v=64`;
+    image.src = `assets/monsters/${name}.png?v=75`;
   }
 }
 

@@ -4,7 +4,7 @@
 // Trois points : l'entrée dans l'Abysse, la sortie du Troll vers l'antre, l'arrivée dans la ruelle après l'araignée.
 // Si le navigateur refuse le stockage (navigation privée), le jeu continue sans sauvegarde.
 const saveKey = 'yarden-sauvegarde-1';
-const checkpointNames = { abysse: 'Entrée dans l’Abysse', antre: 'Devant l’antre', rue: 'Ruelle d’Helvara', appart: 'Chez Ishara', nuit: 'Chez Ishara, le soir', matin: 'Chez Ishara, le matin', impasse: 'Dimanche matin, l’impasse', marterey: 'Rue Marterey', sousgare: 'Quartier Sous-gare', quatreb: 'Le 4B' };
+const checkpointNames = { abysse: 'Entrée dans l’Abysse', antre: 'Devant l’antre', rue: 'Ruelle d’Helvara', appart: 'Chez Ishara', nuit: 'Chez Ishara, le soir', matin: 'Chez Ishara, le matin', impasse: 'Dimanche matin, l’impasse', marterey: 'Rue Marterey', sousgare: 'Quartier Sous-gare', quatreb: 'Le 4B', pates: 'Chapitre 4, les pâtes', chasse: 'Chapitre 4, le square', celeste: 'Chapitre 4, 14 h' };
 
 function storage() {
   try { return typeof localStorage !== 'undefined' ? localStorage : null; } catch (error) { return null; }
@@ -63,11 +63,15 @@ function applyCheckpoint(name) {
   yardenOutfit = name === 'nuit' ? 'tshirt-short' : '';
   if (name === 'marterey') for (const drop of runDrops) if (drop) bag.push({ ...drop });
   if (name === 'sousgare' || name === 'quatreb') credits = 280;
-  isharaOutfit = ['impasse', 'matin', 'marterey', 'sousgare', 'quatreb'].includes(name) ? 'course' : 'soiree';
+  if (['pates', 'chasse', 'celeste'].includes(name)) { credits = 0; debt = 520; identityName = 'Yarden Weiss'; if (name === 'celeste') { playerLevel = 27; yardenStats.level = 27; } }
+  isharaOutfit = ['impasse', 'matin', 'marterey', 'sousgare', 'quatreb', 'pates', 'chasse', 'celeste'].includes(name) ? 'course' : 'soiree';
   if (name === 'appart') { enterApartment('arrive'); startScene(apartmentArrivalSteps()); }
   else if (name === 'impasse' || name === 'matin') startScene(impasseScript());
   else if (name === 'marterey') startScene(marteryScript());
   else if (name === 'sousgare') startScene(sousgareScript());
   else if (name === 'quatreb') startScene(quatrebScript());
+  else if (name === 'pates') startScene(chapter4Script());
+  else if (name === 'chasse') startScene(chapter4Script().slice(pastaScene().length));
+  else if (name === 'celeste') startScene([...celesteScene(), ...araigneeScene()]);
   else enterApartment('nuit');
 }

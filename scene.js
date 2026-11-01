@@ -30,7 +30,7 @@ function cameraFocus() {
   return sceneCam;
 }
 const sceneArt = { strips: {} };
-const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, course: { cell: [140, 115], anchor: [70, 111] }, remi: { cell: [120, 124], anchor: [60, 120] }, felix: { cell: [120, 124], anchor: [60, 120] }, inconnus: { cell: [211, 148], anchor: [105, 132] }, fete: { cell: [128, 148], anchor: [64, 132] } };
+const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, course: { cell: [140, 115], anchor: [70, 111] }, celeste: { cell: [211, 148], anchor: [105, 132] }, remi: { cell: [120, 124], anchor: [60, 120] }, felix: { cell: [120, 124], anchor: [60, 120] }, inconnus: { cell: [211, 148], anchor: [105, 132] }, fete: { cell: [128, 148], anchor: [64, 132] } };
 // Inconnu 1 (grand) et Inconnu 2 (compact) : chibi, regardent à gauche ; on les retourne pour la droite (figurants anonymes).
 const inconnuClips = {
   'repos': { frames: 2, durations: [900, 900] }, 'marche-gauche': { frames: 4, durations: [170, 170, 170, 170] },
@@ -42,8 +42,9 @@ const isharaClips = {
   idle: [1000, 350, 110, 1200], 'walk-left': [150, 150, 150, 150], 'walk-right': [150, 150, 150, 150],
   'walk-up': [150, 150, 150, 150], 'walk-down': [150, 150, 150, 150], 'run-left': [100, 90, 100, 90], 'run-right': [100, 90, 100, 90]
 };
-const sceneFiles = [...Object.keys(isharaClips).map(name => `ishara/${name}`),
-  ...['1', '2'].flatMap(n => ['repos', 'marche-gauche'].map(clip => `inconnus/inconnu-${n}-${clip}`)), 'inconnus/inconnu-2-poignet', 'inconnus/inconnu-2-recul', 'fete/danseur', 'fete/danseuse', 'remi/remi-comptoir', 'felix/felix-bureau',
+const sceneFiles = [...sheetNames.map(name => `ch4/${name}`),
+  ...Object.keys(isharaClips).map(name => `ishara/${name}`),
+  ...['1', '2'].flatMap(n => ['repos', 'marche-gauche'].map(clip => `inconnus/inconnu-${n}-${clip}`)), 'inconnus/inconnu-2-poignet', 'inconnus/inconnu-2-recul', 'fete/danseur', 'fete/danseuse', 'remi/remi-comptoir', 'felix/felix-bureau', 'celeste/repos', 'celeste/marche-gauche', 'celeste/marche-droite', 'celeste/marche-haut', 'celeste/marche-bas',
   ...Object.keys(isharaClips).map(name => `course/${name}`)];
 
 function loadSceneArt() {
@@ -52,7 +53,7 @@ function loadSceneArt() {
     const image = new Image();
     image.onload = () => { sceneArt.strips[key] = image; };
     image.onerror = () => { sceneArt.strips[key] = null; };
-    image.src = `assets/npcs/${key.startsWith('ishara') ? 'ishara/chibi/' + key.slice(7) : key.startsWith('course') ? 'ishara/' + key : key}.png?v=56`;
+    image.src = `assets/npcs/${key.startsWith('ishara') ? 'ishara/chibi/' + key.slice(7) : key.startsWith('course') ? 'ishara/' + key : key}.png?v=75`;
   }
 }
 
@@ -282,6 +283,31 @@ function sceneActorPose(actor) {
     if (!sceneArt.strips[key]) return null;
     return { strip: sceneArt.strips[key], frame: sceneFrame(isharaClips[name], actor.time * speed), flip: false, ...(course ? sceneCells.course : sceneCells.ishara) };
   }
+  if (actor.kind === 'celeste') {
+    let name = 'repos', durations = [1000, 500, 140, 1000];
+    if (actor.moving) {
+      const ax = Math.abs(actor.dirX), ay = Math.abs(actor.dirY), wasH = actor.axis === 'h';
+      const horizontal = actor.axis ? (wasH ? ax > ay * .7 : ax > ay * 1.5) : ax > ay;
+      actor.axis = horizontal ? 'h' : 'v';
+      name = 'marche-' + (horizontal ? (actor.dirX < 0 ? 'gauche' : 'droite') : (actor.dirY < 0 ? 'haut' : 'bas'));
+      durations = [150, 150, 150, 150];
+    }
+    const key = `celeste/${name}`;
+    if (!sceneArt.strips[key]) return null;
+    return { strip: sceneArt.strips[key], frame: sceneFrame(durations, actor.time), flip: false, ...sceneCells.celeste };
+  }
+  if (actor.kind === 'sheet') {
+    // Planche du chapitre 4 (créature, jogger, équipe) : cases de 256 x 224 sur plusieurs rangées.
+    const strip = sceneArt.strips[`ch4/${actor.sheet}`], clips = sheetClips[actor.sheet];
+    if (!strip || !clips) return null;
+    const name = sheetClipName(actor);
+    if (actor.lastClip !== name) { actor.lastClip = name; actor.clipAt = actor.time; }
+    const clip = clips[name] || clips.repos;
+    const index = sheetFrame(clip, actor.time - (actor.clipAt || 0));
+    // Tous regardent à gauche ; on retourne pour aller à droite, sauf la course du jogger qui a ses deux sens dessinés.
+    const flip = actor.sheet === 'jogger' ? false : actor.face > 0;
+    return { strip, frame: index % sheetCell.columns, row: Math.floor(index / sheetCell.columns), flip, cell: sheetCell.cell, anchor: sheetCell.anchor, factor: sheetScale[actor.sheet] || .54 };
+  }
   if (actor.kind === 'remi' || actor.kind === 'felix') {
     const key = actor.kind === 'remi' ? 'remi/remi-comptoir' : 'felix/felix-bureau';
     if (!sceneArt.strips[key]) return null;
@@ -293,7 +319,7 @@ function sceneActorPose(actor) {
     return { strip: sceneArt.strips[key], frame: sceneFrame(danceDurations, actor.time), flip: false, ...sceneCells.fete };
   }
   // Inconnu 1 = « grand », Inconnu 2 = « compact ».
-  const who = actor.kind === 'grand' ? 1 : 2;
+  const who = actor.kind === 'grand' || actor.kind === 'operateur' ? 1 : 2;
   let clip = actor.moving ? (actor.variant === 'recul' && who === 2 ? 'recul' : 'marche-gauche') : 'repos';
   if (who === 2 && actor.mode === 'stumble') clip = 'poignet';
   const key = `inconnus/inconnu-${who}-${clip}`;
@@ -315,7 +341,7 @@ function drawSceneActors(offsetX, offsetY, front) {
     const pose = sceneActorPose(actor);
     if (!pose) {
       // Silhouette si l'image manque (ou pour Rémi, dont le dessin n'existe pas encore).
-      const body = actor.kind === 'remi' ? '#3c3a46' : actor.kind === 'ishara' ? '#6b4a3a' : actor.kind === 'grand' ? '#52677f' : actor.kind === 'compact' ? '#84565e' : '#c4525a';
+      const body = actor.kind === 'operateur' ? '#2c2e38' : actor.kind === 'passant' ? '#7b7f8f' : actor.kind === 'remi' ? '#3c3a46' : actor.kind === 'ishara' ? '#6b4a3a' : actor.kind === 'grand' ? '#52677f' : actor.kind === 'compact' ? '#84565e' : '#c4525a';
       ctx.fillStyle = body;
       ctx.fillRect(x - 10, actor.y + offsetY - 4, 20, 22);
       ctx.beginPath();
@@ -334,7 +360,8 @@ function drawSceneActors(offsetX, offsetY, front) {
     ctx.save();
     ctx.translate(x, 0);
     if (pose.flip) ctx.scale(-1, 1);
-    ctx.drawImage(pose.strip, pose.frame * width, 0, width, height, -anchorX * scale, groundY - anchorY * scale, width * scale, height * scale);
+    const drawScale = scale * (pose.factor || 1);
+    ctx.drawImage(pose.strip, pose.frame * width, (pose.row || 0) * height, width, height, -anchorX * drawScale, groundY - anchorY * drawScale, width * drawScale, height * drawScale);
     ctx.restore();
   }
 }

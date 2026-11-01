@@ -1,0 +1,22 @@
+YARDEN — ANIMATIONS
+
+Décompresser le ZIP, puis ouvrir apercu.html dans un navigateur.
+Le dossier apercus-gif contient des animations directement lisibles.
+
+Contenu : 11 planches PNG transparentes, 100 cases et 27 séquences.
+Créature : repos, charge, attaque, dégâts, chute.
+Jogger : repos, sursaut, course à droite et à gauche.
+Équipe : chef et cinq opérateurs, repos et marche à gauche.
+Costumes : chef et deux mêmes opérateurs, repos et marche à gauche.
+
+Cases : 256 × 224, quatre colonnes. Ancrage des pieds : (128, 206).
+Les numéros de cases de animations.json commencent à zéro.
+Les durées sont en millisecondes. loop=false : garder la dernière image,
+ne pas relancer automatiquement la chute ou le sursaut.
+Les figurants anonymes peuvent être retournés pour une marche vers la droite ;
+il ne s’agit pas de nouvelles vues dessinées de face ou de dos.
+
+Ces fichiers ne sont pas encore intégrés au jeu. La fluidité et la taille
+relative des personnages restent à valider dans les scènes du jeu.
+Les GIF servent à la prévisualisation et réduisent la palette de couleurs ;
+utiliser les PNG pour le moteur.

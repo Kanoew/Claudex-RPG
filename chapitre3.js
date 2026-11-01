@@ -65,6 +65,7 @@ function quatrebScript() {
     { say: ['Ishara : « Niveau 41, quand même. Pour une araignée. »', 'Tiamat (voix intérieure) : « Tu ne lui en as pas parlé. »'] },
     { moves: [moveOf('ishara', [[60, 150]], 110)] },
     { say: ['Ishara descend vers le quai en parlant de pâtes. Yarden range le fil avec les autres, et prend le métro.', 'Niveau 24. Yarden Weiss.'] },
-    { end: 'Les papiers seront prêts dans trois jours. Fin du prototype !' }
+    { run: () => { unlockFree(); } },
+    ...chapter4Script()
   ];
 }

@@ -5,10 +5,10 @@
 const portraitArt = {};
 // Seulement les répliques déjà affichées ; rien n'est ajouté à la sauvegarde.
 const dialogueLog = { entries: [], open: false, limit: 40 };
-const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant', 'remi-neutre', 'felix-neutre', 'ishara-course-neutre', 'ishara-course-sourire', 'ishara-course-inquiete'];
-const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2', 'Rémi': 'remi', 'Félix': 'felix' };
+const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant', 'remi-neutre', 'felix-neutre', 'celeste-neutre', 'celeste-sourire', 'celeste-alerte', 'ishara-course-neutre', 'ishara-course-sourire', 'ishara-course-inquiete'];
+const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2', 'Rémi': 'remi', 'Félix': 'felix', 'Céleste': 'celeste' };
 // « Nom[expression] : « texte » » ; l'expression est facultative (neutre par défaut).
-const speakerPattern = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
+const speakerPattern = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix|Céleste|Chef)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
 
 function loadPortraits() {
   if (typeof Image === 'undefined') return;

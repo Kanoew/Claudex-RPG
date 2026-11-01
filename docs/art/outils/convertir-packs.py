@@ -167,3 +167,25 @@ if __name__ == '__main__':
     # Homme rouge, golem et tatou : bandes de 12 cases (4 marche, 4 attaque, 2 dégâts, 2 défaite).
     for source, name in [('homme-rouge', 'rouge'), ('golem', 'golem'), ('tatou', 'tatou')]:
         export(art + 'monstres-a-integrer/' + source + '-bande-12.png', 'assets/monsters/' + name + '.png', 12, colors=128)
+    # Céleste (chapitre 4) : repos, marches et portraits de dialogue.
+    import os
+    os.makedirs('assets/npcs/celeste', exist_ok=True)
+    for name in ['repos', 'marche-gauche', 'marche-droite', 'marche-haut', 'marche-bas']:
+        export(art + 'izzy-celeste/mouvements-celeste/' + name + '.png', 'assets/npcs/celeste/' + name + '.png', 4, colors=128)
+    for name in ['neutre', 'sourire', 'alerte']:
+        export(art + 'izzy-celeste/celeste-portraits-' + name + '.png', 'assets/portraits/celeste-' + name + '.png', 1, colors=96, size=(144, 144))
+    # Chapitre 4 : planches transparentes de Jordan (créature, jogger, équipe), allégées en palette ; la créature donne aussi une bande d'ennemi.
+    os.makedirs('assets/npcs/ch4', exist_ok=True)
+    for path in sorted(__import__('glob').glob(art + 'ch4/*.png')):
+        name = os.path.basename(path)
+        im = Image.open(path).convert('RGBA')
+        arr = np.asarray(im).copy()
+        arr[..., 3] = np.where(arr[..., 3] <= 24, 0, arr[..., 3])
+        Image.fromarray(arr, 'RGBA').quantize(colors=128, method=Image.FASTOCTREE, dither=Image.NONE).save('assets/npcs/ch4/' + name, optimize=True)
+    sheet = Image.open(art + 'ch4/creature.png').convert('RGBA')
+    strip = Image.new('RGBA', (256 * 8, 224), (0, 0, 0, 0))
+    for i, frame in enumerate([4, 5, 6, 7, 8, 10, 12, 15]):
+        r, c = divmod(frame, 4)
+        strip.alpha_composite(sheet.crop((c * 256, r * 224, c * 256 + 256, r * 224 + 224)), (i * 256, 0))
+    arr = np.asarray(strip).copy(); arr[..., 3] = np.where(arr[..., 3] <= 24, 0, arr[..., 3])
+    Image.fromarray(arr, 'RGBA').quantize(colors=128, method=Image.FASTOCTREE, dither=Image.NONE).save('assets/monsters/creature.png', optimize=True)

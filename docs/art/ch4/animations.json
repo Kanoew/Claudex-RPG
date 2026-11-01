@@ -1,0 +1,1135 @@
+{
+  "cell": [
+    256,
+    224
+  ],
+  "anchor": [
+    128,
+    206
+  ],
+  "columns": 4,
+  "statut": "Animations générées et assemblées, non intégrées au jeu. Les GIF sont des aperçus ; les PNG et durées sont les exports pour le moteur.",
+  "characters": {
+    "creature": {
+      "label": "Créature L28",
+      "image": "sprites/creature.png",
+      "rows": 4,
+      "frames": 16,
+      "clips": {
+        "repos": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durations": [
+            700,
+            350,
+            150,
+            700
+          ],
+          "loop": true
+        },
+        "charge": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            100,
+            100,
+            100,
+            100
+          ],
+          "loop": true
+        },
+        "attaque": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "durations": [
+            200,
+            100,
+            100,
+            200
+          ],
+          "loop": false
+        },
+        "degats": {
+          "frames": [
+            12,
+            13
+          ],
+          "durations": [
+            150,
+            200
+          ],
+          "loop": false
+        },
+        "chute": {
+          "frames": [
+            14,
+            15
+          ],
+          "durations": [
+            200,
+            1000
+          ],
+          "loop": false
+        }
+      },
+      "default": "charge",
+      "right_may_use_mirror": false,
+      "source_rectangles": [
+        [
+          31,
+          124,
+          281,
+          162
+        ],
+        [
+          368,
+          121,
+          284,
+          165
+        ],
+        [
+          702,
+          123,
+          286,
+          163
+        ],
+        [
+          1040,
+          125,
+          283,
+          160
+        ],
+        [
+          9,
+          425,
+          332,
+          161
+        ],
+        [
+          367,
+          428,
+          284,
+          158
+        ],
+        [
+          682,
+          422,
+          324,
+          160
+        ],
+        [
+          1036,
+          421,
+          287,
+          162
+        ],
+        [
+          32,
+          736,
+          278,
+          148
+        ],
+        [
+          349,
+          734,
+          322,
+          150
+        ],
+        [
+          700,
+          675,
+          293,
+          209
+        ],
+        [
+          1044,
+          722,
+          283,
+          162
+        ],
+        [
+          28,
+          998,
+          284,
+          153
+        ],
+        [
+          368,
+          995,
+          281,
+          155
+        ],
+        [
+          697,
+          1025,
+          295,
+          124
+        ],
+        [
+          1032,
+          1052,
+          300,
+          97
+        ]
+      ]
+    },
+    "jogger": {
+      "label": "Jogger",
+      "image": "sprites/jogger.png",
+      "rows": 3,
+      "frames": 12,
+      "clips": {
+        "repos": {
+          "frames": [
+            0,
+            1
+          ],
+          "durations": [
+            1300,
+            100
+          ],
+          "loop": true
+        },
+        "sursaut": {
+          "frames": [
+            2,
+            3
+          ],
+          "durations": [
+            200,
+            250
+          ],
+          "loop": false
+        },
+        "course-droite": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            100,
+            100,
+            100,
+            100
+          ],
+          "loop": true
+        },
+        "course-gauche": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "durations": [
+            100,
+            100,
+            100,
+            100
+          ],
+          "loop": true
+        }
+      },
+      "default": "course-droite",
+      "right_may_use_mirror": false,
+      "source_rectangles": [
+        [
+          100,
+          24,
+          190,
+          333
+        ],
+        [
+          489,
+          24,
+          187,
+          333
+        ],
+        [
+          868,
+          26,
+          217,
+          331
+        ],
+        [
+          1268,
+          29,
+          222,
+          328
+        ],
+        [
+          72,
+          383,
+          250,
+          299
+        ],
+        [
+          503,
+          385,
+          179,
+          297
+        ],
+        [
+          860,
+          382,
+          236,
+          300
+        ],
+        [
+          1246,
+          383,
+          256,
+          299
+        ],
+        [
+          83,
+          699,
+          244,
+          293
+        ],
+        [
+          491,
+          701,
+          203,
+          291
+        ],
+        [
+          864,
+          700,
+          238,
+          293
+        ],
+        [
+          1275,
+          698,
+          248,
+          295
+        ]
+      ]
+    },
+    "chef-technique": {
+      "label": "Chef · veste technique",
+      "image": "sprites/chef-technique.png",
+      "rows": 2,
+      "frames": 8,
+      "clips": {
+        "repos": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durations": [
+            1100,
+            350,
+            100,
+            1100
+          ],
+          "loop": true
+        },
+        "marche-gauche": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            200,
+            200,
+            200,
+            200
+          ],
+          "loop": true
+        }
+      },
+      "default": "marche-gauche",
+      "right_may_use_mirror": true,
+      "source_rectangles": [
+        [
+          144,
+          10,
+          225,
+          436
+        ],
+        [
+          556,
+          10,
+          225,
+          436
+        ],
+        [
+          990,
+          9,
+          229,
+          437
+        ],
+        [
+          1422,
+          10,
+          226,
+          436
+        ],
+        [
+          123,
+          451,
+          245,
+          428
+        ],
+        [
+          551,
+          448,
+          221,
+          433
+        ],
+        [
+          985,
+          450,
+          248,
+          430
+        ],
+        [
+          1431,
+          448,
+          221,
+          433
+        ]
+      ]
+    },
+    "operateur-a": {
+      "label": "Opérateur A",
+      "image": "sprites/operateur-a.png",
+      "rows": 2,
+      "frames": 8,
+      "clips": {
+        "repos": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durations": [
+            1100,
+            350,
+            100,
+            1100
+          ],
+          "loop": true
+        },
+        "marche-gauche": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            200,
+            200,
+            200,
+            200
+          ],
+          "loop": true
+        }
+      },
+      "default": "marche-gauche",
+      "right_may_use_mirror": true,
+      "source_rectangles": [
+        [
+          144,
+          26,
+          185,
+          388
+        ],
+        [
+          634,
+          25,
+          187,
+          389
+        ],
+        [
+          1113,
+          24,
+          189,
+          390
+        ],
+        [
+          1579,
+          24,
+          187,
+          390
+        ],
+        [
+          140,
+          450,
+          200,
+          368
+        ],
+        [
+          639,
+          450,
+          174,
+          367
+        ],
+        [
+          1103,
+          449,
+          201,
+          369
+        ],
+        [
+          1584,
+          449,
+          179,
+          368
+        ]
+      ]
+    },
+    "operateur-b": {
+      "label": "Opérateur B · mallette",
+      "image": "sprites/operateur-b.png",
+      "rows": 2,
+      "frames": 8,
+      "clips": {
+        "repos": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durations": [
+            1100,
+            350,
+            100,
+            1100
+          ],
+          "loop": true
+        },
+        "marche-gauche": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            200,
+            200,
+            200,
+            200
+          ],
+          "loop": true
+        }
+      },
+      "default": "marche-gauche",
+      "right_may_use_mirror": true,
+      "source_rectangles": [
+        [
+          158,
+          8,
+          234,
+          473
+        ],
+        [
+          563,
+          8,
+          235,
+          473
+        ],
+        [
+          988,
+          9,
+          234,
+          472
+        ],
+        [
+          1413,
+          9,
+          235,
+          472
+        ],
+        [
+          144,
+          481,
+          258,
+          402
+        ],
+        [
+          573,
+          481,
+          224,
+          400
+        ],
+        [
+          980,
+          481,
+          246,
+          402
+        ],
+        [
+          1414,
+          481,
+          232,
+          400
+        ]
+      ]
+    },
+    "operatrice-c": {
+      "label": "Opératrice C",
+      "image": "sprites/operatrice-c.png",
+      "rows": 2,
+      "frames": 8,
+      "clips": {
+        "repos": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durations": [
+            1100,
+            350,
+            100,
+            1100
+          ],
+          "loop": true
+        },
+        "marche-gauche": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            200,
+            200,
+            200,
+            200
+          ],
+          "loop": true
+        }
+      },
+      "default": "marche-gauche",
+      "right_may_use_mirror": true,
+      "source_rectangles": [
+        [
+          119,
+          0,
+          257,
+          458
+        ],
+        [
+          533,
+          0,
+          257,
+          458
+        ],
+        [
+          969,
+          0,
+          256,
+          458
+        ],
+        [
+          1411,
+          1,
+          257,
+          457
+        ],
+        [
+          114,
+          462,
+          247,
+          423
+        ],
+        [
+          535,
+          461,
+          249,
+          425
+        ],
+        [
+          986,
+          461,
+          251,
+          426
+        ],
+        [
+          1422,
+          460,
+          249,
+          425
+        ]
+      ]
+    },
+    "operateur-d": {
+      "label": "Opérateur D",
+      "image": "sprites/operateur-d.png",
+      "rows": 2,
+      "frames": 8,
+      "clips": {
+        "repos": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durations": [
+            1100,
+            350,
+            100,
+            1100
+          ],
+          "loop": true
+        },
+        "marche-gauche": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            200,
+            200,
+            200,
+            200
+          ],
+          "loop": true
+        }
+      },
+      "default": "marche-gauche",
+      "right_may_use_mirror": true,
+      "source_rectangles": [
+        [
+          154,
+          11,
+          214,
+          456
+        ],
+        [
+          597,
+          10,
+          214,
+          457
+        ],
+        [
+          1039,
+          11,
+          214,
+          456
+        ],
+        [
+          1483,
+          12,
+          213,
+          455
+        ],
+        [
+          120,
+          474,
+          225,
+          407
+        ],
+        [
+          591,
+          474,
+          199,
+          404
+        ],
+        [
+          1007,
+          475,
+          225,
+          406
+        ],
+        [
+          1480,
+          475,
+          195,
+          403
+        ]
+      ]
+    },
+    "operatrice-e": {
+      "label": "Opératrice E",
+      "image": "sprites/operatrice-e.png",
+      "rows": 2,
+      "frames": 8,
+      "clips": {
+        "repos": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durations": [
+            1100,
+            350,
+            100,
+            1100
+          ],
+          "loop": true
+        },
+        "marche-gauche": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            200,
+            200,
+            200,
+            200
+          ],
+          "loop": true
+        }
+      },
+      "default": "marche-gauche",
+      "right_may_use_mirror": true,
+      "source_rectangles": [
+        [
+          128,
+          29,
+          223,
+          375
+        ],
+        [
+          602,
+          29,
+          222,
+          375
+        ],
+        [
+          1076,
+          29,
+          222,
+          375
+        ],
+        [
+          1549,
+          29,
+          222,
+          375
+        ],
+        [
+          128,
+          437,
+          225,
+          372
+        ],
+        [
+          601,
+          437,
+          223,
+          373
+        ],
+        [
+          1076,
+          437,
+          223,
+          372
+        ],
+        [
+          1549,
+          437,
+          222,
+          373
+        ]
+      ]
+    },
+    "chef-costume": {
+      "label": "Chef · costume",
+      "image": "sprites/chef-costume.png",
+      "rows": 2,
+      "frames": 8,
+      "clips": {
+        "repos": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durations": [
+            1100,
+            350,
+            100,
+            1100
+          ],
+          "loop": true
+        },
+        "marche-gauche": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            200,
+            200,
+            200,
+            200
+          ],
+          "loop": true
+        }
+      },
+      "default": "marche-gauche",
+      "right_may_use_mirror": true,
+      "source_rectangles": [
+        [
+          143,
+          9,
+          237,
+          446
+        ],
+        [
+          532,
+          16,
+          242,
+          439
+        ],
+        [
+          991,
+          12,
+          237,
+          443
+        ],
+        [
+          1410,
+          10,
+          236,
+          445
+        ],
+        [
+          126,
+          457,
+          239,
+          420
+        ],
+        [
+          553,
+          457,
+          223,
+          421
+        ],
+        [
+          972,
+          458,
+          243,
+          420
+        ],
+        [
+          1406,
+          457,
+          228,
+          420
+        ]
+      ]
+    },
+    "operateur-a-costume": {
+      "label": "Opérateur A · costume",
+      "image": "sprites/operateur-a-costume.png",
+      "rows": 2,
+      "frames": 8,
+      "clips": {
+        "repos": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durations": [
+            1100,
+            350,
+            100,
+            1100
+          ],
+          "loop": true
+        },
+        "marche-gauche": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            200,
+            200,
+            200,
+            200
+          ],
+          "loop": true
+        }
+      },
+      "default": "marche-gauche",
+      "right_may_use_mirror": true,
+      "source_rectangles": [
+        [
+          151,
+          29,
+          172,
+          358
+        ],
+        [
+          626,
+          29,
+          170,
+          358
+        ],
+        [
+          1101,
+          29,
+          170,
+          358
+        ],
+        [
+          1574,
+          29,
+          170,
+          358
+        ],
+        [
+          152,
+          469,
+          173,
+          331
+        ],
+        [
+          628,
+          469,
+          163,
+          330
+        ],
+        [
+          1099,
+          470,
+          179,
+          329
+        ],
+        [
+          1575,
+          469,
+          164,
+          330
+        ]
+      ]
+    },
+    "operateur-b-costume": {
+      "label": "Opérateur B · costume",
+      "image": "sprites/operateur-b-costume.png",
+      "rows": 2,
+      "frames": 8,
+      "clips": {
+        "repos": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durations": [
+            1100,
+            350,
+            100,
+            1100
+          ],
+          "loop": true
+        },
+        "marche-gauche": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durations": [
+            200,
+            200,
+            200,
+            200
+          ],
+          "loop": true
+        }
+      },
+      "default": "marche-gauche",
+      "right_may_use_mirror": true,
+      "source_rectangles": [
+        [
+          150,
+          26,
+          179,
+          373
+        ],
+        [
+          624,
+          27,
+          179,
+          372
+        ],
+        [
+          1098,
+          26,
+          179,
+          373
+        ],
+        [
+          1572,
+          26,
+          179,
+          373
+        ],
+        [
+          139,
+          443,
+          197,
+          370
+        ],
+        [
+          624,
+          443,
+          178,
+          370
+        ],
+        [
+          1083,
+          444,
+          205,
+          369
+        ],
+        [
+          1573,
+          443,
+          177,
+          370
+        ]
+      ]
+    }
+  }
+}

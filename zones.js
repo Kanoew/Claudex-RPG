@@ -47,7 +47,7 @@ const zones = {
     ],
     doors: [
       { side: 'south', x: 0, half: 44, label: 'ABYSSE', needs: 'riftOpen', to: 'donjon', arrive: 'start' },
-      { side: 'north', x: 0, half: 44, label: 'RUE', end: 'Yarden a rejoint la rue. Fin du prototype !' }
+      { side: 'north', x: 0, half: 44, label: 'RUE', needs: 'streetOpen', sealed: 'PLUS TARD' }
     ],
     // Réveil de Yarden au chapitre 1, adossée au mur de gauche.
     start: { x: -180, y: 235 },
@@ -164,6 +164,19 @@ const zones = {
       { x: -144, y: -250, width: 288, height: 56, kind: 'papier' }, { x: -48, y: -134, width: 96, height: 40, kind: 'bureau' }
     ],
     doors: [], enemies: [], props: []
+  },
+  // Chapitre 4 : un square du matin, où la rupture urbaine se déchire. Plan inventé à minima.
+  square: {
+    id: 'square', title: 'LAUSANNE · LE SQUARE', theme: 'square',
+    room: { x: -300, y: -230, width: 600, height: 450 },
+    start: { x: -120, y: 180 },
+    blocks: [
+      { x: -300, y: -230, width: 600, height: 100, kind: 'immeuble-sq' },
+      { x: -198, y: -48, width: 14, height: 14, kind: 'lampadaire' }, { x: 176, y: -62, width: 14, height: 14, kind: 'lampadaire' },
+      { x: -44, y: 28, width: 92, height: 24, kind: 'banc' },
+      { x: -262, y: 60, width: 34, height: 34, kind: 'arbre' }, { x: 226, y: 74, width: 34, height: 34, kind: 'arbre' }
+    ],
+    doors: [], enemies: [{ kind: 'chitine', x: 0, y: -110, level: 28, aggro: 320 }], props: []
   },
   // Appartement d'Ishara (canon de Jordan, section 15 de PROJECT.md) : troisième étage, quartier étudiant, Lausanne.
   // Plan inventé à minima : l'entrée et la cuisine à l'est, le salon à l'ouest, le couloir au sud du salon, la chambre d'appoint
