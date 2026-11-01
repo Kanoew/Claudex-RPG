@@ -96,9 +96,9 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.
 - **Tiamat** : « Tes tatouages portent la faux. C’est à toi. »
 - Au matin : du café, du thé et des courbatures.
-- *Carte plein écran : Dimanche matin*
-- Dimanche matin. Les rues sont presque vides.
-- Une impasse derrière un pressing fermé : c’est dimanche.
+- *Carte plein écran : Jour 2*
+- Jour 2. Le matin, les rues sont presque vides.
+- Une impasse derrière un pressing fermé, rideau baissé.
 - Dans l’air, quelque chose de distordu. Presque invisible en plein jour.
 - **Yarden** : « Niveau estimé 16-17, il s’agit d’un espace restreint. »
 - **Ishara (inquiete)** : « Hein, quoi ?! »
@@ -145,8 +145,8 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 
 ## Le lendemain matin : l’impasse et la faille
 
-- Dimanche matin. Les rues sont presque vides.
-- Une impasse derrière un pressing fermé : c’est dimanche.
+- Jour 2. Le matin, les rues sont presque vides.
+- Une impasse derrière un pressing fermé, rideau baissé.
 - Dans l’air, quelque chose de distordu. Presque invisible en plein jour.
 - **Yarden** : « Niveau estimé 16-17, il s’agit d’un espace restreint. »
 - **Ishara (inquiete)** : « Hein, quoi ?! »

@@ -35,7 +35,7 @@ Les cases à cocher sont là pour que tu notes ce qui va, ce qui accroche, ce qu
 - [ ] Objets à examiner : les textes sont courts, ils viennent de ta version révisée.
 - [ ] Miroir, carte « La douche », Yarden en **serviette**, problème d'agrafe, puis **t-shirt gris**.
 - [ ] La première nuit : « J'ai connu pire. », les tatouages qui luisent, la faux libérée.
-- [ ] **Calendrier** : la carte dit « Dimanche matin » et le pressing est « fermé parce que c'est dimanche ». Ton roman verrouille Jour 2 = jeudi. À trancher.
+- [x] **Calendrier** : décidé, plus aucun nom de jour dans le jeu. La carte dit « Jour 2 » et le pressing est simplement « rideau baissé ».
 - [ ] La marche vers l'impasse (suis Ishara), la faille qui s'ouvre après « Hein, quoi ?! ».
 - [ ] Le run : sept gobelins niveau 15 à 19, un sauteur, un fuyard, aucun XP, butin dans le sac.
 - [ ] Le retour à pied jusqu'à la rue Marterey, le comptoir de Rémi qui s'explore (encens, balance, ardoise, lampe, porte).

@@ -109,7 +109,7 @@ function nightScript() {
     { dark: false },
     { say: ['Au matin : du café, du thé et des courbatures.'] },
     { run: () => { home.stage = 'matin'; } },
-    { card: 'Dimanche matin', seconds: 2 },
+    { card: 'Jour 2', seconds: 2 },
     ...impasseScript()
   ];
 }
