@@ -10,7 +10,7 @@ try {
 } catch (error) { /* Les réglages restent utilisables sans stockage. */ }
 let uxAutomaticInput = window.matchMedia('(pointer: coarse)').matches ? 'touch' : 'keyboard';
 let uxModal = null;
-const uxPanels = ['menu-panel', 'stats-panel', 'bag-panel', 'map-panel', 'history-panel', 'result'].map(id => document.getElementById(id));
+const uxPanels = ['menu-panel', 'stats-panel', 'bag-panel', 'points-panel', 'map-panel', 'history-panel', 'result'].map(id => document.getElementById(id));
 const uxStory = document.getElementById('story-panel');
 
 function uxTouchMode() { return (uxPrefs.input === 'auto' ? uxAutomaticInput : uxPrefs.input) === 'touch'; }

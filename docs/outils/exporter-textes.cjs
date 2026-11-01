@@ -14,13 +14,13 @@ const context = vm.createContext({ document: deep(), window: deep(), ResizeObser
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const files = [...html.matchAll(/<script src="([a-z0-9-]+\.js)/g)].map(match => match[1]);
 for (const file of files) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-const data = vm.runInContext('({ opening: openingScript(), rue: sceneScript(), sleep: nightScript(), mirror: mirrorScript(), impasse: impasseScript(), runEnd: runEndScript(), marterey: marteryScript(), comptoir: comptoirScript(), sousgare: sousgareScript(), quatreb: quatrebScript(), ch4: chapter4Script(), spots: apartmentSpots.map(s => ({ id: s.id, label: s.label, lines: s.lines() })), goals: [apartmentGoal()] })', context);
+const data = vm.runInContext('({ opening: openingScript(), rue: sceneScript(), sleep: nightScript(), mirror: mirrorScript(), impasse: impasseScript(), runEnd: runEndScript(), marterey: marteryScript(), comptoir: comptoirScript(), sousgare: sousgareScript(), quatreb: quatrebScript(), ch4: chapter4Script(), ch5: chapter5Script(), spots: apartmentSpots.map(s => ({ id: s.id, label: s.label, lines: s.lines() })), goals: [apartmentGoal()] })', context);
 
 // Extras : objets du comptoir et objectifs par lieu (écrits dans un second appel, plus lisible).
 data.comptoirSpots = vm.runInContext('comptoirSpots.map(spot => ({ label: spot.label, lines: spot.lines() }))', context);
 data.zoneGoals = vm.runInContext(`Object.entries(zones).filter(entry => entry[1].goal).map(entry => { let goal = ""; try { goal = entry[1].goal(); } catch (error) { goal = "(dépend de la partie)"; } return { id: entry[0], goal }; })`, context);
 
-const speaker = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix|Céleste|Chef)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
+const speaker = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix|Céleste|Izzy|Chef)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
 function render(steps) {
   const out = [];
   for (const step of steps) {
@@ -53,6 +53,7 @@ const parts = [
   '## Le comptoir de Rémi : objets à examiner', '', data.comptoirSpots.map(s => `- **${s.label}** : ${s.lines.join(' ')}`).join('\n'), '',
   '## Objectifs affichés en haut, par lieu', '', data.zoneGoals.map(z => `- **${z.id}** : ${z.goal}`).join('\n'), '',
   '## Chapitre 4 : la trace (pâtes, nuit, square, équipe au carnet, Céleste, araignée)', '', render(data.ch4), '',
+  '## Chapitre 5 : le poids d’une dette (jour 4)', '', render(data.ch5), '',
   '## Objectif affiché en haut (appartement)', '', `- ${data.goals[0]}`, ''
 ];
 fs.writeFileSync(path.join(root, 'docs', 'TEXTES.md'), parts.join('\n'));

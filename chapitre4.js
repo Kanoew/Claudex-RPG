@@ -129,7 +129,8 @@ function araigneeScene() {
     { say: ['Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.', 'Ishara : « Non… Tu m’en as parlé. »', 'Tiamat (voix intérieure) : « Regarde-la. Elle ne ment pas. »'] },
     { say: ['Ishara[inquiete] : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »'] },
     { say: ['La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.'] },
-    { end: 'Fin du chapitre 4. Niveau 27, dette de 520, papiers à récupérer au 4B. Fin du prototype !' }
+    { run: () => { saveCheckpoint('jour4'); } },
+    ...chapter5Script()
   ];
 }
 

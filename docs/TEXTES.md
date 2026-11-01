@@ -332,7 +332,50 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
 - **Ishara (inquiete)** : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »
 - La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.
-- *Fin de scène : Fin du chapitre 4. Niveau 27, dette de 520, papiers à récupérer au 4B. Fin du prototype !*
+- *Carte plein écran : Chapitre 5 · Le poids d’une dette*
+- Inventaire du matin : 0 crédit, 520 de dette, un toit toléré. Le parquet, à côté du canapé.
+- Céleste ne lui adresse pas un mot. Elle laisse la boîte à café au milieu du comptoir.
+- **Céleste** : « Je ne te sers pas, mais tu peux. »
+- Ishara ne lui parle plus depuis le dîner.
+- Yarden range le fil de la corde.
+- **Yarden** : « Je le range. C’est pas pareil. »
+- *Carte plein écran : La douche*
+- Sous l’eau, Yarden pose trois lignes à Tiamat : pas de rupture, pas de terrain subi, pas de civils.
+- Tiamat enregistre sans objecter.
+- Deux points par niveau, sans exception : de 24 à 27, six points à distribuer.
+- Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
+- Tiamat le remarque. Elle ne le dit pas.
+- *Carte plein écran : Seule en ville*
+- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle ne trouve aucune faille.
+- Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
+- Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
+- **Izzy (narquoise)** : « J’ai un studio à Ouchy. Il est vide. Il est à toi. »
+- Yarden se ferme.
+- **Izzy** : « Je t’achète trois jours. »
+- **Izzy** : « Trois jours, payés d’avance. Cinq cent vingt. Tu marches où je marche, t’es là quand je suis là. Tu réponds à aucune question. »
+- Elle n’achète pas des réponses. Elle achète le droit de regarder.
+- Izzy retire 600 au distributeur, compte, rend 80 et lui tend 520. Elle ne regarde pas le solde.
+- L’échéance tombe au jour 7.
+- **Izzy** : « Ton nom. »
+- **Yarden** : « Yarden. »
+- Troisième fois qu’elle le donne : à une inconnue, contre de l’argent.
+- Izzy répète le nom. Il sort trop doux, et elle referme trop tard.
+- **Izzy (sourire)** : « J’ai pas besoin de ton numéro. T’as accepté mon argent. Tu crois que tu peux disparaître dans cette ville ? »
+- *Carte plein écran : Le 4B*
+- Yarden pose les 520. Félix les prend sans les compter.
+- Les papiers étaient prêts depuis la veille au soir. Un beau dossier : une nuit à écrire le nom trois cent quarante fois.
+- **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
+- **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
+- **Félix** : « Vous êtes venue couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
+- Yarden a brisé sa règle du chapitre 3 sans s’en apercevoir.
+- **Félix** : « Bonne journée, monsieur Weiss. »
+- Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
+- Plus de veste technique, plus de chaussures de marche.
+- Ils ne font rien. Mains dans les poches, pas de téléphone, pas de gobelet. Le chef n’ouvre pas le carnet.
+- Il incline légèrement la tête : une confirmation, pas un salut.
+- Ils étaient là avant elle.
+- *Fin de scène : Fin du chapitre 5. Niveau 27, VIT 11, papiers en main, trois jours dus à Izzy. Fin du prototype !*
 
 ## Rue Marterey : la porte marron
 
@@ -505,7 +548,50 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
 - **Ishara (inquiete)** : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »
 - La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.
-- *Fin de scène : Fin du chapitre 4. Niveau 27, dette de 520, papiers à récupérer au 4B. Fin du prototype !*
+- *Carte plein écran : Chapitre 5 · Le poids d’une dette*
+- Inventaire du matin : 0 crédit, 520 de dette, un toit toléré. Le parquet, à côté du canapé.
+- Céleste ne lui adresse pas un mot. Elle laisse la boîte à café au milieu du comptoir.
+- **Céleste** : « Je ne te sers pas, mais tu peux. »
+- Ishara ne lui parle plus depuis le dîner.
+- Yarden range le fil de la corde.
+- **Yarden** : « Je le range. C’est pas pareil. »
+- *Carte plein écran : La douche*
+- Sous l’eau, Yarden pose trois lignes à Tiamat : pas de rupture, pas de terrain subi, pas de civils.
+- Tiamat enregistre sans objecter.
+- Deux points par niveau, sans exception : de 24 à 27, six points à distribuer.
+- Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
+- Tiamat le remarque. Elle ne le dit pas.
+- *Carte plein écran : Seule en ville*
+- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle ne trouve aucune faille.
+- Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
+- Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
+- **Izzy (narquoise)** : « J’ai un studio à Ouchy. Il est vide. Il est à toi. »
+- Yarden se ferme.
+- **Izzy** : « Je t’achète trois jours. »
+- **Izzy** : « Trois jours, payés d’avance. Cinq cent vingt. Tu marches où je marche, t’es là quand je suis là. Tu réponds à aucune question. »
+- Elle n’achète pas des réponses. Elle achète le droit de regarder.
+- Izzy retire 600 au distributeur, compte, rend 80 et lui tend 520. Elle ne regarde pas le solde.
+- L’échéance tombe au jour 7.
+- **Izzy** : « Ton nom. »
+- **Yarden** : « Yarden. »
+- Troisième fois qu’elle le donne : à une inconnue, contre de l’argent.
+- Izzy répète le nom. Il sort trop doux, et elle referme trop tard.
+- **Izzy (sourire)** : « J’ai pas besoin de ton numéro. T’as accepté mon argent. Tu crois que tu peux disparaître dans cette ville ? »
+- *Carte plein écran : Le 4B*
+- Yarden pose les 520. Félix les prend sans les compter.
+- Les papiers étaient prêts depuis la veille au soir. Un beau dossier : une nuit à écrire le nom trois cent quarante fois.
+- **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
+- **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
+- **Félix** : « Vous êtes venue couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
+- Yarden a brisé sa règle du chapitre 3 sans s’en apercevoir.
+- **Félix** : « Bonne journée, monsieur Weiss. »
+- Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
+- Plus de veste technique, plus de chaussures de marche.
+- Ils ne font rien. Mains dans les poches, pas de téléphone, pas de gobelet. Le chef n’ouvre pas le carnet.
+- Il incline légèrement la tête : une confirmation, pas un salut.
+- Ils étaient là avant elle.
+- *Fin de scène : Fin du chapitre 5. Niveau 27, VIT 11, papiers en main, trois jours dus à Izzy. Fin du prototype !*
 
 ## Le comptoir de Rémi
 
@@ -676,7 +762,50 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
 - **Ishara (inquiete)** : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »
 - La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.
-- *Fin de scène : Fin du chapitre 4. Niveau 27, dette de 520, papiers à récupérer au 4B. Fin du prototype !*
+- *Carte plein écran : Chapitre 5 · Le poids d’une dette*
+- Inventaire du matin : 0 crédit, 520 de dette, un toit toléré. Le parquet, à côté du canapé.
+- Céleste ne lui adresse pas un mot. Elle laisse la boîte à café au milieu du comptoir.
+- **Céleste** : « Je ne te sers pas, mais tu peux. »
+- Ishara ne lui parle plus depuis le dîner.
+- Yarden range le fil de la corde.
+- **Yarden** : « Je le range. C’est pas pareil. »
+- *Carte plein écran : La douche*
+- Sous l’eau, Yarden pose trois lignes à Tiamat : pas de rupture, pas de terrain subi, pas de civils.
+- Tiamat enregistre sans objecter.
+- Deux points par niveau, sans exception : de 24 à 27, six points à distribuer.
+- Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
+- Tiamat le remarque. Elle ne le dit pas.
+- *Carte plein écran : Seule en ville*
+- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle ne trouve aucune faille.
+- Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
+- Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
+- **Izzy (narquoise)** : « J’ai un studio à Ouchy. Il est vide. Il est à toi. »
+- Yarden se ferme.
+- **Izzy** : « Je t’achète trois jours. »
+- **Izzy** : « Trois jours, payés d’avance. Cinq cent vingt. Tu marches où je marche, t’es là quand je suis là. Tu réponds à aucune question. »
+- Elle n’achète pas des réponses. Elle achète le droit de regarder.
+- Izzy retire 600 au distributeur, compte, rend 80 et lui tend 520. Elle ne regarde pas le solde.
+- L’échéance tombe au jour 7.
+- **Izzy** : « Ton nom. »
+- **Yarden** : « Yarden. »
+- Troisième fois qu’elle le donne : à une inconnue, contre de l’argent.
+- Izzy répète le nom. Il sort trop doux, et elle referme trop tard.
+- **Izzy (sourire)** : « J’ai pas besoin de ton numéro. T’as accepté mon argent. Tu crois que tu peux disparaître dans cette ville ? »
+- *Carte plein écran : Le 4B*
+- Yarden pose les 520. Félix les prend sans les compter.
+- Les papiers étaient prêts depuis la veille au soir. Un beau dossier : une nuit à écrire le nom trois cent quarante fois.
+- **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
+- **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
+- **Félix** : « Vous êtes venue couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
+- Yarden a brisé sa règle du chapitre 3 sans s’en apercevoir.
+- **Félix** : « Bonne journée, monsieur Weiss. »
+- Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
+- Plus de veste technique, plus de chaussures de marche.
+- Ils ne font rien. Mains dans les poches, pas de téléphone, pas de gobelet. Le chef n’ouvre pas le carnet.
+- Il incline légèrement la tête : une confirmation, pas un salut.
+- Ils étaient là avant elle.
+- *Fin de scène : Fin du chapitre 5. Niveau 27, VIT 11, papiers en main, trois jours dus à Izzy. Fin du prototype !*
 
 ## Le 4B : Sous-gare, la cour, l’escalier
 
@@ -833,7 +962,50 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
 - **Ishara (inquiete)** : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »
 - La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.
-- *Fin de scène : Fin du chapitre 4. Niveau 27, dette de 520, papiers à récupérer au 4B. Fin du prototype !*
+- *Carte plein écran : Chapitre 5 · Le poids d’une dette*
+- Inventaire du matin : 0 crédit, 520 de dette, un toit toléré. Le parquet, à côté du canapé.
+- Céleste ne lui adresse pas un mot. Elle laisse la boîte à café au milieu du comptoir.
+- **Céleste** : « Je ne te sers pas, mais tu peux. »
+- Ishara ne lui parle plus depuis le dîner.
+- Yarden range le fil de la corde.
+- **Yarden** : « Je le range. C’est pas pareil. »
+- *Carte plein écran : La douche*
+- Sous l’eau, Yarden pose trois lignes à Tiamat : pas de rupture, pas de terrain subi, pas de civils.
+- Tiamat enregistre sans objecter.
+- Deux points par niveau, sans exception : de 24 à 27, six points à distribuer.
+- Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
+- Tiamat le remarque. Elle ne le dit pas.
+- *Carte plein écran : Seule en ville*
+- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle ne trouve aucune faille.
+- Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
+- Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
+- **Izzy (narquoise)** : « J’ai un studio à Ouchy. Il est vide. Il est à toi. »
+- Yarden se ferme.
+- **Izzy** : « Je t’achète trois jours. »
+- **Izzy** : « Trois jours, payés d’avance. Cinq cent vingt. Tu marches où je marche, t’es là quand je suis là. Tu réponds à aucune question. »
+- Elle n’achète pas des réponses. Elle achète le droit de regarder.
+- Izzy retire 600 au distributeur, compte, rend 80 et lui tend 520. Elle ne regarde pas le solde.
+- L’échéance tombe au jour 7.
+- **Izzy** : « Ton nom. »
+- **Yarden** : « Yarden. »
+- Troisième fois qu’elle le donne : à une inconnue, contre de l’argent.
+- Izzy répète le nom. Il sort trop doux, et elle referme trop tard.
+- **Izzy (sourire)** : « J’ai pas besoin de ton numéro. T’as accepté mon argent. Tu crois que tu peux disparaître dans cette ville ? »
+- *Carte plein écran : Le 4B*
+- Yarden pose les 520. Félix les prend sans les compter.
+- Les papiers étaient prêts depuis la veille au soir. Un beau dossier : une nuit à écrire le nom trois cent quarante fois.
+- **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
+- **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
+- **Félix** : « Vous êtes venue couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
+- Yarden a brisé sa règle du chapitre 3 sans s’en apercevoir.
+- **Félix** : « Bonne journée, monsieur Weiss. »
+- Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
+- Plus de veste technique, plus de chaussures de marche.
+- Ils ne font rien. Mains dans les poches, pas de téléphone, pas de gobelet. Le chef n’ouvre pas le carnet.
+- Il incline légèrement la tête : une confirmation, pas un salut.
+- Ils étaient là avant elle.
+- *Fin de scène : Fin du chapitre 5. Niveau 27, VIT 11, papiers en main, trois jours dus à Izzy. Fin du prototype !*
 
 ## Chapitre 3 : le 4B, Félix, les papiers
 
@@ -983,7 +1155,50 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
 - **Ishara (inquiete)** : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »
 - La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.
-- *Fin de scène : Fin du chapitre 4. Niveau 27, dette de 520, papiers à récupérer au 4B. Fin du prototype !*
+- *Carte plein écran : Chapitre 5 · Le poids d’une dette*
+- Inventaire du matin : 0 crédit, 520 de dette, un toit toléré. Le parquet, à côté du canapé.
+- Céleste ne lui adresse pas un mot. Elle laisse la boîte à café au milieu du comptoir.
+- **Céleste** : « Je ne te sers pas, mais tu peux. »
+- Ishara ne lui parle plus depuis le dîner.
+- Yarden range le fil de la corde.
+- **Yarden** : « Je le range. C’est pas pareil. »
+- *Carte plein écran : La douche*
+- Sous l’eau, Yarden pose trois lignes à Tiamat : pas de rupture, pas de terrain subi, pas de civils.
+- Tiamat enregistre sans objecter.
+- Deux points par niveau, sans exception : de 24 à 27, six points à distribuer.
+- Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
+- Tiamat le remarque. Elle ne le dit pas.
+- *Carte plein écran : Seule en ville*
+- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle ne trouve aucune faille.
+- Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
+- Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
+- **Izzy (narquoise)** : « J’ai un studio à Ouchy. Il est vide. Il est à toi. »
+- Yarden se ferme.
+- **Izzy** : « Je t’achète trois jours. »
+- **Izzy** : « Trois jours, payés d’avance. Cinq cent vingt. Tu marches où je marche, t’es là quand je suis là. Tu réponds à aucune question. »
+- Elle n’achète pas des réponses. Elle achète le droit de regarder.
+- Izzy retire 600 au distributeur, compte, rend 80 et lui tend 520. Elle ne regarde pas le solde.
+- L’échéance tombe au jour 7.
+- **Izzy** : « Ton nom. »
+- **Yarden** : « Yarden. »
+- Troisième fois qu’elle le donne : à une inconnue, contre de l’argent.
+- Izzy répète le nom. Il sort trop doux, et elle referme trop tard.
+- **Izzy (sourire)** : « J’ai pas besoin de ton numéro. T’as accepté mon argent. Tu crois que tu peux disparaître dans cette ville ? »
+- *Carte plein écran : Le 4B*
+- Yarden pose les 520. Félix les prend sans les compter.
+- Les papiers étaient prêts depuis la veille au soir. Un beau dossier : une nuit à écrire le nom trois cent quarante fois.
+- **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
+- **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
+- **Félix** : « Vous êtes venue couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
+- Yarden a brisé sa règle du chapitre 3 sans s’en apercevoir.
+- **Félix** : « Bonne journée, monsieur Weiss. »
+- Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
+- Plus de veste technique, plus de chaussures de marche.
+- Ils ne font rien. Mains dans les poches, pas de téléphone, pas de gobelet. Le chef n’ouvre pas le carnet.
+- Il incline légèrement la tête : une confirmation, pas un salut.
+- Ils étaient là avant elle.
+- *Fin de scène : Fin du chapitre 5. Niveau 27, VIT 11, papiers en main, trois jours dus à Izzy. Fin du prototype !*
 
 ## Le comptoir de Rémi : objets à examiner
 
@@ -1083,7 +1298,97 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
 - **Ishara (inquiete)** : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »
 - La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.
-- *Fin de scène : Fin du chapitre 4. Niveau 27, dette de 520, papiers à récupérer au 4B. Fin du prototype !*
+- *Carte plein écran : Chapitre 5 · Le poids d’une dette*
+- Inventaire du matin : 0 crédit, 520 de dette, un toit toléré. Le parquet, à côté du canapé.
+- Céleste ne lui adresse pas un mot. Elle laisse la boîte à café au milieu du comptoir.
+- **Céleste** : « Je ne te sers pas, mais tu peux. »
+- Ishara ne lui parle plus depuis le dîner.
+- Yarden range le fil de la corde.
+- **Yarden** : « Je le range. C’est pas pareil. »
+- *Carte plein écran : La douche*
+- Sous l’eau, Yarden pose trois lignes à Tiamat : pas de rupture, pas de terrain subi, pas de civils.
+- Tiamat enregistre sans objecter.
+- Deux points par niveau, sans exception : de 24 à 27, six points à distribuer.
+- Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
+- Tiamat le remarque. Elle ne le dit pas.
+- *Carte plein écran : Seule en ville*
+- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle ne trouve aucune faille.
+- Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
+- Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
+- **Izzy (narquoise)** : « J’ai un studio à Ouchy. Il est vide. Il est à toi. »
+- Yarden se ferme.
+- **Izzy** : « Je t’achète trois jours. »
+- **Izzy** : « Trois jours, payés d’avance. Cinq cent vingt. Tu marches où je marche, t’es là quand je suis là. Tu réponds à aucune question. »
+- Elle n’achète pas des réponses. Elle achète le droit de regarder.
+- Izzy retire 600 au distributeur, compte, rend 80 et lui tend 520. Elle ne regarde pas le solde.
+- L’échéance tombe au jour 7.
+- **Izzy** : « Ton nom. »
+- **Yarden** : « Yarden. »
+- Troisième fois qu’elle le donne : à une inconnue, contre de l’argent.
+- Izzy répète le nom. Il sort trop doux, et elle referme trop tard.
+- **Izzy (sourire)** : « J’ai pas besoin de ton numéro. T’as accepté mon argent. Tu crois que tu peux disparaître dans cette ville ? »
+- *Carte plein écran : Le 4B*
+- Yarden pose les 520. Félix les prend sans les compter.
+- Les papiers étaient prêts depuis la veille au soir. Un beau dossier : une nuit à écrire le nom trois cent quarante fois.
+- **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
+- **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
+- **Félix** : « Vous êtes venue couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
+- Yarden a brisé sa règle du chapitre 3 sans s’en apercevoir.
+- **Félix** : « Bonne journée, monsieur Weiss. »
+- Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
+- Plus de veste technique, plus de chaussures de marche.
+- Ils ne font rien. Mains dans les poches, pas de téléphone, pas de gobelet. Le chef n’ouvre pas le carnet.
+- Il incline légèrement la tête : une confirmation, pas un salut.
+- Ils étaient là avant elle.
+- *Fin de scène : Fin du chapitre 5. Niveau 27, VIT 11, papiers en main, trois jours dus à Izzy. Fin du prototype !*
+
+## Chapitre 5 : le poids d’une dette (jour 4)
+
+- *Carte plein écran : Chapitre 5 · Le poids d’une dette*
+- Inventaire du matin : 0 crédit, 520 de dette, un toit toléré. Le parquet, à côté du canapé.
+- Céleste ne lui adresse pas un mot. Elle laisse la boîte à café au milieu du comptoir.
+- **Céleste** : « Je ne te sers pas, mais tu peux. »
+- Ishara ne lui parle plus depuis le dîner.
+- Yarden range le fil de la corde.
+- **Yarden** : « Je le range. C’est pas pareil. »
+- *Carte plein écran : La douche*
+- Sous l’eau, Yarden pose trois lignes à Tiamat : pas de rupture, pas de terrain subi, pas de civils.
+- Tiamat enregistre sans objecter.
+- Deux points par niveau, sans exception : de 24 à 27, six points à distribuer.
+- Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
+- Tiamat le remarque. Elle ne le dit pas.
+- *Carte plein écran : Seule en ville*
+- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle ne trouve aucune faille.
+- Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
+- Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
+- **Izzy (narquoise)** : « J’ai un studio à Ouchy. Il est vide. Il est à toi. »
+- Yarden se ferme.
+- **Izzy** : « Je t’achète trois jours. »
+- **Izzy** : « Trois jours, payés d’avance. Cinq cent vingt. Tu marches où je marche, t’es là quand je suis là. Tu réponds à aucune question. »
+- Elle n’achète pas des réponses. Elle achète le droit de regarder.
+- Izzy retire 600 au distributeur, compte, rend 80 et lui tend 520. Elle ne regarde pas le solde.
+- L’échéance tombe au jour 7.
+- **Izzy** : « Ton nom. »
+- **Yarden** : « Yarden. »
+- Troisième fois qu’elle le donne : à une inconnue, contre de l’argent.
+- Izzy répète le nom. Il sort trop doux, et elle referme trop tard.
+- **Izzy (sourire)** : « J’ai pas besoin de ton numéro. T’as accepté mon argent. Tu crois que tu peux disparaître dans cette ville ? »
+- *Carte plein écran : Le 4B*
+- Yarden pose les 520. Félix les prend sans les compter.
+- Les papiers étaient prêts depuis la veille au soir. Un beau dossier : une nuit à écrire le nom trois cent quarante fois.
+- **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
+- **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
+- **Félix** : « Vous êtes venue couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
+- Yarden a brisé sa règle du chapitre 3 sans s’en apercevoir.
+- **Félix** : « Bonne journée, monsieur Weiss. »
+- Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
+- Plus de veste technique, plus de chaussures de marche.
+- Ils ne font rien. Mains dans les poches, pas de téléphone, pas de gobelet. Le chef n’ouvre pas le carnet.
+- Il incline légèrement la tête : une confirmation, pas un salut.
+- Ils étaient là avant elle.
+- *Fin de scène : Fin du chapitre 5. Niveau 27, VIT 11, papiers en main, trois jours dus à Izzy. Fin du prototype !*
 
 ## Objectif affiché en haut (appartement)
 
