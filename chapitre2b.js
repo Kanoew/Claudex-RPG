@@ -129,15 +129,15 @@ const above = y => () => player.y < y;
 
 zones.quartier.goal = () => ch2b.goalText || 'Rejoins Ishara devant la porte ↑';
 
-// Dimanche matin : Yarden suit Ishara dans la rue jusqu'à l'impasse (à pied), puis la faille s'ouvre devant elles.
+// Jour 2, le matin : Yarden suit Ishara dans la rue jusqu'à l'impasse (à pied), puis la faille s'ouvre devant elles.
 function impasseScript() {
   return [
     { run: () => { yardenOutfit = ''; isharaOutfit = 'course'; enterQuartier(); ch2b.goalText = 'Suis Ishara ←'; } },
-    { say: ['Dimanche matin. Les rues sont presque vides.'] },
+    { say: ['Jour 2. Le matin, les rues sont presque vides.'] },
     { moves: [moveOf('ishara', [[-150, 168], [-236, 170]], 85)] },
     { until: () => player.x < -215 },
     { run: () => { ch2b.goalText = ''; ch2b.riftAt = 0; enterImpasse(); } },
-    { say: ['Une impasse derrière un pressing fermé : c’est dimanche.', 'Dans l’air, quelque chose de distordu. Presque invisible en plein jour.'] },
+    { say: ['Une impasse derrière un pressing fermé, rideau baissé.', 'Dans l’air, quelque chose de distordu. Presque invisible en plein jour.'] },
     { say: ['Yarden : « Niveau estimé 16-17, il s’agit d’un espace restreint. »'] },
     { say: ['Ishara[inquiete] : « Hein, quoi ?! »'] },
     { run: () => { ch2b.riftAt = mirrorNow(); } },

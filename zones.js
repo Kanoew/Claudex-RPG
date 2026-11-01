@@ -73,7 +73,7 @@ const zones = {
     props: []
   },
   // Chapitre 2, le lendemain matin. Plans inventés à minima ; les canons sont dans PROJECT.md, sections 27 à 29.
-  // Impasse derrière un pressing fermé (dimanche) : la faille est un rectangle d'air légèrement distordu, presque invisible en plein jour.
+  // Impasse derrière un pressing fermé : la faille est un rectangle d'air légèrement distordu, presque invisible en plein jour.
   impasse: {
     id: 'impasse', title: 'LAUSANNE · IMPASSE', theme: 'impasse',
     room: { x: -170, y: -200, width: 340, height: 360 },

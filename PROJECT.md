@@ -520,3 +520,11 @@ Hors histoire, ouvert à la fin du prototype pour passer le temps : une carte de
 
 **Ce qu'il faudrait pour les implémenter** : lieux (appartement d'Izzy et sa chambre de bonne, hall d'Ouchy et concierge, maison marchande intérieur et extérieur, comptoir Est, salle noyée du run) ; personnages (la vieille femme, l'homme en costume gris, Vasseur, le concierge) ; sprites d'Izzy en robe rouge et en t-shirt gris ; **combat à mains nues avec alliée qui achève** ; salle type plate à eau et piliers ; scène du point de vue de Céleste. Le chapitre 6, lui, n'a besoin que de ce qui existe déjà (décor de rue, Izzy, chef en costume) plus l'appartement d'Izzy.
 
+## 38. Décisions de Jordan du 1er novembre 2026 (continuité)
+
+- **Calendrier** : on garde « Jour 1, Jour 2… » sans nommer lundi, mardi, etc., dans le jeu. Plus aucun nom de jour (carte « Jour 2 », pressing « rideau baissé »). Pour les chapitres à venir : remplacer « mercredi », « dimanche », etc. par « Jour N » ou une formule vague (« dans trois jours »).
+- **Âge d'Ishara et de Yarden** : l'âge officiel est 22 ans (Yarden : dossier de Félix) ; tant que l'âge n'est pas établi, on écrit « une fille qui a l'air de vingt ans ». Ne pas corriger les chapitres 3 et 9 : l'écart est voulu.
+- **Décompte du nom donné** : le premier « Yarden Weiss » (chez Félix, chapitre 3) est un choix, pas un don ; les trois dons (Ishara, Céleste, Izzy) sont canon.
+- **Relecture des dialogues** : après un nouveau test complet du jeu par Jordan.
+- **Musique** : en cours de production, fichiers attendus dans `assets/musique/`.
+
