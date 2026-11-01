@@ -1,6 +1,6 @@
 'use strict';
 
-const roomArt = { floor: null, wall: null, asphalt: null, brick: null };
+const roomArt = { floor: null, wall: null, asphalt: null, brick: null, alleyPainted: null };
 
 function loadRoomArt() {
   if (typeof Image === 'undefined') return;
@@ -10,6 +10,11 @@ function loadRoomArt() {
     image.onerror = () => { roomArt[name] = null; };
     image.src = `assets/${file}?v=29`;
   }
+  // Fond peint de la ruelle (généré, recadré sur le rectangle de la zone) ; sans lui, le décor dessiné en code sert de secours.
+  const alley = new Image();
+  alley.onload = () => { roomArt.alleyPainted = alley; };
+  alley.onerror = () => { roomArt.alleyPainted = null; };
+  alley.src = 'assets/decors/ruelle.jpg?v=1';
 }
 
 function roundedRectPath(x, y, w, h, radius) {
@@ -198,7 +203,10 @@ function drawRoom(offsetX, offsetY) {
   ctx.beginPath();
   ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
   ctx.clip();
-  if (custom) {
+  const painted = outdoors && currentZone.id === 'exterieur' && roomArt.alleyPainted;
+  if (painted) {
+    ctx.drawImage(painted, room.x + offsetX, room.y + offsetY, room.width, room.height);
+  } else if (custom) {
     custom.floor(offsetX, offsetY);
   } else if (street) {
     drawQuartierFloor(offsetX, offsetY);
@@ -233,7 +241,7 @@ function drawRoom(offsetX, offsetY) {
       }
     }
   }
-  if (outdoors) drawProps(offsetX, offsetY);
+  if (outdoors && !painted) drawProps(offsetX, offsetY);
   if (crystal) drawAntreCables(offsetX, offsetY);
   ctx.restore();
   walls.forEach((wall, index) => {
