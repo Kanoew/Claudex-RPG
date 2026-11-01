@@ -110,14 +110,15 @@ function celesteScene() {
     { run: () => { enterHomeCh4(); Object.assign(player, { x: -228, y: 215 }); sceneActor('ishara', 'ishara', -200, 150, { face: -1 }); sceneActor('celeste', 'celeste', 200, -105, { face: -1 }); saveCheckpoint('celeste'); } },
     { say: ['Céleste, niveau 22, la coloc d’Ishara, famille de guilde marchande, rentre d’un événement de guilde de onze heures.', 'Robe midi noire, veste cropped en cuir, bottines à talon bloc, une chaîne dorée avec un petit pendentif de guilde.'] },
     { moves: [moveOf('celeste', [[30, -40], [20, 90], [-130, 100]], 110)] },
-    { say: ['Elle trouve quelqu’un endormi dans son lit et croit pendant cinq secondes à un cadavre.', 'Premier réflexe : elle se met devant Ishara.'] },
+    { say: ['Elle trouve quelqu’un endormi dans son lit et croit pendant cinq secondes à un cadavre.', 'Céleste hurle. Ishara arrive en courant, pieds nus, t-shirt trop grand.', 'Céleste[alerte] : « ISHARA. Y’A QUELQU’UN DANS MON LIT. »'] },
     { moves: [moveOf('celeste', [[-165, 130]], 90)] },
-    { say: ['Yarden ouvre un œil et lit le pendentif de Céleste ouvertement, une seconde entière, en la laissant la voir faire.', 'Céleste comprend que c’était volontaire.'] },
-    { say: ['Céleste[alerte] : « Elle est qui, elle ? »', 'Ishara explique mal : ni l’Abysse, ni le square, ni la guilde, ni la dette, ni le dragon.'] },
-    { say: ['Céleste : « Dans ma chambre. »', 'Ishara : « Techniquement, c’est la chambre d’appoint quand t’es pas là. »', 'Céleste : « Le mot appoint fait pas ce que tu crois qu’il fait. »'] },
-    { say: ['Céleste : « Et toi, tu t’appelles comment ? »', 'Yarden : « Yarden. »', 'C’est la deuxième fois qu’elle donne ce nom, alors qu’il n’existe encore dans aucun registre.'] },
+    { say: ['Son premier réflexe n’est pas de fuir : elle se met devant Ishara, bras écartés.', 'Céleste : « Reste derrière moi. Je gère. »', 'Céleste : « T’es qui, toi. »'] },
+    { say: ['Yarden regarde le pendentif de Céleste, ouvertement, une seconde entière, et la laisse la voir faire.', 'Céleste comprend que c’était volontaire.', 'Yarden : « Elle est de quel niveau. »', 'Ishara : « …Vingt-deux. »', 'Yarden : « D’accord. »'] },
+    { say: ['Ishara explique mal : ni l’Abysse, ni le square, ni la guilde, ni la dette, ni le dragon.', 'Céleste : « Donc tu as hébergé une inconnue. Dans ma chambre. Pendant des jours. »', 'Ishara : « Techniquement, c’est la chambre d’appoint quand t’es pas là. »', 'Céleste : « Ishara. C’est ma chambre. Le mot appoint fait pas ce que tu crois qu’il fait. »'] },
+    { say: ['Céleste : « Ton nom. »', 'Yarden : « Yarden. »', 'Céleste : « C’est pas suisse. »', 'Yarden : « Non. »', 'C’est la deuxième fois qu’elle donne ce nom, alors qu’il n’existe encore dans aucun registre.'] },
+    { say: ['Céleste décide que ce n’est pas maintenant. Elle ramasse ses bottines, s’arrête à la porte de sa chambre.', 'Céleste : « Je vais dormir. Mes draps vont à la machine. »', 'Ishara : « …Elle t’aime bien. Genre. Statistiquement. Elle t’a pas mise dehors. »'] },
     { moves: [moveOf('yarden', [[-100, 80], [20, 80], [0, -10], [-185, -60]], 110)] },
-    { say: ['Céleste se couche. Yarden dort sur le canapé.'] }
+    { say: ['La porte de Céleste se referme. Yarden dort sur le canapé, plus dur que le lit.'] }
   ];
 }
 
@@ -125,11 +126,12 @@ function araigneeScene() {
   return [
     { card: 'Le soir', seconds: 2 },
     { run: () => { enterHomeCh4(); Object.assign(player, { x: 0, y: -60 }); sceneActor('ishara', 'ishara', 50, -60, { face: -1 }); } },
-    { say: ['Yarden : « L’araignée de niveau quarante et un. Hier soir, dans la cour du 4B. Tu l’as mentionnée. Je t’en ai jamais parlé. »', 'Yarden : « L’araignée de cristal. Niveau quarante et un. Sept pour cent de mana. Tu me l’as dit en sortant. Mot pour mot. »'] },
+    { say: ['Yarden : « L’araignée de niveau quarante et un. Hier soir, dans le métro. Tu l’as mentionnée. Je t’en ai jamais parlé. »', 'Yarden : « L’araignée de cristal. Niveau quarante et un. Sept pour cent de mana. Tu me l’as dit dans l’escalier du M2. Mot pour mot. Je ne t’ai jamais raconté cette histoire. »'] },
     { say: ['Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.', 'Ishara : « Non… Tu m’en as parlé. »', 'Tiamat (voix intérieure) : « Regarde-la. Elle ne ment pas. »'] },
     { say: ['Ishara[inquiete] : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »'] },
     { say: ['La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.'] },
-    { end: 'Fin du chapitre 4. Niveau 27, dette de 520, papiers à récupérer au 4B. Fin du prototype !' }
+    { run: () => { saveCheckpoint('jour4'); } },
+    ...chapter5Script()
   ];
 }
 

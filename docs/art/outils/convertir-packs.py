@@ -189,3 +189,9 @@ if __name__ == '__main__':
         strip.alpha_composite(sheet.crop((c * 256, r * 224, c * 256 + 256, r * 224 + 224)), (i * 256, 0))
     arr = np.asarray(strip).copy(); arr[..., 3] = np.where(arr[..., 3] <= 24, 0, arr[..., 3])
     Image.fromarray(arr, 'RGBA').quantize(colors=128, method=Image.FASTOCTREE, dither=Image.NONE).save('assets/monsters/creature.png', optimize=True)
+    # Izzy (chapitre 5) : repos, marches et portraits de dialogue.
+    os.makedirs('assets/npcs/izzy', exist_ok=True)
+    for name in ['repos', 'marche-gauche', 'marche-droite', 'marche-haut', 'marche-bas']:
+        export(art + 'izzy-celeste/mouvements-izzy/' + name + '.png', 'assets/npcs/izzy/' + name + '.png', 4, colors=128)
+    for name in ['neutre', 'sourire', 'narquoise']:
+        export(art + 'izzy-celeste/izzy-portraits-' + name + '.png', 'assets/portraits/izzy-' + name + '.png', 1, colors=96, size=(144, 144))

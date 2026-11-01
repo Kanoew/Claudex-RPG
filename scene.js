@@ -44,7 +44,7 @@ const isharaClips = {
 };
 const sceneFiles = [...sheetNames.map(name => `ch4/${name}`),
   ...Object.keys(isharaClips).map(name => `ishara/${name}`),
-  ...['1', '2'].flatMap(n => ['repos', 'marche-gauche'].map(clip => `inconnus/inconnu-${n}-${clip}`)), 'inconnus/inconnu-2-poignet', 'inconnus/inconnu-2-recul', 'fete/danseur', 'fete/danseuse', 'remi/remi-comptoir', 'felix/felix-bureau', 'celeste/repos', 'celeste/marche-gauche', 'celeste/marche-droite', 'celeste/marche-haut', 'celeste/marche-bas',
+  ...['1', '2'].flatMap(n => ['repos', 'marche-gauche'].map(clip => `inconnus/inconnu-${n}-${clip}`)), 'inconnus/inconnu-2-poignet', 'inconnus/inconnu-2-recul', 'fete/danseur', 'fete/danseuse', 'remi/remi-comptoir', 'felix/felix-bureau', 'celeste/repos', 'celeste/marche-gauche', 'celeste/marche-droite', 'celeste/marche-haut', 'celeste/marche-bas', 'izzy/repos', 'izzy/marche-gauche', 'izzy/marche-droite', 'izzy/marche-haut', 'izzy/marche-bas',
   ...Object.keys(isharaClips).map(name => `course/${name}`)];
 
 function loadSceneArt() {
@@ -283,16 +283,16 @@ function sceneActorPose(actor) {
     if (!sceneArt.strips[key]) return null;
     return { strip: sceneArt.strips[key], frame: sceneFrame(isharaClips[name], actor.time * speed), flip: false, ...(course ? sceneCells.course : sceneCells.ishara) };
   }
-  if (actor.kind === 'celeste') {
+  if (actor.kind === 'celeste' || actor.kind === 'izzy') {
     let name = 'repos', durations = [1000, 500, 140, 1000];
     if (actor.moving) {
       const ax = Math.abs(actor.dirX), ay = Math.abs(actor.dirY), wasH = actor.axis === 'h';
       const horizontal = actor.axis ? (wasH ? ax > ay * .7 : ax > ay * 1.5) : ax > ay;
       actor.axis = horizontal ? 'h' : 'v';
       name = 'marche-' + (horizontal ? (actor.dirX < 0 ? 'gauche' : 'droite') : (actor.dirY < 0 ? 'haut' : 'bas'));
-      durations = [150, 150, 150, 150];
+      durations = actor.kind === 'izzy' ? [180, 180, 180, 180] : [150, 150, 150, 150];
     }
-    const key = `celeste/${name}`;
+    const key = `${actor.kind}/${name}`;
     if (!sceneArt.strips[key]) return null;
     return { strip: sceneArt.strips[key], frame: sceneFrame(durations, actor.time), flip: false, ...sceneCells.celeste };
   }
