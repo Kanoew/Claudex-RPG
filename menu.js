@@ -137,3 +137,12 @@ function drawMenuVignette() {
     pen.restore();
   }
 }
+
+const textSpeedSelect = document.getElementById('text-speed');
+if (textSpeedSelect) {
+  textSpeedSelect.value = textSpeed;
+  textSpeedSelect.addEventListener('change', () => {
+    textSpeed = textSpeedSelect.value;
+    try { localStorage.setItem('textSpeed', textSpeed); } catch (error) { /* stockage indisponible */ }
+  });
+}

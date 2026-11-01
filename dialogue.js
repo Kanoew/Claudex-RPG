@@ -20,6 +20,46 @@ function loadPortraits() {
   }
 }
 
+// Apparition progressive du texte (façon Pokémon). Un tap pendant l'écriture l'affiche en entier, le suivant passe à la réplique d'après.
+// Sans matchMedia (tests) ou avec « réduire les animations », le texte s'affiche d'un coup.
+const textTyping = { timer: 0, full: '', shown: 0 };
+const textSpeeds = { lent: 22, normal: 38, rapide: 80, instantane: 0 };
+function readTextSpeed() {
+  try { const saved = localStorage.getItem('textSpeed'); if (saved in textSpeeds) return saved; } catch (error) { /* stockage indisponible */ }
+  return 'normal';
+}
+let textSpeed = readTextSpeed();
+function textCharsPerSecond(who) {
+  if (typeof matchMedia !== 'function' || typeof setInterval !== 'function') return 0;
+  try { if (matchMedia('(prefers-reduced-motion: reduce)').matches) return 0; } catch (error) { return 0; }
+  const rate = textSpeeds[textSpeed] || 0;
+  return who === 'Tiamat' ? rate * .6 : rate;
+}
+function stopTextTyping() {
+  if (textTyping.timer) { clearInterval(textTyping.timer); textTyping.timer = 0; }
+}
+function textIsTyping() { return textTyping.timer !== 0; }
+function finishTextTyping() {
+  if (!textTyping.timer) return false;
+  stopTextTyping();
+  document.getElementById('story-text').textContent = textTyping.full;
+  return true;
+}
+function startTextTyping(element, text, who) {
+  stopTextTyping();
+  const rate = textCharsPerSecond(who);
+  textTyping.full = text;
+  if (!rate || !text) { element.textContent = text; return; }
+  textTyping.shown = 0;
+  element.textContent = '';
+  const started = Date.now();
+  textTyping.timer = setInterval(() => {
+    const count = Math.min(text.length, Math.floor((Date.now() - started) / 1000 * rate) + 1);
+    if (count !== textTyping.shown) { textTyping.shown = count; element.textContent = text.slice(0, count); }
+    if (count >= text.length) stopTextTyping();
+  }, 30);
+}
+
 function parseStoryLine(line) {
   const match = speakerPattern.exec(line);
   return match ? { who: match[1], expression: match[2] || 'neutre', text: match[3] } : { who: null, expression: null, text: line };
@@ -79,7 +119,7 @@ function showStoryLine(line) {
   portrait.hidden = who === null;
   name.hidden = false;
   name.textContent = who === 'Tiamat' ? 'TIAMAT · VOIX INTÉRIEURE' : who === null ? 'NARRATION' : who.toUpperCase();
-  document.getElementById('story-text').textContent = text;
+  startTextTyping(document.getElementById('story-text'), text, who);
   if (who !== null) drawPortrait(who, expression);
   dialogueLog.entries.push({ who, text });
   if (dialogueLog.entries.length > dialogueLog.limit) dialogueLog.entries.shift();

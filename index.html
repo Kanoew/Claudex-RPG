@@ -200,7 +200,7 @@
   <script src="transitions.js?v=73" defer></script>
   <script src="yarden-sprite.js?v=68" defer></script>
   <script src="monster-sprite.js?v=76" defer></script>
-  <script src="encounter.js?v=74" defer></script>
+  <script src="encounter.js?v=79" defer></script>
   <script src="sheets.js?v=75" defer></script>
   <script src="scene.js?v=76" defer></script>
   <script src="chapitre2b.js?v=67" defer></script>
@@ -212,7 +212,7 @@
   <script src="metro.js?v=65" defer></script>
   <script src="night.js?v=54" defer></script>
   <script src="mirror.js?v=67" defer></script>
-  <script src="dialogue.js?v=74" defer></script>
+  <script src="dialogue.js?v=79" defer></script>
   <script src="levelup.js?v=50" defer></script>
   <script src="stats.js?v=59" defer></script>
   <script src="points.js?v=77" defer></script>
@@ -233,7 +233,7 @@
   <script src="combat.js?v=56" defer></script>
   <script src="input.js?v=62" defer></script>
   <script src="movement.js?v=42" defer></script>
-  <script src="menu.js?v=62" defer></script>
+  <script src="menu.js?v=79" defer></script>
   <script src="ux.js?v=74" defer></script>
   <script src="game.js?v=73" defer></script>
 </head>
@@ -255,7 +255,7 @@
       <div id="menu-panel" role="dialog" aria-modal="true" aria-labelledby="menu-title" hidden>
         <h2 id="menu-title">Le Sang de Tiamat</h2><p id="menu-note"></p>
         <div id="menu-main"><button id="menu-continue" type="button">Continuer</button><button id="menu-new" type="button">Commencer</button><button id="menu-free" type="button" hidden>Mode libre</button><button id="menu-resume" type="button">Reprendre</button><button id="menu-stats" type="button" hidden>Statistiques</button><button id="menu-settings" type="button">Paramètres</button><button id="menu-restart" type="button">Revenir au dernier point de passage</button></div>
-        <div id="menu-settings-view" hidden><h3>Commandes et lecture</h3><label class="slider">Commandes<select id="ux-input"><option value="auto">Automatiques</option><option value="touch">Tactiles</option><option value="keyboard">Clavier / souris</option></select></label><label class="slider">Taille des dialogues <output id="ux-text-value">18 px</output><input id="ux-text-size" type="range" min="16" max="24" step="1" value="18"></label><h3>Audio</h3><button id="menu-music" type="button">Musique : activée</button><label class="slider">Volume de la musique<input id="menu-music-volume" type="range" min="0" max="100" step="5" value="60"></label><button id="menu-effects" type="button">Effets : activés</button><label class="slider">Volume des effets<input id="menu-effects-volume" type="range" min="0" max="100" step="5" value="60"></label><button id="menu-back" type="button">Retour</button></div>
+        <div id="menu-settings-view" hidden><h3>Commandes et lecture</h3><label class="slider">Commandes<select id="ux-input"><option value="auto">Automatiques</option><option value="touch">Tactiles</option><option value="keyboard">Clavier / souris</option></select></label><label class="slider">Taille des dialogues <output id="ux-text-value">18 px</output><input id="ux-text-size" type="range" min="16" max="24" step="1" value="18"></label><label class="slider">Vitesse du texte<select id="text-speed"><option value="lent">Lente</option><option value="normal">Normale</option><option value="rapide">Rapide</option><option value="instantane">Instantanée</option></select></label><h3>Audio</h3><button id="menu-music" type="button">Musique : activée</button><label class="slider">Volume de la musique<input id="menu-music-volume" type="range" min="0" max="100" step="5" value="60"></label><button id="menu-effects" type="button">Effets : activés</button><label class="slider">Volume des effets<input id="menu-effects-volume" type="range" min="0" max="100" step="5" value="60"></label><button id="menu-back" type="button">Retour</button></div>
         <canvas id="menu-vignette" width="360" height="170" hidden aria-hidden="true"></canvas>
       </div>
       <div id="bag-panel" role="dialog" aria-modal="true" aria-labelledby="bag-title" hidden><h2 id="bag-title">Sac</h2><div id="bag-body" role="group"></div><button id="bag-close" type="button">Fermer</button></div>
