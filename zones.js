@@ -178,6 +178,42 @@ const zones = {
     ],
     doors: [], enemies: [{ kind: 'chitine', x: 0, y: -110, level: 28, aggro: 320 }], props: []
   },
+  // Chapitre 6 : le préau désaffecté, l'esplanade et la terrasse du Flon, le hall d'Ouchy, le seizième étage d'Izzy. Plans inventés à minima.
+  preau: {
+    id: 'preau', title: 'LAUSANNE · LE PRÉAU', theme: 'preau',
+    room: { x: -170, y: -140, width: 340, height: 280 },
+    start: { x: 0, y: 90 },
+    blocks: [{ x: -170, y: -140, width: 340, height: 60, kind: 'mur-ecole' }, { x: -44, y: -36, width: 88, height: 24, kind: 'banc-pierre' }, { x: -130, y: -60, width: 22, height: 22, kind: 'colonne' }, { x: 108, y: -60, width: 22, height: 22, kind: 'colonne' }],
+    doors: [], enemies: [], props: []
+  },
+  flon: {
+    id: 'flon', title: 'LAUSANNE · LE FLON', theme: 'flon',
+    room: { x: -300, y: -200, width: 600, height: 420 },
+    start: { x: -240, y: 170 },
+    blocks: [
+      { x: -300, y: -200, width: 600, height: 40, kind: 'facade-flon' }, { x: 60, y: -150, width: 220, height: 24, kind: 'bar' },
+      { x: 20, y: -100, width: 26, height: 20, kind: 'table' }, { x: 120, y: -40, width: 26, height: 20, kind: 'table' }, { x: 230, y: -100, width: 26, height: 20, kind: 'table' }, { x: 240, y: -30, width: 26, height: 20, kind: 'table' }
+    ],
+    doors: [], enemies: [], props: []
+  },
+  hall: {
+    id: 'hall', title: 'OUCHY · LE HALL', theme: 'hall',
+    room: { x: -220, y: -160, width: 440, height: 320 },
+    start: { x: 0, y: 110 },
+    blocks: [{ x: -110, y: -110, width: 220, height: 34, kind: 'comptoir-hall' }, { x: -220, y: -160, width: 100, height: 40, kind: 'ascenseur-hall' }],
+    doors: [], enemies: [], props: []
+  },
+  penthouse: {
+    id: 'penthouse', title: 'OUCHY · SEIZIÈME ÉTAGE', theme: 'penthouse',
+    room: { x: -330, y: -230, width: 660, height: 470 },
+    start: { x: -250, y: -90 },
+    blocks: [
+      { x: -330, y: -230, width: 660, height: 26, kind: 'baie' }, { x: -330, y: -204, width: 150, height: 44, kind: 'cuisine-i' },
+      { x: 40, y: -140, width: 200, height: 36, kind: 'canape-i' }, { x: 40, y: -60, width: 200, height: 36, kind: 'canape-i' }, { x: 100, y: -100, width: 80, height: 30, kind: 'marbre' },
+      { x: -330, y: 30, width: 250, height: 20, kind: 'cloison-i' }, { x: -50, y: 30, width: 380, height: 20, kind: 'cloison-i' }
+    ],
+    doors: [], enemies: [], props: []
+  },
   // Appartement d'Ishara (canon de Jordan, section 15 de PROJECT.md) : troisième étage, quartier étudiant, Lausanne.
   // Plan inventé à minima : l'entrée et la cuisine à l'est, le salon à l'ouest, le couloir au sud du salon, la chambre d'appoint
   // à gauche du couloir, la salle de bain en face, la chambre d'Ishara fermée. Palette chaude, jamais de bleu.

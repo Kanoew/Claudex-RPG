@@ -112,7 +112,7 @@ function drawAppartSolid(wall, x, y, index) {
 
 // Petit losange et nom au-dessus de ce que Yarden peut examiner de près.
 function drawSpotMarkers(offsetX, offsetY) {
-  if (currentZone.id !== 'appartement' || !interactFree()) return;
+  if (spotsOfZone() === null || !interactFree()) return;
   const near = nearSpot();
   if (!near) return;
   const x = near.x + offsetX, y = near.y + offsetY - 22 + Math.sin(elapsed * 4) * 2;

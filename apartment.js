@@ -5,6 +5,8 @@
 // Déroulé (canon de Jordan, section 26) : arrivée (clés sur le comptoir, thé), la douche et le miroir, le soutien-gorge d'Ishara,
 // puis la première nuit sur le parquet (agents divins, tatouages), puis le matin (café, courbatures). Le run en Abysse vient ensuite.
 const home = { stage: 'arrive' };
+// Points examinables ajoutés par une scène (chapitre 6 : la recherche d'Izzy) : { zone, list }.
+let extraSpots = null;
 
 const apartmentSpots = [
   { id: 'fenetre', x: -190, y: -262, r: 62, label: 'Fenêtre', lines: () => ['Des plantes sur le rebord. Dehors, les toits virent à l’orange sale. Une mouette, un scooter.'] },
@@ -27,6 +29,7 @@ const apartmentSpots = [
 function spotsOfZone() {
   if (currentZone.id === 'appartement') return apartmentSpots;
   if (currentZone.id === 'comptoir') return comptoirSpots;
+  if (extraSpots && extraSpots.zone === currentZone.id) return extraSpots.list;
   return null;
 }
 
@@ -35,6 +38,7 @@ function nearSpot() {
   if (!spots) return null;
   let best = null, bestDistance = Infinity;
   for (const spot of spots) {
+    if (spot.available && !spot.available()) continue;
     const distance = Math.hypot(player.x - spot.x, player.y - spot.y);
     if (distance <= spot.r && distance < bestDistance) { best = spot; bestDistance = distance; }
   }
@@ -42,7 +46,7 @@ function nearSpot() {
 }
 
 const interactFree = () => !paused && !combatOver && !document.hidden && !encounterBlocksMovement();
-const hasInteract = () => currentZone.id === 'antre' || currentZone.id === 'appartement' || currentZone.id === 'comptoir';
+const hasInteract = () => currentZone.id === 'antre' || currentZone.id === 'appartement' || currentZone.id === 'comptoir' || (extraSpots !== null && extraSpots.zone === currentZone.id);
 const canInteract = () => currentZone.id === 'antre' ? canUseCrystal() : spotsOfZone() !== null && interactFree() && nearSpot() !== null;
 
 function useInteract() {

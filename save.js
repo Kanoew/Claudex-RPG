@@ -4,7 +4,7 @@
 // Trois points : l'entrée dans l'Abysse, la sortie du Troll vers l'antre, l'arrivée dans la ruelle après l'araignée.
 // Si le navigateur refuse le stockage (navigation privée), le jeu continue sans sauvegarde.
 const saveKey = 'yarden-sauvegarde-1';
-const checkpointNames = { abysse: 'Entrée dans l’Abysse', antre: 'Devant l’antre', rue: 'Ruelle d’Helvara', appart: 'Chez Ishara', nuit: 'Chez Ishara, le soir', matin: 'Chez Ishara, le matin', impasse: 'Jour 2, l’impasse', marterey: 'Rue Marterey', sousgare: 'Quartier Sous-gare', quatreb: 'Le 4B', pates: 'Chapitre 4, les pâtes', chasse: 'Chapitre 4, le square', celeste: 'Chapitre 4, 14 h', jour4: 'Chapitre 5, jour 4' };
+const checkpointNames = { abysse: 'Entrée dans l’Abysse', antre: 'Devant l’antre', rue: 'Ruelle d’Helvara', appart: 'Chez Ishara', nuit: 'Chez Ishara, le soir', matin: 'Chez Ishara, le matin', impasse: 'Jour 2, l’impasse', marterey: 'Rue Marterey', sousgare: 'Quartier Sous-gare', quatreb: 'Le 4B', pates: 'Chapitre 4, les pâtes', chasse: 'Chapitre 4, le square', celeste: 'Chapitre 4, 14 h', jour4: 'Chapitre 5, jour 4', costumes: 'Chapitre 6, la porte cochère', seizieme: 'Chapitre 6, le seizième étage' };
 
 function storage() {
   try { return typeof localStorage !== 'undefined' ? localStorage : null; } catch (error) { return null; }
@@ -63,8 +63,9 @@ function applyCheckpoint(name) {
   yardenOutfit = name === 'nuit' ? 'tshirt-short' : '';
   if (name === 'marterey') for (const drop of runDrops) if (drop) bag.push({ ...drop });
   if (name === 'sousgare' || name === 'quatreb') credits = 280;
+  if (['costumes', 'seizieme'].includes(name)) { credits = 0; debt = 0; identityName = 'Yarden Weiss'; playerLevel = 27; yardenStats.level = 27; yardenStats.VIT = 11; }
   if (['pates', 'chasse', 'celeste', 'jour4'].includes(name)) { credits = 0; debt = 520; identityName = 'Yarden Weiss'; if (name === 'celeste' || name === 'jour4') { playerLevel = 27; yardenStats.level = 27; } }
-  isharaOutfit = ['impasse', 'matin', 'marterey', 'sousgare', 'quatreb', 'pates', 'chasse', 'celeste', 'jour4'].includes(name) ? 'course' : 'soiree';
+  isharaOutfit = ['impasse', 'matin', 'marterey', 'sousgare', 'quatreb', 'pates', 'chasse', 'celeste', 'jour4', 'costumes', 'seizieme'].includes(name) ? 'course' : 'soiree';
   if (name === 'appart') { enterApartment('arrive'); startScene(apartmentArrivalSteps()); }
   else if (name === 'impasse' || name === 'matin') startScene(impasseScript());
   else if (name === 'marterey') startScene(marteryScript());
@@ -74,5 +75,7 @@ function applyCheckpoint(name) {
   else if (name === 'chasse') startScene(chapter4Script().slice(pastaScene().length));
   else if (name === 'celeste') startScene([...celesteScene(), ...araigneeScene()]);
   else if (name === 'jour4') startScene(chapter5Script());
+  else if (name === 'costumes') startScene(costumesScene());
+  else if (name === 'seizieme') startScene(penthouseScene());
   else enterApartment('nuit');
 }

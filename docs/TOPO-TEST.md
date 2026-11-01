@@ -71,6 +71,15 @@ Les cases à cocher sont là pour que tu notes ce qui va, ce qui accroche, ce qu
 - [ ] Les trois costumes devant la porte cochère : leur placement et leur taille.
 - [ ] L'écran de fin et le bouton « Mode libre ».
 
+## 6 bis. Chapitre 6 (nouveau)
+
+- [ ] Devant le 4B : le chef en costume vient seul, « mademoiselle Weiss », l'enveloppe de 520 apparaît dans le sac (« 520 · à rendre »).
+- [ ] Le préau : la déduction du bancomat, le « quatrième silence » de Tiamat plus loin.
+- [ ] Le Flon : trois « trous » à examiner (chien, homme au téléphone, flaque), puis la terrasse et l'anneau d'hommes autour d'Izzy.
+- [ ] Le remboursement : l'enveloppe quitte le sac, « Prends-la ou prends le parquet. »
+- [ ] Ouchy : le concierge, l'ascenseur (« Le tableau dit ce qu'on lui a demandé de dire. »), les deux sorties, la chambre de bonne entrouverte.
+- [ ] La boîte posée sur la commode, le dernier plan sur le carnet du chef, puis la fin du prototype.
+
 ## 7. Mode libre
 
 - [ ] Le mini-plan en haut à droite et le bouton « Carte ».
@@ -104,4 +113,4 @@ Les cases à cocher sont là pour que tu notes ce qui va, ce qui accroche, ce qu
 
 ## 11. Ce qui vient (chapitres 6 à 9, lus mais pas encore dans le jeu)
 
-Voir `PROJECT.md`, sections 34 et 37. En résumé : le chapitre 6 peut être fait tout de suite (sans combat) ; le chapitre 8 demande un combat à mains nues et une salle noyée ; les chapitres 7 et 9 demandent la maison marchande, le comptoir Est et une scène du point de vue de Céleste.
+Voir `PROJECT.md`, sections 37 et 39. En résumé : le chapitre 6 est maintenant dans le jeu ; le chapitre 8 demande un combat à mains nues et une salle noyée ; les chapitres 7 et 9 demandent la maison marchande, le comptoir Est et une scène du point de vue de Céleste.

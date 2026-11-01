@@ -14,7 +14,7 @@ const context = vm.createContext({ document: deep(), window: deep(), ResizeObser
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const files = [...html.matchAll(/<script src="([a-z0-9-]+\.js)/g)].map(match => match[1]);
 for (const file of files) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
-const data = vm.runInContext('({ opening: openingScript(), rue: sceneScript(), sleep: nightScript(), mirror: mirrorScript(), impasse: impasseScript(), runEnd: runEndScript(), marterey: marteryScript(), comptoir: comptoirScript(), sousgare: sousgareScript(), quatreb: quatrebScript(), ch4: chapter4Script(), ch5: chapter5Script(), spots: apartmentSpots.map(s => ({ id: s.id, label: s.label, lines: s.lines() })), goals: [apartmentGoal()] })', context);
+const data = vm.runInContext('({ opening: openingScript(), rue: sceneScript(), sleep: nightScript(), mirror: mirrorScript(), impasse: impasseScript(), runEnd: runEndScript(), marterey: marteryScript(), comptoir: comptoirScript(), sousgare: sousgareScript(), quatreb: quatrebScript(), ch4: chapter4Script(), ch5: chapter5Script(), ch6: chapter6Script(), ch6spots: searchSpots.map(s => ({ label: s.label, lines: s.lines() })), spots: apartmentSpots.map(s => ({ id: s.id, label: s.label, lines: s.lines() })), goals: [apartmentGoal()] })', context);
 
 // Extras : objets du comptoir et objectifs par lieu (écrits dans un second appel, plus lisible).
 data.comptoirSpots = vm.runInContext('comptoirSpots.map(spot => ({ label: spot.label, lines: spot.lines() }))', context);
@@ -54,6 +54,8 @@ const parts = [
   '## Objectifs affichés en haut, par lieu', '', data.zoneGoals.map(z => `- **${z.id}** : ${z.goal}`).join('\n'), '',
   '## Chapitre 4 : la trace (pâtes, nuit, square, équipe au carnet, Céleste, araignée)', '', render(data.ch4), '',
   '## Chapitre 5 : le poids d’une dette (jour 4)', '', render(data.ch5), '',
+  '## Chapitre 6 : ce qu’on écrit à ta place (jour 4, midi au soir)', '', render(data.ch6), '',
+  '## Chapitre 6 : les faux trous du Flon (objets à examiner)', '', data.ch6spots.map(s => `- **${s.label}** : ${s.lines.join(' ')}`).join('\n'), '',
   '## Objectif affiché en haut (appartement)', '', `- ${data.goals[0]}`, ''
 ];
 fs.writeFileSync(path.join(root, 'docs', 'TEXTES.md'), parts.join('\n'));

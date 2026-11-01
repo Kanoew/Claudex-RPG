@@ -6,7 +6,7 @@ const bagPanel = document.getElementById('bag-panel');
 
 function bagHtml() {
   const rows = bag.length
-    ? bag.map(item => `<div class="bag-row"><span>${item.name}</span><b>niv. ${item.level}${item.note ? ' · ' + item.note : ''}</b></div>`).join('')
+    ? bag.map(item => `<div class="bag-row"><span>${item.name}</span><b>${item.display || `niv. ${item.level}${item.note ? ' · ' + item.note : ''}`}</b></div>`).join('')
     : '<div class="bag-empty">Le sac est vide.</div>';
   return `<div class="bag-credits"><span>CRÉDITS</span><strong>${credits}</strong></div>${debt ? `<div class="bag-row"><span>Dette envers Félix</span><b>${debt}</b></div>` : ''}${rows}`;
 }
