@@ -137,3 +137,21 @@ function drawMenuVignette() {
     pen.restore();
   }
 }
+
+const textSpeedSelect = document.getElementById('text-speed');
+if (textSpeedSelect) {
+  textSpeedSelect.value = textSpeed;
+  textSpeedSelect.addEventListener('change', () => {
+    textSpeed = textSpeedSelect.value;
+    try { localStorage.setItem('textSpeed', textSpeed); } catch (error) { /* stockage indisponible */ }
+  });
+}
+
+const combatModeSelect = document.getElementById('combat-mode');
+if (combatModeSelect) {
+  combatModeSelect.value = combatMode;
+  combatModeSelect.addEventListener('change', () => {
+    combatMode = combatModeSelect.value;
+    try { localStorage.setItem('combatMode', combatMode); } catch (error) { /* stockage indisponible */ }
+  });
+}

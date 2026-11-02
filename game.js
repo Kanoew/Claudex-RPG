@@ -88,6 +88,8 @@ function update(seconds) {
   // Le fondu d'arrivée continue pendant un texte : sinon l'écran reste noir derrière lui.
   if (story.active && !paused && !document.hidden) tickZoneTransition(seconds);
   if (combatOver || paused || document.hidden || story.active || menu.open || stats.open) return;
+  if (battle.active) return;
+  if (battleShouldStart()) { startBattle(); return; }
   elapsed += seconds;
   syncMusic();
   tickZoneTransition(seconds);

@@ -1,6 +1,9 @@
 'use strict';
 
-const roomArt = { floor: null, wall: null, asphalt: null, brick: null };
+const roomArt = { floor: null, wall: null, asphalt: null, brick: null, alleyPainted: null };
+
+// Objets peints de la ruelle (benne, caisses, poubelles, scooter) ; sans eux, les dessins en code servent de secours.
+const alleyObjectArt = {};
 
 function loadRoomArt() {
   if (typeof Image === 'undefined') return;
@@ -9,6 +12,17 @@ function loadRoomArt() {
     image.onload = () => { roomArt[name] = ctx.createPattern(image, 'repeat'); };
     image.onerror = () => { roomArt[name] = null; };
     image.src = `assets/${file}?v=29`;
+  }
+  // Fond peint de la ruelle (généré, recadré sur le rectangle de la zone) ; sans lui, le décor dessiné en code sert de secours.
+  const alley = new Image();
+  alley.onload = () => { roomArt.alleyPainted = alley; };
+  alley.onerror = () => { roomArt.alleyPainted = null; };
+  alley.src = 'assets/decors/ruelle.jpg?v=1';
+  for (const kind of ['benne', 'caisses', 'poubelles', 'scooter']) {
+    const object = new Image();
+    object.onload = () => { alleyObjectArt[kind] = object; };
+    object.onerror = () => { alleyObjectArt[kind] = null; };
+    object.src = `assets/decors/${kind}.png?v=1`;
   }
 }
 
@@ -24,6 +38,18 @@ function roundedRectPath(x, y, w, h, radius) {
 
 // Objets de la ruelle : chacun reste dans son rectangle de collision, vu de dessus en trois quarts.
 function drawAlleyObject(kind, x, y, w, h) {
+  const art = alleyObjectArt[kind];
+  if (art) {
+    // Image peinte posée sur son rectangle de collision : calée en bas, centrée, elle dépasse un peu vers le haut (vue en trois quarts).
+    const scale = Math.min(w / art.width, h * 1.7 / art.height);
+    const dw = art.width * scale, dh = art.height * scale;
+    ctx.save();
+    ctx.fillStyle = '#05080e88';
+    ctx.beginPath(); ctx.ellipse(x + w / 2 + 4, y + h - 2, dw / 2, Math.max(6, dh * .1), 0, 0, Math.PI * 2); ctx.fill();
+    ctx.drawImage(art, x + (w - dw) / 2, y + h - dh, dw, dh);
+    ctx.restore();
+    return;
+  }
   ctx.save();
   ctx.translate(x, y);
   ctx.fillStyle = '#05080ea0';
@@ -198,7 +224,10 @@ function drawRoom(offsetX, offsetY) {
   ctx.beginPath();
   ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
   ctx.clip();
-  if (custom) {
+  const painted = outdoors && currentZone.id === 'exterieur' && roomArt.alleyPainted;
+  if (painted) {
+    ctx.drawImage(painted, room.x + offsetX, room.y + offsetY, room.width, room.height);
+  } else if (custom) {
     custom.floor(offsetX, offsetY);
   } else if (street) {
     drawQuartierFloor(offsetX, offsetY);
@@ -233,7 +262,7 @@ function drawRoom(offsetX, offsetY) {
       }
     }
   }
-  if (outdoors) drawProps(offsetX, offsetY);
+  if (outdoors && !painted) drawProps(offsetX, offsetY);
   if (crystal) drawAntreCables(offsetX, offsetY);
   ctx.restore();
   walls.forEach((wall, index) => {
