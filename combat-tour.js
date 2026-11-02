@@ -2,7 +2,8 @@
 
 // Rencontre de référence limitée aux gardes. Valeurs isolées du temps réel.
 const battle = { active: false, foes: [], target: 0, busy: false, lastDodge: false, dodging: false, round: 1, el: null, ctx: null, raf: 0, time: 0, lastFrame: null, wait: null, you: { pose: 'idle', since: 0 }, message: '' };
-let combatMode = (() => { try { return localStorage.getItem('combatMode') === 'tour' ? 'tour' : 'reel'; } catch (error) { return 'reel'; } })();
+// GELÉ (CAHIER-DES-CHARGES.md, étape 1) : le réglage « Combat » est retiré des paramètres et le mode reste en temps réel. Le code est conservé pour plus tard.
+let combatMode = 'reel';
 
 function battleShouldStart() {
   if (combatMode !== 'tour' || battle.active || combatOver || currentZone.id !== 'donjon' || stage !== 'guards') return false;

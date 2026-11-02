@@ -1,5 +1,7 @@
 # Combat au tour par tour — page de design (essai)
 
+> **GELÉ le 2 novembre 2026** (`CAHIER-DES-CHARGES.md`, section 2) : le réglage « Combat » n'est plus dans les paramètres, le jeu reste en temps réel. Le code est conservé ; à rouvrir si des compagnons deviennent jouables.
+
 Statut : prototype jouable, derrière le réglage **Paramètres → Combat → Tour par tour (essai)**. Par défaut, le combat reste en temps réel. À valider par Jordan avant de généraliser.
 
 ## Principe
