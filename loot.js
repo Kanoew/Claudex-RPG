@@ -23,6 +23,7 @@ function bankRunLoot() {
   if (runLoot.value > 0) {
     const spot = freeSpots[freeMode.from] ? freeSpots[freeMode.from].short : 'Faille';
     bag.push({ name: `Butin · ${spot}`, display: `${runLoot.value} ¢ à vendre`, value: runLoot.value, loot: true });
+    saveMeta();
     lootToast(`Butin rangé : ${runLoot.value} ¢`);
   }
   resetRunLoot();
@@ -32,6 +33,7 @@ function bankRunLoot() {
 function loseRunLoot(knockedOut) {
   if (knockedOut) debt += lootRules.koDebt;
   resetRunLoot();
+  saveMeta();
   updateBagHud();
 }
 
@@ -46,6 +48,7 @@ function sellLoot() {
   const repaid = Math.min(debt, total);
   debt -= repaid;
   credits += total - repaid;
+  saveMeta();
   updateBagHud();
   lootToast(repaid ? `Vendu ${total} ¢ · dette −${repaid}` : `Vendu ${total} ¢`);
   return total;

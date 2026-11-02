@@ -22,9 +22,11 @@ const boonRange = () => 1 + .25 * boonStacks('portee');
 // Remet tout à la normale : début de run, fin de run ou KO.
 function resetBoons() {
   for (const key of Object.keys(runBoons)) delete runBoons[key];
-  dodge.recovery = boonBaseline.dodgeRecovery;
+  // Base du run : statistiques du niveau, plus les achats permanents chez Rémi (shop.js).
+  const bought = id => (typeof shopBonus === 'function' ? shopBonus(id) : 0);
+  dodge.recovery = boonBaseline.dodgeRecovery * Math.pow(.9, bought('esquive'));
   skill.cost = boonBaseline.skillCost;
-  if (typeof levelStats !== 'undefined') { player.maxHp = levelStats.maxHp; player.maxMana = levelStats.maxMana; }
+  if (typeof levelStats !== 'undefined') { player.maxHp = levelStats.maxHp + bought('vie'); player.maxMana = levelStats.maxMana + 5 * bought('mana'); }
   player.hp = Math.min(player.hp, player.maxHp); player.mana = Math.min(player.mana, player.maxMana);
   closeBoon();
 }

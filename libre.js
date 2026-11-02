@@ -135,6 +135,7 @@ function startFreeMode() {
   freeMode.active = true;
   freeMode.clears = 0;
   freeMode.destination = null;
+  loadMeta();
   scene.active = false; scene.done = true;
   scytheFreed = true;
   player.armed = true;

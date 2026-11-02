@@ -93,6 +93,8 @@
     .bag-credits { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 10px; margin-bottom: 8px; border-bottom: 1px solid #8b78c966; }
     .bag-credits strong { font-size: 26px; }
     .bag-sell { width: 100%; min-height: 48px; margin-top: 12px; border: 1px solid #8b78c9; border-radius: 12px; background: #3b2d63; color: #f4effc; font: 700 15px system-ui; }
+    .shop-buy { min-width: 76px; min-height: 40px; border: 1px solid #8b78c9; border-radius: 10px; background: #3b2d63; color: #f4effc; font: 700 13px system-ui; }
+    .shop-buy:disabled, .bag-sell:disabled { opacity: .4; }
     .bag-row { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; }
     .bag-row b { color: var(--accent-soft); font-weight: 600; text-align: right; }
     .bag-empty { padding: 8px 0; color: var(--muted); }
@@ -219,9 +221,10 @@
   <script src="levelup.js?v=50" defer></script>
   <script src="stats.js?v=59" defer></script>
   <script src="points.js?v=77" defer></script>
-  <script src="bag.js?v=84" defer></script>
+  <script src="bag.js?v=85" defer></script>
+  <script src="shop.js?v=1" defer></script>
   <script src="loot.js?v=1" defer></script>
-  <script src="libre.js?v=84" defer></script>
+  <script src="libre.js?v=85" defer></script>
   <script src="save.js?v=67" defer></script>
   <script src="audio.js?v=61" defer></script>
   <script src="opening.js?v=52" defer></script>
@@ -234,7 +237,7 @@
   <script src="render-antre.js?v=42" defer></script>
   <script src="lighting.js?v=75" defer></script>
   <script src="render.js?v=80" defer></script>
-  <script src="boons.js?v=1" defer></script>
+  <script src="boons.js?v=85" defer></script>
   <script src="combat-tour.js?v=82" defer></script>
   <script src="combat.js?v=83" defer></script>
   <script src="input.js?v=83" defer></script>
