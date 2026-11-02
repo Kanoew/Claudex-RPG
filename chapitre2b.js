@@ -158,7 +158,7 @@ function runEndScript() {
     { moves: [moveOf('ishara', [[-60, 40], [-110, 150]], 85)] },
     { until: () => player.y > 135 },
     { run: () => { ch2b.goalText = ''; } },
-    ...marteryScript()
+    ...(storyChain ? (hubCut ? hubEntryScript() : marteryScript()) : [])
   ];
 }
 

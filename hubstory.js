@@ -6,6 +6,15 @@
 // (tout est remis comme avant à la fin) et ne changent jamais le point de passage de l'histoire.
 const hubPlayback = { active: false, unit: null, snap: null };
 let storyChain = true;
+// Fin du tutoriel (CAHIER-DES-CHARGES.md, étape 5b) : après le premier run de l'impasse, « Nouvelle partie » ouvre le hub au lieu de poursuivre l'histoire en ligne.
+// Les scènes suivantes (comptoir de Rémi et la suite) se rejouent depuis le hub. À `false`, l'ancien enchaînement linéaire reste disponible (tests, anciens points de passage).
+let hubCut = true;
+
+function hubEntryScript() {
+  return [
+    { run: () => { unlockFree(); saveCheckpoint('hub'); startFreeMode(); lootToast('Le hub est ouvert : entre dans la faille de la rue.'); } }
+  ];
+}
 
 const hubUnits = [
   { id: 'remi', title: 'Le comptoir de Rémi', steps: () => marteryScript(), grants: 'remi' },

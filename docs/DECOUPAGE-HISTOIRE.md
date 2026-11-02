@@ -22,9 +22,11 @@
 - Le chapitre 1 (réveil, faille, faux, Troll) reste le tutoriel. Le chapitre 2 (appartement d'Ishara, nuit, miroir, premier run) n'est pas dans la liste : il fait partie du début de partie.
 - Le texte de fin de chapitre 6 (« Fin du prototype ! ») est retiré en rediffusion.
 
+## Décidé le 2 novembre 2026 (étape 5b)
+
+« Nouvelle partie » joue le chapitre 1, puis le chapitre 2 jusqu'à la fin du premier run de l'impasse, puis ouvre le hub. Les morceaux 1 à 10 se rejouent ensuite depuis le hub.
+
 ## À décider avec Jordan
 
-1. **Nouvelle partie** : tutoriel (chapitre 1, et peut-être 2) puis directement le hub ? Aujourd'hui « Nouvelle partie » joue encore l'histoire de bout en bout.
-2. Quelle partie du chapitre 2 reste dans le tutoriel ?
-3. Le morceau 7 rouvre le panneau des points de VIT : on garde, ou on le saute en rediffusion ?
-4. Faut-il un morceau plus court ou plus long à tel ou tel endroit (par exemple couper « L'équipe » en deux) ?
+1. Le morceau 7 rouvre le panneau des points de VIT : on garde, ou on le saute en rediffusion ?
+3. Faut-il un morceau plus court ou plus long à tel ou tel endroit (par exemple couper « L'équipe » en deux) ?
