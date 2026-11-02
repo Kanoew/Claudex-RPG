@@ -11,6 +11,8 @@ function storage() {
 }
 
 function saveCheckpoint(name) {
+  // Une scène rejouée depuis le hub ne touche jamais au point de passage de l'histoire.
+  if (typeof hubPlayback !== 'undefined' && hubPlayback.active) return false;
   const store = storage();
   if (!store) return false;
   try {

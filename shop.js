@@ -2,9 +2,9 @@
 
 // Boutique de Rémi (CAHIER-DES-CHARGES.md, étape 4b) : des effets permanents et des potions, payés en crédits, depuis le sac dans la rue.
 // Les crédits, la dette, les achats et le butin non vendu se gardent dans le navigateur entre deux visites. Prix et effets provisoires.
-// À brancher à l'étape 5 : la boutique ne s'ouvre qu'après la scène d'histoire de Rémi (pour l'instant `meta.remiMet` est vrai d'office).
+// La boutique ne s'ouvre qu'après la scène d'histoire de Rémi (`hubstory.js`, première scène du hub).
 const metaKey = 'yarden-meta';
-const meta = { credits: 0, debt: 0, vie: 0, mana: 0, esquive: 0, potions: 0, loot: [], remiMet: true };
+const meta = { credits: 0, debt: 0, vie: 0, mana: 0, esquive: 0, potions: 0, loot: [], remiMet: false, unlocked: 0, seen: [] };
 const shopItems = {
   vie: { name: 'Cœur d’acier', text: '+1 vie au départ de chaque run', max: 5, price: n => 150 + 50 * n },
   mana: { name: 'Souffle long', text: '+5 mana au départ de chaque run', max: 5, price: n => 150 + 50 * n },
@@ -28,6 +28,10 @@ function loadMeta() {
   try { if (typeof localStorage !== 'undefined') saved = JSON.parse(localStorage.getItem(metaKey) || 'null'); } catch (error) { saved = null; }
   if (!saved) return;
   for (const key of ['credits', 'debt', 'vie', 'mana', 'esquive', 'potions']) if (Number.isFinite(saved[key])) meta[key] = saved[key];
+  if (Number.isFinite(saved.unlocked)) meta.unlocked = saved.unlocked;
+  if (Array.isArray(saved.seen)) meta.seen = saved.seen.filter(id => typeof id === 'string');
+  // Un joueur qui a déjà acheté chez Rémi garde sa boutique.
+  meta.remiMet = saved.remiMet === true || meta.vie + meta.mana + meta.esquive + meta.potions > 0;
   credits = meta.credits; debt = meta.debt;
   for (let i = bag.length - 1; i >= 0; i--) if (bag[i].loot) bag.splice(i, 1);
   for (const item of Array.isArray(saved.loot) ? saved.loot : []) if (Number.isFinite(item.value)) bag.push({ name: item.name, display: `${item.value} ¢ à vendre`, value: item.value, loot: true });

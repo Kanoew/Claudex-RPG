@@ -99,6 +99,8 @@
     .bag-row b { color: var(--accent-soft); font-weight: 600; text-align: right; }
     .bag-empty { padding: 8px 0; color: var(--muted); }
     #bag-close { width: min(300px, 100%); min-height: 52px; border: 1px solid #8b78c9; border-radius: 16px; background: linear-gradient(#3b2f5f, #2a2144); color: var(--ink); font: bold 15px system-ui; }
+    #story-button { min-height: 0; padding: 3px 9px; border: 1px solid #e0c58f; border-radius: 999px; background: #3b2d63; color: #f4effc; font: 700 10px system-ui; letter-spacing: .04em; white-space: nowrap; }
+    #story-button[hidden] { display: none; }
     #map-button, #free-button { min-height: 0; padding: 3px 9px; border: 1px solid var(--edge); border-radius: 999px; background: #2b2146; color: var(--accent-soft); font: 700 10px system-ui; letter-spacing: .08em; cursor: pointer; }
     #free-button { min-height: 52px; padding: 12px 24px; border-radius: 16px; border-color: #8b78c9; background: linear-gradient(#5a3f9a, #3a2a6a); color: var(--ink); font: bold 15px system-ui; }
     #map-button[hidden], #free-button[hidden] { display: none; }
@@ -221,10 +223,11 @@
   <script src="levelup.js?v=50" defer></script>
   <script src="stats.js?v=59" defer></script>
   <script src="points.js?v=77" defer></script>
-  <script src="bag.js?v=85" defer></script>
+  <script src="bag.js?v=86" defer></script>
   <script src="shop.js?v=1" defer></script>
   <script src="loot.js?v=1" defer></script>
-  <script src="libre.js?v=85" defer></script>
+  <script src="hubstory.js?v=1" defer></script>
+  <script src="libre.js?v=86" defer></script>
   <script src="save.js?v=67" defer></script>
   <script src="audio.js?v=61" defer></script>
   <script src="opening.js?v=52" defer></script>
@@ -237,7 +240,7 @@
   <script src="render-antre.js?v=42" defer></script>
   <script src="lighting.js?v=75" defer></script>
   <script src="render.js?v=80" defer></script>
-  <script src="boons.js?v=85" defer></script>
+  <script src="boons.js?v=86" defer></script>
   <script src="combat-tour.js?v=82" defer></script>
   <script src="combat.js?v=83" defer></script>
   <script src="input.js?v=83" defer></script>
@@ -249,7 +252,7 @@
 <body>
   <main id="app">
     <header>
-      <div class="brand"><div class="hud-identity"><img src="assets/portraits/yarden-neutre.png?v=66" alt="" width="44" height="44"><div><h1>YARDEN</h1><span id="level-chip" hidden>NIV. 1</span></div></div><div class="hud-tools"><button id="map-button" type="button" hidden>Carte</button><button id="bag-button" type="button" hidden>Sac</button><button id="pause-button" type="button" aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg></button></div></div>
+      <div class="brand"><div class="hud-identity"><img src="assets/portraits/yarden-neutre.png?v=66" alt="" width="44" height="44"><div><h1>YARDEN</h1><span id="level-chip" hidden>NIV. 1</span></div></div><div class="hud-tools"><button id="story-button" type="button" hidden>Histoire</button><button id="map-button" type="button" hidden>Carte</button><button id="bag-button" type="button" hidden>Sac</button><button id="pause-button" type="button" aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg></button></div></div>
       <div class="location-strip"><span id="opponents">Chapitre 1</span><span id="credit-chip" hidden>0 ¢</span></div>
       <div class="resources">
         <div><div class="meter-label"><span>VIE</span><span id="hp-value">5 / 5</span></div><div class="meter" id="hp-meter" role="progressbar" aria-label="Points de vie de Yarden" aria-valuemin="0" aria-valuemax="5" aria-valuenow="5"></div></div>

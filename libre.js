@@ -108,6 +108,7 @@ function enterHub(id) {
   freeMode.from = id;
   freeMode.done = false;
   enterZone(id, 'start');
+  updateFreeHud();
   Object.assign(sceneActors, {});
   for (const key of Object.keys(sceneActors)) delete sceneActors[key];
 }
@@ -183,6 +184,7 @@ function updateFree(seconds = 0) {
       if (freeMode.room <= freeRun.rooms) { enterFailleRoom(freeMode.room + 1); return; }
       freeMode.clears++;
       freeMode.room = 1;
+      unlockStoryUnit();
       bankRunLoot();
       resetBoons();
       enterHub(freeMode.from);
@@ -325,6 +327,7 @@ function updateFreeHud() {
   if (button) button.hidden = !freeMode.active;
   const free = document.getElementById('free-button');
   if (free) free.hidden = !(stage === 'escaped' && combatOver && !freeMode.active);
+  updateStoryButton();
 }
 
 function resetFree() {
