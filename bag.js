@@ -8,7 +8,8 @@ function bagHtml() {
   const rows = bag.length
     ? bag.map(item => `<div class="bag-row"><span>${item.name}</span><b>${item.display || `niv. ${item.level}${item.note ? ' · ' + item.note : ''}`}</b></div>`).join('')
     : '<div class="bag-empty">Le sac est vide.</div>';
-  return `<div class="bag-credits"><span>CRÉDITS</span><strong>${credits}</strong></div>${debt ? `<div class="bag-row"><span>Dette envers Félix</span><b>${debt}</b></div>` : ''}${rows}`;
+  const sell = canSellLoot() ? `<button type="button" id="bag-sell" class="bag-sell">Vendre à Rémi · ${bagLootTotal()} ¢</button>` : '';
+  return `<div class="bag-credits"><span>CRÉDITS</span><strong>${credits}</strong></div>${debt ? `<div class="bag-row"><span>${freeMode.active ? 'Dette' : 'Dette envers Félix'}</span><b>${debt}</b></div>` : ''}${rows}${sell}`;
 }
 
 function openBag() {
@@ -46,5 +47,8 @@ function resetBag() {
   bagPanel.hidden = true;
 }
 
+document.getElementById('bag-body').addEventListener('click', event => {
+  if (event.target && event.target.id === 'bag-sell' && sellLoot()) document.getElementById('bag-body').innerHTML = bagHtml();
+});
 document.getElementById('bag-button').addEventListener('click', openBag);
 document.getElementById('bag-close').addEventListener('click', closeBag);

@@ -40,9 +40,9 @@ function game(imageMode, keepOpening, store) {
     localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'sheets.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'chapitre4.js', 'chapitre5.js', 'chapitre6.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'points.js', 'bag.js', 'libre.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-ch4.js', 'render-ch6.js', 'render-quartier.js', 'render-appart.js', 'lighting.js', 'render.js', 'combat.js', 'boons.js', 'combat-tour.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'sheets.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'chapitre4.js', 'chapitre5.js', 'chapitre6.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'points.js', 'bag.js', 'loot.js', 'libre.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-ch4.js', 'render-ch6.js', 'render-quartier.js', 'render-appart.js', 'lighting.js', 'render.js', 'combat.js', 'boons.js', 'combat-tour.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ runBoons, boonCatalog, resetBoons, boonOffers, boonDamage, boonRange, boon, player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, ch6, openPoints, addPoint, closePoints, pointsState, get playerLevel(){return playerLevel}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, enterFailleRoom, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, sceneLights, lightAt, drawLightShadows, drawSceneLighting, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ runLoot, lootRules, collectLoot, bankRunLoot, loseRunLoot, sellLoot, canSellLoot, runBoons, boonCatalog, resetBoons, boonOffers, boonDamage, boonRange, boon, player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, ch6, openPoints, addPoint, closePoints, pointsState, get playerLevel(){return playerLevel}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, enterFailleRoom, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, sceneLights, lightAt, drawLightShadows, drawSceneLighting, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -1434,6 +1434,34 @@ const tests = [
     assert.equal(g.player.maxHp, base.hp); assert.equal(g.player.maxMana, base.mana);
     assert.equal(g.skill.cost, base.cost); assert.equal(g.dodge.recovery, base.recovery);
     assert.equal(g.boonDamage(false), 0); assert.equal(g.boonRange(), 1);
+  }],
+  ['Butin et vente : le butin suit le run, le KO le perd et coûte une dette, la vente rembourse la dette d’abord', () => {
+    const g = game('loaded');
+    g.startFreeMode();
+    Object.assign(g.player, { x: g.freeSpots.quartier.x, y: g.freeSpots.quartier.y });
+    g.updateFree();
+    assert.equal(g.currentZone.id, 'faille');
+    const list = g.zoneEnemies.faille;
+    for (const enemy of list) enemy.hp = 0;
+    g.updateFree();
+    const expected = list.reduce((sum, enemy) => sum + (enemy.level || 5) * (enemy.chief ? 3 : 1), 0);
+    assert.equal(g.runLoot.value, expected, 'Un monstre rapporte son niveau, le chef trois fois plus');
+    // KO : butin perdu, petite dette.
+    const debtBefore = g.debt;
+    g.player.hp = 0;
+    g.freeReturn();
+    assert.equal(g.runLoot.value, 0);
+    assert.equal(g.debt, debtBefore + g.lootRules.koDebt, 'KO : petite dette');
+    // Run réussi : le butin entre dans le sac, la vente rembourse la dette puis paie.
+    g.runLoot.value = 60;
+    g.bankRunLoot();
+    assert.equal(g.bag.filter(item => item.loot).length, 1);
+    assert(g.canSellLoot(), 'On vend depuis la rue');
+    const creditsBefore = g.credits;
+    assert.equal(g.sellLoot(), 60);
+    assert.equal(g.debt, 0, 'La dette est remboursée en premier');
+    assert.equal(g.credits, creditsBefore + 60 - (debtBefore + g.lootRules.koDebt));
+    assert(!g.canSellLoot(), 'Plus rien à vendre');
   }],
   ['Carte : sélection, itinéraire à pied, position et sauvegarde préservées', () => {
     const g = game('loaded');

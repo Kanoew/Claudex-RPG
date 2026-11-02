@@ -78,7 +78,7 @@ function generateFaille(spot, room = 1) {
   if (chiefRoom) specs.push({ kind: freePick(['chef', 'golem']), x: 0, y: area.y + 110, level: level + 5, aggro: 340 });
   zones.faille = { id: 'faille', title: `ABYSSE · FAILLE ${spot.label.toUpperCase()} · ${chiefRoom ? 'CHEF' : `SALLE ${room}/${freeRun.rooms}`}`, theme, room: area, start, blocks, doors: [], enemies: specs, props: [],
     goal: () => freeMode.done ? (chiefRoom ? 'Faille refermée : rejoins le passage ↓' : 'Salle vaincue : rejoins le passage ↓') : chiefRoom ? `Vaincs le chef (${specs.length - failleRemaining()}/${specs.length})` : `Salle ${room}/${freeRun.rooms} : vaincs-les tous (${specs.length - failleRemaining()}/${specs.length})`,
-    label: () => `${chiefRoom ? 'Chef' : `Salle ${room}/${freeRun.rooms}`} · Niv. ${level}${chiefRoom ? ` à ${level + 5}` : ''} · ${specs.length - failleRemaining()}/${specs.length}` };
+    label: () => `${chiefRoom ? 'Chef' : `Salle ${room}/${freeRun.rooms}`} · Niv. ${level}${chiefRoom ? ` à ${level + 5}` : ''} · ${specs.length - failleRemaining()}/${specs.length}${runLoot.value ? ` · butin ${runLoot.value} ¢` : ''}` };
   zoneEnemies.faille = specs.map(makeEnemy);
   return zones.faille;
 }
@@ -87,6 +87,7 @@ function enterFaille(spotId) {
   freeMode.from = spotId;
   freeMode.room = 1;
   resetBoons();
+  resetRunLoot();
   enterFailleRoom(1);
   // Une seule fois par run : soignée à l'entrée. Entre les salles, vie et mana restent comme elles sont.
   Object.assign(player, { hp: player.maxHp, mana: player.maxMana });
@@ -155,6 +156,7 @@ function freeReturn() {
   resultDelay = 0;
   combatOver = false;
   freeMode.room = 1;
+  loseRunLoot(player.hp <= 0);
   resetBoons();
   Object.assign(player, { hp: player.maxHp, mana: player.maxMana, flash: 0 });
   attack.remaining = 0; dodge.remaining = 0;
@@ -167,6 +169,7 @@ function freeReturn() {
 function updateFree(seconds = 0) {
   if (!freeMode.active || combatOver) return;
   if (currentZone.id === 'faille') {
+    collectLoot();
     if (!freeMode.done && failleRemaining() === 0) {
       freeMode.done = true;
       freeMode.doneAge = 0;
@@ -179,6 +182,7 @@ function updateFree(seconds = 0) {
       if (freeMode.room <= freeRun.rooms) { enterFailleRoom(freeMode.room + 1); return; }
       freeMode.clears++;
       freeMode.room = 1;
+      bankRunLoot();
       resetBoons();
       enterHub(freeMode.from);
     }
