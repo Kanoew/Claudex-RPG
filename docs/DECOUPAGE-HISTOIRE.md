@@ -29,4 +29,4 @@
 ## À décider avec Jordan
 
 1. Le morceau 7 rouvre le panneau des points de VIT : on garde, ou on le saute en rediffusion ?
-3. Faut-il un morceau plus court ou plus long à tel ou tel endroit (par exemple couper « L'équipe » en deux) ?
+2. Faut-il un morceau plus court ou plus long à tel ou tel endroit (par exemple couper « L'équipe » en deux) ?
