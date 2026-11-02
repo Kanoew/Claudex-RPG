@@ -2,6 +2,12 @@
 
 Les paramètres proposent des commandes automatiques, tactiles ou clavier/souris, ainsi qu'une taille de dialogue de 16 à 24 px. Ces préférences restent dans ce navigateur, sans modifier la sauvegarde de l'histoire.
 
+## Proposition du 2 novembre 2026
+
+L'écran titre reprend le nouveau fond orthographique de la ruelle ; sa vignette se place avant les commandes, avec une disposition en deux colonnes sur téléphone en paysage. Le sac, la carte et les statistiques conservent leur présentation.
+
+L'essai de combat des gardes est une fenêtre intégrée à l'application : Pause passe au-dessus, le focus reste dans la fenêtre active, Échap ouvre Pause, et les commandes de l'exploration sont inertes. Paysage court : terrain à gauche, cible et actions à droite. Portrait : intentions sous le terrain, trois actions différenciées, coût et indisponibilité indiqués. La cible possède aussi un repère doré au sol. Les règles proposées et le parcours de test sont dans `COMBAT-TOUR-PAR-TOUR.md`.
+
 En automatique, le type de pointeur initial sélectionne la disposition. Un toucher active les commandes tactiles ; une touche de déplacement active la disposition clavier hors des fenêtres. Le choix manuel convient aux appareils hybrides.
 
 Les dialogues occupent une zone séparée du terrain : au-dessus de la ruelle pour préserver les animations, sous le terrain dans les autres scènes. La prise du poignet et le recul gardent un cadrage centré sur Yarden et l'inconnu. Les fenêtres de sac, statistiques, carte et paramètres utilisent toute la surface de l'application ; leur contenu défile, leur fermeture reste accessible. Échap ferme la fenêtre active ou ouvre Pause pendant un dialogue.

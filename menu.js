@@ -25,6 +25,7 @@ function titleBackdrop() {
 // Les deux vues du menu : le menu principal et les paramètres (musique, effets).
 function showMenuView(view) {
   menu.view = view;
+  menuPanel.classList.toggle('title-view', menu.kind === 'title' && view === 'main');
   document.getElementById('menu-main').hidden = view !== 'main';
   document.getElementById('menu-settings-view').hidden = view !== 'settings';
   document.getElementById('menu-vignette').hidden = !(menu.kind === 'title' && view === 'main');

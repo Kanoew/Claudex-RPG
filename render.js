@@ -17,7 +17,7 @@ function loadRoomArt() {
   const alley = new Image();
   alley.onload = () => { roomArt.alleyPainted = alley; };
   alley.onerror = () => { roomArt.alleyPainted = null; };
-  alley.src = 'assets/decors/ruelle.jpg?v=1';
+  alley.src = 'assets/decors/ruelle.jpg?v=2';
   for (const kind of ['benne', 'caisses', 'poubelles', 'scooter']) {
     const object = new Image();
     object.onload = () => { alleyObjectArt[kind] = object; };
@@ -105,8 +105,10 @@ function drawAlleyObject(kind, x, y, w, h) {
 }
 
 // Décor sans collision de la ruelle : fissures, papiers, flaques, mégots et pools de lumière des lampadaires.
-function drawProps(offsetX, offsetY) {
+function drawProps(offsetX, offsetY, painted = false) {
   for (const prop of currentZone.props || []) {
+    // Le sol peint contient les petits débris, mais les repères de scène restent en code.
+    if (painted && !['residence', 'lampe', 'lampe-eteinte', 'grille'].includes(prop.kind)) continue;
     const x = prop.x + offsetX, y = prop.y + offsetY;
     if (prop.kind === 'residence') {
       // La résidence de la fête : une porte allumée au bout de la ruelle, dont la lumière chaude se répand vers le sud.
@@ -191,7 +193,7 @@ function drawFacades(offsetX, offsetY) {
     ctx.rect(x, top, depth, tall);
     ctx.clip();
     ctx.translate(x, top);
-    ctx.fillStyle = roomArt.brick || '#4b2824';
+    ctx.fillStyle = roomArt.alleyPainted ? '#20232c' : roomArt.brick || '#4b2824';
     ctx.fillRect(0, 0, depth, tall);
     for (let row = 0; row * 96 < tall; row++) {
       for (let col = 0; col < 3; col++) {
@@ -218,7 +220,7 @@ function drawRoom(offsetX, offsetY) {
   const indoor = currentZone.theme === 'appart';
   const street = currentZone.theme === 'quartier';
   const floorArt = crystal ? null : outdoors ? roomArt.asphalt : roomArt.floor;
-  const wallArt = crystal ? null : outdoors ? roomArt.brick : roomArt.wall;
+  const wallArt = crystal ? null : outdoors ? (roomArt.alleyPainted ? '#292d37' : roomArt.brick) : roomArt.wall;
   if (outdoors) drawFacades(offsetX, offsetY);
   ctx.save();
   ctx.beginPath();
@@ -262,7 +264,7 @@ function drawRoom(offsetX, offsetY) {
       }
     }
   }
-  if (outdoors && !painted) drawProps(offsetX, offsetY);
+  if (outdoors) drawProps(offsetX, offsetY, !!painted);
   if (crystal) drawAntreCables(offsetX, offsetY);
   ctx.restore();
   walls.forEach((wall, index) => {
@@ -282,7 +284,7 @@ function drawRoom(offsetX, offsetY) {
     ctx.translate(x, y);
     ctx.fillStyle = wallArt || (outdoors ? '#4b2824' : '#4c5762');
     ctx.fillRect(0, 0, wall.width, wall.height);
-    ctx.strokeStyle = outdoors ? '#7a463e' : '#8c969b';
+    ctx.strokeStyle = outdoors ? (painted ? '#414652' : '#7a463e') : '#8c969b';
     ctx.lineWidth = 2;
     ctx.strokeRect(2, 2, wall.width - 4, wall.height - 4);
     ctx.fillStyle = '#1a2533';
