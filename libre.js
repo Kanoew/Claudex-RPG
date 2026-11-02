@@ -86,6 +86,7 @@ function generateFaille(spot, room = 1) {
 function enterFaille(spotId) {
   freeMode.from = spotId;
   freeMode.room = 1;
+  resetBoons();
   enterFailleRoom(1);
   // Une seule fois par run : soignée à l'entrée. Entre les salles, vie et mana restent comme elles sont.
   Object.assign(player, { hp: player.maxHp, mana: player.maxMana });
@@ -154,6 +155,7 @@ function freeReturn() {
   resultDelay = 0;
   combatOver = false;
   freeMode.room = 1;
+  resetBoons();
   Object.assign(player, { hp: player.maxHp, mana: player.maxMana, flash: 0 });
   attack.remaining = 0; dodge.remaining = 0;
   enterHub(freeMode.from);
@@ -168,7 +170,8 @@ function updateFree(seconds = 0) {
     if (!freeMode.done && failleRemaining() === 0) {
       freeMode.done = true;
       freeMode.doneAge = 0;
-      lootToast(freeMode.room > freeRun.rooms ? 'Faille refermée' : `Salle ${freeMode.room}/${freeRun.rooms} vaincue`);
+      if (freeMode.room > freeRun.rooms) lootToast('Faille refermée');
+      else openBoon();
     }
     if (freeMode.done) freeMode.doneAge += seconds;
     // Le passage ne s'ouvre qu'une seconde après la dernière victoire, pour ne pas repartir par erreur depuis l'entrée.
@@ -176,6 +179,7 @@ function updateFree(seconds = 0) {
       if (freeMode.room <= freeRun.rooms) { enterFailleRoom(freeMode.room + 1); return; }
       freeMode.clears++;
       freeMode.room = 1;
+      resetBoons();
       enterHub(freeMode.from);
     }
   } else if (freeSpots[currentZone.id]) {

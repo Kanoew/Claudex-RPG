@@ -7,10 +7,10 @@ function scytheSealed() { return encounter.complete && !scytheFreed; }
 
 function startAttack(empowered = false) {
   const cost = empowered ? skill.cost : 0;
-  if (battle.active || !player.armed || scytheSealed() || paused || combatOver || encounterBlocksMovement() || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
+  if (battle.active || boon.open || !player.armed || scytheSealed() || paused || combatOver || encounterBlocksMovement() || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0 || document.hidden || player.mana < cost || (empowered && skill.cooldown > 0)) return;
   player.mana -= cost;
   if (empowered) skill.cooldown = skill.recovery;
-  Object.assign(attack, { empowered, damage: empowered ? 2 : 1, duration: empowered ? .3 : .22, recovery: empowered ? .8 : .5, range: empowered ? 110 : 72 });
+  Object.assign(attack, { empowered, damage: (empowered ? 2 : 1) + boonDamage(empowered), duration: empowered ? .3 : .22, recovery: empowered ? .8 : .5, range: (empowered ? 110 : 72) * boonRange() });
   attack.angle = Math.atan2(facing.y, facing.x);
   attack.remaining = attack.duration;
   attack.cooldown = attack.recovery;
@@ -21,7 +21,7 @@ function startAttack(empowered = false) {
 }
 
 function updateAttackButton() {
-  const blocked = battle.active || paused || combatOver || encounterBlocksMovement();
+  const blocked = battle.active || boon.open || paused || combatOver || encounterBlocksMovement();
   const recovering = blocked || !player.armed || scytheSealed() || bossDelay > 0 || dodge.remaining > 0 || attack.cooldown > 0;
   attackButton.classList.toggle('recovering', recovering);
   attackButton.setAttribute('aria-disabled', String(recovering));
@@ -39,7 +39,7 @@ function updateAttackButton() {
 }
 
 function startDodge() {
-  if (battle.active || paused || combatOver || encounterBlocksMovement() || bossDelay > 0 || document.hidden || dodge.cooldown > 0) return;
+  if (battle.active || boon.open || paused || combatOver || encounterBlocksMovement() || bossDelay > 0 || document.hidden || dodge.cooldown > 0) return;
   let x = input.pointerId === null ? Number(keys.has('d') || keys.has('arrowright')) - Number(keys.has('q') || keys.has('a') || keys.has('arrowleft')) : input.x;
   let y = input.pointerId === null ? Number(keys.has('s') || keys.has('arrowdown')) - Number(keys.has('z') || keys.has('w') || keys.has('arrowup')) : input.y;
   const length = Math.hypot(x, y);
