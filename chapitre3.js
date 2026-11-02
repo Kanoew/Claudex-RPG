@@ -72,6 +72,6 @@ function quatrebScript() {
     { moves: [moveOf('ishara', [[60, 150]], 110)] },
     { say: ['Ishara descend vers le quai en parlant de pâtes. Yarden range le fil avec les autres, et prend le métro.', 'Niveau 24. Yarden Weiss.'] },
     { run: () => { unlockFree(); } },
-    ...chapter4Script()
+    ...(storyChain ? chapter4Script() : [])
   ];
 }

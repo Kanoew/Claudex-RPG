@@ -8,7 +8,8 @@ function bagHtml() {
   const rows = bag.length
     ? bag.map(item => `<div class="bag-row"><span>${item.name}</span><b>${item.display || `niv. ${item.level}${item.note ? ' · ' + item.note : ''}`}</b></div>`).join('')
     : '<div class="bag-empty">Le sac est vide.</div>';
-  return `<div class="bag-credits"><span>CRÉDITS</span><strong>${credits}</strong></div>${debt ? `<div class="bag-row"><span>Dette envers Félix</span><b>${debt}</b></div>` : ''}${rows}`;
+  const sell = canSellLoot() ? `<button type="button" id="bag-sell" class="bag-sell">Vendre à Rémi · ${bagLootTotal()} ¢</button>` : '';
+  return `<div class="bag-credits"><span>CRÉDITS</span><strong>${credits}</strong></div>${debt ? `<div class="bag-row"><span>${freeMode.active ? 'Dette' : 'Dette envers Félix'}</span><b>${debt}</b></div>` : ''}${rows}${sell}${shopHtml()}`;
 }
 
 function openBag() {
@@ -46,5 +47,12 @@ function resetBag() {
   bagPanel.hidden = true;
 }
 
+document.getElementById('bag-body').addEventListener('click', event => {
+  const target = event.target, body = document.getElementById('bag-body');
+  if (!target) return;
+  if (target.id === 'bag-sell' && sellLoot()) body.innerHTML = bagHtml();
+  else if (target.dataset && target.dataset.buy && buyShopItem(target.dataset.buy)) body.innerHTML = bagHtml();
+  else if (target.dataset && target.dataset.potion && drinkPotion()) body.innerHTML = bagHtml();
+});
 document.getElementById('bag-button').addEventListener('click', openBag);
 document.getElementById('bag-close').addEventListener('click', closeBag);

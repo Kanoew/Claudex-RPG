@@ -4,13 +4,15 @@
 // Trois points : l'entrée dans l'Abysse, la sortie du Troll vers l'antre, l'arrivée dans la ruelle après l'araignée.
 // Si le navigateur refuse le stockage (navigation privée), le jeu continue sans sauvegarde.
 const saveKey = 'yarden-sauvegarde-1';
-const checkpointNames = { abysse: 'Entrée dans l’Abysse', antre: 'Devant l’antre', rue: 'Ruelle d’Helvara', appart: 'Chez Ishara', nuit: 'Chez Ishara, le soir', matin: 'Chez Ishara, le matin', impasse: 'Jour 2, l’impasse', marterey: 'Rue Marterey', sousgare: 'Quartier Sous-gare', quatreb: 'Le 4B', pates: 'Chapitre 4, les pâtes', chasse: 'Chapitre 4, le square', celeste: 'Chapitre 4, 14 h', jour4: 'Chapitre 5, jour 4', costumes: 'Chapitre 6, la porte cochère', seizieme: 'Chapitre 6, le seizième étage' };
+const checkpointNames = { abysse: 'Entrée dans l’Abysse', antre: 'Devant l’antre', rue: 'Ruelle d’Helvara', appart: 'Chez Ishara', nuit: 'Chez Ishara, le soir', matin: 'Chez Ishara, le matin', impasse: 'Jour 2, l’impasse', marterey: 'Rue Marterey', sousgare: 'Quartier Sous-gare', quatreb: 'Le 4B', pates: 'Chapitre 4, les pâtes', chasse: 'Chapitre 4, le square', celeste: 'Chapitre 4, 14 h', jour4: 'Chapitre 5, jour 4', costumes: 'Chapitre 6, la porte cochère', seizieme: 'Chapitre 6, le seizième étage', hub: 'Le hub' };
 
 function storage() {
   try { return typeof localStorage !== 'undefined' ? localStorage : null; } catch (error) { return null; }
 }
 
 function saveCheckpoint(name) {
+  // Une scène rejouée depuis le hub ne touche jamais au point de passage de l'histoire.
+  if (typeof hubPlayback !== 'undefined' && hubPlayback.active) return false;
   const store = storage();
   if (!store) return false;
   try {
@@ -58,6 +60,7 @@ function applyCheckpoint(name) {
   player.mana = player.maxMana;
   enterZone('exterieur', 'south');
   if (name === 'rue') return;
+  if (name === 'hub') { startFreeMode(); return; }
   scene.done = true;
   scytheFreed = !['rue', 'appart', 'nuit'].includes(name);
   yardenOutfit = name === 'nuit' ? 'tshirt-short' : '';

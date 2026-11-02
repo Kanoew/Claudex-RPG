@@ -75,7 +75,7 @@ function costumesScene() {
     { say: ['Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.', 'Plus de veste technique, plus de chaussures de marche.'] },
     { say: ['Ils ne font rien. Mains dans les poches, pas de téléphone, pas de gobelet. Le chef n’ouvre pas le carnet.', 'Il incline légèrement la tête : une confirmation, pas un salut.', 'Ils étaient là avant elle.'] },
     { run: () => { saveCheckpoint('costumes'); } },
-    ...chapter6Script()
+    ...(storyChain ? chapter6Script() : [])
   ];
 }
 
