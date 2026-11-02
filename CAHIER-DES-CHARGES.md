@@ -42,7 +42,13 @@ La V1 du prototype devait seulement montrer ce que Jordan pouvait faire avec du 
 - **Butin** : ramassé pendant le run, mis dans le sac, **vendu au hub**. Choix de vente tiré du canon : Rémi (au noir) ou le comptoir Est (légal, environ ×2 mais avec provenance).
 - **Dette** : objectif de run visible (la dette de Félix ou les 320 du chapitre 10 selon la scène choisie ; à décider).
 - **Niveau et points de stats** : 2 points par niveau (règle canon). Ce point demande une décision sur l'XP (section 8, question 2).
-- Aucune amélioration permanente tant que la boucle de base n'est pas validée sur téléphone.
+- **Décisions de Jordan du 2 novembre 2026 (après validation des étapes 2 à 4)** :
+  - La règle « aucune amélioration permanente » est **levée**. Rémi tient une boutique au hub : buffs permanents et potions, payés en crédits, ouverte quand sa scène d'histoire a été découverte.
+  - **L'histoire avance d'un morceau par run** : les scènes déjà dans le jeu (chapitres 1 à 6) sont découpées et débloquées dans l'ordre. Aucune scène nouvelle à écrire ; le découpage est à valider par Jordan.
+  - **Plusieurs hubs** à terme, avec des personnages du lore (Izzy, Céleste, Ishara). Pas dans la première version.
+  - **Étages** : l'Abysse se parcourt en étages (182 dans l'idée de Jordan). La V1 en livre un petit nombre ; la structure doit pouvoir en accueillir 182.
+  - **Équipement** : objets à raretés de couleur classique (gris, vert, bleu, violet, orange), avec un bonus de statistique. Pour l'instant seulement la couleur, pas de dessin (à générer plus tard).
+  - **Structure du jeu** : les chapitres 1 à 6 ne sont plus un parcours linéaire séparé. Le chapitre 1 sert de tutoriel, les autres alimentent le hub (voir section 4).
 
 ## 4. Hub et histoire
 
