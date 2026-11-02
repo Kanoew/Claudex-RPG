@@ -1,5 +1,54 @@
 /* Dispositions PC et tactiles ; les dialogues occupent une zone hors du terrain. */
 :root { --reading-size: 18px; --ux-panel: #1c162bf7; }
+
+/* Rencontre de référence : commandes dans la fenêtre, paysage en deux colonnes. */
+#battle { position: absolute; inset: 0; z-index: 12; padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); display: grid; grid-template-rows: auto auto minmax(90px, 1fr) auto; gap: 12px; align-content: center; overflow-y: auto; overscroll-behavior: contain; background: radial-gradient(ellipse at 50% 30%, #282139, #100e18 80%); border-radius: 16px; font: 16px/1.4 system-ui; }
+#battle > * { width: min(720px, 100%); margin-inline: auto; min-width: 0; }
+.battle-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.battle-heading h2 { margin: 4px 0 0; color: #f2e7ff; font: 600 26px Georgia, serif; }
+.battle-heading small, .battle-caption { color: #b7a6ce; letter-spacing: .1em; font-size: 11px; }
+#battle button { min-height: 48px; border: 1px solid #75618b; border-radius: 12px; background: #2b2239; color: #f5edff; font: inherit; cursor: pointer; touch-action: manipulation; }
+#battle-pause { padding: 8px 18px; }
+#battle-top { display: flex; gap: 10px; }
+#battle-top span { flex: 1; display: flex; justify-content: space-between; gap: 8px; padding: 10px 12px; background: #15121f; border-bottom: 2px solid #a58bbf; border-radius: 8px; font-size: 12px; }
+#battle-top span:first-child { border-color: #e797c2; }
+#battle-top span:nth-child(2) { border-color: #9da7ff; }
+#battle-top b { font-size: 15px; color: #fff; }
+.battle-stage { min-height: 0; display: flex; align-items: center; justify-content: center; border: 1px solid #695479; border-radius: 16px; background: #141922; overflow: hidden; }
+#battle-canvas { width: 100%; height: 100%; max-height: 360px; object-fit: contain; }
+.battle-caption { margin: 0 0 6px; }
+#battle-targets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+#battle-targets button { display: grid; grid-template-columns: 1fr auto; align-content: center; gap: 3px 6px; padding: 10px 12px; text-align: left; min-width: 0; }
+#battle-targets small { grid-column: 1 / -1; font-size: 12px; color: #c8bed6; }
+.foe-life { font-size: 12px; align-self: center; }
+#battle-targets button[data-threat="yes"] small { color: #ffc497; }
+#battle-targets button[aria-pressed="true"] { border-color: #ffe3a8; box-shadow: inset 3px 0 #ffe3a8; background: #3c2d4e; }
+#battle-message { min-height: 2.8em; margin: 10px 0; color: #eee4fa; font-size: 14px; }
+#battle-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+#battle-actions button { padding: 10px 5px; min-height: 72px; font-weight: 700; }
+#battle-actions small { display: block; margin-top: 4px; font: 11px/1.4 system-ui; }
+#battle #battle-faux { background: #dcc7f4; color: #24162f; border-color: #efddff; }
+#battle #battle-fauchage { background: #24354a; border-color: #92b3d9; }
+#battle #battle-dodge { background: #233b34; border-color: #92bca7; }
+#battle button:disabled, #battle #battle-actions button:disabled { opacity: .48; cursor: default; }
+#battle-hint { min-height: 2.8em; margin: 8px 0 0; font-size: 12px; color: #c3b3d5; }
+@media (orientation: landscape) and (max-height: 550px) {
+  #battle { grid-template-columns: minmax(0, 1.15fr) minmax(300px, 1fr); grid-template-rows: auto auto minmax(0, 1fr); gap: 8px 16px; }
+  #battle .battle-heading { grid-column: 1 / -1; }
+  #battle-top { grid-column: 1; }
+  #battle .battle-stage { grid-column: 1; grid-row: 3; }
+  #battle .battle-decision { grid-column: 2; grid-row: 2 / 4; align-self: center; }
+  #battle-message { margin: 8px 0; min-height: 2.8em; }
+  #battle-actions button { min-height: 64px; }
+  #battle-hint { min-height: 0; }
+}
+@media (max-width: 380px) {
+  #battle { gap: 8px; padding: 10px; }
+  #battle-top span { padding: 8px; }
+  #battle-targets button { padding: 8px; }
+  #battle-actions small { font-size: 10px; }
+}
+
 button, select, input { -webkit-tap-highlight-color: transparent; }
 [hidden] { display: none !important; }
 button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid #ffe4a1; outline-offset: 3px; }
@@ -191,7 +240,7 @@ h1 { font-size: 13px; letter-spacing: .12em; }
 /* Paysage sur téléphone : le dialogue passe à droite du terrain, pour que la scène garde toute sa hauteur. */
 @media (orientation: landscape) and (max-height: 550px) {
   #app[data-context="dialogue"] #view, #app[data-context="cinematic"] #view { margin-left: 0; margin-right: calc(42% + 8px); }
-  #app > #story-panel:not([hidden]) { position: absolute; top: 62px; right: max(8px, env(safe-area-inset-right)); bottom: 8px; width: 42%; max-height: none; height: auto; margin: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; align-content: stretch; align-items: stretch; }
+  #app > #story-panel:not([hidden]) { position: absolute; top: 62px; left: auto; right: max(8px, env(safe-area-inset-right)); bottom: 8px; width: 42%; max-height: none; height: auto; margin: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; align-content: stretch; align-items: stretch; }
   .story-actions { flex-direction: row-reverse; justify-content: flex-start; }
   #story-next { flex: 1; }
 }

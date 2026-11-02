@@ -36,6 +36,7 @@ function finishCombat(message, delay = 0) {
 
 // Base propre pour recommencer ou reconstruire un point de passage.
 function resetDungeonRun() {
+  resetBattle();
   resetInput();
   resetEncounter();
   resetScene();
