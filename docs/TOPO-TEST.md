@@ -1,6 +1,6 @@
 # Topo de test : ce qu'il faut regarder dans le jeu
 
-Mis à jour le 1er novembre 2026. À lire avec `docs/TEXTES.md` (tous les textes) et `PROJECT.md` (canon et décisions).
+Mis à jour le 1er novembre 2026 (à jour jusqu'au chapitre 6 ; l'entrée « chapitres 6 à 9 » en bas ne concerne plus que les chapitres 7 à 9). À lire avec `docs/TEXTES.md` (tous les textes) et `PROJECT.md` (canon et décisions).
 Les cases à cocher sont là pour que tu notes ce qui va, ce qui accroche, ce qui manque. Écris à côté ce que tu vois.
 
 ## 0. Avant de commencer
@@ -111,6 +111,6 @@ Les cases à cocher sont là pour que tu notes ce qui va, ce qui accroche, ce qu
 - Les sprites de Yarden en serviette et en t-shirt n'ont que le repos et la marche, pas d'attaque.
 - Ishara en tenue de soirée existe encore dans le métro de la rue si on reprend un ancien point de passage.
 
-## 11. Ce qui vient (chapitres 6 à 9, lus mais pas encore dans le jeu)
+## 11. Ce qui vient (chapitres 7 à 9, lus mais pas encore dans le jeu)
 
 Voir `PROJECT.md`, sections 37 et 39. En résumé : le chapitre 6 est maintenant dans le jeu ; le chapitre 8 demande un combat à mains nues et une salle noyée ; les chapitres 7 et 9 demandent la maison marchande, le comptoir Est et une scène du point de vue de Céleste.

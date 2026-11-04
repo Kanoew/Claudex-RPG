@@ -1,5 +1,7 @@
 # Yarden — ressources pour l’étape 13
 
+> **4 novembre 2026 :** les poses de démonstration (`waving`, `jumping`, `failed`, `waiting`, `running`, `review`, `look-9`, `look-10`), l'aperçu animé (`index.html`, `preview.js`) et les GIF/vidéo (`previews/`) ont été retirés de `main` et sont conservés dans la branche `archive/anciens-packs`. Les liens correspondants ne fonctionnent plus sur `main`.
+
 Ce dossier prépare le remplacement du disque provisoire de Yarden. Les fichiers du jeu ne chargent pas encore ces images : l’intégration et le test Android restent à faire dans la prochaine session. Aucun changement de combat, collision, contrôle ou caméra n’est inclus.
 
 ## Où commencer

@@ -1,5 +1,7 @@
 # Rencontre dans la ruelle — proposition de design
 
+> **4 novembre 2026 :** les anciens éléments cités plus bas (`proposition-npc.png`, `ishara.html`, `hommes/`, `assets/npcs/ishara/soiree/`) ont été retirés de `main` et sont conservés dans la branche `archive/anciens-packs`. Les liens correspondants ne fonctionnent plus sur `main`.
+
 > **Mise à jour du 29 octobre 2026 :** Ishara est maintenant en chibi (`assets/npcs/ishara/chibi/`), comme Yarden, et les deux hommes sont dans `assets/npcs/hommes/`. Le pack semi-réaliste décrit plus bas (`assets/npcs/ishara/soiree/`) est remplacé : il est gardé jusqu'à validation et ne doit plus servir.
 
 Voir la section 11 de `PROJECT.md` pour les précisions de Jordan et les limites entre canon, choix visuels et révélations ultérieures.
