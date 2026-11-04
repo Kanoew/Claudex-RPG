@@ -1,7 +1,7 @@
 'use strict';
 
 // Sauvegarde par points de passage, dans le navigateur (localStorage) : aucun compte, rien n'est envoyé.
-// Trois points : l'entrée dans l'Abysse, la sortie du Troll vers l'antre, l'arrivée dans la ruelle après l'araignée.
+// Seize points de passage (voir `checkpointNames`) : de l'entrée dans l'Abysse jusqu'au seizième étage du chapitre 6.
 // Si le navigateur refuse le stockage (navigation privée), le jeu continue sans sauvegarde.
 const saveKey = 'yarden-sauvegarde-1';
 const checkpointNames = { abysse: 'Entrée dans l’Abysse', antre: 'Devant l’antre', rue: 'Ruelle d’Helvara', appart: 'Chez Ishara', nuit: 'Chez Ishara, le soir', matin: 'Chez Ishara, le matin', impasse: 'Jour 2, l’impasse', marterey: 'Rue Marterey', sousgare: 'Quartier Sous-gare', quatreb: 'Le 4B', pates: 'Chapitre 4, les pâtes', chasse: 'Chapitre 4, le square', celeste: 'Chapitre 4, 14 h', jour4: 'Chapitre 5, jour 4', costumes: 'Chapitre 6, la porte cochère', seizieme: 'Chapitre 6, le seizième étage' };

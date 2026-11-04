@@ -1,6 +1,8 @@
 # Yarden — L’Abysse
 
-Prototype du chapitre 1 : un petit donjon en vue du dessus, jouable sur téléphone.
+« Le Sang de Tiamat » : RPG narratif en vue du dessus, jouable sur téléphone. Chapitres 1 à 6 jouables, puis un mode libre (failles au hasard). Sauvegarde par points de passage dans le navigateur, combat en temps réel. Les chapitres 7 à 9 ne sont pas encore dans le jeu.
+
+> Pour contribuer (humains et IA) : lire `PROJECT.md` (règles, canon, état actuel). L'historique des étapes est dans `docs/JOURNAL.md`.
 
 [Ouvrir le jeu](https://kanoew.github.io/Claudex-RPG/)
 

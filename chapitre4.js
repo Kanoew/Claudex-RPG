@@ -66,7 +66,7 @@ function ruptureScene() {
     { moves: [moveOf('jogger', [[330, 40]], 170)] },
     { moves: [moveOf('creature', [[-60, 150]], 170)] },
     { run: () => { player.hp = Math.max(2, player.maxHp - 3); sceneActors.creature.pose = 'strike'; updateStatus(); } },
-    { say: ['Elle se retourne vers Yarden et la blesse à l’épaule. La veste est déchirée : trois entailles parallèles.', 'Tiamat (voix intérieure) : « Elle est plus rapide que l’araignée. Et toi, tu es plus lent qu’hier. »'] },
+    { say: ['Elle se retourne vers Yarden et la blesse à l’épaule. La veste est déchirée : trois entailles parallèles.', 'Tiamat (voix intérieure) : « Elle est plus rapide que l’araignée. Et toi, plus lente qu’hier. »'] },
     { run: () => {
       const c = squareCreature(), actor = sceneActors.creature;
       resetEnemy(c); c.x = actor.x; c.y = actor.y;
@@ -126,7 +126,7 @@ function araigneeScene() {
   return [
     { card: 'Le soir', seconds: 2 },
     { run: () => { enterHomeCh4(); Object.assign(player, { x: 0, y: -60 }); sceneActor('ishara', 'ishara', 50, -60, { face: -1 }); } },
-    { say: ['Yarden : « L’araignée de niveau quarante et un. Hier soir, dans le métro. Tu l’as mentionnée. Je t’en ai jamais parlé. »', 'Yarden : « L’araignée de cristal. Niveau quarante et un. Sept pour cent de mana. Tu me l’as dit dans l’escalier du M2. Mot pour mot. Je ne t’ai jamais raconté cette histoire. »'] },
+    { say: ['Yarden : « Hier, en sortant du 4B. L’araignée de cristal, niveau quarante et un. Je ne t’en ai jamais parlé. »'] },
     { say: ['Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.', 'Ishara : « Non… Tu m’en as parlé. »', 'Tiamat (voix intérieure) : « Regarde-la. Elle ne ment pas. »'] },
     { say: ['Ishara[inquiete] : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »'] },
     { say: ['La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.'] },

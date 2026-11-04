@@ -1,8 +1,8 @@
 'use strict';
 
 // Scène du chapitre 2 (la rue) : Yarden sort de la faille, Ishara court, deux hommes la suivent.
-// Elle suit le canon fourni par Jordan : on n'ajoute aucune réplique. Les moments sans texte dans le canon
-// (Ishara se présente, le lit en trop) sont racontés par une ligne de narration, pas par une réplique.
+// Elle suit le canon fourni par Jordan. Des répliques ont été ajoutées ensuite avec l'accord de Jordan (voir `docs/JOURNAL.md`, lignes 16o à 16r) ;
+// les moments sans texte dans le canon sont racontés par une ligne de narration.
 // La scène se joue dans la moitié sud de la ruelle (côté faille, à l'opposé de la fête) : lampadaire éteint,
 // façade sans fenêtre à gauche, grille fermée à droite. Aucune faux, aucun mana, aucune autre violence que le poignet.
 // `free` : une étape « until » rend la main à Yarden jusqu'à ce que sa condition soit vraie.

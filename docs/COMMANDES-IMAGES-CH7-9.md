@@ -1,5 +1,7 @@
 # Commandes d'images pour les chapitres 7 à 9 (à donner à GPT)
 
+> **Statut (4 novembre 2026) : tous les packs commandés ici ont été reçus et convertis** (`docs/art/ch7-9/`, `assets/npcs/ch7-9/`, `assets/objets/`, portraits). Ils ne sont pas encore branchés dans le jeu. Ce document est gardé pour savoir ce qui a été demandé.
+
 Format commun à TOUTES les images, comme les packs déjà livrés :
 - Style : semi-réaliste manhwa en chibi, contours sombres, aplats simples, même rendu que Yarden, Ishara, Izzy et Céleste. Têtes agrandies, corps raccourcis, proportions identiques à Ishara en tenue de course.
 - Personnage debout : environ 100 px de haut. Cases de 211 x 148 pixels, ancrage des pieds en (105,132). Fond vert pur #00FF00 opaque, sans sol, sans ombre, sans texte, sans décor.

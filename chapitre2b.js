@@ -3,8 +3,8 @@
 // Chapitre 2, le lendemain matin : l'impasse, le premier run en Abysse (sept gobelins de niveau 15 à 19), le comptoir de Rémi (280 crédits),
 // le métro, le 4B et son escalier. Canon : PROJECT.md, sections 27 à 29. Les répliques sont des propositions courtes à relire dans
 // docs/TEXTES.md ; seules celles qui viennent du canon sont exactes (« Le type qui coupe. », « Je vous attendais. »...).
-// Entorses assumées : gobelins pour les « créatures », crédits au lieu de francs, Yarden au lieu de Jordan, Ishara garde sa tenue de soirée
-// (la tenue de combat d'Ishara n'est pas encore dessinée), pas de collier ni de ear cuff.
+// Entorses assumées : gobelins pour les « créatures », crédits au lieu de francs, Yarden au lieu de Jordan, Ishara porte sa tenue de course dès le jour 2
+// (dessinée), pas de collier ni de ear cuff.
 const chapter2b = { runDone: false };
 const impasseRift = { x: 41, y: -150 };
 const runTotal = () => zoneEnemies.run.length;
@@ -152,7 +152,7 @@ function impasseScript() {
 // Après le dernier gobelin : le butin, les deux heures dehors, puis la suite du chapitre.
 function runEndScript() {
   return [
-    { say: ['Les sept créatures ont laissé tomber du loot. Ishara récolte les matériaux.', 'Plusieurs loots, niveau 19 max, propre.', 'Aucune expérience gagnée.'] },
+    { say: ['Ishara ramasse quatre fragments et deux bourses. Le dernier gobelin n’a rien laissé.', 'Aucune expérience gagnée.'] },
     { card: 'Quarante minutes dedans, deux heures dehors.', seconds: 2.6 },
     { run: () => { enterImpasse(false); sceneActors.ishara.x = 20; sceneActors.ishara.y = -90; Object.assign(player, { x: 40, y: -120 }); ch2b.goalText = 'Suis Ishara ↓'; } },
     { moves: [moveOf('ishara', [[-60, 40], [-110, 150]], 85)] },

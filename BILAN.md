@@ -1,5 +1,9 @@
 # Bilan du prototype — Chapitre 1
 
+## État actuel (4 novembre 2026)
+
+Le jeu va maintenant **jusqu'au chapitre 6** (ruelle, appartement d'Ishara, impasse, comptoir de Rémi, Sous-gare, 4B, chapitre 4 « La trace », chapitre 5 « Le poids d'une dette », chapitre 6 jusqu'à Ouchy), avec mode libre, sac, crédits, points de VIT et sauvegarde par points de passage. Quarante-huit scénarios logiques passent. Décors peints (GPT) branchés pour six zones. L'essai de roguelite et le tour par tour sont archivés (`archive/roguelite-v1`). Le reste de ce fichier est l'**historique du prototype du chapitre 1** : ses chiffres et ses limites ne décrivent plus la version actuelle. L'état à jour est dans `PROJECT.md`.
+
 ## Point actuel — relecture du 29 octobre 2026
 
 Le jeu comprend une ouverture dans la ruelle, un premier donjon (gobelin, ogre, Troll), l’antre de cristal et sa victoire par la ruse, le réveil au niveau 24 (7 PV, 40 mana et saut de joie), puis la rencontre avec Ishara et les deux hommes. Il s’arrête quand Ishara propose un hébergement. Le trajet, l’appartement, le miroir, le run du chapitre 2 et le 4B sont du canon préparé, pas encore du contenu jouable.

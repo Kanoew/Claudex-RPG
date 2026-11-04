@@ -20,6 +20,17 @@ const data = vm.runInContext('({ opening: openingScript(), rue: sceneScript(), s
 data.comptoirSpots = vm.runInContext('comptoirSpots.map(spot => ({ label: spot.label, lines: spot.lines() }))', context);
 data.zoneGoals = vm.runInContext(`Object.entries(zones).filter(entry => entry[1].goal).map(entry => { let goal = ""; try { goal = entry[1].goal(); } catch (error) { goal = "(dépend de la partie)"; } return { id: entry[0], goal }; })`, context);
 
+// Les scènes s'enchaînent (chacune contient déjà la suivante) : on coupe chaque section avant le début de la suivante, pour ne l'écrire qu'une fois.
+const order = ['opening', 'rue', 'sleep', 'mirror', 'impasse', 'runEnd', 'marterey', 'comptoir', 'sousgare', 'quatreb', 'ch4', 'ch5', 'ch6'];
+const firstText = steps => JSON.stringify((steps || []).find(step => step.say || step.card) || {});
+order.forEach((name, i) => {
+  const next = data[order[i + 1]];
+  if (!next || !data[name]) return;
+  const key = firstText(next);
+  const at = data[name].findIndex(step => JSON.stringify(step) === key);
+  if (at > 0) data[name] = data[name].slice(0, at);
+});
+
 const speaker = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix|Céleste|Izzy|Chef)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
 function render(steps) {
   const out = [];
