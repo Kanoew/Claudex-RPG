@@ -146,12 +146,3 @@ if (textSpeedSelect) {
     try { localStorage.setItem('textSpeed', textSpeed); } catch (error) { /* stockage indisponible */ }
   });
 }
-
-const combatModeSelect = document.getElementById('combat-mode');
-if (combatModeSelect) {
-  combatModeSelect.value = combatMode;
-  combatModeSelect.addEventListener('change', () => {
-    combatMode = combatModeSelect.value;
-    try { localStorage.setItem('combatMode', combatMode); } catch (error) { /* stockage indisponible */ }
-  });
-}

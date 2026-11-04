@@ -12,7 +12,7 @@ function game(imageMode, keepOpening, store) {
   const listeners = {};
   const elements = {};
   let patterns = 0;
-  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-card', 'story-portrait', 'story-name', 'story-next', 'story-history', 'history-panel', 'history-body', 'history-close', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-music', 'menu-effects', 'menu-music-volume', 'menu-effects-volume', 'menu-settings', 'menu-back', 'menu-main', 'menu-settings-view', 'menu-vignette', 'level-chip', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close', 'menu-free', 'map-panel', 'map-list', 'map-close', 'map-button', 'free-button', 'points-panel', 'points-body', 'points-close', 'bag-panel', 'bag-body', 'bag-close', 'bag-button', 'credit-chip', 'loot-toast', 'story-button']) {
+  for (const id of ['game', 'joystick', 'stick', 'attack', 'skill', 'dodge', 'status', 'objective', 'result', 'result-text', 'result-details', 'retry', 'hp-meter', 'mana-meter', 'hp-value', 'mana-value', 'boss-panel', 'boss-meter', 'boss-state', 'boss-value', 'opponents', 'attack-hint', 'skill-hint', 'dodge-hint', 'interact', 'story-panel', 'story-text', 'story-card', 'story-portrait', 'story-name', 'story-next', 'story-history', 'history-panel', 'history-body', 'history-close', 'app', 'pause-button', 'menu-panel', 'menu-title', 'menu-note', 'menu-continue', 'menu-new', 'menu-resume', 'menu-restart', 'menu-music', 'menu-effects', 'menu-music-volume', 'menu-effects-volume', 'menu-settings', 'menu-back', 'menu-main', 'menu-settings-view', 'menu-vignette', 'level-chip', 'menu-stats', 'stats-panel', 'stats-body', 'stats-close', 'menu-free', 'map-panel', 'map-list', 'map-close', 'map-button', 'free-button', 'points-panel', 'points-body', 'points-close', 'bag-panel', 'bag-body', 'bag-close', 'bag-button', 'credit-chip', 'loot-toast']) {
     elements[id] = {
       hidden: id === 'result', style: { setProperty(name, value) { this[name] = value; } }, offsetWidth: 54, textContent: '', attributes: {},
       classList: { toggle() {}, add() {}, remove() {} }, setAttribute(name, value) { this.attributes[name] = value; }, blur() {}, focus() {},
@@ -40,9 +40,9 @@ function game(imageMode, keepOpening, store) {
     localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'sheets.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'chapitre4.js', 'chapitre5.js', 'chapitre6.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'points.js', 'bag.js', 'shop.js', 'loot.js', 'hubstory.js', 'libre.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-ch4.js', 'render-ch6.js', 'render-quartier.js', 'render-appart.js', 'lighting.js', 'render.js', 'combat.js', 'boons.js', 'combat-tour.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'sheets.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'chapitre4.js', 'chapitre5.js', 'chapitre6.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'points.js', 'bag.js', 'libre.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-ch4.js', 'render-ch6.js', 'render-quartier.js', 'render-appart.js', 'lighting.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ hubEntryScript, get hubCut(){return hubCut}, set hubCut(value){hubCut = value}, hubUnits, playHubUnit, nextHubUnit, hubPlayback, unlockStoryUnit, updateStoryButton, hubStoryReady, meta, shopItems, buyShopItem, drinkPotion, shopHtml, saveMeta, loadMeta, runLoot, lootRules, collectLoot, bankRunLoot, loseRunLoot, sellLoot, canSellLoot, runBoons, boonCatalog, resetBoons, boonOffers, boonDamage, boonRange, boon, player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, set credits(value){credits = value}, ch6, openPoints, addPoint, closePoints, pointsState, get playerLevel(){return playerLevel}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, enterFailleRoom, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, sceneLights, lightAt, drawLightShadows, drawSceneLighting, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, ch6, openPoints, addPoint, closePoints, pointsState, get playerLevel(){return playerLevel}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, sceneLights, lightAt, drawLightShadows, drawSceneLighting, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -289,7 +289,6 @@ const tests = [
     Object.assign(g.player, { x: -170, y: 90 });
     g.useInteract();
     // Le lendemain matin : impasse, run (sept gobelins), comptoir (280 crédits), 4B.
-    g.hubCut = false; // ce test suit l'ancien enchaînement linéaire jusqu'au chapitre 5
     const seen = new Set();
     let maxBag = 0;
     for (let guard = 0; guard < 6000 && !g.over; guard++) {
@@ -1373,172 +1372,32 @@ const tests = [
     for (let round = 0; round < 6; round++) {
       Object.assign(g.player, { x: g.freeSpots.quartier.x, y: g.freeSpots.quartier.y });
       g.updateFree();
-      // Un run : trois salles de 4 à 6 monstres, puis la salle du chef (le chef et deux gardes).
-      for (let room = 1; room <= 4; room++) {
-        assert.equal(g.currentZone.id, 'faille');
-        assert.equal(g.freeMode.room, room, 'Numéro de salle');
-        seen.add(g.currentZone.theme);
-        const list = g.zoneEnemies.faille;
-        if (room <= 3) {
-          assert(list.length >= 4 && list.length <= 6, 'Quatre à six monstres, sans chef');
-          assert(list.every(enemy => !enemy.chief), 'Pas de chef avant la dernière salle');
-        } else {
-          assert.equal(list.length, 3, 'Le chef et deux gardes');
-          assert(list[list.length - 1].chief, 'Un chef au fond');
-        }
-        for (const enemy of list) assert(!g.walls.some(w => enemy.x > w.x && enemy.x < w.x + w.width && enemy.y > w.y && enemy.y < w.y + w.height), 'Aucun monstre dans un mur');
-        assert(!g.walls.some(w => g.player.x > w.x && g.player.x < w.x + w.width && g.player.y > w.y && g.player.y < w.y + w.height), 'Départ libre');
-        g.update(.05);
-        for (const enemy of list) enemy.hp = 0;
-        g.update(.05);
-        assert(g.freeMode.done);
-        Object.assign(g.player, g.zones.faille.start);
-        g.update(.05);
-        assert.equal(g.currentZone.id, 'faille', 'Le passage ne s’ouvre pas tout de suite');
-        g.player.hp = 3;
-        g.update(1.2);
-        if (room <= 3) assert.equal(g.player.hp, 3, 'Entre deux salles, la vie n’est pas rendue');
-      }
-      assert.equal(g.currentZone.id, 'quartier', 'Retour en ville après le chef');
+      assert.equal(g.currentZone.id, 'faille');
+      seen.add(g.currentZone.theme);
+      const list = g.zoneEnemies.faille;
+      assert(list.length >= 6 && list.length <= 9, 'Cinq à huit monstres puis le chef');
+      assert(list[list.length - 1].chief, 'Un chef au fond');
+      for (const enemy of list) assert(!g.walls.some(w => enemy.x > w.x && enemy.x < w.x + w.width && enemy.y > w.y && enemy.y < w.y + w.height), 'Aucun monstre dans un mur');
+      assert(!g.walls.some(w => g.player.x > w.x && g.player.x < w.x + w.width && g.player.y > w.y && g.player.y < w.y + w.height), 'Départ libre');
+      g.update(.05);
+      for (const enemy of list) enemy.hp = 0;
+      g.update(.05);
+      assert(g.freeMode.done);
+      Object.assign(g.player, g.zones.faille.start);
+      g.update(.05);
+      assert.equal(g.currentZone.id, 'faille', 'Le passage ne s’ouvre pas tout de suite');
+      g.update(1.2);
+      assert.equal(g.currentZone.id, 'quartier', 'Retour en ville');
     }
     assert(seen.size >= 2, 'Plusieurs décors tirés');
     assert.equal(g.freeMode.clears, 6);
     // Mort dans une faille : retour en ville, soignée.
     Object.assign(g.player, { x: g.freeSpots.quartier.x, y: g.freeSpots.quartier.y });
     g.updateFree();
-    g.enterFailleRoom(2);
-    assert.equal(g.freeMode.room, 2);
     g.hurtPlayer(99);
     g.update(2);
     g.fire('retry:click');
     assert(!g.over && g.currentZone.id === 'quartier' && g.player.hp === g.player.maxHp);
-    assert.equal(g.freeMode.room, 1, 'Le KO ramène au hub : le run recommence à la salle 1');
-  }],
-  ['Récompenses de run : trois effets distincts, cumul plafonné, retour à la normale en fin de run', () => {
-    const g = game('loaded');
-    g.startFreeMode();
-    g.resetBoons();
-    const offers = g.boonOffers();
-    assert.equal(offers.length, 3);
-    assert.equal(new Set(offers).size, 3, 'Trois effets différents');
-    const base = { hp: g.player.maxHp, mana: g.player.maxMana, cost: g.skill.cost, recovery: g.dodge.recovery };
-    g.runBoons.faux = 1; g.runBoons.fauchage = 1; g.runBoons.portee = 2;
-    assert.equal(g.boonDamage(false), 1); assert.equal(g.boonDamage(true), 1); assert.equal(g.boonRange(), 1.5);
-    g.boonCatalog.vie.apply(); g.boonCatalog.mana.apply(); g.boonCatalog.allege.apply(); g.boonCatalog.esquive.apply();
-    assert.equal(g.player.maxHp, base.hp + 1); assert.equal(g.player.maxMana, base.mana + 10);
-    assert.equal(g.skill.cost, base.cost - 5); assert(g.dodge.recovery < base.recovery);
-    g.startAttack(false);
-    assert.equal(g.attack.damage, 2, 'Faux : 1 de base + 1');
-    for (const id of Object.keys(g.boonCatalog)) g.runBoons[id] = g.boonCatalog[id].max;
-    assert.equal(g.boonOffers().length, 0, 'Tout est au plafond : plus rien à proposer');
-    g.resetBoons();
-    assert.equal(g.player.maxHp, base.hp); assert.equal(g.player.maxMana, base.mana);
-    assert.equal(g.skill.cost, base.cost); assert.equal(g.dodge.recovery, base.recovery);
-    assert.equal(g.boonDamage(false), 0); assert.equal(g.boonRange(), 1);
-  }],
-  ['Butin et vente : le butin suit le run, le KO le perd et coûte une dette, la vente rembourse la dette d’abord', () => {
-    const g = game('loaded');
-    g.startFreeMode();
-    Object.assign(g.player, { x: g.freeSpots.quartier.x, y: g.freeSpots.quartier.y });
-    g.updateFree();
-    assert.equal(g.currentZone.id, 'faille');
-    const list = g.zoneEnemies.faille;
-    for (const enemy of list) enemy.hp = 0;
-    g.updateFree();
-    const expected = list.reduce((sum, enemy) => sum + (enemy.level || 5) * (enemy.chief ? 3 : 1), 0);
-    assert.equal(g.runLoot.value, expected, 'Un monstre rapporte son niveau, le chef trois fois plus');
-    // KO : butin perdu, petite dette.
-    const debtBefore = g.debt;
-    g.player.hp = 0;
-    g.freeReturn();
-    assert.equal(g.runLoot.value, 0);
-    assert.equal(g.debt, debtBefore + g.lootRules.koDebt, 'KO : petite dette');
-    // Run réussi : le butin entre dans le sac, la vente rembourse la dette puis paie.
-    g.runLoot.value = 60;
-    g.bankRunLoot();
-    assert.equal(g.bag.filter(item => item.loot).length, 1);
-    assert(g.canSellLoot(), 'On vend depuis la rue');
-    const creditsBefore = g.credits;
-    assert.equal(g.sellLoot(), 60);
-    assert.equal(g.debt, 0, 'La dette est remboursée en premier');
-    assert.equal(g.credits, creditsBefore + 60 - (debtBefore + g.lootRules.koDebt));
-    assert(!g.canSellLoot(), 'Plus rien à vendre');
-  }],
-  ['Boutique de Rémi : achats permanents, prix croissants, plafond, potion, remise à zéro du run sans les perdre', () => {
-    const g = game('loaded');
-    g.startFreeMode();
-    const base = { hp: g.player.maxHp, mana: g.player.maxMana, recovery: g.dodge.recovery };
-    assert(!g.buyShopItem('vie'), 'Boutique fermée avant la scène de Rémi');
-    g.meta.remiMet = true;
-    assert(!g.buyShopItem('vie'), 'Pas assez de crédits');
-    g.credits = 1000;
-    assert(g.buyShopItem('vie'));
-    assert.equal(g.credits, 850, 'Premier achat : 150');
-    assert(g.buyShopItem('vie'));
-    assert.equal(g.credits, 650, 'Deuxième achat : 200');
-    assert(g.buyShopItem('mana') && g.buyShopItem('esquive') && g.buyShopItem('potion'));
-    g.resetBoons();
-    assert.equal(g.player.maxHp, base.hp + 2); assert.equal(g.player.maxMana, base.mana + 5);
-    assert(g.dodge.recovery < base.recovery, 'Esquive plus rapide');
-    assert.equal(g.meta.potions, 1);
-    // La potion ne se boit qu'en faille et si la vie n'est pas pleine.
-    g.player.hp = 2;
-    assert(!g.drinkPotion(), 'Pas en rue');
-    Object.assign(g.player, { x: g.freeSpots.quartier.x, y: g.freeSpots.quartier.y });
-    g.updateFree();
-    g.player.hp = 2;
-    assert(g.drinkPotion());
-    assert.equal(g.player.hp, 5);
-    assert.equal(g.meta.potions, 0);
-    // Les achats survivent à la fin du run.
-    g.resetBoons();
-    assert.equal(g.player.maxHp, base.hp + 2);
-    g.credits = 1000;
-    assert(!g.buyShopItem('vie') && g.credits === 1000, 'Pas d’achat en faille');
-    g.freeReturn();
-    for (let i = 0; i < 10; i++) { g.credits = 1000; g.buyShopItem('vie'); }
-    assert.equal(g.meta.vie, 5, 'Plafond à 5');
-  }],
-  ['Histoire du hub : dix morceaux, un par run, rejoués sans toucher à l’argent, au sac, au niveau ni au point de passage', () => {
-    const g = game('loaded');
-    g.startFreeMode();
-    assert.equal(g.hubUnits.length, 10);
-    assert(!g.playHubUnit(), 'Rien de débloqué au départ');
-    assert(!g.meta.remiMet, 'Boutique fermée avant la scène de Rémi');
-    const before = () => JSON.stringify({ credits: g.credits, debt: g.debt, bag: g.bag, level: g.playerLevel, stats: g.yardenStats, hp: g.player.maxHp });
-    for (let i = 0; i < g.hubUnits.length; i++) {
-      g.unlockStoryUnit();
-      const snapshot = before();
-      assert.equal(g.nextHubUnit().id, g.hubUnits[i].id, 'Ordre respecté');
-      assert(g.playHubUnit(), `Morceau ${g.hubUnits[i].id} lancé`);
-      assert(g.hubPlayback.active && !g.freeMode.active);
-      let guard = 0;
-      while ((g.scene.active || g.story.active) && guard++ < 6000) {
-        if (g.pointsState.open) { while (g.pointsState.left > 0) g.addPoint(); g.closePoints(); continue; }
-        if (g.story.active) { g.advanceStory(); continue; }
-        if (g.scene.free && g.scene.current && g.scene.current.until) g.scene.current.until = () => true;
-        g.update(.5);
-      }
-      assert(guard < 6000, `Morceau ${g.hubUnits[i].id} terminé (étape ${g.scene.index}: ${JSON.stringify(Object.keys(g.scene.current || {}))}, points ${g.pointsState.open}, stats ${g.stats.open}, histoire ${g.story.active}, zone ${g.currentZone.id}, combat ${g.over})`);
-      assert(!g.hubPlayback.active && g.freeMode.active, 'Retour au hub');
-      assert(g.meta.seen.includes(g.hubUnits[i].id));
-      assert.equal(before(), snapshot, `Morceau ${g.hubUnits[i].id} : argent, sac, niveau inchangés`);
-      assert(g.freeMode.active && g.currentZone.id === 'quartier', 'Retour dans la rue');
-      if (i === 0) assert(g.meta.remiMet, 'La scène de Rémi ouvre la boutique');
-    }
-    assert.equal(g.nextHubUnit(), null, 'Tout est vu');
-  }],
-  ['Fin du tutoriel : le premier run de l’impasse ouvre le hub, et « Continuer » y revient', () => {
-    const g = game('loaded');
-    assert.equal(g.hubCut, true, 'Coupure active par défaut');
-    g.skipOpening();
-    g.startScene(g.hubEntryScript());
-    assert(g.freeMode.active && g.currentZone.id === 'quartier', 'Le hub est ouvert dans la rue');
-    assert.equal(g.readSave().checkpoint, 'hub', 'Point de passage du hub');
-    assert(g.freeUnlocked());
-    g.freeMode.active = false;
-    g.applyCheckpoint('hub');
-    assert(g.freeMode.active && g.currentZone.id === 'quartier', 'Continuer ramène au hub');
   }],
   ['Carte : sélection, itinéraire à pied, position et sauvegarde préservées', () => {
     const g = game('loaded');

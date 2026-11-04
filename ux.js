@@ -97,7 +97,7 @@ function uxSetData(name, value) {
 }
 
 function uxVisiblePanel() {
-  return [...uxPanels].reverse().find(panel => !panel.hidden) || (battle.active ? battle.el : null) || (!uxStory.hidden ? uxStory : null);
+  return [...uxPanels].reverse().find(panel => !panel.hidden) || (!uxStory.hidden ? uxStory : null);
 }
 
 function uxFocusable(panel) {
@@ -165,7 +165,7 @@ document.addEventListener('keydown', event => {
     else if (panel.id === 'history-panel') closeDialogueHistory();
     else if (panel.id === 'map-panel') closeMap();
     else if (panel.id === 'stats-panel') closeStats();
-    else if (panel === uxStory || panel.id === 'battle') openMenu('pause');
+    else if (panel === uxStory) openMenu('pause');
     else if (panel.id === 'menu-panel' && menu.view === 'settings') { showMenuView('main'); menuButtons.settings.focus(); }
     else if (panel.id === 'menu-panel' && menu.kind === 'pause') closeMenu();
     updateUxLayout();
