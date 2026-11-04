@@ -152,7 +152,7 @@ function impasseScript() {
 // Après le dernier gobelin : le butin, les deux heures dehors, puis la suite du chapitre.
 function runEndScript() {
   return [
-    { say: ['Les sept créatures ont laissé tomber du loot. Ishara récolte les matériaux.', 'Plusieurs loots, niveau 19 max, propre.', 'Aucune expérience gagnée.'] },
+    { say: ['Ishara ramasse quatre fragments et deux bourses. Le dernier gobelin n’a rien laissé.', 'Aucune expérience gagnée.'] },
     { card: 'Quarante minutes dedans, deux heures dehors.', seconds: 2.6 },
     { run: () => { enterImpasse(false); sceneActors.ishara.x = 20; sceneActors.ishara.y = -90; Object.assign(player, { x: 40, y: -120 }); ch2b.goalText = 'Suis Ishara ↓'; } },
     { moves: [moveOf('ishara', [[-60, 40], [-110, 150]], 85)] },
