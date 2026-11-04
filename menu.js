@@ -25,6 +25,8 @@ function titleBackdrop() {
 // Les deux vues du menu : le menu principal et les paramètres (musique, effets).
 function showMenuView(view) {
   menu.view = view;
+  menuPanel.setAttribute('data-kind', menu.kind);
+  menuPanel.setAttribute('data-view', view);
   document.getElementById('menu-main').hidden = view !== 'main';
   document.getElementById('menu-settings-view').hidden = view !== 'settings';
   document.getElementById('menu-vignette').hidden = !(menu.kind === 'title' && view === 'main');
@@ -39,7 +41,7 @@ function openMenu(kind) {
   resetInput();
   Object.assign(menu, { open: true, kind, confirm: null });
   const save = readSave();
-  document.getElementById('menu-note').textContent = kind === 'title' ? 'Yarden · Chapitre 1' : (save ? `Dernier point de passage : ${checkpointNames[save.checkpoint]}` : 'Aucun point de passage encore');
+  document.getElementById('menu-note').textContent = kind === 'title' ? 'RPG narratif · Chapitres 1 à 6' : (save ? `Dernier point de passage : ${checkpointNames[save.checkpoint]}` : 'Aucun point de passage encore');
   menuButtons.continue.hidden = kind !== 'title' || !save;
   menuButtons.continue.textContent = menuLabelFor(save);
   menuButtons.new.hidden = kind !== 'title';

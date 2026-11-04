@@ -1,12 +1,15 @@
 'use strict';
 
 // Affichage des répliques : une ligne « Nom : « texte » » devient une bulle avec le nom et un visage. La voix de Tiamat est une voix
-// intérieure : bulle violette en italique, avec la pierre bleue, jamais un visage. Les inconnus ont une silhouette. Le récit n'a ni nom ni visage.
+// intérieure : bulle violette en italique, avec un œil de dragon, jamais un visage. Les inconnus ont une silhouette. Le récit n'a pas de portrait.
 const portraitArt = {};
 // Seulement les répliques déjà affichées ; rien n'est ajouté à la sauvegarde.
 const dialogueLog = { entries: [], open: false, limit: 40 };
 const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant', 'remi-neutre', 'felix-neutre', 'izzy-neutre', 'izzy-sourire', 'izzy-narquoise', 'celeste-neutre', 'celeste-sourire', 'celeste-alerte', 'ishara-course-neutre', 'ishara-course-sourire', 'ishara-course-inquiete', 'concierge-neutre'];
 const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2', 'Rémi': 'remi', 'Félix': 'felix', 'Céleste': 'celeste', 'Izzy': 'izzy', 'Le concierge': 'concierge' };
+// Couleurs de lecture uniquement : aucune indication de pouvoir ou d'affiliation.
+const dialogueCharacters = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Tiamat': 'tiamat', 'Céleste': 'celeste', 'Izzy': 'izzy', 'Félix': 'felix', 'Le 4B': 'felix', 'Rémi': 'remi' };
+function dialogueCharacter(who) { return dialogueCharacters[who] || 'neutral'; }
 // « Nom[expression] : « texte » » ; l'expression est facultative (neutre par défaut).
 const speakerPattern = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix|Céleste|Izzy|Chef|Le concierge|Le 4B)(?:\[([a-z]+)\])?(?: \((?:voix intérieure|par Yarden)\))? : « ?([\s\S]*?) ?»$/;
 
@@ -115,6 +118,8 @@ function showStoryLine(line) {
   card.classList.toggle('speaker', who !== null);
   card.classList.toggle('narration', who === null);
   document.getElementById('story-panel').setAttribute('data-voice', who === 'Tiamat' ? 'inner' : who ? 'speech' : 'narration');
+  document.getElementById('story-panel').setAttribute('data-character', dialogueCharacter(who));
+  document.getElementById('story-panel').setAttribute('data-audible', String(audible));
   card.scrollTop = 0;
   portrait.hidden = who === null;
   name.hidden = false;
@@ -134,7 +139,7 @@ function openDialogueHistory() {
   resetInput();
   dialogueLog.open = true;
   document.getElementById('history-body').innerHTML = dialogueLog.entries.map(({ who, text, audible }) =>
-    `<li class="history-line ${who === 'Tiamat' ? 'inner' : who ? 'speech' : 'narration'}"><b>${storyEscape(who === 'Tiamat' ? (audible ? 'Tiamat, par Yarden' : 'Tiamat · voix intérieure') : who || 'Narration')}</b><p>${storyEscape(text)}</p></li>`
+    `<li data-character="${dialogueCharacter(who)}" class="history-line ${who === 'Tiamat' ? 'inner' : who ? 'speech' : 'narration'}"><b>${storyEscape(who === 'Tiamat' ? (audible ? 'Tiamat, par Yarden' : 'Tiamat · voix intérieure') : who || 'Narration')}</b><p>${storyEscape(text)}</p></li>`
   ).join('');
   document.getElementById('history-panel').hidden = false;
   const body = document.getElementById('history-body').parentElement;

@@ -147,7 +147,7 @@ function uxHandlesKeyboard(event) {
   const panel = uxVisiblePanel();
   if (!panel) return false;
   if (panel !== uxStory) return true;
-  return event.target.closest && !!event.target.closest('button, input, select') && event.target.id !== 'story-next';
+  return event.target.closest && !!event.target.closest('button, input, select, #story-card') && event.target.id !== 'story-next';
 }
 document.addEventListener('keydown', event => {
   const panel = uxVisiblePanel();
