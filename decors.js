@@ -9,13 +9,17 @@ const paintedDecor = {
   zones: {
     quartier: {
       hide: ['facade'],
+      sprites: ['voiture-bordeaux', 'voiture-bleue', 'velos', 'arbre', 'fleurs', 'poubelle'],
       objects: { voiture: wall => wall.tint === '#7a2f3a' ? 'voiture-bordeaux' : 'voiture-bleue', velos: 'velos', arbre: 'arbre', fleurs: 'fleurs', poubelle: 'poubelle' },
       // Le matin du chapitre 2, la rue est de jour ; le reste du temps, de nuit (à affiner selon les scènes).
       variant: () => (typeof home !== 'undefined' && home.stage === 'matin') ? 'jour' : ''
     },
     sousgare: { hide: ['belle-epoque'] },
+    // Les objets dépassent leur rectangle de collision (vue en trois quarts) : largeur ou hauteur voulue, en unités du jeu.
+    square: { hide: ['immeuble-sq'], sprites: ['banc', 'arbre-square', 'lampadaire'], objects: { banc: { name: 'banc', width: 96 }, arbre: { name: 'arbre-square', height: 118 }, lampadaire: { name: 'lampadaire', height: 92 } } },
+    flon: { hide: ['facade-flon', 'bar'], sprites: ['table-a', 'table-b', 'table-c', 'bar'], objects: { bar: { name: 'bar', width: 230 }, table: wall => ({ name: ['table-a', 'table-b', 'table-c'][Math.abs(wall.x) % 3], width: 64 }) } },
     marterey: { hide: ['kebab', 'porte-marron', 'laverie'] },
-    exterieur: { objects: { benne: 'benne', caisses: 'caisses', poubelles: 'poubelles', scooter: 'scooter' }, noProps: true }
+    exterieur: { sprites: ['benne', 'caisses', 'poubelles', 'scooter'], objects: { benne: 'benne', caisses: 'caisses', poubelles: 'poubelles', scooter: 'scooter' }, noProps: true }
   },
   images: {},
   objects: {}
@@ -30,12 +34,9 @@ function loadPaintedDecor() {
     image.src = path;
   };
   for (const [id, config] of Object.entries(paintedDecor.zones)) {
-    load(paintedDecor.images, id, `assets/decors/${id}.jpg?v=2`);
-    if (config.variant) load(paintedDecor.images, `${id}-jour`, `assets/decors/${id}-jour.jpg?v=2`);
-    for (const value of Object.values(config.objects || {})) {
-      const names = typeof value === 'function' ? ['voiture-bordeaux', 'voiture-bleue'] : [value];
-      for (const name of names) load(paintedDecor.objects, name, `assets/decors/objets/${name}.png?v=2`);
-    }
+    load(paintedDecor.images, id, `assets/decors/${id}.jpg?v=3`);
+    if (config.variant) load(paintedDecor.images, `${id}-jour`, `assets/decors/${id}-jour.jpg?v=3`);
+    for (const name of config.sprites || []) load(paintedDecor.objects, name, `assets/decors/objets/${name}.png?v=3`);
   }
 }
 
@@ -61,11 +62,12 @@ const paintedDecorHides = (zone, wall) => paintedDecorActive(zone) && (paintedDe
 function drawPaintedObject(zone, wall, x, y) {
   if (!paintedDecorActive(zone)) return false;
   const rule = (paintedDecor.zones[zone.id].objects || {})[wall.kind];
-  const name = typeof rule === 'function' ? rule(wall) : rule;
-  const art = name && paintedDecor.objects[name];
+  const value = typeof rule === 'function' ? rule(wall) : rule;
+  const spec = typeof value === 'string' ? { name: value } : value;
+  const art = spec && paintedDecor.objects[spec.name];
   if (!art) return false;
   const w = wall.width, h = wall.height;
-  const scale = Math.min(w / art.width, h * 1.7 / art.height);
+  const scale = spec.height ? spec.height / art.height : spec.width ? spec.width / art.width : Math.min(w / art.width, h * 1.7 / art.height);
   const dw = art.width * scale, dh = art.height * scale;
   ctx.save();
   ctx.fillStyle = '#05080e88';
