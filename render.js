@@ -198,7 +198,9 @@ function drawRoom(offsetX, offsetY) {
   ctx.beginPath();
   ctx.rect(room.x + offsetX, room.y + offsetY, room.width, room.height);
   ctx.clip();
-  if (custom) {
+  if (drawPaintedDecor(currentZone, offsetX, offsetY)) {
+    // Fond peint : tout le sol, la façade et les détails sont dans l'image.
+  } else if (custom) {
     custom.floor(offsetX, offsetY);
   } else if (street) {
     drawQuartierFloor(offsetX, offsetY);
@@ -238,6 +240,7 @@ function drawRoom(offsetX, offsetY) {
   ctx.restore();
   walls.forEach((wall, index) => {
     const x = wall.x + offsetX, y = wall.y + offsetY;
+    if (paintedDecorHides(currentZone, wall)) return;
     if (crystal) { drawAntreSolid(wall, x, y, index >= 4); return; }
     if (custom) { custom.solid(wall, x, y, index); return; }
     if (indoor) { drawAppartSolid(wall, x, y, index); return; }
