@@ -5,10 +5,10 @@
 const portraitArt = {};
 // Seulement les répliques déjà affichées ; rien n'est ajouté à la sauvegarde.
 const dialogueLog = { entries: [], open: false, limit: 40 };
-const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant', 'remi-neutre', 'felix-neutre', 'izzy-neutre', 'izzy-sourire', 'izzy-narquoise', 'celeste-neutre', 'celeste-sourire', 'celeste-alerte', 'ishara-course-neutre', 'ishara-course-sourire', 'ishara-course-inquiete'];
-const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2', 'Rémi': 'remi', 'Félix': 'felix', 'Céleste': 'celeste', 'Izzy': 'izzy' };
+const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant', 'remi-neutre', 'felix-neutre', 'izzy-neutre', 'izzy-sourire', 'izzy-narquoise', 'celeste-neutre', 'celeste-sourire', 'celeste-alerte', 'ishara-course-neutre', 'ishara-course-sourire', 'ishara-course-inquiete', 'concierge-neutre'];
+const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2', 'Rémi': 'remi', 'Félix': 'felix', 'Céleste': 'celeste', 'Izzy': 'izzy', 'Le concierge': 'concierge' };
 // « Nom[expression] : « texte » » ; l'expression est facultative (neutre par défaut).
-const speakerPattern = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix|Céleste|Izzy|Chef)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
+const speakerPattern = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix|Céleste|Izzy|Chef|Le concierge|Le 4B)(?:\[([a-z]+)\])?(?: \((?:voix intérieure|par Yarden)\))? : « ?([\s\S]*?) ?»$/;
 
 function loadPortraits() {
   if (typeof Image === 'undefined') return;
@@ -62,7 +62,7 @@ function startTextTyping(element, text, who) {
 
 function parseStoryLine(line) {
   const match = speakerPattern.exec(line);
-  return match ? { who: match[1], expression: match[2] || 'neutre', text: match[3] } : { who: null, expression: null, text: line };
+  return match ? { who: match[1], expression: match[2] || 'neutre', text: match[3], audible: /\(par Yarden\)/.test(line) } : { who: null, expression: null, text: line, audible: false };
 }
 
 function drawPortrait(who, expression) {
@@ -105,7 +105,7 @@ function drawPortrait(who, expression) {
 }
 
 function showStoryLine(line) {
-  const { who, expression, text } = parseStoryLine(line);
+  const { who, expression, text, audible } = parseStoryLine(line);
   story.current = line;
   storyShownAt = Date.now();
   const card = document.getElementById('story-card');
@@ -118,10 +118,10 @@ function showStoryLine(line) {
   card.scrollTop = 0;
   portrait.hidden = who === null;
   name.hidden = false;
-  name.textContent = who === 'Tiamat' ? 'TIAMAT · VOIX INTÉRIEURE' : who === null ? 'NARRATION' : who.toUpperCase();
+  name.textContent = who === 'Tiamat' ? (audible ? 'TIAMAT, PAR YARDEN' : 'TIAMAT · VOIX INTÉRIEURE') : who === null ? 'NARRATION' : who.toUpperCase();
   startTextTyping(document.getElementById('story-text'), text, who);
   if (who !== null) drawPortrait(who, expression);
-  dialogueLog.entries.push({ who, text });
+  dialogueLog.entries.push({ who, text, audible });
   if (dialogueLog.entries.length > dialogueLog.limit) dialogueLog.entries.shift();
 }
 
@@ -133,8 +133,8 @@ function openDialogueHistory() {
   if (!story.active || menu.open || dialogueLog.open) return;
   resetInput();
   dialogueLog.open = true;
-  document.getElementById('history-body').innerHTML = dialogueLog.entries.map(({ who, text }) =>
-    `<li class="history-line ${who === 'Tiamat' ? 'inner' : who ? 'speech' : 'narration'}"><b>${storyEscape(who === 'Tiamat' ? 'Tiamat · voix intérieure' : who || 'Narration')}</b><p>${storyEscape(text)}</p></li>`
+  document.getElementById('history-body').innerHTML = dialogueLog.entries.map(({ who, text, audible }) =>
+    `<li class="history-line ${who === 'Tiamat' ? 'inner' : who ? 'speech' : 'narration'}"><b>${storyEscape(who === 'Tiamat' ? (audible ? 'Tiamat, par Yarden' : 'Tiamat · voix intérieure') : who || 'Narration')}</b><p>${storyEscape(text)}</p></li>`
   ).join('');
   document.getElementById('history-panel').hidden = false;
   const body = document.getElementById('history-body').parentElement;

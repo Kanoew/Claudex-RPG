@@ -31,11 +31,11 @@ order.forEach((name, i) => {
   if (at > 0) data[name] = data[name].slice(0, at);
 });
 
-const speaker = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix|Céleste|Izzy|Chef)(?:\[([a-z]+)\])?(?: \(voix intérieure\))? : « ?([\s\S]*?) ?»$/;
+const speaker = /^(Yarden|Ishara|Tiamat|Inconnue|Inconnu 1|Inconnu 2|Rémi|Félix|Céleste|Izzy|Chef|Le concierge|Le 4B)(?:\[([a-z]+)\])?(?: \((?:voix intérieure|par Yarden)\))? : « ?([\s\S]*?) ?»$/;
 function render(steps) {
   const out = [];
   for (const step of steps) {
-    if (step.say) for (const line of step.say) out.push('- ' + line.replace(speaker, (m, who, expression, text) => `**${who}${expression ? ' (' + expression + ')' : ''}** : « ${text} »`));
+    if (step.say) for (const line of step.say) out.push('- ' + line.replace(speaker, (m, who, expression, text) => `**${who}${expression ? ' (' + expression + ')' : ''}${/\(par Yarden\)/.test(m) ? ' (par Yarden)' : ''}** : « ${text} »`));
     else if (step.card) out.push(`- *Carte plein écran : ${step.card}*`);
     else if (step.end) out.push(`- *Fin de scène : ${step.end}*`);
     else if (step.metro === 'show') out.push('- *Le métro (wagon animé)*');
