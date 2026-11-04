@@ -235,12 +235,13 @@ function drawRoom(offsetX, offsetY) {
       }
     }
   }
-  if (outdoors) drawProps(offsetX, offsetY);
+  if (outdoors && !(paintedDecorActive(currentZone) && paintedDecor.zones[currentZone.id].noProps)) drawProps(offsetX, offsetY);
   if (crystal) drawAntreCables(offsetX, offsetY);
   ctx.restore();
   walls.forEach((wall, index) => {
     const x = wall.x + offsetX, y = wall.y + offsetY;
     if (paintedDecorHides(currentZone, wall)) return;
+    if (drawPaintedObject(currentZone, wall, x, y)) return;
     if (crystal) { drawAntreSolid(wall, x, y, index >= 4); return; }
     if (custom) { custom.solid(wall, x, y, index); return; }
     if (indoor) { drawAppartSolid(wall, x, y, index); return; }
