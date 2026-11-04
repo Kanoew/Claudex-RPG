@@ -102,7 +102,7 @@ const comptoirSpots = [
   { id: 'balance', x: -70, y: -8, r: 44, label: 'Balance', lines: () => ['Une balance de précision, posée sur le comptoir.'] },
   { id: 'ardoise', x: 0, y: 6, r: 44, label: 'Ardoise', lines: () => ['Une ardoise à la craie, accrochée au mur. Aucune trace électronique.'] },
   { id: 'lampe', x: 75, y: -8, r: 48, label: 'Lampe', lines: () => ['Une lampe à spectre particulier : la lumière a une teinte verte, presque froide.'] },
-  { id: 'porte', x: 0, y: 70, r: 40, label: 'Porte', lines: () => ['La porte marron, derrière elles. L’interphone ne fonctionne qu’à moitié.'] }
+  { id: 'porte', x: 0, y: 70, r: 40, label: 'Porte', lines: () => ['La porte marron, derrière elles. Il faut appuyer deux fois sur l’interphone.'] }
 ];
 
 function enterSousgare() {
@@ -169,7 +169,7 @@ function marteryScript() {
     { moves: [moveOf('ishara', [[18, -52]], 90), moveOf('yarden', [[-26, -42]], 90, { delay: .5 })] },
     { run: () => { ch2b.shutterAt = mirrorNow(); } },
     { wait: 1.8 },
-    { say: ['Ishara appuie sur l’interphone, une seconde fois. Cassé ? Non, il fonctionne.'] },
+    { say: ['Ishara appuie deux fois sur l’interphone.'] },
     ...comptoirScript()
   ];
 }

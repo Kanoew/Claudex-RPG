@@ -166,7 +166,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 ## Rue Marterey : la porte marron
 
 - Rue Marterey, Lausanne. Dix heures.
-- Ishara appuie sur l’interphone, une seconde fois. Cassé ? Non, il fonctionne.
+- Ishara appuie deux fois sur l’interphone.
 
 ## Le comptoir de Rémi
 
@@ -227,11 +227,11 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Félix** : « Ce qui vous protège. Est-ce que ça va me suivre jusque dans mes murs ? »
 - **Tiamat** : « C’est la bonne question. Et je ne connais pas encore la réponse. »
 - Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste consciente, spectatrice de sa propre voix.
-- **Tiamat** : « Mithra. »
+- **Tiamat (par Yarden)** : « Mithra. »
 - **Félix** : « Vous prononcez un nom que je n’ai pas donné depuis longtemps. »
-- **Tiamat** : « Je ne le donne pas non plus. Je le reconnais. »
-- **Tiamat** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement parce que c’est la seule chose qu’il sache faire. »
-- **Tiamat** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
+- **Tiamat (par Yarden)** : « Je ne le donne pas non plus. Je le reconnais. »
+- **Tiamat (par Yarden)** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement parce que c’est la seule chose qu’il sache faire. »
+- **Tiamat (par Yarden)** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
 - Ishara regarde.
 - Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
 - **Félix** : « Je ne touche jamais un lien qu’on ne m’offre pas. Ce serait comme lire le courrier d’un autre. »
@@ -245,12 +245,14 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Félix** : « Ce qui vous a bénie travaille dans la même maison que ce que je porte. Les serments. Les liens. Votre dieu et mon résidu, on tremperait nos plumes dans le même encrier. »
 - **Félix** : « En ce moment, elle pointe vers votre amie. Depuis un moment déjà, je crois. Ce qui vous regarde à travers vous… regarde elle. »
 - **Ishara** : « Attends. C’est pour ça que je t’ai suivie. J’ai cru que c’était moi. Mon bon instinct pour les gens. Et en fait, c’est quelqu’un qui a décidé pour moi. »
-- Ishara lève la main : « Non, c’est bon. Je voulais savoir. Je sais. C’est juste… beaucoup. »
+- Ishara lève la main.
+- **Ishara** : « Non, c’est bon. Je voulais savoir. Je sais. C’est juste… beaucoup. »
 - **Félix** : « Vous auriez été bon faussaire. Dans une autre vie. »
 - **Yarden** : « J’en ai eu plusieurs. »
 - **Félix** : « Je m’en doute. »
 - Yarden choisit le prénom : Yarden. Félix choisit le nom de famille : quelque chose de si ordinaire que l’œil glisse dessus, un nom qu’on oublie en le lisant.
-- Félix tourne la feuille : « Yarden Weiss. Suisse par un grand-parent, née ailleurs, arrivée jeune. L’histoire tiendra si on tire dessus. Je m’en porte garant. »
+- Félix tourne la feuille.
+- **Félix** : « Yarden Weiss. Suisse par un grand-parent, née ailleurs, arrivée jeune. L’histoire tiendra si on tire dessus. Je m’en porte garant. »
 - **Yarden** : « Combien ? »
 - **Félix** : « Pour les papiers, huit cents crédits. Vous en avez deux cent quatre-vingts. Vous me devrez le reste. Ça tombe bien. »
 - **Félix** : « Une identité, c’est un lien. Un nom qu’on n’a pas fini de payer, c’est un nom qu’on ne trahit pas. »
@@ -287,7 +289,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Balance** : Une balance de précision, posée sur le comptoir.
 - **Ardoise** : Une ardoise à la craie, accrochée au mur. Aucune trace électronique.
 - **Lampe** : Une lampe à spectre particulier : la lumière a une teinte verte, presque froide.
-- **Porte** : La porte marron, derrière elles. L’interphone ne fonctionne qu’à moitié.
+- **Porte** : La porte marron, derrière elles. Il faut appuyer deux fois sur l’interphone.
 
 ## Objectifs affichés en haut, par lieu
 
@@ -433,7 +435,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
 - **Félix** : « Vous êtes venu couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
 - Ce n’est pas Félix qui parle : c’est le 4B. L’homme fabrique, le lieu perçoit.
-- Le 4B : « Bonne journée, monsieur Weiss. »
+- **Le 4B** : « Bonne journée, monsieur Weiss. »
 - Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
 - Plus de veste technique, plus de chaussures de marche.
 - Ils ne font rien. Mains dans les poches, pas de téléphone, pas de gobelet. Le chef n’ouvre pas le carnet.
@@ -501,11 +503,11 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Le trou n’est pas l’information : la ville est pleine de trous, un chien, un cinglé, une flaque. Ce que ni un chien ni une flaque ne font, c’est un anneau.
 - Elle est seule à sa table. Robe bordeaux, veste de cuir noir sur le dossier, un verre auquel elle n’a pas touché depuis si longtemps que la glace a fondu. Le tatouage floral doré sur la clavicule, à découvert, en plein soleil, comme un panneau de rue.
 - Un des types se décolle du bar et fait trois pas vers elle. Izzy tourne la tête de dix degrés, un micro-sourire déjà en place : poli, chaleureux, absolument fermé. Le type ralentit, oblique vers une plante en pot et repart.
-- **Tiamat** : « Elle sait ce qu’ils veulent tous. Elle te l’a dit elle-même. Elle n’a pas de bouton. »
+- **Tiamat** : « Elle sait ce qu’ils veulent tous. Elle n’a pas de bouton. »
 - Elle ne contourne pas le vide. Elle entre dedans, en ligne droite, une boîte de huit cents grammes sous le bras.
 - Le menton d’Izzy bouge le premier. Puis les épaules, de deux centimètres. Le volet retombe une seconde entière plus tard. Elle la compte.
 - **Izzy** : « Tiens. J’avais dit que je te contactais. »
-- **Yarden** : « T’as pas contacté. »
+- **Yarden** : « Tu ne m’as pas contactée. »
 - **Izzy** : « J’allais. »
 - **Yarden** : « T’as pas de numéro. »
 - **Izzy** : « J’allais quand même. J’ai des gens pour ça. »
@@ -557,19 +559,20 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Elle pense aussi, brièvement, que cinq cent vingt crédits sont dans la poche d’une veste, passés par une machine qui écrit, et qu’il y a une personne dans cette ville capable de lire ce que les machines écrivent. Elle ne dit rien de tout ça.
 - **Yarden** : « D’accord. »
 - Tiamat avait dit, ce matin : « Elle est une adresse. Va-t’en. » Elle attend. Rien ne vient. Pas d’objection, pas d’avertissement, pas même ce mot retenu derrière les dents.
-- Un quatrième silence. Yarden n’a pas de nom pour celui-là non plus. Elle le range avec les trois autres, dans l’ordre, et elle note le chiffre.
+- Encore un silence. Celui-là, elle ne sait pas le lire. Yarden n’a pas de nom pour celui-là non plus. Elle le range avec les trois autres, dans l’ordre, et elle note le chiffre.
 - Izzy hoche la tête, une seule fois, comme quelqu’un qui conclut une transaction dont il ne connaît ni le prix ni la marchandise. Elle se lève, prend sa veste, ne la regarde pas.
-- Izzy, très bas, pour elle-même, sans voir que le son sort : « Mais pourquoi j’ai fait ça, moi. »
+- Izzy, très bas, pour elle-même, sans voir que le son sort.
+- **Izzy** : « Mais pourquoi j’ai fait ça, moi. »
 - Yarden ramasse la boîte. Elle ne répond pas : la seule réponse possible, c’est « je ne sais pas non plus », et ça n’aiderait aucune des deux.
 - *Carte plein écran : Ouchy*
 - L’immeuble est à Ouchy, face au lac. Quinze étages de verre et de pierre claire dans un quartier qui n’en autorise pas dix : quelqu’un, quelque part, a obtenu quelque chose.
 - Elle avait dit Ouchy, ce matin. Un studio vide. Elle n’y a pas repensé une seule fois de tout l’après-midi. Pendant mille ans, elle a connu un lieu, un seul. On ne demande pas à une chose où elle habite.
 - Tiamat le lui avait pourtant mis dans la bouche : « Elle est une adresse. » Elle avait entendu le mot. Pas ce que le mot voulait dire.
 - Un hall de la taille d’une salle de bal, du marbre, un comptoir avec un homme derrière. L’homme se lève quand Izzy entre. Il ne se lève pas pour Yarden.
-- Le concierge : « Mademoiselle. »
+- **Le concierge** : « Mademoiselle. »
 - **Izzy** : « Salut. Elle est avec moi. »
 - L’homme regarde Yarden une seconde entière : la boîte en carton, la veste, les tatouages sur la main droite, le chignon défait.
-- Le concierge : « Bien sûr. »
+- **Le concierge** : « Bien sûr. »
 - L’ascenseur est en miroir sur trois côtés. Yarden s’y voit trois fois et n’y accorde aucune importance particulière. Quinze étages, un sous-sol, et un bouton sans numéro sous le tableau, qu’elle enregistre sans commentaire.
 - Izzy passe une carte devant un lecteur. Le seizième s’allume.
 - **Yarden** : « Y a pas de seizième. »
@@ -594,7 +597,9 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Elle lui fait faire le tour vite, avec l’ennui de quelqu’un qui montre un logement qu’elle n’a pas choisi. Une salle à manger de douze couverts jamais utilisée. Une salle de sport dont deux machines ont encore leur film plastique. Un bureau, un fauteuil en cuir, un sous-main vierge. Trois chambres d’amis, lits faits, coussins alignés.
 - Au bout du couloir, la chambre principale, magnifique, et sans une trace de personne : le lit est tendu comme dans une brochure, pas de pli, pas de verre d’eau, pas de chargeur, pas de livre posé à l’envers. Yarden la regarde deux secondes de trop, et ne dit rien.
 - Elles reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
-- Izzy tend le bras pour la tirer : « Ça, c’est rien. » Mais le geste arrive une demi-seconde après le regard, et une demi-seconde, sur elle, c’est très long.
+- Izzy tend le bras pour la tirer.
+- **Izzy** : « Ça, c’est rien. »
+- Mais le geste arrive une demi-seconde après le regard, et une demi-seconde, sur elle, c’est très long.
 - Une pièce petite, la plus petite de l’étage, sans vue sur le lac. Un lit simple, défait, avec le creux d’un corps encore dedans. Un verre d’eau posé à même le sol. Un livre ouvert à l’envers sur les draps. Un chargeur. Une paire de lunettes pliée sur une pile de vêtements qui ne sont pas rangés par couleur.
 - Tous les dépôts qu’un être humain laisse dans un endroit où il dort, ceux qui manquent à la chambre de la reine, sont là.
 - La porte se referme. Sur la pierre pâle, devant le seuil, trente centimètres de sol légèrement plus mats que le reste. Un pied nu qui passe au même endroit tous les soirs.

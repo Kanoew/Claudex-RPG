@@ -1319,7 +1319,7 @@ const tests = [
     const g = armed('loaded');
     g.loadWeaponArt(); g.loadPortraits(); g.loadSceneArt();
     assert(g.weaponArt.glow && g.weaponArt.base && g.weaponArt.empowered, 'Images de la faux chargées');
-    assert(Object.keys(g.portraitArt).length === 22 && Object.values(g.portraitArt).every(Boolean));
+    assert(Object.keys(g.portraitArt).length === 23 && Object.values(g.portraitArt).every(Boolean));
     g.calls.length = 0;
     g.startAttack(false);
     g.draw();
@@ -1398,6 +1398,20 @@ const tests = [
     g.update(2);
     g.fire('retry:click');
     assert(!g.over && g.currentZone.id === 'quartier' && g.player.hp === g.player.maxHp);
+  }],
+  ['Répliques : Tiamat « par Yarden », le concierge et le 4B ont leur bulle, les gestes restent en narration', () => {
+    const g = game('loaded');
+    const audible = g.parseStoryLine('Tiamat (par Yarden) : « Mithra. »');
+    assert.equal(audible.who, 'Tiamat'); assert(audible.audible); assert.equal(audible.text, 'Mithra.');
+    const inner = g.parseStoryLine('Tiamat (voix intérieure) : « Sois sur tes gardes. »');
+    assert.equal(inner.who, 'Tiamat'); assert(!inner.audible);
+    assert.equal(g.parseStoryLine('Le concierge : « Mademoiselle. »').who, 'Le concierge');
+    assert.equal(g.parseStoryLine('Le 4B : « Bonne journée, monsieur Weiss. »').who, 'Le 4B');
+    assert.equal(g.parseStoryLine('Ishara lève la main.').who, null);
+    g.showStoryLine('Tiamat (par Yarden) : « Mithra. »');
+    assert.equal(g.elements['story-name'].textContent, 'TIAMAT, PAR YARDEN');
+    g.showStoryLine('Tiamat (voix intérieure) : « Sois sur tes gardes. »');
+    assert.equal(g.elements['story-name'].textContent, 'TIAMAT · VOIX INTÉRIEURE');
   }],
   ['Carte : sélection, itinéraire à pied, position et sauvegarde préservées', () => {
     const g = game('loaded');
