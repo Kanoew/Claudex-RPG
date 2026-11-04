@@ -38,7 +38,7 @@ function cityScene() {
   return [
     { card: 'Seule en ville', seconds: 2 },
     { run: () => { enterZone('marterey', 'start'); clearActors(); ch2b.goalText = 'Cherche une faille →'; Object.assign(player, { x: -200, y: 110 }); } },
-    { say: ['Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.', 'Elle ne trouve aucune faille.'] },
+    { say: ['Elle passe devant la guilde du quartier sans entrer.', 'Elle ne trouve aucune faille.'] },
     { until: () => player.x > 120 },
     { run: () => { ch2b.goalText = ''; sceneActor('izzy', 'izzy', 215, 100, { face: -1 }); } },
     { say: ['Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.', 'Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.'] },
@@ -60,7 +60,7 @@ function felixScene() {
     { say: ['Yarden pose les 520. Félix les prend sans les compter.'] },
     { run: () => { credits = 0; debt = 0; identityName = 'Yarden Weiss'; } },
     { say: ['Les papiers étaient prêts depuis la veille au soir. Un beau dossier : une nuit à écrire le nom trois cent quarante fois.', 'Félix : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »'] },
-    { say: ['Félix : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »', 'Félix : « Vous êtes venu couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »', 'Yarden a brisé sa propre règle du chapitre 3 sans s’en apercevoir.'] },
+    { say: ['Félix : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »', 'Félix : « Vous êtes venu couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »'] },
     { say: ['Ce n’est pas Félix qui parle : c’est le 4B. L’homme fabrique, le lieu perçoit.', 'Le 4B : « Bonne journée, monsieur Weiss. »'] }
   ];
 }

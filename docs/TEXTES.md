@@ -159,8 +159,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 
 ## Fin du run : le butin
 
-- Les sept créatures ont laissé tomber du loot. Ishara récolte les matériaux.
-- Plusieurs loots, niveau 19 max, propre.
+- Ishara ramasse quatre fragments et deux bourses. Le dernier gobelin n’a rien laissé.
 - Aucune expérience gagnée.
 - *Carte plein écran : Quarante minutes dedans, deux heures dehors.*
 - Rue Marterey, Lausanne. Dix heures.
@@ -246,10 +245,10 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Yarden pose les 280 en travers de la feuille. Félix les prend sans les compter.
 - Il reste une dette de 520.
 - **Félix** : « Revenez dans trois jours. Le nom existera. Dans les registres, dans les serveurs, dans la mémoire de la ville. Vous pourrez louer, vendre, être arrêtée et relâchée comme n’importe qui. Bienvenue à Helvara, Yarden. »
-- Première fois que quelqu’un dit le nom à voix haute.
+- Première fois que quelqu’un prononce son nom complet.
 - **Tiamat** : « Ça te va. »
 - **Yarden** : « Oui. »
-- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les fleurs.
+- L’escalier s’allège à mesure qu’elles descendent. Au deuxième, les fleurs.
 - Au premier, l’odeur banale d’un couloir d’immeuble : cire, poussière, courrier.
 - Dans la cour : des pavés sans une herbe, du lierre au millimètre, deux arbustes symétriques.
 - Yarden comprend. Ce n’est pas de la maniaquerie, c’est de la méthode : un être qui tient par l’ordre extérieur, quand le reste a déménagé dans les murs.
@@ -260,12 +259,12 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « Toute ma vie j’ai cru que j’étais juste… bonne avec les gens. Et un mec-appartement me dit que c’est quelqu’un d’autre qui regarde par mes yeux. »
 - **Yarden** : « Ce n’est pas ce qu’il a dit. Il a dit qu’une corde te tourne vers les gens. Pas qu’elle décide à ta place. »
 - **Yarden** : « Elle t’oriente. Tu marches quand même. Ce n’est pas la même chose d’être poussée vers une porte et de choisir de l’ouvrir. »
-- **Ishara (sourire)** : « Bon. Yarden. Faut que je m’habitue. Mais celui-là, je peux le dire à voix haute sans te griller, donc va pour Yarden. »
+- **Ishara (sourire)** : « Yarden Weiss, alors. Faut que je m’habitue. »
 - **Ishara** : « Tu rentres ? La chambre en trop est toujours là. »
 - **Yarden** : « Oui. Je rentre. »
 - **Ishara** : « Cool. Bon, par contre, ce soir c’est toi qui cuisines, parce que mes œufs t’ont clairement pas impressionnée et j’ai ma fierté. »
 - **Yarden** : « Je ne sais pas cuisiner. »
-- **Ishara** : « Tu sais neutraliser une araignée de niveau 41 avec sept pour cent de mana. Tu géreras des pâtes. »
+- **Ishara** : « Tu sais neutraliser une araignée de niveau 41. Tu géreras des pâtes. »
 - **Tiamat** : « Tu ne lui en as pas parlé. »
 - Ishara descend vers le quai en parlant de pâtes. Yarden range le fil avec les autres, et prend le métro.
 - Niveau 24. Yarden Weiss.
@@ -297,7 +296,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Yarden** : « ISHARA. Le jogger. Fais-le partir. »
 - **Ishara** : « COURS ! GAZ ! FUITE DE GAZ ! COURS ! »
 - Elle se retourne vers Yarden et la blesse à l’épaule. La veste est déchirée : trois entailles parallèles.
-- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, tu es plus lent qu’hier. »
+- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, plus lente qu’hier. »
 - Elle tombe. Une fraction de seconde, et c’est fini.
 - Niveau 24 → 27. Ishara gagne zéro niveau : le coup est à Yarden.
 - Six opérateurs, aucun écusson, aucune électronique, un carnet manuscrit. Ils arrivent quatre à cinq minutes après la rupture, sans gyrophare.
@@ -348,8 +347,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « …Elle t’aime bien. Genre. Statistiquement. Elle t’a pas mise dehors. »
 - La porte de Céleste se referme. Yarden dort sur le canapé, plus dur que le lit.
 - *Carte plein écran : Le soir*
-- **Yarden** : « L’araignée de niveau quarante et un. Hier soir, dans le métro. Tu l’as mentionnée. Je t’en ai jamais parlé. »
-- **Yarden** : « L’araignée de cristal. Niveau quarante et un. Sept pour cent de mana. Tu me l’as dit dans l’escalier du M2. Mot pour mot. Je ne t’ai jamais raconté cette histoire. »
+- **Yarden** : « Hier, en sortant du 4B. L’araignée de cristal, niveau quarante et un. Je ne t’en ai jamais parlé. »
 - Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.
 - **Ishara** : « Non… Tu m’en as parlé. »
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
@@ -369,7 +367,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
 - Tiamat le remarque. Elle ne le dit pas.
 - *Carte plein écran : Seule en ville*
-- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle passe devant la guilde du quartier sans entrer.
 - Elle ne trouve aucune faille.
 - Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
 - Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
@@ -391,7 +389,6 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
 - **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
 - **Félix** : « Vous êtes venu couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
-- Yarden a brisé sa propre règle du chapitre 3 sans s’en apercevoir.
 - Ce n’est pas Félix qui parle : c’est le 4B. L’homme fabrique, le lieu perçoit.
 - Le 4B : « Bonne journée, monsieur Weiss. »
 - Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
@@ -423,7 +420,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Chef** : « Bonne continuation, mademoiselle Weiss. »
 - Ils ne se retournent pas. Ils ne sortent pas de carnet.
 - La rue reprend son bruit : un scooter, une porte de garage, quelqu’un qui appelle quelqu’un d’autre à un étage.
-- Elle ne l’a donné que trois fois, ce nom : à une fille en haut d’un escalier de métro, à une autre pieds nus sur un canapé, à une inconnue dans une rue, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
+- Elle ne l’a donné que trois fois : à Ishara, à Céleste, puis à Izzy, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
 - **Tiamat** : « Il l’a appris à la seconde où l’homme du quatrième t’a mis la boîte dans les mains : c’est là que ton nom est entré dans les registres. Le reste, c’est juste le temps d’écrire, de trouver une enveloppe et de descendre de sa voiture. »
 - **Tiamat** : « Tu as payé huit cents crédits pour être une ligne. Tu es une ligne. »
 - Elle ne l’ouvre pas dans la rue. Un préau d’école désaffecté, un banc de pierre à l’ombre, un angle mort entre deux bâtiments, une seule ligne d’approche.
@@ -550,7 +547,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Deux cages. Dans l’une, on compte les sorties d’une maison qui n’est pas la sienne. Dans l’autre, on habite la sienne sans en avoir jamais cherché une seule.
 - Elle lui fait faire le tour vite, avec l’ennui de quelqu’un qui montre un logement qu’elle n’a pas choisi. Une salle à manger de douze couverts jamais utilisée. Une salle de sport dont deux machines ont encore leur film plastique. Un bureau, un fauteuil en cuir, un sous-main vierge. Trois chambres d’amis, lits faits, coussins alignés.
 - Au bout du couloir, la chambre principale, magnifique, et sans une trace de personne : le lit est tendu comme dans une brochure, pas de pli, pas de verre d’eau, pas de chargeur, pas de livre posé à l’envers. Yarden la regarde deux secondes de trop, et ne dit rien.
-- Ils reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
+- Elles reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
 - Izzy tend le bras pour la tirer : « Ça, c’est rien. » Mais le geste arrive une demi-seconde après le regard, et une demi-seconde, sur elle, c’est très long.
 - Une pièce petite, la plus petite de l’étage, sans vue sur le lac. Un lit simple, défait, avec le creux d’un corps encore dedans. Un verre d’eau posé à même le sol. Un livre ouvert à l’envers sur les draps. Un chargeur. Une paire de lunettes pliée sur une pile de vêtements qui ne sont pas rangés par couleur.
 - Tous les dépôts qu’un être humain laisse dans un endroit où il dort, ceux qui manquent à la chambre de la reine, sont là.
@@ -666,10 +663,10 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Yarden pose les 280 en travers de la feuille. Félix les prend sans les compter.
 - Il reste une dette de 520.
 - **Félix** : « Revenez dans trois jours. Le nom existera. Dans les registres, dans les serveurs, dans la mémoire de la ville. Vous pourrez louer, vendre, être arrêtée et relâchée comme n’importe qui. Bienvenue à Helvara, Yarden. »
-- Première fois que quelqu’un dit le nom à voix haute.
+- Première fois que quelqu’un prononce son nom complet.
 - **Tiamat** : « Ça te va. »
 - **Yarden** : « Oui. »
-- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les fleurs.
+- L’escalier s’allège à mesure qu’elles descendent. Au deuxième, les fleurs.
 - Au premier, l’odeur banale d’un couloir d’immeuble : cire, poussière, courrier.
 - Dans la cour : des pavés sans une herbe, du lierre au millimètre, deux arbustes symétriques.
 - Yarden comprend. Ce n’est pas de la maniaquerie, c’est de la méthode : un être qui tient par l’ordre extérieur, quand le reste a déménagé dans les murs.
@@ -680,12 +677,12 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « Toute ma vie j’ai cru que j’étais juste… bonne avec les gens. Et un mec-appartement me dit que c’est quelqu’un d’autre qui regarde par mes yeux. »
 - **Yarden** : « Ce n’est pas ce qu’il a dit. Il a dit qu’une corde te tourne vers les gens. Pas qu’elle décide à ta place. »
 - **Yarden** : « Elle t’oriente. Tu marches quand même. Ce n’est pas la même chose d’être poussée vers une porte et de choisir de l’ouvrir. »
-- **Ishara (sourire)** : « Bon. Yarden. Faut que je m’habitue. Mais celui-là, je peux le dire à voix haute sans te griller, donc va pour Yarden. »
+- **Ishara (sourire)** : « Yarden Weiss, alors. Faut que je m’habitue. »
 - **Ishara** : « Tu rentres ? La chambre en trop est toujours là. »
 - **Yarden** : « Oui. Je rentre. »
 - **Ishara** : « Cool. Bon, par contre, ce soir c’est toi qui cuisines, parce que mes œufs t’ont clairement pas impressionnée et j’ai ma fierté. »
 - **Yarden** : « Je ne sais pas cuisiner. »
-- **Ishara** : « Tu sais neutraliser une araignée de niveau 41 avec sept pour cent de mana. Tu géreras des pâtes. »
+- **Ishara** : « Tu sais neutraliser une araignée de niveau 41. Tu géreras des pâtes. »
 - **Tiamat** : « Tu ne lui en as pas parlé. »
 - Ishara descend vers le quai en parlant de pâtes. Yarden range le fil avec les autres, et prend le métro.
 - Niveau 24. Yarden Weiss.
@@ -717,7 +714,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Yarden** : « ISHARA. Le jogger. Fais-le partir. »
 - **Ishara** : « COURS ! GAZ ! FUITE DE GAZ ! COURS ! »
 - Elle se retourne vers Yarden et la blesse à l’épaule. La veste est déchirée : trois entailles parallèles.
-- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, tu es plus lent qu’hier. »
+- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, plus lente qu’hier. »
 - Elle tombe. Une fraction de seconde, et c’est fini.
 - Niveau 24 → 27. Ishara gagne zéro niveau : le coup est à Yarden.
 - Six opérateurs, aucun écusson, aucune électronique, un carnet manuscrit. Ils arrivent quatre à cinq minutes après la rupture, sans gyrophare.
@@ -768,8 +765,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « …Elle t’aime bien. Genre. Statistiquement. Elle t’a pas mise dehors. »
 - La porte de Céleste se referme. Yarden dort sur le canapé, plus dur que le lit.
 - *Carte plein écran : Le soir*
-- **Yarden** : « L’araignée de niveau quarante et un. Hier soir, dans le métro. Tu l’as mentionnée. Je t’en ai jamais parlé. »
-- **Yarden** : « L’araignée de cristal. Niveau quarante et un. Sept pour cent de mana. Tu me l’as dit dans l’escalier du M2. Mot pour mot. Je ne t’ai jamais raconté cette histoire. »
+- **Yarden** : « Hier, en sortant du 4B. L’araignée de cristal, niveau quarante et un. Je ne t’en ai jamais parlé. »
 - Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.
 - **Ishara** : « Non… Tu m’en as parlé. »
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
@@ -789,7 +785,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
 - Tiamat le remarque. Elle ne le dit pas.
 - *Carte plein écran : Seule en ville*
-- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle passe devant la guilde du quartier sans entrer.
 - Elle ne trouve aucune faille.
 - Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
 - Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
@@ -811,7 +807,6 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
 - **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
 - **Félix** : « Vous êtes venu couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
-- Yarden a brisé sa propre règle du chapitre 3 sans s’en apercevoir.
 - Ce n’est pas Félix qui parle : c’est le 4B. L’homme fabrique, le lieu perçoit.
 - Le 4B : « Bonne journée, monsieur Weiss. »
 - Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
@@ -843,7 +838,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Chef** : « Bonne continuation, mademoiselle Weiss. »
 - Ils ne se retournent pas. Ils ne sortent pas de carnet.
 - La rue reprend son bruit : un scooter, une porte de garage, quelqu’un qui appelle quelqu’un d’autre à un étage.
-- Elle ne l’a donné que trois fois, ce nom : à une fille en haut d’un escalier de métro, à une autre pieds nus sur un canapé, à une inconnue dans une rue, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
+- Elle ne l’a donné que trois fois : à Ishara, à Céleste, puis à Izzy, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
 - **Tiamat** : « Il l’a appris à la seconde où l’homme du quatrième t’a mis la boîte dans les mains : c’est là que ton nom est entré dans les registres. Le reste, c’est juste le temps d’écrire, de trouver une enveloppe et de descendre de sa voiture. »
 - **Tiamat** : « Tu as payé huit cents crédits pour être une ligne. Tu es une ligne. »
 - Elle ne l’ouvre pas dans la rue. Un préau d’école désaffecté, un banc de pierre à l’ombre, un angle mort entre deux bâtiments, une seule ligne d’approche.
@@ -970,7 +965,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Deux cages. Dans l’une, on compte les sorties d’une maison qui n’est pas la sienne. Dans l’autre, on habite la sienne sans en avoir jamais cherché une seule.
 - Elle lui fait faire le tour vite, avec l’ennui de quelqu’un qui montre un logement qu’elle n’a pas choisi. Une salle à manger de douze couverts jamais utilisée. Une salle de sport dont deux machines ont encore leur film plastique. Un bureau, un fauteuil en cuir, un sous-main vierge. Trois chambres d’amis, lits faits, coussins alignés.
 - Au bout du couloir, la chambre principale, magnifique, et sans une trace de personne : le lit est tendu comme dans une brochure, pas de pli, pas de verre d’eau, pas de chargeur, pas de livre posé à l’envers. Yarden la regarde deux secondes de trop, et ne dit rien.
-- Ils reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
+- Elles reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
 - Izzy tend le bras pour la tirer : « Ça, c’est rien. » Mais le geste arrive une demi-seconde après le regard, et une demi-seconde, sur elle, c’est très long.
 - Une pièce petite, la plus petite de l’étage, sans vue sur le lac. Un lit simple, défait, avec le creux d’un corps encore dedans. Un verre d’eau posé à même le sol. Un livre ouvert à l’envers sur les draps. Un chargeur. Une paire de lunettes pliée sur une pile de vêtements qui ne sont pas rangés par couleur.
 - Tous les dépôts qu’un être humain laisse dans un endroit où il dort, ceux qui manquent à la chambre de la reine, sont là.
@@ -1084,10 +1079,10 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Yarden pose les 280 en travers de la feuille. Félix les prend sans les compter.
 - Il reste une dette de 520.
 - **Félix** : « Revenez dans trois jours. Le nom existera. Dans les registres, dans les serveurs, dans la mémoire de la ville. Vous pourrez louer, vendre, être arrêtée et relâchée comme n’importe qui. Bienvenue à Helvara, Yarden. »
-- Première fois que quelqu’un dit le nom à voix haute.
+- Première fois que quelqu’un prononce son nom complet.
 - **Tiamat** : « Ça te va. »
 - **Yarden** : « Oui. »
-- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les fleurs.
+- L’escalier s’allège à mesure qu’elles descendent. Au deuxième, les fleurs.
 - Au premier, l’odeur banale d’un couloir d’immeuble : cire, poussière, courrier.
 - Dans la cour : des pavés sans une herbe, du lierre au millimètre, deux arbustes symétriques.
 - Yarden comprend. Ce n’est pas de la maniaquerie, c’est de la méthode : un être qui tient par l’ordre extérieur, quand le reste a déménagé dans les murs.
@@ -1098,12 +1093,12 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « Toute ma vie j’ai cru que j’étais juste… bonne avec les gens. Et un mec-appartement me dit que c’est quelqu’un d’autre qui regarde par mes yeux. »
 - **Yarden** : « Ce n’est pas ce qu’il a dit. Il a dit qu’une corde te tourne vers les gens. Pas qu’elle décide à ta place. »
 - **Yarden** : « Elle t’oriente. Tu marches quand même. Ce n’est pas la même chose d’être poussée vers une porte et de choisir de l’ouvrir. »
-- **Ishara (sourire)** : « Bon. Yarden. Faut que je m’habitue. Mais celui-là, je peux le dire à voix haute sans te griller, donc va pour Yarden. »
+- **Ishara (sourire)** : « Yarden Weiss, alors. Faut que je m’habitue. »
 - **Ishara** : « Tu rentres ? La chambre en trop est toujours là. »
 - **Yarden** : « Oui. Je rentre. »
 - **Ishara** : « Cool. Bon, par contre, ce soir c’est toi qui cuisines, parce que mes œufs t’ont clairement pas impressionnée et j’ai ma fierté. »
 - **Yarden** : « Je ne sais pas cuisiner. »
-- **Ishara** : « Tu sais neutraliser une araignée de niveau 41 avec sept pour cent de mana. Tu géreras des pâtes. »
+- **Ishara** : « Tu sais neutraliser une araignée de niveau 41. Tu géreras des pâtes. »
 - **Tiamat** : « Tu ne lui en as pas parlé. »
 - Ishara descend vers le quai en parlant de pâtes. Yarden range le fil avec les autres, et prend le métro.
 - Niveau 24. Yarden Weiss.
@@ -1135,7 +1130,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Yarden** : « ISHARA. Le jogger. Fais-le partir. »
 - **Ishara** : « COURS ! GAZ ! FUITE DE GAZ ! COURS ! »
 - Elle se retourne vers Yarden et la blesse à l’épaule. La veste est déchirée : trois entailles parallèles.
-- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, tu es plus lent qu’hier. »
+- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, plus lente qu’hier. »
 - Elle tombe. Une fraction de seconde, et c’est fini.
 - Niveau 24 → 27. Ishara gagne zéro niveau : le coup est à Yarden.
 - Six opérateurs, aucun écusson, aucune électronique, un carnet manuscrit. Ils arrivent quatre à cinq minutes après la rupture, sans gyrophare.
@@ -1186,8 +1181,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « …Elle t’aime bien. Genre. Statistiquement. Elle t’a pas mise dehors. »
 - La porte de Céleste se referme. Yarden dort sur le canapé, plus dur que le lit.
 - *Carte plein écran : Le soir*
-- **Yarden** : « L’araignée de niveau quarante et un. Hier soir, dans le métro. Tu l’as mentionnée. Je t’en ai jamais parlé. »
-- **Yarden** : « L’araignée de cristal. Niveau quarante et un. Sept pour cent de mana. Tu me l’as dit dans l’escalier du M2. Mot pour mot. Je ne t’ai jamais raconté cette histoire. »
+- **Yarden** : « Hier, en sortant du 4B. L’araignée de cristal, niveau quarante et un. Je ne t’en ai jamais parlé. »
 - Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.
 - **Ishara** : « Non… Tu m’en as parlé. »
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
@@ -1207,7 +1201,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
 - Tiamat le remarque. Elle ne le dit pas.
 - *Carte plein écran : Seule en ville*
-- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle passe devant la guilde du quartier sans entrer.
 - Elle ne trouve aucune faille.
 - Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
 - Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
@@ -1229,7 +1223,6 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
 - **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
 - **Félix** : « Vous êtes venu couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
-- Yarden a brisé sa propre règle du chapitre 3 sans s’en apercevoir.
 - Ce n’est pas Félix qui parle : c’est le 4B. L’homme fabrique, le lieu perçoit.
 - Le 4B : « Bonne journée, monsieur Weiss. »
 - Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
@@ -1261,7 +1254,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Chef** : « Bonne continuation, mademoiselle Weiss. »
 - Ils ne se retournent pas. Ils ne sortent pas de carnet.
 - La rue reprend son bruit : un scooter, une porte de garage, quelqu’un qui appelle quelqu’un d’autre à un étage.
-- Elle ne l’a donné que trois fois, ce nom : à une fille en haut d’un escalier de métro, à une autre pieds nus sur un canapé, à une inconnue dans une rue, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
+- Elle ne l’a donné que trois fois : à Ishara, à Céleste, puis à Izzy, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
 - **Tiamat** : « Il l’a appris à la seconde où l’homme du quatrième t’a mis la boîte dans les mains : c’est là que ton nom est entré dans les registres. Le reste, c’est juste le temps d’écrire, de trouver une enveloppe et de descendre de sa voiture. »
 - **Tiamat** : « Tu as payé huit cents crédits pour être une ligne. Tu es une ligne. »
 - Elle ne l’ouvre pas dans la rue. Un préau d’école désaffecté, un banc de pierre à l’ombre, un angle mort entre deux bâtiments, une seule ligne d’approche.
@@ -1388,7 +1381,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Deux cages. Dans l’une, on compte les sorties d’une maison qui n’est pas la sienne. Dans l’autre, on habite la sienne sans en avoir jamais cherché une seule.
 - Elle lui fait faire le tour vite, avec l’ennui de quelqu’un qui montre un logement qu’elle n’a pas choisi. Une salle à manger de douze couverts jamais utilisée. Une salle de sport dont deux machines ont encore leur film plastique. Un bureau, un fauteuil en cuir, un sous-main vierge. Trois chambres d’amis, lits faits, coussins alignés.
 - Au bout du couloir, la chambre principale, magnifique, et sans une trace de personne : le lit est tendu comme dans une brochure, pas de pli, pas de verre d’eau, pas de chargeur, pas de livre posé à l’envers. Yarden la regarde deux secondes de trop, et ne dit rien.
-- Ils reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
+- Elles reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
 - Izzy tend le bras pour la tirer : « Ça, c’est rien. » Mais le geste arrive une demi-seconde après le regard, et une demi-seconde, sur elle, c’est très long.
 - Une pièce petite, la plus petite de l’étage, sans vue sur le lac. Un lit simple, défait, avec le creux d’un corps encore dedans. Un verre d’eau posé à même le sol. Un livre ouvert à l’envers sur les draps. Un chargeur. Une paire de lunettes pliée sur une pile de vêtements qui ne sont pas rangés par couleur.
 - Tous les dépôts qu’un être humain laisse dans un endroit où il dort, ceux qui manquent à la chambre de la reine, sont là.
@@ -1488,10 +1481,10 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Yarden pose les 280 en travers de la feuille. Félix les prend sans les compter.
 - Il reste une dette de 520.
 - **Félix** : « Revenez dans trois jours. Le nom existera. Dans les registres, dans les serveurs, dans la mémoire de la ville. Vous pourrez louer, vendre, être arrêtée et relâchée comme n’importe qui. Bienvenue à Helvara, Yarden. »
-- Première fois que quelqu’un dit le nom à voix haute.
+- Première fois que quelqu’un prononce son nom complet.
 - **Tiamat** : « Ça te va. »
 - **Yarden** : « Oui. »
-- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les fleurs.
+- L’escalier s’allège à mesure qu’elles descendent. Au deuxième, les fleurs.
 - Au premier, l’odeur banale d’un couloir d’immeuble : cire, poussière, courrier.
 - Dans la cour : des pavés sans une herbe, du lierre au millimètre, deux arbustes symétriques.
 - Yarden comprend. Ce n’est pas de la maniaquerie, c’est de la méthode : un être qui tient par l’ordre extérieur, quand le reste a déménagé dans les murs.
@@ -1502,12 +1495,12 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « Toute ma vie j’ai cru que j’étais juste… bonne avec les gens. Et un mec-appartement me dit que c’est quelqu’un d’autre qui regarde par mes yeux. »
 - **Yarden** : « Ce n’est pas ce qu’il a dit. Il a dit qu’une corde te tourne vers les gens. Pas qu’elle décide à ta place. »
 - **Yarden** : « Elle t’oriente. Tu marches quand même. Ce n’est pas la même chose d’être poussée vers une porte et de choisir de l’ouvrir. »
-- **Ishara (sourire)** : « Bon. Yarden. Faut que je m’habitue. Mais celui-là, je peux le dire à voix haute sans te griller, donc va pour Yarden. »
+- **Ishara (sourire)** : « Yarden Weiss, alors. Faut que je m’habitue. »
 - **Ishara** : « Tu rentres ? La chambre en trop est toujours là. »
 - **Yarden** : « Oui. Je rentre. »
 - **Ishara** : « Cool. Bon, par contre, ce soir c’est toi qui cuisines, parce que mes œufs t’ont clairement pas impressionnée et j’ai ma fierté. »
 - **Yarden** : « Je ne sais pas cuisiner. »
-- **Ishara** : « Tu sais neutraliser une araignée de niveau 41 avec sept pour cent de mana. Tu géreras des pâtes. »
+- **Ishara** : « Tu sais neutraliser une araignée de niveau 41. Tu géreras des pâtes. »
 - **Tiamat** : « Tu ne lui en as pas parlé. »
 - Ishara descend vers le quai en parlant de pâtes. Yarden range le fil avec les autres, et prend le métro.
 - Niveau 24. Yarden Weiss.
@@ -1539,7 +1532,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Yarden** : « ISHARA. Le jogger. Fais-le partir. »
 - **Ishara** : « COURS ! GAZ ! FUITE DE GAZ ! COURS ! »
 - Elle se retourne vers Yarden et la blesse à l’épaule. La veste est déchirée : trois entailles parallèles.
-- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, tu es plus lent qu’hier. »
+- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, plus lente qu’hier. »
 - Elle tombe. Une fraction de seconde, et c’est fini.
 - Niveau 24 → 27. Ishara gagne zéro niveau : le coup est à Yarden.
 - Six opérateurs, aucun écusson, aucune électronique, un carnet manuscrit. Ils arrivent quatre à cinq minutes après la rupture, sans gyrophare.
@@ -1590,8 +1583,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « …Elle t’aime bien. Genre. Statistiquement. Elle t’a pas mise dehors. »
 - La porte de Céleste se referme. Yarden dort sur le canapé, plus dur que le lit.
 - *Carte plein écran : Le soir*
-- **Yarden** : « L’araignée de niveau quarante et un. Hier soir, dans le métro. Tu l’as mentionnée. Je t’en ai jamais parlé. »
-- **Yarden** : « L’araignée de cristal. Niveau quarante et un. Sept pour cent de mana. Tu me l’as dit dans l’escalier du M2. Mot pour mot. Je ne t’ai jamais raconté cette histoire. »
+- **Yarden** : « Hier, en sortant du 4B. L’araignée de cristal, niveau quarante et un. Je ne t’en ai jamais parlé. »
 - Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.
 - **Ishara** : « Non… Tu m’en as parlé. »
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
@@ -1611,7 +1603,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
 - Tiamat le remarque. Elle ne le dit pas.
 - *Carte plein écran : Seule en ville*
-- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle passe devant la guilde du quartier sans entrer.
 - Elle ne trouve aucune faille.
 - Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
 - Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
@@ -1633,7 +1625,6 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
 - **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
 - **Félix** : « Vous êtes venu couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
-- Yarden a brisé sa propre règle du chapitre 3 sans s’en apercevoir.
 - Ce n’est pas Félix qui parle : c’est le 4B. L’homme fabrique, le lieu perçoit.
 - Le 4B : « Bonne journée, monsieur Weiss. »
 - Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
@@ -1665,7 +1656,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Chef** : « Bonne continuation, mademoiselle Weiss. »
 - Ils ne se retournent pas. Ils ne sortent pas de carnet.
 - La rue reprend son bruit : un scooter, une porte de garage, quelqu’un qui appelle quelqu’un d’autre à un étage.
-- Elle ne l’a donné que trois fois, ce nom : à une fille en haut d’un escalier de métro, à une autre pieds nus sur un canapé, à une inconnue dans une rue, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
+- Elle ne l’a donné que trois fois : à Ishara, à Céleste, puis à Izzy, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
 - **Tiamat** : « Il l’a appris à la seconde où l’homme du quatrième t’a mis la boîte dans les mains : c’est là que ton nom est entré dans les registres. Le reste, c’est juste le temps d’écrire, de trouver une enveloppe et de descendre de sa voiture. »
 - **Tiamat** : « Tu as payé huit cents crédits pour être une ligne. Tu es une ligne. »
 - Elle ne l’ouvre pas dans la rue. Un préau d’école désaffecté, un banc de pierre à l’ombre, un angle mort entre deux bâtiments, une seule ligne d’approche.
@@ -1792,7 +1783,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Deux cages. Dans l’une, on compte les sorties d’une maison qui n’est pas la sienne. Dans l’autre, on habite la sienne sans en avoir jamais cherché une seule.
 - Elle lui fait faire le tour vite, avec l’ennui de quelqu’un qui montre un logement qu’elle n’a pas choisi. Une salle à manger de douze couverts jamais utilisée. Une salle de sport dont deux machines ont encore leur film plastique. Un bureau, un fauteuil en cuir, un sous-main vierge. Trois chambres d’amis, lits faits, coussins alignés.
 - Au bout du couloir, la chambre principale, magnifique, et sans une trace de personne : le lit est tendu comme dans une brochure, pas de pli, pas de verre d’eau, pas de chargeur, pas de livre posé à l’envers. Yarden la regarde deux secondes de trop, et ne dit rien.
-- Ils reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
+- Elles reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
 - Izzy tend le bras pour la tirer : « Ça, c’est rien. » Mais le geste arrive une demi-seconde après le regard, et une demi-seconde, sur elle, c’est très long.
 - Une pièce petite, la plus petite de l’étage, sans vue sur le lac. Un lit simple, défait, avec le creux d’un corps encore dedans. Un verre d’eau posé à même le sol. Un livre ouvert à l’envers sur les draps. Un chargeur. Une paire de lunettes pliée sur une pile de vêtements qui ne sont pas rangés par couleur.
 - Tous les dépôts qu’un être humain laisse dans un endroit où il dort, ceux qui manquent à la chambre de la reine, sont là.
@@ -1885,10 +1876,10 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Yarden pose les 280 en travers de la feuille. Félix les prend sans les compter.
 - Il reste une dette de 520.
 - **Félix** : « Revenez dans trois jours. Le nom existera. Dans les registres, dans les serveurs, dans la mémoire de la ville. Vous pourrez louer, vendre, être arrêtée et relâchée comme n’importe qui. Bienvenue à Helvara, Yarden. »
-- Première fois que quelqu’un dit le nom à voix haute.
+- Première fois que quelqu’un prononce son nom complet.
 - **Tiamat** : « Ça te va. »
 - **Yarden** : « Oui. »
-- L’escalier s’allège à mesure qu’ils descendent. Au deuxième, les fleurs.
+- L’escalier s’allège à mesure qu’elles descendent. Au deuxième, les fleurs.
 - Au premier, l’odeur banale d’un couloir d’immeuble : cire, poussière, courrier.
 - Dans la cour : des pavés sans une herbe, du lierre au millimètre, deux arbustes symétriques.
 - Yarden comprend. Ce n’est pas de la maniaquerie, c’est de la méthode : un être qui tient par l’ordre extérieur, quand le reste a déménagé dans les murs.
@@ -1899,12 +1890,12 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « Toute ma vie j’ai cru que j’étais juste… bonne avec les gens. Et un mec-appartement me dit que c’est quelqu’un d’autre qui regarde par mes yeux. »
 - **Yarden** : « Ce n’est pas ce qu’il a dit. Il a dit qu’une corde te tourne vers les gens. Pas qu’elle décide à ta place. »
 - **Yarden** : « Elle t’oriente. Tu marches quand même. Ce n’est pas la même chose d’être poussée vers une porte et de choisir de l’ouvrir. »
-- **Ishara (sourire)** : « Bon. Yarden. Faut que je m’habitue. Mais celui-là, je peux le dire à voix haute sans te griller, donc va pour Yarden. »
+- **Ishara (sourire)** : « Yarden Weiss, alors. Faut que je m’habitue. »
 - **Ishara** : « Tu rentres ? La chambre en trop est toujours là. »
 - **Yarden** : « Oui. Je rentre. »
 - **Ishara** : « Cool. Bon, par contre, ce soir c’est toi qui cuisines, parce que mes œufs t’ont clairement pas impressionnée et j’ai ma fierté. »
 - **Yarden** : « Je ne sais pas cuisiner. »
-- **Ishara** : « Tu sais neutraliser une araignée de niveau 41 avec sept pour cent de mana. Tu géreras des pâtes. »
+- **Ishara** : « Tu sais neutraliser une araignée de niveau 41. Tu géreras des pâtes. »
 - **Tiamat** : « Tu ne lui en as pas parlé. »
 - Ishara descend vers le quai en parlant de pâtes. Yarden range le fil avec les autres, et prend le métro.
 - Niveau 24. Yarden Weiss.
@@ -1936,7 +1927,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Yarden** : « ISHARA. Le jogger. Fais-le partir. »
 - **Ishara** : « COURS ! GAZ ! FUITE DE GAZ ! COURS ! »
 - Elle se retourne vers Yarden et la blesse à l’épaule. La veste est déchirée : trois entailles parallèles.
-- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, tu es plus lent qu’hier. »
+- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, plus lente qu’hier. »
 - Elle tombe. Une fraction de seconde, et c’est fini.
 - Niveau 24 → 27. Ishara gagne zéro niveau : le coup est à Yarden.
 - Six opérateurs, aucun écusson, aucune électronique, un carnet manuscrit. Ils arrivent quatre à cinq minutes après la rupture, sans gyrophare.
@@ -1987,8 +1978,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « …Elle t’aime bien. Genre. Statistiquement. Elle t’a pas mise dehors. »
 - La porte de Céleste se referme. Yarden dort sur le canapé, plus dur que le lit.
 - *Carte plein écran : Le soir*
-- **Yarden** : « L’araignée de niveau quarante et un. Hier soir, dans le métro. Tu l’as mentionnée. Je t’en ai jamais parlé. »
-- **Yarden** : « L’araignée de cristal. Niveau quarante et un. Sept pour cent de mana. Tu me l’as dit dans l’escalier du M2. Mot pour mot. Je ne t’ai jamais raconté cette histoire. »
+- **Yarden** : « Hier, en sortant du 4B. L’araignée de cristal, niveau quarante et un. Je ne t’en ai jamais parlé. »
 - Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.
 - **Ishara** : « Non… Tu m’en as parlé. »
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
@@ -2008,7 +1998,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
 - Tiamat le remarque. Elle ne le dit pas.
 - *Carte plein écran : Seule en ville*
-- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle passe devant la guilde du quartier sans entrer.
 - Elle ne trouve aucune faille.
 - Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
 - Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
@@ -2030,7 +2020,6 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
 - **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
 - **Félix** : « Vous êtes venu couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
-- Yarden a brisé sa propre règle du chapitre 3 sans s’en apercevoir.
 - Ce n’est pas Félix qui parle : c’est le 4B. L’homme fabrique, le lieu perçoit.
 - Le 4B : « Bonne journée, monsieur Weiss. »
 - Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
@@ -2062,7 +2051,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Chef** : « Bonne continuation, mademoiselle Weiss. »
 - Ils ne se retournent pas. Ils ne sortent pas de carnet.
 - La rue reprend son bruit : un scooter, une porte de garage, quelqu’un qui appelle quelqu’un d’autre à un étage.
-- Elle ne l’a donné que trois fois, ce nom : à une fille en haut d’un escalier de métro, à une autre pieds nus sur un canapé, à une inconnue dans une rue, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
+- Elle ne l’a donné que trois fois : à Ishara, à Céleste, puis à Izzy, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
 - **Tiamat** : « Il l’a appris à la seconde où l’homme du quatrième t’a mis la boîte dans les mains : c’est là que ton nom est entré dans les registres. Le reste, c’est juste le temps d’écrire, de trouver une enveloppe et de descendre de sa voiture. »
 - **Tiamat** : « Tu as payé huit cents crédits pour être une ligne. Tu es une ligne. »
 - Elle ne l’ouvre pas dans la rue. Un préau d’école désaffecté, un banc de pierre à l’ombre, un angle mort entre deux bâtiments, une seule ligne d’approche.
@@ -2189,7 +2178,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Deux cages. Dans l’une, on compte les sorties d’une maison qui n’est pas la sienne. Dans l’autre, on habite la sienne sans en avoir jamais cherché une seule.
 - Elle lui fait faire le tour vite, avec l’ennui de quelqu’un qui montre un logement qu’elle n’a pas choisi. Une salle à manger de douze couverts jamais utilisée. Une salle de sport dont deux machines ont encore leur film plastique. Un bureau, un fauteuil en cuir, un sous-main vierge. Trois chambres d’amis, lits faits, coussins alignés.
 - Au bout du couloir, la chambre principale, magnifique, et sans une trace de personne : le lit est tendu comme dans une brochure, pas de pli, pas de verre d’eau, pas de chargeur, pas de livre posé à l’envers. Yarden la regarde deux secondes de trop, et ne dit rien.
-- Ils reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
+- Elles reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
 - Izzy tend le bras pour la tirer : « Ça, c’est rien. » Mais le geste arrive une demi-seconde après le regard, et une demi-seconde, sur elle, c’est très long.
 - Une pièce petite, la plus petite de l’étage, sans vue sur le lac. Un lit simple, défait, avec le creux d’un corps encore dedans. Un verre d’eau posé à même le sol. Un livre ouvert à l’envers sur les draps. Un chargeur. Une paire de lunettes pliée sur une pile de vêtements qui ne sont pas rangés par couleur.
 - Tous les dépôts qu’un être humain laisse dans un endroit où il dort, ceux qui manquent à la chambre de la reine, sont là.
@@ -2275,7 +2264,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Yarden** : « ISHARA. Le jogger. Fais-le partir. »
 - **Ishara** : « COURS ! GAZ ! FUITE DE GAZ ! COURS ! »
 - Elle se retourne vers Yarden et la blesse à l’épaule. La veste est déchirée : trois entailles parallèles.
-- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, tu es plus lent qu’hier. »
+- **Tiamat** : « Elle est plus rapide que l’araignée. Et toi, plus lente qu’hier. »
 - Elle tombe. Une fraction de seconde, et c’est fini.
 - Niveau 24 → 27. Ishara gagne zéro niveau : le coup est à Yarden.
 - Six opérateurs, aucun écusson, aucune électronique, un carnet manuscrit. Ils arrivent quatre à cinq minutes après la rupture, sans gyrophare.
@@ -2326,8 +2315,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « …Elle t’aime bien. Genre. Statistiquement. Elle t’a pas mise dehors. »
 - La porte de Céleste se referme. Yarden dort sur le canapé, plus dur que le lit.
 - *Carte plein écran : Le soir*
-- **Yarden** : « L’araignée de niveau quarante et un. Hier soir, dans le métro. Tu l’as mentionnée. Je t’en ai jamais parlé. »
-- **Yarden** : « L’araignée de cristal. Niveau quarante et un. Sept pour cent de mana. Tu me l’as dit dans l’escalier du M2. Mot pour mot. Je ne t’ai jamais raconté cette histoire. »
+- **Yarden** : « Hier, en sortant du 4B. L’araignée de cristal, niveau quarante et un. Je ne t’en ai jamais parlé. »
 - Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.
 - **Ishara** : « Non… Tu m’en as parlé. »
 - **Tiamat** : « Regarde-la. Elle ne ment pas. »
@@ -2347,7 +2335,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
 - Tiamat le remarque. Elle ne le dit pas.
 - *Carte plein écran : Seule en ville*
-- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle passe devant la guilde du quartier sans entrer.
 - Elle ne trouve aucune faille.
 - Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
 - Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
@@ -2369,7 +2357,6 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
 - **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
 - **Félix** : « Vous êtes venu couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
-- Yarden a brisé sa propre règle du chapitre 3 sans s’en apercevoir.
 - Ce n’est pas Félix qui parle : c’est le 4B. L’homme fabrique, le lieu perçoit.
 - Le 4B : « Bonne journée, monsieur Weiss. »
 - Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
@@ -2401,7 +2388,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Chef** : « Bonne continuation, mademoiselle Weiss. »
 - Ils ne se retournent pas. Ils ne sortent pas de carnet.
 - La rue reprend son bruit : un scooter, une porte de garage, quelqu’un qui appelle quelqu’un d’autre à un étage.
-- Elle ne l’a donné que trois fois, ce nom : à une fille en haut d’un escalier de métro, à une autre pieds nus sur un canapé, à une inconnue dans une rue, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
+- Elle ne l’a donné que trois fois : à Ishara, à Céleste, puis à Izzy, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
 - **Tiamat** : « Il l’a appris à la seconde où l’homme du quatrième t’a mis la boîte dans les mains : c’est là que ton nom est entré dans les registres. Le reste, c’est juste le temps d’écrire, de trouver une enveloppe et de descendre de sa voiture. »
 - **Tiamat** : « Tu as payé huit cents crédits pour être une ligne. Tu es une ligne. »
 - Elle ne l’ouvre pas dans la rue. Un préau d’école désaffecté, un banc de pierre à l’ombre, un angle mort entre deux bâtiments, une seule ligne d’approche.
@@ -2528,7 +2515,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Deux cages. Dans l’une, on compte les sorties d’une maison qui n’est pas la sienne. Dans l’autre, on habite la sienne sans en avoir jamais cherché une seule.
 - Elle lui fait faire le tour vite, avec l’ennui de quelqu’un qui montre un logement qu’elle n’a pas choisi. Une salle à manger de douze couverts jamais utilisée. Une salle de sport dont deux machines ont encore leur film plastique. Un bureau, un fauteuil en cuir, un sous-main vierge. Trois chambres d’amis, lits faits, coussins alignés.
 - Au bout du couloir, la chambre principale, magnifique, et sans une trace de personne : le lit est tendu comme dans une brochure, pas de pli, pas de verre d’eau, pas de chargeur, pas de livre posé à l’envers. Yarden la regarde deux secondes de trop, et ne dit rien.
-- Ils reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
+- Elles reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
 - Izzy tend le bras pour la tirer : « Ça, c’est rien. » Mais le geste arrive une demi-seconde après le regard, et une demi-seconde, sur elle, c’est très long.
 - Une pièce petite, la plus petite de l’étage, sans vue sur le lac. Un lit simple, défait, avec le creux d’un corps encore dedans. Un verre d’eau posé à même le sol. Un livre ouvert à l’envers sur les draps. Un chargeur. Une paire de lunettes pliée sur une pile de vêtements qui ne sont pas rangés par couleur.
 - Tous les dépôts qu’un être humain laisse dans un endroit où il dort, ceux qui manquent à la chambre de la reine, sont là.
@@ -2575,7 +2562,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Tout en VIT : 5 devient 11. Pour la première fois, elle n’achète pas de la puissance. Elle achète du temps.
 - Tiamat le remarque. Elle ne le dit pas.
 - *Carte plein écran : Seule en ville*
-- Elle examine la guilde du quartier, et la refuse : s’affilier ferait du « Personne. » du chapitre 4 un mensonge daté.
+- Elle passe devant la guilde du quartier sans entrer.
 - Elle ne trouve aucune faille.
 - Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.
 - Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.
@@ -2597,7 +2584,6 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Félix** : « Des impressions non vérifiables, et une rature volontaire. Un dossier sans faute est un dossier fabriqué. L’histoire tiendra. »
 - **Félix** : « Les gens qui paient tout d’un coup paient rarement avec leur propre argent. »
 - **Félix** : « Vous êtes venu couper une laisse. Je vous demande juste de savoir avec quoi vous l’avez coupée. »
-- Yarden a brisé sa propre règle du chapitre 3 sans s’en apercevoir.
 - Ce n’est pas Félix qui parle : c’est le 4B. L’homme fabrique, le lieu perçoit.
 - Le 4B : « Bonne journée, monsieur Weiss. »
 - Midi. Sous la porte cochère, trois hommes en costumes sombres, décalés d’une dizaine de mètres sur la gauche : le chef et deux inconnus.
@@ -2629,7 +2615,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Chef** : « Bonne continuation, mademoiselle Weiss. »
 - Ils ne se retournent pas. Ils ne sortent pas de carnet.
 - La rue reprend son bruit : un scooter, une porte de garage, quelqu’un qui appelle quelqu’un d’autre à un étage.
-- Elle ne l’a donné que trois fois, ce nom : à une fille en haut d’un escalier de métro, à une autre pieds nus sur un canapé, à une inconnue dans une rue, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
+- Elle ne l’a donné que trois fois : à Ishara, à Céleste, puis à Izzy, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
 - **Tiamat** : « Il l’a appris à la seconde où l’homme du quatrième t’a mis la boîte dans les mains : c’est là que ton nom est entré dans les registres. Le reste, c’est juste le temps d’écrire, de trouver une enveloppe et de descendre de sa voiture. »
 - **Tiamat** : « Tu as payé huit cents crédits pour être une ligne. Tu es une ligne. »
 - Elle ne l’ouvre pas dans la rue. Un préau d’école désaffecté, un banc de pierre à l’ombre, un angle mort entre deux bâtiments, une seule ligne d’approche.
@@ -2756,7 +2742,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Deux cages. Dans l’une, on compte les sorties d’une maison qui n’est pas la sienne. Dans l’autre, on habite la sienne sans en avoir jamais cherché une seule.
 - Elle lui fait faire le tour vite, avec l’ennui de quelqu’un qui montre un logement qu’elle n’a pas choisi. Une salle à manger de douze couverts jamais utilisée. Une salle de sport dont deux machines ont encore leur film plastique. Un bureau, un fauteuil en cuir, un sous-main vierge. Trois chambres d’amis, lits faits, coussins alignés.
 - Au bout du couloir, la chambre principale, magnifique, et sans une trace de personne : le lit est tendu comme dans une brochure, pas de pli, pas de verre d’eau, pas de chargeur, pas de livre posé à l’envers. Yarden la regarde deux secondes de trop, et ne dit rien.
-- Ils reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
+- Elles reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
 - Izzy tend le bras pour la tirer : « Ça, c’est rien. » Mais le geste arrive une demi-seconde après le regard, et une demi-seconde, sur elle, c’est très long.
 - Une pièce petite, la plus petite de l’étage, sans vue sur le lac. Un lit simple, défait, avec le creux d’un corps encore dedans. Un verre d’eau posé à même le sol. Un livre ouvert à l’envers sur les draps. Un chargeur. Une paire de lunettes pliée sur une pile de vêtements qui ne sont pas rangés par couleur.
 - Tous les dépôts qu’un être humain laisse dans un endroit où il dort, ceux qui manquent à la chambre de la reine, sont là.
@@ -2813,7 +2799,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Chef** : « Bonne continuation, mademoiselle Weiss. »
 - Ils ne se retournent pas. Ils ne sortent pas de carnet.
 - La rue reprend son bruit : un scooter, une porte de garage, quelqu’un qui appelle quelqu’un d’autre à un étage.
-- Elle ne l’a donné que trois fois, ce nom : à une fille en haut d’un escalier de métro, à une autre pieds nus sur un canapé, à une inconnue dans une rue, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
+- Elle ne l’a donné que trois fois : à Ishara, à Céleste, puis à Izzy, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
 - **Tiamat** : « Il l’a appris à la seconde où l’homme du quatrième t’a mis la boîte dans les mains : c’est là que ton nom est entré dans les registres. Le reste, c’est juste le temps d’écrire, de trouver une enveloppe et de descendre de sa voiture. »
 - **Tiamat** : « Tu as payé huit cents crédits pour être une ligne. Tu es une ligne. »
 - Elle ne l’ouvre pas dans la rue. Un préau d’école désaffecté, un banc de pierre à l’ombre, un angle mort entre deux bâtiments, une seule ligne d’approche.
@@ -2940,7 +2926,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Deux cages. Dans l’une, on compte les sorties d’une maison qui n’est pas la sienne. Dans l’autre, on habite la sienne sans en avoir jamais cherché une seule.
 - Elle lui fait faire le tour vite, avec l’ennui de quelqu’un qui montre un logement qu’elle n’a pas choisi. Une salle à manger de douze couverts jamais utilisée. Une salle de sport dont deux machines ont encore leur film plastique. Un bureau, un fauteuil en cuir, un sous-main vierge. Trois chambres d’amis, lits faits, coussins alignés.
 - Au bout du couloir, la chambre principale, magnifique, et sans une trace de personne : le lit est tendu comme dans une brochure, pas de pli, pas de verre d’eau, pas de chargeur, pas de livre posé à l’envers. Yarden la regarde deux secondes de trop, et ne dit rien.
-- Ils reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
+- Elles reviennent vers le salon quand Yarden voit que la troisième porte du couloir n’est pas tout à fait fermée. Un travers de main, pas plus.
 - Izzy tend le bras pour la tirer : « Ça, c’est rien. » Mais le geste arrive une demi-seconde après le regard, et une demi-seconde, sur elle, c’est très long.
 - Une pièce petite, la plus petite de l’étage, sans vue sur le lac. Un lit simple, défait, avec le creux d’un corps encore dedans. Un verre d’eau posé à même le sol. Un livre ouvert à l’envers sur les draps. Un chargeur. Une paire de lunettes pliée sur une pile de vêtements qui ne sont pas rangés par couleur.
 - Tous les dépôts qu’un être humain laisse dans un endroit où il dort, ceux qui manquent à la chambre de la reine, sont là.
@@ -2974,9 +2960,9 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 ## Chapitre 6 : les faux trous du Flon (objets à examiner)
 
 - **Un trou ?** : Un chien énorme, immobile, assis au milieu du passage, tenu par une laisse molle et un propriétaire au téléphone. Les gens se déportent à deux mètres, comme un banc de poissons. Tiamat (voix intérieure) : « Non. » Yarden : « Je vois. »
-- **Un trou ?** : Un homme d’une cinquantaine d’années hurle dans un téléphone en marchant en cercle. Autour de lui, une zone d’évitement parfaitement ronde. Tiamat : « Non. » Yarden : « J’avais compris tout seul. » Tiamat : « Je sais. Je voulais le dire. »
-- **Un trou ?** : Le troisième trou est une flaque. Pendant mille ans, il a été la chose devant laquelle les couloirs se vidaient. Il passe son après-midi à confondre ce qu’il cherche avec un labrador. Yarden : « Tu peux le dire. » Tiamat : « Je n’ai rien dit. » Yarden : « Tu n’as rien dit très fort. »
-- **La terrasse** : Il le voit d’une passerelle : une table vide au milieu de tables pleines, deux mètres de dégagement tout autour, dans un endroit où les gens s’entassent à quatre par table de deux. Autour du vide, six, peut-être sept hommes entre vingt et trente ans, en trois grappes, dans des positions pas naturelles pour des gens censés boire un verre. Ils tournent tous, à distance constante, et aucun n’entre. Un prédateur fait un trou net. Ça, c’est un anneau : un vide au centre et une couronne autour. La chose n’éloigne pas. Elle appelle, et quelque chose retient ceux qu’elle appelle. Tiamat (voix intérieure) : « Là. » Yarden : « Là. » Tiamat : « Tu as mis l’après-midi. » Yarden : « J’ai passé mille ans à être la chose qui vide une pièce. Ça ne m’est pas venu qu’on puisse faire un trou en attirant. » Tiamat : « Non. Ça ne te serait pas venu. »
+- **Un trou ?** : Un homme d’une cinquantaine d’années hurle dans un téléphone en marchant en cercle. Autour de lui, une zone d’évitement parfaitement ronde. Tiamat : « Non. » Yarden : « J’avais compris. » Tiamat : « Je sais. Je voulais le dire. »
+- **Un trou ?** : Le troisième trou est une flaque. Pendant mille ans, les couloirs se vidaient devant elle. Yarden : « Tu peux le dire. » Tiamat : « Je n’ai rien dit. » Yarden : « Tu n’as rien dit très fort. »
+- **La terrasse** : Elle repère la terrasse : une table vide au milieu des tables pleines, deux mètres de dégagement tout autour, dans un endroit où les gens s’entassent à quatre par table de deux. Autour du vide, six, peut-être sept hommes entre vingt et trente ans, en trois grappes, dans des positions pas naturelles pour des gens censés boire un verre. Ils tournent tous, à distance constante, et aucun n’entre. Un prédateur fait un trou net. Ça, c’est un anneau : un vide au centre et une couronne autour. La chose n’éloigne pas. Elle appelle, et quelque chose retient ceux qu’elle appelle. Tiamat (voix intérieure) : « Là. » Yarden : « Là. » Tiamat : « Tu as mis l’après-midi. » Yarden : « J’ai passé mille ans à être la chose qui vide une pièce. Ça ne m’est pas venu qu’on puisse faire un trou en attirant. » Tiamat : « Non. Ça ne te serait pas venu. »
 
 ## Objectif affiché en haut (appartement)
 
