@@ -131,7 +131,7 @@ function araigneeScene() {
     { say: ['Ishara[inquiete] : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »'] },
     { say: ['La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.'] },
     { run: () => { saveCheckpoint('jour4'); } },
-    ...(storyChain ? chapter5Script() : [])
+    ...chapter5Script()
   ];
 }
 

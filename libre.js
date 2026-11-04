@@ -1,12 +1,10 @@
 'use strict';
 
 // Mode libre : ouvert à la fin du prototype, pour passer le temps. Une carte de Lausanne, des failles dans trois quartiers,
-// et un donjon tiré au hasard à chaque entrée : 2 ou 3 décors, 5 à 8 monstres, puis un chef. Boucle de run : 3 salles puis un chef (le butin, la vente et l'XP viennent aux étapes 3 et 4 du cahier des charges).
+// et un donjon tiré au hasard à chaque entrée : 2 ou 3 décors, 5 à 8 monstres, puis un chef. Ni butin, ni vente, ni expérience.
 // Rien ici ne touche à l'histoire : la dette de Félix reste la même.
 const freeKey = 'yarden-mode-libre';
-// Un run = 3 salles puis la salle du chef (CAHIER-DES-CHARGES.md, section 1).
-const freeRun = { rooms: 3 };
-const freeMode = { active: false, room: 1, clears: 0, from: 'quartier', done: false, rng: Math.random, mapOpen: false, destination: null, mapSelected: null };
+const freeMode = { active: false, clears: 0, from: 'quartier', done: false, rng: Math.random, mapOpen: false, destination: null, mapSelected: null };
 
 // Les trois quartiers où s'ouvrent des failles : position de la faille dans la rue et niveau de base des monstres.
 const freeSpots = {
@@ -45,13 +43,12 @@ function freeRoll(count) { return Math.floor(freeMode.rng() * count); }
 function freePick(list) { return list[freeRoll(list.length)]; }
 
 // Construit une salle au hasard : décor, taille, blocs sans recouvrement ni devant l'entrée, monstres répartis, chef au fond.
-function generateFaille(spot, room = 1) {
-  const chiefRoom = room > freeRun.rooms;
-  const width = chiefRoom ? 720 : 760 + freeRoll(5) * 40, height = chiefRoom ? 620 : 560 + freeRoll(4) * 40;
+function generateFaille(spot) {
+  const width = 760 + freeRoll(5) * 40, height = 560 + freeRoll(4) * 40;
   const area = { x: -width / 2, y: -height / 2, width, height };
   const start = { x: 0, y: area.y + area.height - 70 };
   const theme = freePick(freeThemes);
-  const level = spot.base + Math.min(freeMode.clears, 6) + (room - 1);
+  const level = spot.base + Math.min(freeMode.clears, 6);
   const blocks = [];
   const free = (x, y, margin) => !blocks.some(b => x > b.x - margin && x < b.x + b.width + margin && y > b.y - margin && y < b.y + b.height + margin);
   for (let tries = 0, target = 3 + freeRoll(4); tries < 80 && blocks.length < target; tries++) {
@@ -63,8 +60,7 @@ function generateFaille(spot, room = 1) {
     if (!nearStart && !overlap) blocks.push(candidate);
   }
   const specs = [];
-  // Salles 1 à 3 : 4 à 6 monstres, sans chef ; salle du chef : le chef et deux gardes.
-  const count = chiefRoom ? 2 : 4 + freeRoll(3);
+  const count = 5 + freeRoll(4);
   const pool = ['goblin', 'goblin', 'sauteur', 'ogre', 'fuyard', 'insecte', 'insecte', 'rampant', 'rampant', 'crabe', 'tatou', 'rouge'];
   for (let i = 0; i < count; i++) {
     let x = 0, y = 0;
@@ -75,32 +71,22 @@ function generateFaille(spot, room = 1) {
     const kind = freePick(pool);
     specs.push({ kind, x, y, level: level + freeRoll(4), aggro: 260 + freeRoll(40), ...(kind === 'fuyard' ? { refuge: { x: freeRoll(2) ? area.x + 90 : area.x + width - 90, y: area.y + 90 } } : {}) });
   }
-  if (chiefRoom) specs.push({ kind: freePick(['chef', 'golem']), x: 0, y: area.y + 110, level: level + 5, aggro: 340 });
-  zones.faille = { id: 'faille', title: `ABYSSE · FAILLE ${spot.label.toUpperCase()} · ${chiefRoom ? 'CHEF' : `SALLE ${room}/${freeRun.rooms}`}`, theme, room: area, start, blocks, doors: [], enemies: specs, props: [],
-    goal: () => freeMode.done ? (chiefRoom ? 'Faille refermée : rejoins le passage ↓' : 'Salle vaincue : rejoins le passage ↓') : chiefRoom ? `Vaincs le chef (${specs.length - failleRemaining()}/${specs.length})` : `Salle ${room}/${freeRun.rooms} : vaincs-les tous (${specs.length - failleRemaining()}/${specs.length})`,
-    label: () => `${chiefRoom ? 'Chef' : `Salle ${room}/${freeRun.rooms}`} · Niv. ${level}${chiefRoom ? ` à ${level + 5}` : ''} · ${specs.length - failleRemaining()}/${specs.length}${runLoot.value ? ` · butin ${runLoot.value} ¢` : ''}` };
+  specs.push({ kind: freePick(['chef', 'golem']), x: 0, y: area.y + 110, level: level + 5, aggro: 340 });
+  zones.faille = { id: 'faille', title: `ABYSSE · FAILLE ${spot.label.toUpperCase()}`, theme, room: area, start, blocks, doors: [], enemies: specs, props: [],
+    goal: () => freeMode.done ? 'Faille refermée : rejoins le passage ↓' : `Vaincs-les tous (${specs.length - failleRemaining()}/${specs.length})`,
+    label: () => `Niv. ${level} à ${level + 5} · ${specs.length - failleRemaining()}/${specs.length}` };
   zoneEnemies.faille = specs.map(makeEnemy);
   return zones.faille;
 }
 
 function enterFaille(spotId) {
+  const spot = freeSpots[spotId];
   freeMode.from = spotId;
-  freeMode.room = 1;
-  resetBoons();
-  resetRunLoot();
-  enterFailleRoom(1);
-  // Une seule fois par run : soignée à l'entrée. Entre les salles, vie et mana restent comme elles sont.
-  Object.assign(player, { hp: player.maxHp, mana: player.maxMana });
-  updateStatus();
-}
-
-// Salle suivante du même run (ou salle du chef) : nouvelle salle tirée au hasard, mêmes vie et mana.
-function enterFailleRoom(room) {
-  freeMode.room = room;
   freeMode.done = false;
-  generateFaille(freeSpots[freeMode.from], room);
+  generateFaille(spot);
   enterZone('faille', 'start');
   for (const enemy of zoneEnemies.faille) resetEnemy(enemy);
+  Object.assign(player, { hp: player.maxHp, mana: player.maxMana });
   updateStatus();
 }
 
@@ -108,7 +94,6 @@ function enterHub(id) {
   freeMode.from = id;
   freeMode.done = false;
   enterZone(id, 'start');
-  updateFreeHud();
   Object.assign(sceneActors, {});
   for (const key of Object.keys(sceneActors)) delete sceneActors[key];
 }
@@ -136,7 +121,6 @@ function startFreeMode() {
   freeMode.active = true;
   freeMode.clears = 0;
   freeMode.destination = null;
-  loadMeta();
   scene.active = false; scene.done = true;
   scytheFreed = true;
   player.armed = true;
@@ -152,14 +136,11 @@ function startFreeMode() {
   updateAttackButton();
 }
 
-// KO ou retour volontaire : Yarden perd connaissance et se réveille dans la rue, soignée. Le run recommence à la première salle.
+// Mort ou retour volontaire : on revient dans la rue, soignée, sans rien perdre.
 function freeReturn() {
   result.hidden = true;
   resultDelay = 0;
   combatOver = false;
-  freeMode.room = 1;
-  loseRunLoot(player.hp <= 0);
-  resetBoons();
   Object.assign(player, { hp: player.maxHp, mana: player.maxMana, flash: 0 });
   attack.remaining = 0; dodge.remaining = 0;
   enterHub(freeMode.from);
@@ -171,22 +152,15 @@ function freeReturn() {
 function updateFree(seconds = 0) {
   if (!freeMode.active || combatOver) return;
   if (currentZone.id === 'faille') {
-    collectLoot();
     if (!freeMode.done && failleRemaining() === 0) {
       freeMode.done = true;
       freeMode.doneAge = 0;
-      if (freeMode.room > freeRun.rooms) lootToast('Faille refermée');
-      else openBoon();
+      lootToast('Faille refermée');
     }
     if (freeMode.done) freeMode.doneAge += seconds;
     // Le passage ne s'ouvre qu'une seconde après la dernière victoire, pour ne pas repartir par erreur depuis l'entrée.
     if (freeMode.done && freeMode.doneAge > 1 && Math.hypot(player.x - zones.faille.start.x, player.y - zones.faille.start.y) < 44) {
-      if (freeMode.room <= freeRun.rooms) { enterFailleRoom(freeMode.room + 1); return; }
       freeMode.clears++;
-      freeMode.room = 1;
-      unlockStoryUnit();
-      bankRunLoot();
-      resetBoons();
       enterHub(freeMode.from);
     }
   } else if (freeSpots[currentZone.id]) {
@@ -327,7 +301,6 @@ function updateFreeHud() {
   if (button) button.hidden = !freeMode.active;
   const free = document.getElementById('free-button');
   if (free) free.hidden = !(stage === 'escaped' && combatOver && !freeMode.active);
-  updateStoryButton();
 }
 
 function resetFree() {

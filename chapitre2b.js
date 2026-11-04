@@ -158,7 +158,7 @@ function runEndScript() {
     { moves: [moveOf('ishara', [[-60, 40], [-110, 150]], 85)] },
     { until: () => player.y > 135 },
     { run: () => { ch2b.goalText = ''; } },
-    ...(storyChain ? (hubCut ? hubEntryScript() : marteryScript()) : [])
+    ...marteryScript()
   ];
 }
 
@@ -170,7 +170,7 @@ function marteryScript() {
     { run: () => { ch2b.shutterAt = mirrorNow(); } },
     { wait: 1.8 },
     { say: ['Ishara appuie sur l’interphone, une seconde fois. Cassé ? Non, il fonctionne.'] },
-    ...(storyChain ? comptoirScript() : [])
+    ...comptoirScript()
   ];
 }
 
@@ -190,7 +190,7 @@ function comptoirScript() {
     { metro: 'show' },
     { say: ['Le M2, direction Sous-gare.'] },
     { metro: 'hide' },
-    ...(storyChain ? sousgareScript() : [])
+    ...sousgareScript()
   ];
 }
 
@@ -213,7 +213,7 @@ function sousgareScript() {
     { say: ['Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.'] },
     { run: () => { ch2b.buff = true; } },
     { say: ['Le buff d’Ishara se déclenche d’un coup, elle scintille de doré.'] },
-    ...(storyChain ? quatrebScript() : [])
+    ...quatrebScript()
   ];
 }
 

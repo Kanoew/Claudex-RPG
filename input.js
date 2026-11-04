@@ -73,8 +73,6 @@ window.addEventListener('keydown', event => {
   if (event.defaultPrevented) return;
   if (typeof uxHandlesKeyboard === 'function' && uxHandlesKeyboard(event)) return;
   if (menu.open) return;
-  // Le clavier du combat appartient à sa fenêtre, jamais aux actions du temps réel.
-  if (battle.active || boon.open) return;
   if (story.active) {
     if (event.key === 'Tab' && typeof uxHandlesKeyboard !== 'function') { event.preventDefault(); document.getElementById('story-next').focus(); }
     if (['Enter', 'Space'].includes(event.code)) {
