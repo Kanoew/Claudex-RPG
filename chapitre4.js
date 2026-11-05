@@ -42,7 +42,7 @@ function pastaScene() {
     { card: 'La nuit', seconds: 2 },
     { run: () => { delete sceneActors.ishara; Object.assign(player, { x: -170, y: 90 }); } },
     { dark: true },
-    { say: ['Yarden dort par terre, les mains croisées sur la poitrine. Le run du matin ne rapporte plus rien sous son niveau : il lui faut une faille de niveau 28-30.', 'Tiamat (voix intérieure) : « Une faille de ce niveau ne s’ouvre pas quand tu la commandes. Tu vas devoir chasser. »', 'Tiamat : « Et le niveau que tu cherches laissera une trace. »'] },
+    { say: ['Yarden dort par terre, les mains croisées sur la poitrine. Le run du matin ne rapporte plus rien sous son niveau : il lui faut une faille de niveau 28-30.', 'Tiamat[amusee] (voix intérieure) : « Une faille de ce niveau ne s’ouvre pas quand tu la commandes. Tu vas devoir chasser. »', 'Tiamat[froide] : « Et le niveau que tu cherches laissera une trace. »'] },
     { say: ['Yarden : « J’ai une dette de 520 et trois jours. »', 'Tiamat se tait. C’est son premier désaccord laissé passer, sans insister.', 'Yarden lit de l’inquiétude dans ce silence, sans que Tiamat la nomme jamais.', 'Ishara suit. Son buff change les calculs.'] },
     { dark: false },
     { card: 'Aube', seconds: 2.2 }
@@ -99,7 +99,7 @@ function retourScene() {
     { card: 'Le retour', seconds: 2 },
     { run: () => { enterHomeCh4(); Object.assign(player, { x: -228, y: 215, hp: player.hp }); sceneActor('ishara', 'ishara', -190, 185, { face: -1 }); } },
     { say: ['Yarden, l’épaule ouverte et les côtes fissurées, se couche sur le lit de la chambre, les mains croisées sur la poitrine.', 'Ishara la soigne à mains nues. Ses mains tremblent : le contrecoup arrive quarante minutes plus tard.'] },
-    { say: ['Tiamat (voix intérieure) : « Tu as sorti une variable de ton calcul et tu l’as emmenée dehors quand même. »', 'Yarden : « Je sais. »', 'Tiamat : « Non. Tu l’apprends. »'] },
+    { say: ['Tiamat[amusee] (voix intérieure) : « Tu as sorti une variable de ton calcul et tu l’as emmenée dehors quand même. »', 'Yarden : « Je sais. »', 'Tiamat : « Non. Tu l’apprends. »'] },
     { run: () => { player.hp = player.maxHp; updateStatus(); } }
   ];
 }
@@ -127,7 +127,7 @@ function araigneeScene() {
     { card: 'Le soir', seconds: 2 },
     { run: () => { enterHomeCh4(); Object.assign(player, { x: 0, y: -60 }); sceneActor('ishara', 'ishara', 50, -60, { face: -1 }); } },
     { say: ['Yarden : « Hier, en sortant du 4B. L’araignée de cristal, niveau quarante et un. Je ne t’en ai jamais parlé. »'] },
-    { say: ['Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.', 'Ishara : « Non… Tu m’en as parlé. »', 'Tiamat (voix intérieure) : « Regarde-la. Elle ne ment pas. »'] },
+    { say: ['Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.', 'Ishara : « Non… Tu m’en as parlé. »', 'Tiamat[froide] (voix intérieure) : « Regarde-la. Elle ne ment pas. »'] },
     { say: ['Ishara[inquiete] : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »'] },
     { say: ['La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.'] },
     { run: () => { saveCheckpoint('jour4'); } },

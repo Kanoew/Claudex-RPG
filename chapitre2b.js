@@ -185,7 +185,7 @@ function comptoirScript() {
     { run: () => { ch2b.slate = '280'; } },
     { say: ['Rémi écrit 280 sur l’ardoise.', 'Ishara : « La dernière fois, un run équivalent valait 220. »', 'Rémi : « La coupe du niveau 19 est propre. Bonne coupe, pas de brûlure, ni impact contondant. Un supplément pour une coupe à ce niveau. »'] },
     { run: () => { credits += 280; bag.length = 0; } },
-    { say: ['Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.', 'Ishara : « On partage. 280 crédits. »', 'Rémi : « Dites-moi quel type de lame fait des coupes comme ça. »', 'Tiamat (voix intérieure) : « Tu viens de laisser une trace. Les receleurs parlent. »', 'Premier argent gagné dans ce monde : 280 crédits.'] },
+    { say: ['Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.', 'Ishara : « On partage. 280 crédits. »', 'Rémi : « Dites-moi quel type de lame fait des coupes comme ça. »', 'Tiamat[froide] (voix intérieure) : « Tu viens de laisser une trace. Les receleurs parlent. »', 'Premier argent gagné dans ce monde : 280 crédits.'] },
     { run: () => { ch2b.slate = ''; } },
     { metro: 'show' },
     { say: ['Le M2, direction Sous-gare.'] },

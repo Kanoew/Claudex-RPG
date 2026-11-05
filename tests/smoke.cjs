@@ -929,7 +929,7 @@ const tests = [
     assert(all.includes('des yeux violets'), 'Yeux violets dans la version jeu');
     for (const banned of ['Jordan', 'bleu-gris', 'septum', 'piercing', 'Angel', 'ear cuff', 'dragon', 'collier', 'chaîne']) assert(!all.includes(banned), banned);
     assert(!all.includes('—') && !all.includes('–'), 'Pas de tiret cadratin');
-    assert.equal(said.filter(line => /^Tiamat : /.test(line)).length, 5);
+    assert.equal(said.filter(line => /^Tiamat(?:\[[a-z]+\])? : /.test(line)).length, 5);
   }],
   ['Première nuit : parquet, agents divins, tatouages et fin du matin', () => {
     const g = armed('loaded');
@@ -1351,7 +1351,7 @@ const tests = [
     const g = armed('loaded');
     g.loadWeaponArt(); g.loadPortraits(); g.loadSceneArt();
     assert(g.weaponArt.glow && g.weaponArt.base && g.weaponArt.empowered, 'Images de la faux chargées');
-    assert(Object.keys(g.portraitArt).length === 23 && Object.values(g.portraitArt).every(Boolean));
+    assert(Object.keys(g.portraitArt).length === 26 && Object.values(g.portraitArt).every(Boolean));
     g.calls.length = 0;
     g.startAttack(false);
     g.draw();
