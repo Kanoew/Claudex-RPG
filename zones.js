@@ -10,8 +10,8 @@ const zones = {
     title: 'ABYSSE · SALLE 1',
     theme: 'pierre',
     room: { x: -480, y: -336, width: 960, height: 672 },
-    // Deux blocs neutres pour tester les collisions à l’intérieur de la salle.
-    blocks: [{ x: -192, y: -96, width: 72, height: 144 }, { x: 120, y: 48, width: 96, height: 72 }],
+    // Deux piliers de pierre ; le type choisit l'image, sans changer leur emprise.
+    blocks: [{ x: -192, y: -96, width: 72, height: 144, kind: 'pilier-pierre' }, { x: 120, y: 48, width: 96, height: 72, kind: 'pilier-pierre' }],
     start: { x: 0, y: 240 },
     doors: [
       { side: 'north', x: 0, half: 44, label: 'ANTRE', sealed: 'SCELLÉE', needs: 'exitOpen', to: 'antre', arrive: 'south' },
@@ -22,7 +22,7 @@ const zones = {
   antre: {
     id: 'antre', title: 'ABYSSE · ANTRE DE CRISTAL', theme: 'cristal',
     room: { x: -480, y: -400, width: 960, height: 800 },
-    blocks: [{ x: -330, y: -180, width: 80, height: 100 }, { x: 230, y: -120, width: 90, height: 110 }],
+    blocks: [{ x: -330, y: -180, width: 80, height: 100, kind: 'amas-cristal' }, { x: 230, y: -120, width: 90, height: 110, kind: 'amas-cristal' }],
     start: { x: 0, y: 310 },
     doors: [{ side: 'south', x: 0, half: 44, label: 'RETOUR', sealed: 'FILS', needs: 'antreOpen', to: 'donjon', arrive: 'north' }],
     enemies: [{ kind: 'spider', x: 0, y: -160 }],
