@@ -78,12 +78,12 @@ function sceneScript() {
     { moves: [move('yarden', [[0, -60]], 140)] },
     { run: () => { facing = { x: 0, y: -1 }; } },
     { say: ['Yarden regarde la fête depuis la ruelle. Elle allait faire demi-tour.'] },
-    { spawn: ['danseuse', 'danseuse', 52, -462] },
-    { spawn: ['danseur', 'danseur', 118, -458] },
-    { camera: { x: 70, y: -440 } },
+    { spawn: ['danseuse', 'danseuse', 118, -262] },
+    { spawn: ['danseur', 'danseur', 165, -258] },
+    { camera: { x: 60, y: -330 } },
     { music: 'fete' },
     { wait: 1.8 },
-    { spawn: ['ishara', 'ishara', 96, -498, { run: true }] },
+    { spawn: ['ishara', 'ishara', 0, -284, { run: true }] },
     { camera: null },
     { moves: [move('ishara', [[14, -96]], 230)] },
     { set: ['ishara', { run: false }] },
@@ -117,12 +117,11 @@ function sceneScript() {
     // La marche vers la fête : elles bavardent, puis Ishara propose un lit.
     { moves: [move('ishara', [[70, 400], [30, 330], [30, 120]], 80), move('yarden', [[70, 400], [30, 340], [0, 150]], 80, { delay: .6 })] },
     { say: ['Ishara : « T’as aussi fui quelque chose ? »', 'Yarden : « On pourrait dire ça. »', 'Ishara : « Tu veux en parler ? »', 'Yarden : « Non. »'] },
-    { moves: [move('ishara', [[30, -290]], 80), move('yarden', [[0, -260]], 80, { delay: .6 })] },
-    { moves: [move('ishara', [[60, -410]], 80), move('yarden', [[20, -400]], 80, { delay: .5 })] },
+    { moves: [move('ishara', [[40, -268]], 80), move('yarden', [[5, -258]], 80, { delay: .6 })] },
     { say: ['Tiamat (voix intérieure) : « Tu aurais pu entrer. »', 'Tiamat[amusee] : « La chaleur humaine a l’air agréable. »', 'Tiamat[froide] : « Tu as préféré ça. »'] },
     { say: ['Ishara[sourire] : « T’as l’air nouvelle ici. J’ai un lit, ma coloc est pas là. Si tu veux. »', 'Yarden : « D’accord. »'] },
     // On quitte la fête par le côté de la ruelle, pas tout droit.
-    { moves: [move('ishara', [[-60, -450], [-176, -468]], 90), move('yarden', [[-40, -430], [-150, -450]], 90, { delay: .4 })] },
+    { moves: [move('ishara', [[-60, -266], [-176, -262]], 90), move('yarden', [[-40, -258], [-150, -254]], 90, { delay: .4 })] },
     // Le métro : Ishara explique le système, pour que le joueur le comprenne en même temps que Yarden.
     { metro: 'show' },
     { say: ['Ishara : « Tu es une Éveillée ? N’est-ce pas ? »', 'Yarden : « Je suis un— »', 'Tiamat[froide] : « Assez. »', 'Yarden : « Pas vraiment. »', 'Ishara : « Ici, tout le monde a un niveau. Les humains, les monstres — les gens ordinaires plafonnent autour de 8. »', 'Ishara : « Mais seuls les Éveillés le voient. »', 'Yarden : « Tu en es une alors ? Une éveillée ? »', 'Ishara : « Oui. Ceux qui ont reçu une bénédiction, ou qui ont été exposés à l’énergie des Abysses. Ils ont une interface, et ils voient ce que les autres ratent. »', 'Yarden : « Hmm. »'] },
@@ -378,6 +377,14 @@ function drawSceneCard() {
   ctx.fillStyle = '#e7dcff';
   ctx.font = 'italic 24px Georgia, serif';
   ctx.textAlign = 'center';
-  ctx.fillText(card.text, width / 2, height / 2);
+  // Retour à la ligne : la carte tient dans la largeur du terrain, même sur un téléphone en portrait.
+  const lines = [], words = String(card.text).split(' ');
+  let line = '';
+  for (const word of words) {
+    const test = line ? line + ' ' + word : word;
+    if (line && ctx.measureText && ctx.measureText(test).width > width - 48) { lines.push(line); line = word; } else line = test;
+  }
+  lines.push(line);
+  lines.forEach((text, i) => ctx.fillText(text, width / 2, height / 2 + (i - (lines.length - 1) / 2) * 32));
   ctx.restore();
 }

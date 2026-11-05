@@ -42,8 +42,10 @@ const zones = {
     blocks: [
       { x: -200, y: 330, width: 110, height: 62, kind: 'benne' }, { x: 110, y: 230, width: 90, height: 84, kind: 'caisses' },
       { x: -200, y: 90, width: 56, height: 80, kind: 'poubelles' }, { x: 90, y: -50, width: 110, height: 46, kind: 'scooter' },
-      { x: -200, y: -190, width: 100, height: 70, kind: 'caisses' }, { x: 120, y: -330, width: 80, height: 100, kind: 'benne' },
-      { x: -200, y: -420, width: 90, height: 60, kind: 'poubelles' }
+      { x: -200, y: -190, width: 100, height: 70, kind: 'caisses' }, { x: 120, y: -210, width: 80, height: 100, kind: 'benne' },
+      { x: 130, y: -110, width: 70, height: 50, kind: 'poubelles' },
+      // Façade de la résidence de la fête (décor peint) : on ne marche pas dessus.
+      { x: -200, y: -520, width: 400, height: 235, kind: 'facade-residence' }
     ],
     doors: [
       { side: 'south', x: 0, half: 44, label: 'ABYSSE', needs: 'riftOpen', to: 'donjon', arrive: 'start' },

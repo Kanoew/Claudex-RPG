@@ -27,7 +27,7 @@ const paintedDecor = {
     // Lot 4 : les trois dernières zones. Les cloisons et la baie sont dans l'image ; les meubles viennent de planches à fond vert.
     appartement: {
       hide: ['cloison'],
-      sprites: ['app-canape', 'app-tablebasse', 'app-livres', 'app-table', 'app-comptoir', 'app-cuisine', 'app-lit', 'app-placard', 'app-radiateur', 'app-douche', 'app-lavabo'],
+      sprites: ['assiette-oeufs', 'app-canape', 'app-tablebasse', 'app-livres', 'app-table', 'app-comptoir', 'app-cuisine', 'app-lit', 'app-placard', 'app-radiateur', 'app-douche', 'app-lavabo'],
       objects: {
         canape: { name: 'app-canape', width: 130 }, tablebasse: { name: 'app-tablebasse', width: 100 }, livres: { name: 'app-livres', width: 52 },
         table: { name: 'app-table', width: 62 }, comptoir: { name: 'app-comptoir', width: 240 }, cuisine: { name: 'app-cuisine', width: 240 },
@@ -49,7 +49,7 @@ const paintedDecor = {
     square: { hide: ['immeuble-sq'], sprites: ['banc', 'arbre-square', 'lampadaire'], objects: { banc: { name: 'banc', width: 96 }, arbre: { name: 'arbre-square', height: 118 }, lampadaire: { name: 'lampadaire', height: 92 } } },
     flon: { hide: ['facade-flon', 'bar'], sprites: ['table-a', 'table-b', 'table-c', 'bar'], objects: { bar: { name: 'bar', width: 230 }, table: wall => ({ name: ['table-a', 'table-b', 'table-c'][Math.abs(wall.x) % 3], width: 64 }) } },
     marterey: { hide: ['kebab', 'porte-marron', 'laverie'] },
-    exterieur: { sprites: ['benne', 'caisses', 'poubelles', 'scooter'], objects: { benne: 'benne', caisses: 'caisses', poubelles: 'poubelles', scooter: 'scooter' }, noProps: true }
+    exterieur: { hide: ['facade-residence'], sprites: ['benne', 'caisses', 'poubelles', 'scooter'], objects: { benne: 'benne', caisses: 'caisses', poubelles: 'poubelles', scooter: 'scooter' }, noProps: true }
   },
   // Rectangles source dans raccords.png (1086 × 1448), sauf cristaux dans amas-cristal.png (1122 × 1402).
   // Les sept autres objets partagent une seule image ; le Canvas lit directement ces rectangles.
@@ -117,8 +117,8 @@ function drawPaintedObject(zone, wall, x, y) {
   const scale = spec.height ? spec.height / art.height : spec.width ? spec.width / art.width : Math.min(w / art.width, h * 1.7 / art.height);
   const dw = part ? w : art.width * scale, dh = part ? h + (spec.rise || 0) : art.height * scale;
   ctx.save();
-  ctx.fillStyle = part ? '#05080e30' : '#05080e88';
-  ctx.beginPath(); ctx.ellipse(x + w / 2 + 3, y + h - 2, dw / 2, Math.max(4, dh * .08), 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = part ? '#05080e30' : '#05080e99';
+  ctx.beginPath(); ctx.ellipse(x + w / 2, y + h - 3, dw * .46, Math.max(3, dw * .09), 0, 0, Math.PI * 2); ctx.fill();
   if (part) ctx.drawImage(art, ...part, x, y + h - dh, dw, dh);
   else ctx.drawImage(art, x + (w - dw) / 2, y + h - dh, dw, dh);
   ctx.restore();

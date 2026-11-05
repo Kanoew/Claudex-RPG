@@ -398,6 +398,7 @@ function draw() {
   const lights = sceneLights();
   drawLightShadows(offsetX, offsetY, lights);
   drawEncounter(offsetX, offsetY);
+  drawMorningEggs(offsetX, offsetY);
   drawSceneActors(offsetX, offsetY, false);
   for (const enemy of activeEnemies()) drawEnemy(enemy, offsetX, offsetY);
   if (attack.remaining > 0) {
@@ -455,6 +456,7 @@ function draw() {
   ctx.textAlign = 'center';
   ctx.fillText('Yarden', screenX, labelY);
   drawSceneActors(offsetX, offsetY, true);
+  drawPopups(offsetX, offsetY);
   drawSceneLighting(offsetX, offsetY, lights);
   if (freeMode.active && !scene.active) drawFreeMinimap();
   ctx.fillStyle = '#b5afca';

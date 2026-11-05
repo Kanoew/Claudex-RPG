@@ -80,8 +80,8 @@ function ruptureScene() {
       ch4.goalText = 'Neutralise la créature';
     } },
     { until: () => squareCreature().hp <= 0 },
-    { run: () => { ch4.goalText = ''; setLevel27(); } },
-    { say: ['Niveau 24 → 27. Ishara gagne zéro niveau : le coup est à Yarden.'] }
+    { run: () => { ch4.goalText = ''; setLevel27(); popText(player, '+XP · Niv. 27', 'xp'); popText(sceneActors.ishara, '+0 XP', 'xp'); } },
+    { wait: 1.6 }
   ];
 }
 
