@@ -22,7 +22,7 @@ function quatrebScript() {
   return [
     { run: enterQuatreB },
     // Seuil.
-    { say: ['La porte s’ouvre sans aucune difficulté.', 'Ishara : « Félix ? »', 'Tiamat (voix intérieure) : « Sois sur tes gardes. »'] },
+    { say: ['La porte s’ouvre sans aucune difficulté.', 'Ishara : « Félix ? »', 'Tiamat[froide] (voix intérieure) : « Sois sur tes gardes. »'] },
     { say: ['Une lourde pression semble émaner de la pièce.', 'Un appartement chaud, rempli de papier en couches sur les murs, des caractères illisibles.', 'Plusieurs étagères, des bocaux, des crânes alignés.'] },
     { moves: [moveOf('yarden', [[0, -10]], 80), moveOf('ishara', [[-48, 5]], 80, { delay: .3 })] },
     // Félix.
@@ -36,8 +36,8 @@ function quatrebScript() {
     { say: ['Yarden : « Dis-moi pourquoi je n’arrive pas à te lire. »', 'Félix : « Je n’en émets pas. J’en ai eu un, il y a longtemps. »', 'Félix : « Aujourd’hui, je ne suis pas dans cet appartement. Je suis cet appartement. Le corps est une commodité. Pratique pour tremper une plume. »'] },
     { say: ['Félix enlève ses lunettes et les pose.', 'Félix : « Ce qui vous protège. Est-ce que ça va me suivre jusque dans mes murs ? »', 'Tiamat (voix intérieure) : « C’est la bonne question. Et je ne connais pas encore la réponse. »'] },
     // Tiamat parle par la bouche de Yarden.
-    { say: ['Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste consciente, spectatrice de sa propre voix.', 'Tiamat (par Yarden) : « Mithra. »'] },
-    { say: ['Félix : « Vous prononcez un nom que je n’ai pas donné depuis longtemps. »', 'Tiamat (par Yarden) : « Je ne le donne pas non plus. Je le reconnais. »', 'Tiamat (par Yarden) : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement parce que c’est la seule chose qu’il sache faire. »'] },
+    { say: ['Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste consciente, spectatrice de sa propre voix.', 'Tiamat[froide] (par Yarden) : « Mithra. »'] },
+    { say: ['Félix : « Vous prononcez un nom que je n’ai pas donné depuis longtemps. »', 'Tiamat (par Yarden) : « Je ne le donne pas non plus. Je le reconnais. »', 'Tiamat[froide] (par Yarden) : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement parce que c’est la seule chose qu’il sache faire. »'] },
     { say: ['Tiamat (par Yarden) : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »', 'Ishara regarde.'] },
     { run: () => { ch2b.paperStillAt = mirrorNow(); } },
     { wait: 1.6 },
@@ -53,7 +53,7 @@ function quatrebScript() {
     { say: ['Yarden : « Combien ? »', 'Félix : « Pour les papiers, huit cents crédits. Vous en avez deux cent quatre-vingts. Vous me devrez le reste. Ça tombe bien. »', 'Félix : « Une identité, c’est un lien. Un nom qu’on n’a pas fini de payer, c’est un nom qu’on ne trahit pas. »'] },
     { run: () => { credits = 0; debt = quatrebPrice.debt; identityName = 'Yarden Weiss'; } },
     { say: ['Yarden pose les 280 en travers de la feuille. Félix les prend sans les compter.', 'Il reste une dette de 520.', 'Félix : « Revenez dans trois jours. Le nom existera. Dans les registres, dans les serveurs, dans la mémoire de la ville. Vous pourrez louer, vendre, être arrêtée et relâchée comme n’importe qui. Bienvenue à Helvara, Yarden. »'] },
-    { say: ['Première fois que quelqu’un prononce son nom complet.', 'Tiamat (voix intérieure) : « Ça te va. »', 'Yarden : « Oui. »'] },
+    { say: ['Première fois que quelqu’un prononce son nom complet.', 'Tiamat[amusee] (voix intérieure) : « Ça te va. »', 'Yarden : « Oui. »'] },
     // La descente.
     { run: () => { enterEscalier(); isharaOutfit = 'course'; Object.assign(player, { x: 0, y: -540 }); sceneActors.ishara.x = -30; sceneActors.ishara.y = -510; } },
     { moves: [moveOf('yarden', [[0, -200]], 95), moveOf('ishara', [[-30, -180]], 95, { delay: .3 })] },

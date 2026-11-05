@@ -9,10 +9,10 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Niveau 1. Un corps qui n’était pas là avant. Trop léger, voix trop haute. Ses souvenirs de combat sont en morceaux.
 - **Tiamat** : « Réveillée ? Ne cherche pas derrière toi, je suis partout. »
 - **Tiamat** : « Tu régnais sur un donjon de 182 étages, à Valstygheim. »
-- **Tiamat** : « Tu étais trop grand pour qu’ils te comptent. »
-- **Tiamat** : « Ils ont voté ta mort. Bienvenue à Helvara. »
+- **Tiamat (amusee)** : « Tu étais trop grand pour qu’ils te comptent. »
+- **Tiamat (froide)** : « Ils ont voté ta mort. Bienvenue à Helvara. »
 - **Tiamat** : « C’est moi qui l’ai ouverte. »
-- **Tiamat** : « Ce corps est niveau 1. Je t’accompagne. »
+- **Tiamat (amusee)** : « Ce corps est niveau 1. Je t’accompagne. »
 
 ## La rue : Ishara, les deux hommes, la marche, le métro, l’immeuble
 
@@ -35,14 +35,14 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Ishara** : « Tu veux en parler ? »
 - **Yarden** : « Non. »
 - **Tiamat** : « Tu aurais pu entrer. »
-- **Tiamat** : « La chaleur humaine a l’air agréable. »
-- **Tiamat** : « Tu as préféré ça. »
+- **Tiamat (amusee)** : « La chaleur humaine a l’air agréable. »
+- **Tiamat (froide)** : « Tu as préféré ça. »
 - **Ishara (sourire)** : « T’as l’air nouvelle ici. J’ai un lit, ma coloc est pas là. Si tu veux. »
 - **Yarden** : « D’accord. »
 - *Le métro (wagon animé)*
 - **Ishara** : « Tu es une Éveillée ? N’est-ce pas ? »
 - **Yarden** : « Je suis un— »
-- **Tiamat** : « Assez. »
+- **Tiamat (froide)** : « Assez. »
 - **Yarden** : « Pas vraiment. »
 - **Ishara** : « Ici, tout le monde a un niveau. Les humains, les monstres — les gens ordinaires plafonnent autour de 8. »
 - **Ishara** : « Mais seuls les Éveillés le voient. »
@@ -86,12 +86,12 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 
 - *Carte plein écran : La première nuit*
 - Le lit est trop mou. Yarden ne semble pas habituée à ce genre de confort. Elle dort par terre, avec l’oreiller.
-- **Tiamat** : « Pathétique. »
+- **Tiamat (amusee)** : « Pathétique. »
 - **Yarden** : « J’ai connu pire. »
 - **Yarden** : « Il y a des agents des dieux, à Helvara ? »
 - **Tiamat** : « Plusieurs organisations. »
 - **Yarden** : « Et Ishara ? »
-- **Tiamat** : « Je ne dirai rien là-dessus. »
+- **Tiamat (froide)** : « Je ne dirai rien là-dessus. »
 - *Les tatouages luisent (la faux)*
 - Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.
 - **Tiamat** : « Tes tatouages portent la faux. C’est à toi. »
@@ -125,7 +125,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Yarden (agacee)** : « C’est quoi, ce style ? »
 - **Tiamat** : « Le tien. »
 - **Yarden (surprise)** : « J’ai l’air d’une... gothique. »
-- **Tiamat** : « Tu as l’air de quelqu’un qu’on remarque et qu’on ne questionne pas. Les humains rangent ce qu’ils voient. Ils te classeront dans "style assumé" et s’arrêteront là. Personne ne cherche un boss de donjon sous du liner. »
+- **Tiamat (amusee)** : « Tu as l’air de quelqu’un qu’on remarque et qu’on ne questionne pas. Les humains rangent ce qu’ils voient. Ils te classeront dans "style assumé" et s’arrêteront là. Personne ne cherche un boss de donjon sous du liner. »
 - Elle regarde encore.
 - Le visage est froid, difficile à lire, avec quelque chose d’affûté dans le regard qui n’appartient à aucune étudiante de vingt ans.
 - Un visage qu’elle respecterait, en face.
@@ -134,7 +134,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - *Carte plein écran : La douche*
 - Trente secondes de froid. Puis l’eau devient chaude, presque trop.
 - **Yarden** : « Ishara. J’ai un problème avec ce truc de fille. »
-- **Tiamat** : « Un soutien-gorge. L’agrafe est dans le dos. »
+- **Tiamat (amusee)** : « Un soutien-gorge. L’agrafe est dans le dos. »
 - **Yarden** : « Je réussis pas à la fermer. »
 - **Ishara (sourire)** : « Tourne-toi. »
 - **Ishara** : « Voilà. Deux secondes. »
@@ -180,7 +180,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Rémi pose les billets : 560 en tout. Ishara en glisse la moitié à Yarden.
 - **Ishara** : « On partage. 280 crédits. »
 - **Rémi** : « Dites-moi quel type de lame fait des coupes comme ça. »
-- **Tiamat** : « Tu viens de laisser une trace. Les receleurs parlent. »
+- **Tiamat (froide)** : « Tu viens de laisser une trace. Les receleurs parlent. »
 - Premier argent gagné dans ce monde : 280 crédits.
 - *Le métro (wagon animé)*
 - Le M2, direction Sous-gare.
@@ -199,7 +199,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 
 - La porte s’ouvre sans aucune difficulté.
 - **Ishara** : « Félix ? »
-- **Tiamat** : « Sois sur tes gardes. »
+- **Tiamat (froide)** : « Sois sur tes gardes. »
 - Une lourde pression semble émaner de la pièce.
 - Un appartement chaud, rempli de papier en couches sur les murs, des caractères illisibles.
 - Plusieurs étagères, des bocaux, des crânes alignés.
@@ -227,10 +227,10 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Félix** : « Ce qui vous protège. Est-ce que ça va me suivre jusque dans mes murs ? »
 - **Tiamat** : « C’est la bonne question. Et je ne connais pas encore la réponse. »
 - Quelque chose monte de la marque du flanc gauche jusqu’à la gorge. Yarden reste consciente, spectatrice de sa propre voix.
-- **Tiamat (par Yarden)** : « Mithra. »
+- **Tiamat (froide) (par Yarden)** : « Mithra. »
 - **Félix** : « Vous prononcez un nom que je n’ai pas donné depuis longtemps. »
 - **Tiamat (par Yarden)** : « Je ne le donne pas non plus. Je le reconnais. »
-- **Tiamat (par Yarden)** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement parce que c’est la seule chose qu’il sache faire. »
+- **Tiamat (froide) (par Yarden)** : « Ce n’est pas une bénédiction que tu portes. C’est un résidu. Un très vieux résidu, oublié de son maître, qui continue à faire son travail dans les murs d’un appartement parce que c’est la seule chose qu’il sache faire. »
 - **Tiamat (par Yarden)** : « Ton résidu scelle. Moi, je masque. Deux vieux métiers différents, dans deux maisons différentes. Nous pouvons travailler côte à côte sans nous toucher. »
 - Ishara regarde.
 - Le bruissement du papier dans les murs s’arrête, comme un cœur qui saute un battement.
@@ -260,7 +260,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Il reste une dette de 520.
 - **Félix** : « Revenez dans trois jours. Le nom existera. Dans les registres, dans les serveurs, dans la mémoire de la ville. Vous pourrez louer, vendre, être arrêtée et relâchée comme n’importe qui. Bienvenue à Helvara, Yarden. »
 - Première fois que quelqu’un prononce son nom complet.
-- **Tiamat** : « Ça te va. »
+- **Tiamat (amusee)** : « Ça te va. »
 - **Yarden** : « Oui. »
 - L’escalier s’allège à mesure qu’elles descendent. Au deuxième, les fleurs.
 - Au premier, l’odeur banale d’un couloir d’immeuble : cire, poussière, courrier.
@@ -320,8 +320,8 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Il me faut du niveau. Vite.
 - *Carte plein écran : La nuit*
 - Yarden dort par terre, les mains croisées sur la poitrine. Le run du matin ne rapporte plus rien sous son niveau : il lui faut une faille de niveau 28-30.
-- **Tiamat** : « Une faille de ce niveau ne s’ouvre pas quand tu la commandes. Tu vas devoir chasser. »
-- **Tiamat** : « Et le niveau que tu cherches laissera une trace. »
+- **Tiamat (amusee)** : « Une faille de ce niveau ne s’ouvre pas quand tu la commandes. Tu vas devoir chasser. »
+- **Tiamat (froide)** : « Et le niveau que tu cherches laissera une trace. »
 - **Yarden** : « J’ai une dette de 520 et trois jours. »
 - Tiamat se tait. C’est son premier désaccord laissé passer, sans insister.
 - Yarden lit de l’inquiétude dans ce silence, sans que Tiamat la nomme jamais.
@@ -358,7 +358,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - *Carte plein écran : Le retour*
 - Yarden, l’épaule ouverte et les côtes fissurées, se couche sur le lit de la chambre, les mains croisées sur la poitrine.
 - Ishara la soigne à mains nues. Ses mains tremblent : le contrecoup arrive quarante minutes plus tard.
-- **Tiamat** : « Tu as sorti une variable de ton calcul et tu l’as emmenée dehors quand même. »
+- **Tiamat (amusee)** : « Tu as sorti une variable de ton calcul et tu l’as emmenée dehors quand même. »
 - **Yarden** : « Je sais. »
 - **Tiamat** : « Non. Tu l’apprends. »
 - *Carte plein écran : 14 h*
@@ -392,7 +392,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Yarden** : « Hier, en sortant du 4B. L’araignée de cristal, niveau quarante et un. Je ne t’en ai jamais parlé. »
 - Ishara ne ment pas. Elle cherche dans sa mémoire, ses yeux vont sur le côté, sa main se referme sur du vide.
 - **Ishara** : « Non… Tu m’en as parlé. »
-- **Tiamat** : « Regarde-la. Elle ne ment pas. »
+- **Tiamat (froide)** : « Regarde-la. Elle ne ment pas. »
 - **Ishara (inquiete)** : « …Je croyais que tu me l’avais dit. Yarden. Je me souviens que tu me l’as dit. »
 - La corde ne fait pas que regarder. Quelque chose écrit dans sa mémoire.
 
@@ -469,8 +469,8 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Ils ne se retournent pas. Ils ne sortent pas de carnet.
 - La rue reprend son bruit : un scooter, une porte de garage, quelqu’un qui appelle quelqu’un d’autre à un étage.
 - Elle ne l’a donné que trois fois : à Ishara, à Céleste, puis à Izzy, contre de l’argent. Elle ne l’avait jamais vu écrit par quelqu’un qui ne le lui avait pas demandé.
-- **Tiamat** : « Il l’a appris à la seconde où l’homme du quatrième t’a mis la boîte dans les mains : c’est là que ton nom est entré dans les registres. Le reste, c’est juste le temps d’écrire, de trouver une enveloppe et de descendre de sa voiture. »
-- **Tiamat** : « Tu as payé huit cents crédits pour être une ligne. Tu es une ligne. »
+- **Tiamat (froide)** : « Il l’a appris à la seconde où l’homme du quatrième t’a mis la boîte dans les mains : c’est là que ton nom est entré dans les registres. Le reste, c’est juste le temps d’écrire, de trouver une enveloppe et de descendre de sa voiture. »
+- **Tiamat (froide)** : « Tu as payé huit cents crédits pour être une ligne. Tu es une ligne. »
 - Elle ne l’ouvre pas dans la rue. Un préau d’école désaffecté, un banc de pierre à l’ombre, un angle mort entre deux bâtiments, une seule ligne d’approche.
 - Elle s’assied. Elle pose la boîte à côté d’elle. Elle ouvre l’enveloppe.
 - Des billets usagés, pas séquentiels, des coupures moyennes mélangées, du genre qu’on rassemble sur plusieurs jours.
@@ -484,14 +484,14 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - **Yarden** : « Le bancomat. »
 - **Tiamat** : « Le bancomat. »
 - Une machine écrit toujours. Elle note la borne, le compte, le montant, avant même que les billets sortent. Il ne lit pas les gens : il lit une carcasse, une ardoise, un registre, un retrait. Il n’a pas besoin de savoir ce qu’elle est. Il lui suffit de savoir ce qu’elle laisse.
-- **Tiamat** : « Maintenant range-le, parce que la deuxième partie est pire. Ce retrait n’est pas le tien. »
+- **Tiamat (froide)** : « Maintenant range-le, parce que la deuxième partie est pire. Ce retrait n’est pas le tien. »
 - Un retrait a un compte. Un compte a un titulaire. Une fille qui porte une fleur d’or à découvert est affiliée à quelque chose, et une affiliation, ça s’écrit quelque part.
 - Ils n’ont pas eu besoin de la voir une seule fois.
 - Zéro crédit à elle. Cinq cent vingt qui n’appartiennent à personne. Une boîte de huit cents grammes. Un nom dans les registres, dans un carnet, sur une enveloppe. Un appartement avec deux filles dedans, dont ils ont pris la peine de dire qu’ils connaissaient l’adresse.
 - Et une fille de niveau soixante-dix qui vient, sans le savoir, d’entrer dans une archive.
 - **Yarden** : « Il ne m’a pas payée. Il m’a montré ce qu’il pouvait lire. »
-- **Tiamat** : « Et il t’a montré qu’il le rend. C’est la partie qu’on oublie de craindre. Celui-là n’attaque pas. Il n’exige pas. Il note, il archive, et de temps en temps il fait un geste correct. Et le geste correct te coûte plus cher que la menace, parce qu’après un geste correct tu ne peux plus dire qu’on t’a rien fait. »
-- **Tiamat** : « Ils sont deux à savoir écrire ton nom aujourd’hui. Un le fabrique. L’autre le classe. »
+- **Tiamat (froide)** : « Et il t’a montré qu’il le rend. C’est la partie qu’on oublie de craindre. Celui-là n’attaque pas. Il n’exige pas. Il note, il archive, et de temps en temps il fait un geste correct. Et le geste correct te coûte plus cher que la menace, parce qu’après un geste correct tu ne peux plus dire qu’on t’a rien fait. »
+- **Tiamat (froide)** : « Ils sont deux à savoir écrire ton nom aujourd’hui. Un le fabrique. L’autre le classe. »
 - Elle se lève. Elle n’a pas mangé depuis la veille, et son épaule tire chaque fois qu’elle change la boîte de bras.
 - Elle a cinq cent vingt crédits sur elle. Elle n’en touchera pas un.
 - Elle ne sait pas où Izzy habite. Ni son nom de famille, ni sa guilde, ni son numéro. Elle sait qu’elle s’appelle Izzy, qu’elle est de niveau soixante-dix, qu’elle porte du rouge cerise sur les cheveux et sur la bouche. Il faut la trouver avant qu’elle trouve.
@@ -503,7 +503,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Le trou n’est pas l’information : la ville est pleine de trous, un chien, un cinglé, une flaque. Ce que ni un chien ni une flaque ne font, c’est un anneau.
 - Elle est seule à sa table. Robe bordeaux, veste de cuir noir sur le dossier, un verre auquel elle n’a pas touché depuis si longtemps que la glace a fondu. Le tatouage floral doré sur la clavicule, à découvert, en plein soleil, comme un panneau de rue.
 - Un des types se décolle du bar et fait trois pas vers elle. Izzy tourne la tête de dix degrés, un micro-sourire déjà en place : poli, chaleureux, absolument fermé. Le type ralentit, oblique vers une plante en pot et repart.
-- **Tiamat** : « Elle sait ce qu’ils veulent tous. Elle n’a pas de bouton. »
+- **Tiamat (froide)** : « Elle sait ce qu’ils veulent tous. Elle n’a pas de bouton. »
 - Elle ne contourne pas le vide. Elle entre dedans, en ligne droite, une boîte de huit cents grammes sous le bras.
 - Le menton d’Izzy bouge le premier. Puis les épaules, de deux centimètres. Le volet retombe une seconde entière plus tard. Elle la compte.
 - **Izzy** : « Tiens. J’avais dit que je te contactais. »
@@ -623,7 +623,7 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 - Elle n’a jamais posé quelque chose, depuis qu’elle a ouvert les yeux dans ce monde. Tout ce qu’elle possédait, elle le portait sur elle : un endroit où l’on laisse un objet est un endroit où l’on compte revenir.
 - **Tiamat** : « Tu peux la reprendre demain. »
 - **Yarden** : « Je sais. »
-- **Tiamat** : « Ce n’est pas ce que je te demande. »
+- **Tiamat (froide)** : « Ce n’est pas ce que je te demande. »
 - Dehors, la lumière finit de tomber derrière la crête, l’eau perd sa couleur, et quinze étages plus bas, une ville continue de faire ce que font les villes.
 - Quelque part, un homme en costume range un carnet dans une poche intérieure. Il a écrit deux lignes cet après-midi. La première porte un nom. La seconde porte un numéro de carte, une borne, un montant.
 - Elle ne dit pas qu’une fille de niveau soixante-dix a repris cet argent sur la terrasse d’un bar, sans compter, avant de rentrer chez elle avec l’anomalie. Elle n’a pas besoin de le dire.
@@ -632,9 +632,9 @@ Fichier généré par `node docs/outils/exporter-textes.cjs` : ne pas le modifie
 ## Chapitre 6 : les faux trous du Flon (objets à examiner)
 
 - **Un trou ?** : Un chien énorme, immobile, assis au milieu du passage, tenu par une laisse molle et un propriétaire au téléphone. Les gens se déportent à deux mètres, comme un banc de poissons. Tiamat (voix intérieure) : « Non. » Yarden : « Je vois. »
-- **Un trou ?** : Un homme d’une cinquantaine d’années hurle dans un téléphone en marchant en cercle. Autour de lui, une zone d’évitement parfaitement ronde. Tiamat : « Non. » Yarden : « J’avais compris. » Tiamat : « Je sais. Je voulais le dire. »
-- **Un trou ?** : Le troisième trou est une flaque. Pendant mille ans, les couloirs se vidaient devant elle. Yarden : « Tu peux le dire. » Tiamat : « Je n’ai rien dit. » Yarden : « Tu n’as rien dit très fort. »
-- **La terrasse** : Elle repère la terrasse : une table vide au milieu des tables pleines, deux mètres de dégagement tout autour, dans un endroit où les gens s’entassent à quatre par table de deux. Autour du vide, six, peut-être sept hommes entre vingt et trente ans, en trois grappes, dans des positions pas naturelles pour des gens censés boire un verre. Ils tournent tous, à distance constante, et aucun n’entre. Un prédateur fait un trou net. Ça, c’est un anneau : un vide au centre et une couronne autour. La chose n’éloigne pas. Elle appelle, et quelque chose retient ceux qu’elle appelle. Tiamat (voix intérieure) : « Là. » Yarden : « Là. » Tiamat : « Tu as mis l’après-midi. » Yarden : « J’ai passé mille ans à être la chose qui vide une pièce. Ça ne m’est pas venu qu’on puisse faire un trou en attirant. » Tiamat : « Non. Ça ne te serait pas venu. »
+- **Un trou ?** : Un homme d’une cinquantaine d’années hurle dans un téléphone en marchant en cercle. Autour de lui, une zone d’évitement parfaitement ronde. Tiamat : « Non. » Yarden : « J’avais compris. » Tiamat[amusee] : « Je sais. Je voulais le dire. »
+- **Un trou ?** : Le troisième trou est une flaque. Pendant mille ans, les couloirs se vidaient devant elle. Yarden : « Tu peux le dire. » Tiamat[amusee] : « Je n’ai rien dit. » Yarden : « Tu n’as rien dit très fort. »
+- **La terrasse** : Elle repère la terrasse : une table vide au milieu des tables pleines, deux mètres de dégagement tout autour, dans un endroit où les gens s’entassent à quatre par table de deux. Autour du vide, six, peut-être sept hommes entre vingt et trente ans, en trois grappes, dans des positions pas naturelles pour des gens censés boire un verre. Ils tournent tous, à distance constante, et aucun n’entre. Un prédateur fait un trou net. Ça, c’est un anneau : un vide au centre et une couronne autour. La chose n’éloigne pas. Elle appelle, et quelque chose retient ceux qu’elle appelle. Tiamat (voix intérieure) : « Là. » Yarden : « Là. » Tiamat[amusee] : « Tu as mis l’après-midi. » Yarden : « J’ai passé mille ans à être la chose qui vide une pièce. Ça ne m’est pas venu qu’on puisse faire un trou en attirant. » Tiamat : « Non. Ça ne te serait pas venu. »
 
 ## Objectif affiché en haut (appartement)
 

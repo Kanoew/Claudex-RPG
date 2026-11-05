@@ -119,13 +119,13 @@ function sceneScript() {
     { say: ['Ishara : « T’as aussi fui quelque chose ? »', 'Yarden : « On pourrait dire ça. »', 'Ishara : « Tu veux en parler ? »', 'Yarden : « Non. »'] },
     { moves: [move('ishara', [[30, -290]], 80), move('yarden', [[0, -260]], 80, { delay: .6 })] },
     { moves: [move('ishara', [[60, -410]], 80), move('yarden', [[20, -400]], 80, { delay: .5 })] },
-    { say: ['Tiamat (voix intérieure) : « Tu aurais pu entrer. »', 'Tiamat : « La chaleur humaine a l’air agréable. »', 'Tiamat : « Tu as préféré ça. »'] },
+    { say: ['Tiamat (voix intérieure) : « Tu aurais pu entrer. »', 'Tiamat[amusee] : « La chaleur humaine a l’air agréable. »', 'Tiamat[froide] : « Tu as préféré ça. »'] },
     { say: ['Ishara[sourire] : « T’as l’air nouvelle ici. J’ai un lit, ma coloc est pas là. Si tu veux. »', 'Yarden : « D’accord. »'] },
     // On quitte la fête par le côté de la ruelle, pas tout droit.
     { moves: [move('ishara', [[-60, -450], [-176, -468]], 90), move('yarden', [[-40, -430], [-150, -450]], 90, { delay: .4 })] },
     // Le métro : Ishara explique le système, pour que le joueur le comprenne en même temps que Yarden.
     { metro: 'show' },
-    { say: ['Ishara : « Tu es une Éveillée ? N’est-ce pas ? »', 'Yarden : « Je suis un— »', 'Tiamat : « Assez. »', 'Yarden : « Pas vraiment. »', 'Ishara : « Ici, tout le monde a un niveau. Les humains, les monstres — les gens ordinaires plafonnent autour de 8. »', 'Ishara : « Mais seuls les Éveillés le voient. »', 'Yarden : « Tu en es une alors ? Une éveillée ? »', 'Ishara : « Oui. Ceux qui ont reçu une bénédiction, ou qui ont été exposés à l’énergie des Abysses. Ils ont une interface, et ils voient ce que les autres ratent. »', 'Yarden : « Hmm. »'] },
+    { say: ['Ishara : « Tu es une Éveillée ? N’est-ce pas ? »', 'Yarden : « Je suis un— »', 'Tiamat[froide] : « Assez. »', 'Yarden : « Pas vraiment. »', 'Ishara : « Ici, tout le monde a un niveau. Les humains, les monstres — les gens ordinaires plafonnent autour de 8. »', 'Ishara : « Mais seuls les Éveillés le voient. »', 'Yarden : « Tu en es une alors ? Une éveillée ? »', 'Ishara : « Oui. Ceux qui ont reçu une bénédiction, ou qui ont été exposés à l’énergie des Abysses. Ils ont une interface, et ils voient ce que les autres ratent. »', 'Yarden : « Hmm. »'] },
     { say: ['Ishara : « Une faille, c’est une porte qui s’ouvre au hasard. Les gens normaux ne la voient pas, et ne peuvent pas entrer. »', 'J’en ai traversé une.', 'Ishara : « Dedans, c’est l’Abysse : un autre endroit, avec ses créatures, et un temps un peu de travers. »', 'Ishara[sourire] : « Ce qu’on en ramène, ça se revend. C’est comme ça que tout se paie pour nous. »', 'Yarden : « Hmm. »'] },
     { metro: 'hide' },
     { run: () => { enterQuartier(); scene.done = true; } },

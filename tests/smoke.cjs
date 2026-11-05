@@ -929,7 +929,7 @@ const tests = [
     assert(all.includes('des yeux violets'), 'Yeux violets dans la version jeu');
     for (const banned of ['Jordan', 'bleu-gris', 'septum', 'piercing', 'Angel', 'ear cuff', 'dragon', 'collier', 'chaîne']) assert(!all.includes(banned), banned);
     assert(!all.includes('—') && !all.includes('–'), 'Pas de tiret cadratin');
-    assert.equal(said.filter(line => /^Tiamat : /.test(line)).length, 5);
+    assert.equal(said.filter(line => /^Tiamat(?:\[[a-z]+\])? : /.test(line)).length, 5);
   }],
   ['Première nuit : parquet, agents divins, tatouages et fin du matin', () => {
     const g = armed('loaded');
