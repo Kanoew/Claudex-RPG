@@ -1,7 +1,7 @@
 # Une interface plus proche du manhwa
 
-Proposition du 4 novembre 2026, sur la branche **`codex/polish-interface`**.
-Base : `5707fd3`, après les dernières corrections de dialogues.
+Proposition du 4 novembre 2026, fusionnée depuis **`codex/polish-interface`**.
+Retouches du 5 novembre sur **`codex/polish-ajustements`**, depuis `6dd56e0`.
 Les chapitres et leurs répliques ne sont pas modifiés.
 
 ## Ce qui change, simplement
@@ -26,17 +26,19 @@ Les couleurs sont des repères de lecture, pas des indices sur les pouvoirs :
 | Félix / Le 4B | Ocre |
 | Rémi | Vert olive |
 | Tiamat | Violet |
-| Autres voix | Gris |
+| Autres voix | Sable, avec silhouette sépia si le portrait manque |
 
 Le nom reste écrit : il n’est pas nécessaire de reconnaître les couleurs.
+Le sous-titre d’accueil indique simplement « RPG narratif » : aucun nombre de
+chapitres à mettre à jour lors des prochaines livraisons.
 **« TIAMAT, PAR YARDEN » reste distinct de « TIAMAT · VOIX INTÉRIEURE ».**
 Le halo ne fait pas trembler le texte et s’arrête avec le réglage système « réduire les animations ».
 
 ## Aperçus sur téléphone
 
-Captures de contrôle à 390 × 844 pixels. La capture d’Ishara sert à montrer sa
-bulle avec une réplique existante ; elle ne représente pas un nouvel échange
-ajouté dans la ruelle.
+Captures de contrôle à 390 × 844 pixels. Les captures d’Ishara et du chef montrent
+leurs bulles avec des répliques existantes ; elles ne représentent pas de nouveaux
+échanges ajoutés dans la ruelle.
 
 | Accueil | Dialogue |
 |---|---|
@@ -45,6 +47,8 @@ ajouté dans la ruelle.
 | Tiamat | Combat |
 |---|---|
 | ![Voix de Tiamat](interface/tiamat.jpg) | ![Barres et commandes](interface/combat.jpg) |
+
+[Aperçu de la teinte sable et de la silhouette sépia](interface/voix-neutre.jpg).
 
 ## Lecture et petits écrans
 

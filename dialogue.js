@@ -100,9 +100,9 @@ function drawPortrait(who, expression) {
     pen.beginPath(); pen.moveTo(cx - w, cy); pen.quadraticCurveTo(cx, cy - h * 2.1, cx + w, cy); pen.quadraticCurveTo(cx, cy + h * 2.1, cx - w, cy); pen.stroke();
     pen.fillStyle = '#ffffffcc'; pen.beginPath(); pen.arc(cx - size * .1, cy - size * .09, size * .035, 0, Math.PI * 2); pen.fill();
   } else {
-    // Image absente : silhouette.
-    pen.fillStyle = '#242a35'; pen.fillRect(0, 0, size, size);
-    pen.fillStyle = '#58606d'; pen.beginPath(); pen.arc(size / 2, size * .38, size * .18, 0, Math.PI * 2); pen.fill();
+    // Image absente : silhouette sépia, sans inventer de visage.
+    pen.fillStyle = '#272320'; pen.fillRect(0, 0, size, size);
+    pen.fillStyle = '#b6a28a'; pen.beginPath(); pen.arc(size / 2, size * .38, size * .18, 0, Math.PI * 2); pen.fill();
     pen.fillRect(size * .22, size * .62, size * .56, size * .4);
   }
 }
