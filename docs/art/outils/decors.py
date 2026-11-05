@@ -29,6 +29,10 @@ ZONES = {
     'donjon': ((-480, -336, 960, 672), None),
     'run': ((-470, -300, 940, 720), None),
     'antre': ((-480, -400, 960, 800), None),
+    # Lot 4 : les trois dernières zones.
+    'appartement': ((-320, -300, 640, 600), None),
+    'penthouse': ((-330, -230, 660, 470), None),
+    'escalier': ((-90, -640, 180, 900), None),
 }
 
 def background(name, room, anchor):
@@ -119,4 +123,6 @@ if __name__ == '__main__':
     sheet('square', ['banc', 'arbre-square', 'lampadaire'], single=True)
     sheet('flon', ['table-a', 'table-b', 'table-c', 'bar'], single=True, gap=40)
     sheet('impasse', ['impasse-poubelle', 'impasse-poubelle-metal', 'impasse-velo'], single=True)
+    sheet('appartement', ['app-canape', 'app-tablebasse', 'app-livres', 'app-table', 'app-comptoir', 'app-cuisine', 'app-lit', 'app-placard', 'app-radiateur', 'app-douche', 'app-lavabo'])
+    sheet('penthouse', ['pent-canape-b', 'pent-ilot', 'pent-canape-a', 'pent-marbre'], single=True)
     sheet('exterieur', ['benne', 'caisses', 'poubelles', 'poubelles-b', 'scooter'])

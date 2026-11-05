@@ -70,7 +70,7 @@ Les meubles qui comptent pour le jeu (zones à examiner) seront posés par le je
 - Un même lieu jour et nuit = deux fichiers (`-jour`). Le jeu choisira selon la scène ; pour l'instant seule la nuit du quartier est branchée.
 - Rien n'est branché tant que Jordan n'a pas validé le rendu. L'ancien dessin en code reste en secours.
 
-## 7. Lot 4 : appartement d'Ishara, penthouse d'Izzy, escalier (5 novembre 2026)
+## 7. Lot 4 : appartement d'Ishara, penthouse d'Izzy, escalier (5 novembre 2026) : livré et branché
 
 Les trois dernières zones encore dessinées en code. Décor sans meubles, meubles sur une planche à fond vert (même principe que la ruelle). Les mesures sont celles du jeu (`zones.js`) : l'image doit épouser les collisions, sans rien déplacer. Les pourcentages sont ceux du rectangle de la zone.
 
