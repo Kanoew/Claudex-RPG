@@ -8,6 +8,7 @@
 - **Le jeu** : RPG narratif en Canvas 2D (HTML, JavaScript, GitHub Pages), jouable sur téléphone. Chapitres 1 à 6 jouables d'un bout à l'autre, mode libre (failles au hasard) après la fin, sac et crédits, points de VIT, sauvegarde par points de passage dans le navigateur. Combat en temps réel.
 - **Décors** : dessinés en code par défaut, remplacés par des décors peints (GPT) quand l'image existe : rue du quartier (nuit et jour), Sous-gare, Marterey, ruelle, square, Flon (`decors.js`, `assets/decors/`). Les autres zones sont à brancher une à une.
 - **Pas dans le jeu** : chapitres 7 à 9 (canon aux sections 37 et 38, images prêtes dans `assets/npcs/ch7-9/`), musiques en fichier (la musique en code joue en attendant), tour par tour.
+- **Musique en code** : douze ambiances par lieu et situation dans `music-score.js`, lecture dans `audio.js`, fondus et baisse légère sous les dialogues. Prompts et noms des futurs fichiers dans `docs/PROMPTS-MUSIQUES.md` ; aperçu dans `docs/audio/`. Les fichiers MP3/OGG facultatifs sont chargés à la demande (deux pistes décodées en mémoire au maximum).
 - **Archivé** (branches, rien de perdu) : `archive/roguelite-v1` (essai de roguelite : runs, récompenses, boutique), `archive/anciens-packs` (anciennes images de travail).
 - **Où lire quoi** : règles et canon dans ce fichier ; historique dans `docs/JOURNAL.md` (inutile en début de session) ; textes du jeu dans `docs/TEXTES.md` (généré) ; commandes d'images dans `docs/COMMANDES-*.md`.
 

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Écouter les ambiances — Le Sang de Tiamat</title>
+<style>
+  :root { color-scheme: dark; font: 18px/1.6 system-ui, sans-serif; background: #14131b; color: #eee6f5; }
+  body { max-width: 640px; margin: 6vh auto; padding: 24px; }
+  h1 { font-size: 32px; line-height: 1.2; }
+  label { display: block; margin: 24px 0 6px; }
+  select, button { width: 100%; padding: 14px; min-height: 48px; border: 1px solid #b9a0cf; border-radius: 6px; font: inherit; }
+  select { background: #26212e; color: #eee6f5; }
+  button { margin-top: 24px; color: #241c2c; background: #ddcaed; cursor: pointer; }
+  input { width: 100%; min-height: 44px; accent-color: #ddcaed; }
+  a { color: #d4b8f2; } #status { min-height: 3em; }
+  :focus-visible { outline: 3px solid #f1d79f; outline-offset: 4px; }
+</style>
+<h1>Le Sang de Tiamat<br>Les ambiances</h1>
+<p>Douze musiques pour les lieux et les moments du récit. Ce sont les versions
+composées en code ; tes futures pistes pourront les remplacer une à une.</p>
+<label for="theme">Ambiance</label><select id="theme"></select>
+<label for="volume">Volume d’écoute</label><input id="volume" type="range" min="0" max="100" value="50">
+<button id="listen" type="button">Écouter</button>
+<p id="status" role="status">Le son démarre uniquement lorsque tu appuies sur Écouter.</p>
+<p><a href="../PROMPTS-MUSIQUES.md">Les 12 prompts et les lieux associés</a></p>
+<script src="../../music-score.js?v=1"></script>
+<script>
+  const select = document.getElementById('theme'), button = document.getElementById('listen');
+  const volume = document.getElementById('volume'), status = document.getElementById('status');
+  let preview = null;
+  for (const [id, theme] of Object.entries(musicThemes)) {
+    const option = document.createElement('option'); option.value = id; option.textContent = theme.label; select.append(option);
+  }
+  function stopPreview() {
+    if (preview) { clearInterval(preview.timer); disposeMusicBus(preview.bus); preview.context.close(); preview = null; }
+    button.textContent = 'Écouter'; status.textContent = 'Écoute arrêtée.';
+  }
+  async function startPreview() {
+    stopPreview();
+    try {
+      const context = new AudioContext(), output = context.createGain(), theme = musicThemes[select.value];
+      output.gain.value = Number(volume.value) / 100 * .36; output.connect(context.destination);
+      const noise = context.createBuffer(1, 4410, 44100), data = noise.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+      const bus = createMusicBus(context, output, theme, noise);
+      const state = { context, output, bus, theme, step: 0, next: context.currentTime + .05, timer: null };
+      preview = state;
+      await context.resume();
+      if (preview !== state) return;
+      state.timer = setInterval(() => {
+        if (context.state !== 'running') return;
+        if (state.next < context.currentTime - .3) state.next = context.currentTime + .04;
+        while (state.next < context.currentTime + .3) {
+          scheduleMusicStep(context, bus, theme, state.step, state.next);
+          state.next += 30 / theme.bpm; state.step = (state.step + 1) % 128;
+        }
+      }, 100);
+      button.textContent = 'Arrêter'; status.textContent = theme.label + ' · ' + theme.bpm + ' BPM';
+    } catch (error) { stopPreview(); status.textContent = 'Le navigateur n’a pas pu démarrer le son. Réessaie en ouvrant cette page dans Chrome ou Firefox.'; }
+  }
+  button.addEventListener('click', () => preview ? stopPreview() : startPreview());
+  select.addEventListener('change', () => { if (preview) startPreview(); });
+  volume.addEventListener('input', () => { if (preview) preview.output.gain.setTargetAtTime(Number(volume.value) / 100 * .36, preview.context.currentTime, .04); });
+  document.addEventListener('visibilitychange', () => { if (preview) document.hidden ? preview.context.suspend() : preview.context.resume(); });
+  window.addEventListener('pagehide', stopPreview);
+</script>
+</html>

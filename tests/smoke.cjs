@@ -30,19 +30,20 @@ function game(imageMode, keepOpening, store) {
     ResizeObserver: class { constructor(fn) { (listeners['canvas:resize'] ??= []).push(fn); } observe() {} }, requestAnimationFrame() {}, setInterval: fn => { audioLog.timers.push(fn); return 1; },
     AudioContext: class {
       constructor() { this.currentTime = 0; this.state = 'running'; this.destination = {}; audioLog.contexts++; }
-      createGain() { const param = () => ({ value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} }); return { gain: param(), connect() {} }; }
-      createOscillator() { const f = { value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} }; return { type: '', frequency: f, connect() {}, start() { audioLog.started++; }, stop() {} }; }
-      createBiquadFilter() { const f = { value: 0, setValueAtTime() {}, exponentialRampToValueAtTime() {} }; return { type: '', Q: { value: 0 }, frequency: f, connect() {} }; }
-      createBufferSource() { return { connect() {}, start() { audioLog.started++; }, stop() {}, loop: false }; }
+      createGain() { const param = () => ({ value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {}, cancelScheduledValues() {}, setTargetAtTime() {} }); return { gain: param(), connect() {}, disconnect() {} }; }
+      createDelay() { return { delayTime: { value: 0 }, connect() {}, disconnect() {} }; }
+      createOscillator() { const f = { value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {}, cancelScheduledValues() {}, setTargetAtTime() {} }; return { type: '', frequency: f, connect() {}, disconnect() {}, start() { audioLog.started++; }, stop() {} }; }
+      createBiquadFilter() { const f = { value: 0, setValueAtTime() {}, exponentialRampToValueAtTime() {} }; return { type: '', Q: { value: 0 }, frequency: f, connect() {}, disconnect() {} }; }
+      createBufferSource() { return { connect() {}, disconnect() {}, start() { audioLog.started++; }, stop() {}, loop: false }; }
       createBuffer(channels, length) { return { getChannelData: () => new Float32Array(length) }; }
       resume() { this.state = 'running'; } suspend() { this.state = 'suspended'; }
     },
     localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'sheets.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'chapitre4.js', 'chapitre5.js', 'chapitre6.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'points.js', 'bag.js', 'libre.js', 'save.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-ch4.js', 'render-ch6.js', 'render-quartier.js', 'render-appart.js', 'lighting.js', 'decors.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'sheets.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'chapitre4.js', 'chapitre5.js', 'chapitre6.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'points.js', 'bag.js', 'libre.js', 'save.js', 'music-score.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-ch4.js', 'render-ch6.js', 'render-quartier.js', 'render-appart.js', 'lighting.js', 'decors.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, ch6, openPoints, addPoint, closePoints, pointsState, get playerLevel(){return playerLevel}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, sceneLights, lightAt, drawLightShadows, drawSceneLighting, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, ch4, ch6, openPoints, addPoint, closePoints, pointsState, get playerLevel(){return playerLevel}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, sceneLights, lightAt, drawLightShadows, drawSceneLighting, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -1306,9 +1307,40 @@ const tests = [
     g.syncMusic();
     assert.equal(g.audio.theme, 'abysse');
     g.loadZone('exterieur'); g.syncMusic();
-    assert.equal(g.audio.theme, 'ville');
+    assert.equal(g.audio.theme, 'ruelle');
     // Sans moteur sonore disponible, le jeu continue.
     g.playSfx('slash'); g.startAttack(false);
+  }],
+  ['Musique : douze ambiances, nuit, fête et combats selon le lieu', () => {
+    const g = game('loaded', 'title');
+    g.audio.override = 'fete'; g.syncMusic();
+    assert.equal(g.audio.theme, 'titre', 'Le titre garde son thème');
+    g.closeMenu(); g.syncMusic(); assert.equal(g.audio.theme, 'fete');
+    g.audio.override = null;
+    for (const [zone, theme] of [['exterieur', 'ruelle'], ['quartier', 'ville'], ['appartement', 'appartement'], ['donjon', 'abysse'], ['run', 'abysse'], ['antre', 'antre'], ['cour', 'quatreb'], ['escalier', 'quatreb'], ['quatreb', 'quatreb'], ['preau', 'dossier'], ['square', 'dossier'], ['hall', 'ouchy'], ['penthouse', 'ouchy']]) {
+      g.loadZone(zone); g.syncMusic(); assert.equal(g.audio.theme, theme, zone);
+    }
+    g.home.stage = 'nuit'; g.loadZone('appartement'); g.syncMusic(); assert.equal(g.audio.theme, 'nuit');
+    g.openMenu('pause'); g.syncMusic(); assert.equal(g.audio.theme, 'nuit', 'La pause ne revient pas au thème du titre');
+    g.closeMenu(); g.loadZone('donjon'); g.boss.active = true; g.boss.hp = 8; g.syncMusic(); assert.equal(g.audio.theme, 'combat');
+    g.boss.hp = 0; g.syncMusic(); assert.equal(g.audio.theme, 'abysse');
+    g.loadZone('square'); g.ch4.broken = true; g.zoneEnemies.square[0].hp = 5; g.syncMusic(); assert.equal(g.audio.theme, 'combat');
+    g.zoneEnemies.square[0].hp = 0; g.syncMusic(); assert.equal(g.audio.theme, 'dossier');
+  }],
+  ['Musique : silence sans nouvelles notes, reprise sans rafale et nettoyage des transitions', () => {
+    const g = game('loaded'); g.fire('window:pointerdown'); g.scheduleMusic();
+    const started = g.audioLog.started;
+    g.setMusic(false); g.scheduleMusic();
+    assert.equal(g.audioLog.started, started, 'Pas de synthèse en sourdine');
+    g.setMusicVolume(0); g.setMusic(true); g.scheduleMusic(); assert.equal(g.audioLog.started, started);
+    g.setMusicVolume(.6); g.audio.context.currentTime = 600; g.audio.next = 0; g.scheduleMusic();
+    assert(g.audio.next > 600 && g.audioLog.started - started < 30, 'Aucune rafale de rattrapage après une interruption');
+    g.loadZone('quatreb'); g.scheduleMusic();
+    assert.equal(g.audio.synthTheme, 'quatreb'); assert(g.audio.retired.length > 0);
+    g.audio.context.currentTime += 2; g.scheduleMusic(); assert.equal(g.audio.retired.length, 0, 'Les anciens circuits sont libérés');
+    g.story.active = true; g.loadZone('appartement'); g.scheduleMusic();
+    assert.equal(g.audio.theme, 'appartement', 'Le lieu change aussi pendant un récit figé');
+    assert.equal(g.audio.ducked, true, 'La musique accompagne doucement le dialogue');
   }],
   ['Pack visuel : portraits, arcs de la faux, hommes chibi et danseurs', () => {
     const p = game('loaded').parseStoryLine('Yarden[agacee] : « Hé. »');

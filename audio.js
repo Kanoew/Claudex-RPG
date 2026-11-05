@@ -1,23 +1,10 @@
 'use strict';
 
-// Son en code, sans fichier : une petite musique de style 8 bits, très discrète, et quelques bruitages (coup de faux, impact,
-// dégâts, montée de niveau). Le navigateur n'autorise le son qu'après un geste du joueur : rien ne joue avant le premier appui.
-// Deux réglages séparés, « Musique » et « Effets », gardés dans le navigateur et modifiables dans les menus.
-const audio = { context: null, master: null, music: null, sfx: null, noise: null, musicOn: true, effectsOn: true, musicVolume: .6, effectsVolume: .6, tracks: {}, trackNode: null, trackSource: null, trackTheme: null, override: null, theme: null, step: 0, next: 0, timer: null, played: [] };
+// Musique procédurale par lieu, avec fichiers de remplacement facultatifs.
+// Aucun son avant le premier geste ; musique et effets ont leurs propres réglages.
+const audio = { context: null, master: null, music: null, sfx: null, noise: null, duck: null, ducked: false, musicOn: true, effectsOn: true, musicVolume: .6, effectsVolume: .6, tracks: {}, requested: new Set(), loadingTheme: null, trackNode: null, trackSource: null, trackEnvelope: null, trackTheme: null, bus: null, synthTheme: null, retired: [], override: null, theme: null, step: 0, next: 0, timer: null, played: [] };
 const musicKey = 'yarden-musique-1', effectsKey = 'yarden-effets-1', musicVolumeKey = 'yarden-volume-musique-1', effectsVolumeKey = 'yarden-volume-effets-1';
-// Notes MIDI par croche (0 = silence). `abysse` : mineur, lent, tendu ; `ville` : pentatonique douce, plus chaude.
-const musicThemes = {
-  abysse: {
-    seconds: .36, wave: 'square',
-    lead: [69, 0, 72, 0, 76, 0, 72, 0, 74, 0, 77, 0, 81, 0, 77, 0, 76, 0, 72, 0, 71, 0, 72, 0, 69, 0, 0, 0, 64, 0, 0, 0],
-    bass: [45, 0, 0, 0, 45, 0, 0, 0, 41, 0, 0, 0, 41, 0, 0, 0, 40, 0, 0, 0, 40, 0, 0, 0, 45, 0, 0, 0, 45, 0, 0, 0]
-  },
-  ville: {
-    seconds: .32, wave: 'square',
-    lead: [76, 0, 79, 0, 81, 0, 79, 0, 76, 0, 74, 0, 72, 0, 0, 0, 74, 0, 77, 0, 79, 0, 77, 0, 74, 0, 72, 0, 67, 0, 0, 0],
-    bass: [48, 0, 0, 0, 55, 0, 0, 0, 53, 0, 0, 0, 55, 0, 0, 0, 50, 0, 0, 0, 57, 0, 0, 0, 55, 0, 0, 0, 48, 0, 0, 0]
-  }
-};
+const musicFileVersion = 62;
 
 function readSetting(key) {
   const store = storage();
@@ -38,17 +25,18 @@ function unlockAudio() {
   try {
     const context = new AudioContext();
     const master = context.createGain(), music = context.createGain(), sfx = context.createGain();
-    const trackNode = context.createGain();
+    const trackNode = context.createGain(), duck = context.createGain();
     master.gain.value = 1;
     music.gain.value = audio.musicOn ? audio.musicVolume * .12 : 0;
     trackNode.gain.value = audio.musicOn ? audio.musicVolume * .8 : 0;
     sfx.gain.value = audio.effectsVolume * .8;
-    music.connect(master); trackNode.connect(master); sfx.connect(master); master.connect(context.destination);
+    music.connect(duck); trackNode.connect(duck); duck.connect(master); sfx.connect(master); master.connect(context.destination);
     const noise = context.createBuffer(1, 4410, 44100), data = noise.getChannelData(0);
     for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-    Object.assign(audio, { context, master, music, sfx, trackNode, noise, next: context.currentTime + .1, step: 0 });
+    Object.assign(audio, { context, master, music, sfx, trackNode, noise, duck, next: context.currentTime + .1, step: 0 });
     if (context.state === 'suspended') context.resume();
     audio.timer = setInterval(scheduleMusic, 120);
+    syncMusic();
     loadMusicFiles();
   } catch (error) {
     audio.context = null;
@@ -89,15 +77,6 @@ function setEffects(on) {
   saveSetting(effectsKey, on);
 }
 
-// Fête : arpèges rapides sur la, fa, sol, mi, comme une techno 8 bits entendue de loin.
-(function buildParty() {
-  const roots = [57, 53, 55, 52], lead = [], bass = [];
-  for (const root of roots) for (let i = 0; i < 8; i++) { lead.push(root + 12 + [0, 7, 12, 7][i % 4]); bass.push(i % 2 === 0 ? root - 12 : 0); }
-  musicThemes.fete = { seconds: .2, wave: 'square', lead, bass };
-})();
-
-const midiHz = note => 440 * Math.pow(2, (note - 69) / 12);
-
 function tone(wave, note, start, length, volume, target) {
   const context = audio.context, oscillator = context.createOscillator(), gain = context.createGain();
   oscillator.type = wave;
@@ -109,51 +88,115 @@ function tone(wave, note, start, length, volume, target) {
   oscillator.start(start); oscillator.stop(start + length + .02);
 }
 
+function retireSynth() {
+  if (!audio.bus) return;
+  const now = audio.context.currentTime, bus = audio.bus;
+  const level = bus.input.gain.value;
+  bus.input.gain.cancelScheduledValues(now);
+  bus.input.gain.setValueAtTime(level, now);
+  bus.input.gain.linearRampToValueAtTime(0, now + .45);
+  bus.disposeAt = now + .7;
+  audio.retired.push(bus);
+  audio.bus = null; audio.synthTheme = null;
+}
+
 function scheduleMusic() {
-  const context = audio.context, theme = musicThemes[audio.theme] || musicThemes.ville;
-  if (!context || !theme || context.state !== 'running') return;
-  if (audio.tracks[audio.theme]) { playTrack(); return; }
+  const context = audio.context;
+  if (!context || context.state !== 'running') return;
+  // Les scènes peuvent changer de lieu pendant un dialogue, lorsque le jeu est figé.
+  syncMusic();
+  audio.retired = audio.retired.filter(bus => {
+    if (bus.disposeAt > context.currentTime) return true;
+    disposeMusicBus(bus); return false;
+  });
+  const ducked = story.active;
+  if (ducked !== audio.ducked) {
+    audio.ducked = ducked;
+    audio.duck.gain.setTargetAtTime(ducked ? .72 : 1, context.currentTime, .18);
+  }
+  if (!audio.musicOn || audio.musicVolume === 0) {
+    retireSynth(); stopTrack(); audio.next = context.currentTime + .05; return;
+  }
+  loadMusicFiles();
+  if (audio.tracks[audio.theme]) { retireSynth(); playTrack(); return; }
   stopTrack();
+  const theme = musicThemes[audio.theme] || musicThemes.ville;
+  if (audio.synthTheme !== audio.theme) {
+    retireSynth();
+    audio.bus = createMusicBus(context, audio.music, theme, audio.noise);
+    audio.bus.input.gain.setValueAtTime(0, context.currentTime);
+    audio.bus.input.gain.linearRampToValueAtTime(1, context.currentTime + .4);
+    audio.synthTheme = audio.theme;
+  }
+  // Après une interruption, pas de rattrapage de milliers de notes dans le passé.
+  if (audio.next < context.currentTime - .3) audio.next = context.currentTime + .04;
   while (audio.next < context.currentTime + .3) {
-    const i = audio.step % theme.lead.length;
-    if (theme.lead[i]) tone(theme.wave, theme.lead[i], audio.next, theme.seconds * 1.4, .5, audio.music);
-    if (theme.bass[i]) tone('triangle', theme.bass[i], audio.next, theme.seconds * 3, 1, audio.music);
-    audio.next += theme.seconds;
-    audio.step++;
+    scheduleMusicStep(context, audio.bus, theme, audio.step, audio.next);
+    audio.next += 30 / theme.bpm;
+    audio.step = (audio.step + 1) % 128;
   }
 }
 
-// Musique selon le lieu : l'Abysse (donjon, antre) ou la ville (ruelle, appartement).
+function musicForPlace() {
+  if (menu.open && menu.kind === 'title') return 'titre';
+  if (audio.override && musicThemes[audio.override]) return audio.override;
+  const zone = currentZone.id;
+  if (zone === 'antre') return 'antre';
+  if ((zone === 'donjon' && boss.active && boss.hp > 0) ||
+      (zone === 'square' && ch4.broken && squareCreature().hp > 0)) return 'combat';
+  if (['donjon', 'run', 'faille'].includes(zone)) return 'abysse';
+  if (zone === 'exterieur') return 'ruelle';
+  if (zone === 'appartement') return home.stage === 'nuit' ? 'nuit' : 'appartement';
+  if (['cour', 'escalier', 'quatreb'].includes(zone)) return 'quatreb';
+  if (['preau', 'square'].includes(zone)) return 'dossier';
+  if (['hall', 'penthouse'].includes(zone)) return 'ouchy';
+  return 'ville';
+}
+
 function syncMusic() {
-  const theme = audio.override || (menu.open && menu.kind === 'title' ? 'titre' : currentZone.id === 'donjon' || currentZone.id === 'antre' || currentZone.id === 'run' || currentZone.id === 'faille' ? 'abysse' : 'ville');
+  const theme = musicForPlace();
   if (theme === audio.theme) return;
   audio.theme = theme;
   audio.step = 0;
-  if (audio.context) audio.next = audio.context.currentTime + .1;
+  if (audio.context) audio.next = audio.context.currentTime + .05;
 }
 
-// Musiques en fichier : assets/musique/titre, ville, abysse et fete (.mp3 ou .ogg), si elles existent ; sinon la musique en code joue.
-function loadMusicFiles() {
-  if (typeof fetch === 'undefined' || !audio.context || !audio.context.decodeAudioData) return;
-  for (const name of ['titre', 'ville', 'abysse', 'fete']) {
-    (async () => {
-      for (const extension of ['mp3', 'ogg']) {
-        try {
-          const answer = await fetch(`assets/musique/${name}.${extension}?v=51`);
-          if (!answer.ok) continue;
-          audio.tracks[name] = await audio.context.decodeAudioData(await answer.arrayBuffer());
-          return;
-        } catch (error) { /* fichier absent ou illisible : on garde la musique en code */ }
-      }
-    })();
-  }
+// Un seul téléchargement à la fois, pour le lieu courant. Deux pistes décodées
+// au maximum : les douze musiques longues ne remplissent pas la mémoire du téléphone.
+async function loadMusicFiles() {
+  const name = audio.theme;
+  if (typeof fetch === 'undefined' || !audio.context || !audio.context.decodeAudioData ||
+      !musicThemes[name] || audio.loadingTheme || audio.requested.has(name) || audio.tracks[name] || !audio.musicOn) return;
+  audio.loadingTheme = name;
+  audio.requested.add(name);
+  try {
+    for (const extension of ['mp3', 'ogg']) {
+      try {
+        const answer = await fetch(`assets/musique/${name}.${extension}?v=${musicFileVersion}`);
+        if (!answer.ok) continue;
+        const bytes = await answer.arrayBuffer();
+        if (audio.theme !== name) { audio.requested.delete(name); return; }
+        const buffer = await audio.context.decodeAudioData(bytes);
+        if (audio.theme !== name) { audio.requested.delete(name); return; }
+        for (const cached of Object.keys(audio.tracks)) {
+          if (cached !== audio.trackTheme) { delete audio.tracks[cached]; audio.requested.delete(cached); }
+        }
+        audio.tracks[name] = buffer;
+        return;
+      } catch (error) { /* Fichier absent ou illisible : partition en code. */ }
+    }
+  } finally { audio.loadingTheme = null; }
 }
 
 function stopTrack() {
   if (!audio.trackSource) return;
-  try { audio.trackSource.stop(); } catch (error) { /* déjà arrêtée */ }
-  audio.trackSource = null;
-  audio.trackTheme = null;
+  const now = audio.context.currentTime;
+  const level = audio.trackEnvelope.gain.value;
+  audio.trackEnvelope.gain.cancelScheduledValues(now);
+  audio.trackEnvelope.gain.setValueAtTime(level, now);
+  audio.trackEnvelope.gain.linearRampToValueAtTime(0, now + .45);
+  try { audio.trackSource.stop(now + .5); } catch (error) { /* Déjà terminée. */ }
+  audio.trackSource = null; audio.trackEnvelope = null; audio.trackTheme = null;
 }
 
 function playTrack() {
@@ -161,13 +204,14 @@ function playTrack() {
   stopTrack();
   const buffer = audio.tracks[audio.theme];
   if (!buffer) return;
-  const source = audio.context.createBufferSource();
-  source.buffer = buffer;
-  source.loop = true;
-  source.connect(audio.trackNode);
+  const source = audio.context.createBufferSource(), envelope = audio.context.createGain();
+  source.buffer = buffer; source.loop = true;
+  const now = audio.context.currentTime;
+  envelope.gain.setValueAtTime(0, now); envelope.gain.linearRampToValueAtTime(1, now + .5);
+  source.connect(envelope); envelope.connect(audio.trackNode);
+  source.onended = () => { source.disconnect(); envelope.disconnect(); };
   source.start();
-  audio.trackSource = source;
-  audio.trackTheme = audio.theme;
+  audio.trackSource = source; audio.trackEnvelope = envelope; audio.trackTheme = audio.theme;
 }
 
 function playSfx(name) {

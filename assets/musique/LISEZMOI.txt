@@ -2,10 +2,23 @@ Musiques du jeu (facultatives)
 
 Dépose ici des fichiers audio : le jeu les joue à la place de la musique en code, et retombe sur la musique en code si un fichier manque.
 Noms attendus (en .mp3 ou .ogg) :
-  titre   écran titre
-  ville   ruelle, rue, appartement
-  abysse  donjon et antre
-  fete    la fête dans la ruelle
+  titre        écran titre
+  ruelle       réveil et retour dans la ruelle
+  ville        quartier, Marterey, comptoir, Sous-gare, Flon, impasse
+  appartement  chez Ishara, arrivée et matin
+  nuit         chez Ishara, le soir et la nuit
+  abysse       donjon, run, failles du mode libre
+  antre        araignée de cristal
+  combat       Troll et créature du square
+  quatreb      cour, escalier, appartement du 4B
+  dossier      square hors combat, préau
+  ouchy        hall et appartement d’Izzy
+  fete         la fête dans la ruelle
 
-Conseils : une boucle de 60 à 120 secondes qui se répète sans coupure, 1,5 Mo au plus par fichier (le jeu se charge sur téléphone),
-volume mixé assez doux (le réglage « Musique » du jeu s'applique par-dessus). Après un ajout, augmente le numéro ?v= dans audio.js.
+Conseils : une boucle de 60 à 90 secondes qui se répète sans coupure, 1,5 Mo au plus par fichier (le jeu se charge sur téléphone),
+volume mixé assez doux (le réglage « Musique » du jeu s'applique par-dessus).
+Après un ajout, augmente musicFileVersion dans audio.js et la version d’audio.js dans index.html.
+Le jeu essaie le MP3, puis l’OGG. Seule l’ambiance demandée est téléchargée ; deux pistes décodées au maximum restent en mémoire.
+
+Les douze prompts prêts à copier sont dans docs/PROMPTS-MUSIQUES.md.
+Un extrait et une page d’écoute des partitions en code sont dans docs/audio/.

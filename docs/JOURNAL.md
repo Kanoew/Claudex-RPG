@@ -108,3 +108,25 @@
 | 17t | décisions de Jordan du 4 novembre 2026, à relire | **Les 14 points de texte.** Appliqués : interphone (« Il faut appuyer deux fois »), « Encore un silence. Celui-là, elle ne sait pas le lire. », « Elle te l'a dit elle-même » retiré, « Tu ne m'as pas contactée. », suffixe « (papiers dans 3 jours) » affiché seulement tant que la dette n'est pas payée, Tiamat « par Yarden » devant Félix (étiquette TIAMAT, PAR YARDEN), répliques sorties de la narration (Ishara, Félix, Izzy ×2) et bulles pour « Le concierge » et « Le 4B ». Laissés tels quels sur décision de Jordan : ardoise de Rémi à 280, « Je le range. C'est pas pareil. », « Elle n'a jamais posé quelque chose », « Elle est une adresse. Va-t'en. » (ni rétablie ni supprimée), bail à Renens, Helvara/Lausanne, « Niveau 70. Déité Xochiquetzal. » (Yarden apprend beaucoup via Tiamat). Quarante-neuf scénarios. |
 | 17u | proposé le 4 novembre 2026, à valider sur Android | **Polish de l’interface**, branche `codex/polish-interface`, depuis `5707fd3` : fond encre, polices Barlow locales, bulles ivoire avec repère par personnage, Tiamat sombre avec halo lent sur l’œil (désactivé avec les animations réduites), accueil avec le décor existant, barre du haut et fenêtres harmonisées. Zone de lecture agrandie, défilement au clavier, dialogue replacé à droite en paysage. Textes des chapitres inchangés ; « Tiamat, par Yarden » conservé. Explications et captures dans `docs/POLISH-INTERFACE.md`. 49 scénarios logiques ; contrôles Chromium de 320 à 1440 px, texte à 24 px, rotation, clavier et polices de secours. Pas de test sur appareil Android réel. |
 | 17 | à lancer | Bilan de la phase 2 : fluidité mesurée sur téléphone, poids des images, décision sur Godot. Soumis à validation de Jordan. |
+
+## 5 novembre 2026 — Musique par lieu
+
+Branche `codex/musiques-ambiances`, depuis `6dd56e0`. À valider à l’écoute sur Android.
+
+- Douze partitions dans `music-score.js` : titre, ruelle, ville, appartement, nuit,
+  Abysse, antre, combat, 4B, dossier, Ouchy, fête. Accords, basses, percussions,
+  écho léger et variations sur seize mesures ; les bruitages existants sont conservés.
+- `audio.js` : fondus entre ambiances, baisse douce sous les dialogues, absence de
+  nouvelles notes lorsque la musique est coupée, reprise sans rafale après une
+  interruption. Les changements de lieu sont suivis aussi pendant le récit.
+- Futurs MP3/OGG : téléchargement à la demande, remplacement de la partition
+  correspondante, repli si un fichier manque ou est illisible, deux pistes décodées
+  en mémoire au maximum. Les circuits de synthèse et sources terminées sont libérés.
+- Douze prompts complets dans `docs/PROMPTS-MUSIQUES.md`, page d’écoute des douze
+  thèmes et montage MP3 de 48 secondes dans `docs/audio/`. Ce montage est un aperçu
+  des partitions, pas une musique chargée par le jeu.
+- Vérifications : 51 scénarios logiques, rendu hors ligne des douze partitions
+  sans saturation, essai Chromium des lieux, dialogues, réglages, transitions,
+  remplacement par un fichier et repli d’un MP3 illisible vers un second format.
+  Les fichiers de test audio sont simulés dans le navigateur ; aucun morceau
+  temporaire n’est ajouté dans `assets/musique/`. Essai sur vrai téléphone restant.
