@@ -3,10 +3,12 @@
 > Fichier de contexte. À lire EN ENTIER au début de chaque session, par Claude comme par ChatGPT/Codex.
 > Si une consigne de ce fichier contredit une demande orale, on le signale avant de coder.
 
-## État actuel (4 novembre 2026)
+## État actuel (5 novembre 2026)
 
-- **Le jeu** : RPG narratif en Canvas 2D (HTML, JavaScript, GitHub Pages), jouable sur téléphone. Chapitres 1 à 6 jouables d'un bout à l'autre, mode libre (failles au hasard) après la fin, sac et crédits, points de VIT, sauvegarde par points de passage dans le navigateur. Combat en temps réel.
+- **Le jeu** : RPG narratif en Canvas 2D (HTML, JavaScript, GitHub Pages), jouable sur téléphone. Chapitres 1 à 6 jouables d'un bout à l'autre, mode libre (failles au hasard) après la fin, sac et crédits, points de VIT, sauvegarde par points de passage dans le navigateur. Combat en temps réel. Texte des dialogues qui s'écrit progressivement (vitesse réglable).
 - **Décors** : dessinés en code par défaut, remplacés par des décors peints (GPT) quand l'image existe : rue du quartier (nuit et jour), Sous-gare, Marterey, ruelle, square, Flon (`decors.js`, `assets/decors/`). Les autres zones sont à brancher une à une.
+- **Interface** : habillage « manhwa » de Codex (`polish.css`, polices Barlow dans `assets/fonts/`) : bulles de dialogue avec une couleur de lecture par personnage, écran titre avec le décor de la rue, menus harmonisés, dialogue à droite du terrain en paysage. Détail dans `docs/POLISH-INTERFACE.md`.
+- **Tiamat** : voix intérieure en violet avec un œil en image (Higgsfield), trois expressions (`tiamat-neutre`, `tiamat-amusee`, `tiamat-froide`) choisies par réplique avec `Tiamat[amusee] (voix intérieure) : « … »` ; étiquette « TIAMAT, PAR YARDEN » pour la seule scène où elle parle à voix haute (chez Félix). Attribution des 57 répliques décidée avec Jordan (`docs/JOURNAL.md`, ligne 17x), les répliques 36 à 57 sont « à voir en situation ». L'œil dessiné en code reste en secours.
 - **Pas dans le jeu** : chapitres 7 à 9 (canon aux sections 37 et 38, images prêtes dans `assets/npcs/ch7-9/`), tour par tour.
 - **Musique en code** : douze ambiances par lieu et situation dans `music-score.js`, lecture dans `audio.js`, fondus et baisse légère sous les dialogues. Les douze musiques MP3 de Jordan (Gemini) sont dans `assets/musique/` (`LISEZMOI.txt`) et jouent à la place des partitions en code, qui restent en secours ; aperçu des partitions dans `docs/audio/`. Les fichiers sont chargés à la demande (deux pistes décodées en mémoire au maximum).
 - **Archivé** (branches, rien de perdu) : `archive/roguelite-v1` (essai de roguelite : runs, récompenses, boutique), `archive/anciens-packs` (anciennes images de travail).
