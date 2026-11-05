@@ -4,7 +4,7 @@
 // Aucun son avant le premier geste ; musique et effets ont leurs propres réglages.
 const audio = { context: null, master: null, music: null, sfx: null, noise: null, duck: null, ducked: false, musicOn: true, effectsOn: true, musicVolume: .6, effectsVolume: .6, tracks: {}, requested: new Set(), loadingTheme: null, trackNode: null, trackSource: null, trackEnvelope: null, trackTheme: null, bus: null, synthTheme: null, retired: [], override: null, theme: null, step: 0, next: 0, timer: null, played: [] };
 const musicKey = 'yarden-musique-1', effectsKey = 'yarden-effets-1', musicVolumeKey = 'yarden-volume-musique-1', effectsVolumeKey = 'yarden-volume-effets-1';
-const musicFileVersion = 62;
+const musicFileVersion = 63;
 
 function readSetting(key) {
   const store = storage();
