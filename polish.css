@@ -37,7 +37,7 @@ h1 { font: 600 20px/1 var(--display); letter-spacing: .08em; color: var(--ink); 
 #boss-panel { background: #17151ef5; border-color: #9d7a9d; border-radius: 4px; backdrop-filter: none; }
 
 /* Palette commune aux bulles et à leur historique. Le nom reste toujours affiché. */
-[data-character] { --character: #a5a7b0; --character-ink: #454853; }
+[data-character] { --character: #c8b8a0; --character-ink: #695640; }
 [data-character="yarden"] { --character: #a897c4; --character-ink: #63507d; }
 [data-character="ishara"] { --character: #d6a377; --character-ink: #85502d; }
 [data-character="celeste"] { --character: #89b7b1; --character-ink: #356761; }

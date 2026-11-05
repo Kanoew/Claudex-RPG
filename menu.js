@@ -41,7 +41,7 @@ function openMenu(kind) {
   resetInput();
   Object.assign(menu, { open: true, kind, confirm: null });
   const save = readSave();
-  document.getElementById('menu-note').textContent = kind === 'title' ? 'RPG narratif · Chapitres 1 à 6' : (save ? `Dernier point de passage : ${checkpointNames[save.checkpoint]}` : 'Aucun point de passage encore');
+  document.getElementById('menu-note').textContent = kind === 'title' ? 'RPG narratif' : (save ? `Dernier point de passage : ${checkpointNames[save.checkpoint]}` : 'Aucun point de passage encore');
   menuButtons.continue.hidden = kind !== 'title' || !save;
   menuButtons.continue.textContent = menuLabelFor(save);
   menuButtons.new.hidden = kind !== 'title';
