@@ -27,6 +27,8 @@ Ouvre `index.html` directement dans un navigateur récent ou utilise le lien du 
 
 ## Interface et décor
 
+L’habillage de l’interface est dans `polish.css` ; `ux.css` garde les dispositions adaptées aux écrans. Bulles ivoire, repères par personnage et halo discret pour Tiamat : [aperçus et explications](docs/POLISH-INTERFACE.md). Les polices Barlow sont incluses dans `assets/fonts/` avec leurs licences.
+
 La vie et le mana ont des barres avec valeurs numériques. Les boutons affichent leur coût ou leur temps de récupération. Le Gardien a une barre fixe dès son apparition et une flèche indique sa position lorsqu’il est hors champ. L’objectif reste au-dessus du terrain.
 
 Deux images de décor, originales et CC0, sont incluses : `assets/sol-pierre.svg` (dalles) et `assets/mur-pierre.svg` (maçonnerie), environ 1,3 Ko au total. Voir `assets/LICENCE.md`. Les portes, piliers et l’ombre autour de Yarden sont dessinés en Canvas. Si les images échouent à charger, un décor de secours est dessiné ; le jeu et les collisions restent identiques.
