@@ -15,6 +15,18 @@ const paintedDecor = {
       variant: () => (typeof home !== 'undefined' && home.stage === 'matin') ? 'jour' : ''
     },
     sousgare: { hide: ['belle-epoque'] },
+    impasse: { hideBorder: true, hide: ['pressing', 'mur'], sprites: ['impasse-poubelle', 'impasse-poubelle-metal', 'impasse-velo'], objects: { poubelles: { name: 'impasse-poubelle-metal', height: 80 }, velo: { name: 'impasse-velo', width: 74 } } },
+    cour: { hide: ['lierre', 'arbuste'] },
+    comptoir: { hide: ['mur-int', 'comptoir-remi'] },
+    // Le bureau de Félix n'est pas dans l'image : il reste dessiné en code.
+    quatreb: { hide: ['etagere', 'papier'] },
+    // Le banc du préau n'est pas dans l'image : il reste dessiné en code.
+    preau: { hide: ['mur-ecole', 'colonne'] },
+    hall: { hide: ['comptoir-hall', 'ascenseur-hall'] },
+    // Salles de l'Abysse : les piliers et rochers du jeu restent dessinés en code par-dessus le fond.
+    donjon: {},
+    run: {},
+    antre: {},
     // Les objets dépassent leur rectangle de collision (vue en trois quarts) : largeur ou hauteur voulue, en unités du jeu.
     square: { hide: ['immeuble-sq'], sprites: ['banc', 'arbre-square', 'lampadaire'], objects: { banc: { name: 'banc', width: 96 }, arbre: { name: 'arbre-square', height: 118 }, lampadaire: { name: 'lampadaire', height: 92 } } },
     flon: { hide: ['facade-flon', 'bar'], sprites: ['table-a', 'table-b', 'table-c', 'bar'], objects: { bar: { name: 'bar', width: 230 }, table: wall => ({ name: ['table-a', 'table-b', 'table-c'][Math.abs(wall.x) % 3], width: 64 }) } },
@@ -34,9 +46,9 @@ function loadPaintedDecor() {
     image.src = path;
   };
   for (const [id, config] of Object.entries(paintedDecor.zones)) {
-    load(paintedDecor.images, id, `assets/decors/${id}.jpg?v=3`);
-    if (config.variant) load(paintedDecor.images, `${id}-jour`, `assets/decors/${id}-jour.jpg?v=3`);
-    for (const name of config.sprites || []) load(paintedDecor.objects, name, `assets/decors/objets/${name}.png?v=3`);
+    load(paintedDecor.images, id, `assets/decors/${id}.jpg?v=4`);
+    if (config.variant) load(paintedDecor.images, `${id}-jour`, `assets/decors/${id}-jour.jpg?v=4`);
+    for (const name of config.sprites || []) load(paintedDecor.objects, name, `assets/decors/objets/${name}.png?v=4`);
   }
 }
 
@@ -55,6 +67,8 @@ function drawPaintedDecor(zone, offsetX, offsetY) {
   return true;
 }
 
+// Murs d'enceinte (les quatre premiers) : l'image les contient déjà ; sans eux, le bord reste sombre.
+const paintedBorderHidden = (zone, index) => paintedDecorActive(zone) && !!paintedDecor.zones[zone.id].hideBorder && index < 4;
 const paintedDecorActive = zone => !!paintedDecorImage(zone);
 const paintedDecorHides = (zone, wall) => paintedDecorActive(zone) && (paintedDecor.zones[zone.id].hide || []).includes(wall.kind);
 

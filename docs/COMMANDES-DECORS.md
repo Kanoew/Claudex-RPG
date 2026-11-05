@@ -69,3 +69,69 @@ Les meubles qui comptent pour le jeu (zones à examiner) seront posés par le je
 - Je recadre et je redimensionne : générer en haute résolution, format indiqué, c'est tout.
 - Un même lieu jour et nuit = deux fichiers (`-jour`). Le jeu choisira selon la scène ; pour l'instant seule la nuit du quartier est branchée.
 - Rien n'est branché tant que Jordan n'a pas validé le rendu. L'ancien dessin en code reste en secours.
+
+## 7. Lot 4 : appartement d'Ishara, penthouse d'Izzy, escalier (5 novembre 2026)
+
+Les trois dernières zones encore dessinées en code. Décor sans meubles, meubles sur une planche à fond vert (même principe que la ruelle). Les mesures sont celles du jeu (`zones.js`) : l'image doit épouser les collisions, sans rien déplacer. Les pourcentages sont ceux du rectangle de la zone.
+
+| N° | Fichier | Format |
+|---|---|---|
+| 1 | `decors/appartement.png` | 1:1 |
+| 2 | `objets/appartement.png` | 16:9, fond vert |
+| 3 | `decors/penthouse.png` | 3:2 |
+| 4 | `objets/penthouse.png` | 16:9, fond vert |
+| 5 | `decors/escalier.png` | 9:16 (la bande centrale est recadrée au rapport 1:5 du jeu) |
+
+À coller d'abord (bloc de style) :
+
+```
+STYLE : vue de dessus à trois quarts, caméra à environ 60 degrés, échelle constante (pas de point de fuite). Rendu semi-réaliste manhwa, inspiré de WLOP, émulation de pellicule CineStill 800T, grain marqué, brume douce, reflets sur les surfaces. Le sol doit rester propre et lisible. INTERDIT : personnages, animaux, meubles ou objets mobiles (sauf sur les planches demandées), texte, lettres, logos. Assez plat pour poser de petits personnages chibi dessus.
+```
+
+**1. Appartement d'Ishara** (room x -320, y -300, 640 × 600 ; palette chaude, jamais de bleu)
+
+```
+Cutaway floor plan of a small apartment seen from above at 60 degrees, square 1:1, ceiling removed so every room is visible, warm cozy palette (honey wood parquet, cream walls, soft lamp light), never blue. NO furniture, NO objects, only walls, floors, doors and windows. Layout, using percentages of the image (left to right, top to bottom):
+- A straight central corridor running north to south at 41% to 59% of the width.
+- Top-left, 0% to 37% wide and 0% to 45% tall: a living room, with a large window in the north wall at around 27% of the width.
+- Top-right, 62% to 100% wide and 0% to 45% tall: an open kitchen area with a bare tiled north wall. The entrance door is in the east wall at about 34% of the height.
+- A horizontal partition wall at 45% to 48% of the height across both left and right sides.
+- Bottom-left, 0% to 37% wide and 48% to 100% tall: a small spare bedroom with a window on the west wall at about 65% of the height.
+- Bottom-right, 59% to 100% wide and 48% to 75% tall: a small bathroom with a tiled floor.
+- Below it, 59% to 100% wide and 78% to 100% tall: a closed bedroom, seen only as a room with a shut door at the corridor wall.
+Warm lamp light, soft shadows, clean floors.
+```
+
+**2. Meubles de l'appartement** (planche)
+
+```
+Game asset sheet on a flat solid pure green (#00FF00) background, 16:9, well spaced objects, none touching, no shadow on the green. Same camera angle as the apartment cutaway (60 degrees from above), warm palette, never blue. Objects, left to right, top to bottom: 1) a three-seat sofa; 2) a low coffee table with two mugs; 3) a stack of books on a small shelf; 4) a small square dining table; 5) a kitchen counter with a kettle and keys, 240x36 proportion (long and thin); 6) a kitchen unit with sink and cupboards, 240x40 proportion; 7) a single bed with clean linen; 8) a wardrobe, 120x40 proportion; 9) a radiator with towels; 10) a small shower cubicle; 11) a bathroom sink with a mirror and a tap.
+```
+
+Positions dans le jeu : canapé (-250,-90, 130×44), table basse (-235,-170, 100×44), livres (-310,-290, 34×44), table (-30,-130, 60×60), comptoir (70,-180, 240×36), cuisine (70,-300, 240×40), lit (-310,150, 90×140), placard (-210,255, 120×40), radiateur (140,120, 100×30), douche (260,86, 60×64), lavabo (255,-10, 65×36). Cloisons et couloir : voir `zones.js`. Points à examiner : `apartmentSpots` dans `apartment.js`.
+
+**3. Penthouse d'Izzy** (room x -330, y -230, 660 × 470)
+
+```
+Top-down three-quarter view of a very large luxury penthouse on the sixteenth floor, 3:2 aspect ratio, evening light, pale marble floor, almost no decoration, cold blue-teal dominant palette with ONE warm accent (a low lamp glow). NO furniture. Layout, as percentages of the image:
+- A full-width floor-to-ceiling glass wall along the entire north edge, showing a city and a lake at dusk.
+- An empty open lounge floor occupying the top 55% of the image.
+- A horizontal partition across the image at 55% to 60% of the height, with a gap in the middle (38% to 42% of the width) leading to a corridor in the bottom 40%.
+- In the bottom corridor area: three closed doors on the south side, the third one very slightly ajar.
+- A bare area for a kitchen island at the top-left (0% to 23% wide, 5% to 16% tall).
+Clean marble floor, soft reflections.
+```
+
+**4. Meubles du penthouse** (planche)
+
+```
+Game asset sheet on a flat solid pure green (#00FF00) background, 16:9, well spaced objects, none touching, no shadow on the green. Same camera angle (60 degrees from above), luxury cold palette, white marble and dark steel. Objects, left to right: 1) a long kitchen island with three stools, 150x44 proportion; 2) a long grey designer sofa, 200x36 proportion; 3) a second identical sofa; 4) a low rectangular white marble coffee table, 80x30 proportion.
+```
+
+Positions dans le jeu : baie (-330,-230, 660×26), cuisine-îlot (-330,-204, 150×44), canapés (40,-140) et (40,-60), 200×36 chacun, table de marbre (100,-100, 80×30), cloisons y 30..50 (x -330..-80 et x -50..330).
+
+**5. Escalier** (room x -90, y -640, 180 × 900)
+
+```
+Top-down three-quarter view of a single straight narrow stone staircase going up, vertical 9:16 composition, the staircase exactly centered and occupying the middle third of the width, from the bottom to the top of the image, with stone walls on both sides, a small landing with a closed door at the very top. Dense heavy air, cold blue-teal dominant palette, deep shadows, one warm accent from a light above the door. Steps clean and readable, no objects, no people.
+```
