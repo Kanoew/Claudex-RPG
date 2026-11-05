@@ -37,6 +37,12 @@ Yarden est animée par `yarden-sprite.js` (chargé avant `render.js`) : repos et
 
 GitHub Pages publie la racine de `main` après fusion. À chaque changement des scripts, augmente leur numéro `?v=` dans `index.html`, puis actualise la page après publication.
 
+## Musique
+
+Douze ambiances en code accompagnent les lieux et les combats, avec des variations, de courts fondus et un volume plus doux sous les dialogues. Les partitions sont dans `music-score.js`, leur lecture dans `audio.js`. Aucun son avant un geste du joueur. Les réglages Musique / Effets et les volumes restent dans les paramètres.
+
+Des fichiers MP3 ou OGG peuvent remplacer les ambiances une à une dans `assets/musique/`. Voir [les 12 prompts, les noms de fichiers et l’extrait audio](docs/PROMPTS-MUSIQUES.md), ainsi que la [page d’écoute](docs/audio/apercu.html) à ouvrir depuis une copie servie du dépôt.
+
 ## Vérifier la logique
 
 Avec Node disponible, sans installation de dépendances :

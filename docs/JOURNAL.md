@@ -109,3 +109,25 @@
 | 17u | proposé le 4 novembre 2026, à valider sur Android | **Polish de l’interface**, branche `codex/polish-interface`, depuis `5707fd3` : fond encre, polices Barlow locales, bulles ivoire avec repère par personnage, Tiamat sombre avec halo lent sur l’œil (désactivé avec les animations réduites), accueil avec le décor existant, barre du haut et fenêtres harmonisées. Zone de lecture agrandie, défilement au clavier, dialogue replacé à droite en paysage. Textes des chapitres inchangés ; « Tiamat, par Yarden » conservé. Explications et captures dans `docs/POLISH-INTERFACE.md`. 49 scénarios logiques ; contrôles Chromium de 320 à 1440 px, texte à 24 px, rotation, clavier et polices de secours. Pas de test sur appareil Android réel. |
 | 17v | retouches du 5 novembre 2026 | **Retour sur le polish**, branche `codex/polish-ajustements` : les voix sans couleur dédiée passent du gris au sable, avec une silhouette sépia quand le portrait manque. Le sous-titre d’accueil devient « RPG narratif », sans nombre de chapitres à maintenir. Captures mises à jour dans `docs/POLISH-INTERFACE.md`. |
 | 17 | à lancer | Bilan de la phase 2 : fluidité mesurée sur téléphone, poids des images, décision sur Godot. Soumis à validation de Jordan. |
+
+## 5 novembre 2026 — Musique par lieu
+
+Branche `codex/musiques-ambiances`, depuis `6dd56e0`. À valider à l’écoute sur Android.
+
+- Douze partitions dans `music-score.js` : titre, ruelle, ville, appartement, nuit,
+  Abysse, antre, combat, 4B, dossier, Ouchy, fête. Accords, basses, percussions,
+  écho léger et variations sur seize mesures ; les bruitages existants sont conservés.
+- `audio.js` : fondus entre ambiances, baisse douce sous les dialogues, absence de
+  nouvelles notes lorsque la musique est coupée, reprise sans rafale après une
+  interruption. Les changements de lieu sont suivis aussi pendant le récit.
+- Futurs MP3/OGG : téléchargement à la demande, remplacement de la partition
+  correspondante, repli si un fichier manque ou est illisible, deux pistes décodées
+  en mémoire au maximum. Les circuits de synthèse et sources terminées sont libérés.
+- Douze prompts complets dans `docs/PROMPTS-MUSIQUES.md`, page d’écoute des douze
+  thèmes et montage MP3 de 48 secondes dans `docs/audio/`. Ce montage est un aperçu
+  des partitions, pas une musique chargée par le jeu.
+- Vérifications : 51 scénarios logiques, rendu hors ligne des douze partitions
+  sans saturation, essai Chromium des lieux, dialogues, réglages, transitions,
+  remplacement par un fichier et repli d’un MP3 illisible vers un second format.
+  Les fichiers de test audio sont simulés dans le navigateur ; aucun morceau
+  temporaire n’est ajouté dans `assets/musique/`. Essai sur vrai téléphone restant.
