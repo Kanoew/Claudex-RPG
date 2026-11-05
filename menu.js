@@ -30,7 +30,11 @@ function showMenuView(view) {
   document.getElementById('menu-main').hidden = view !== 'main';
   document.getElementById('menu-settings-view').hidden = view !== 'settings';
   document.getElementById('menu-vignette').hidden = !(menu.kind === 'title' && view === 'main');
-  document.getElementById('menu-title').textContent = view === 'settings' ? 'Paramètres' : menu.kind === 'title' ? 'Le Sang de Tiamat' : 'Pause';
+  const title = document.getElementById('menu-title');
+  title.textContent = view === 'settings' ? 'Paramètres' : menu.kind === 'title' ? 'Le Sang de Tiamat' : 'Pause';
+  if (menu.kind === 'title' && view === 'main') {
+    title.innerHTML = '<span class="title-kicker">Le Sang de </span><span class="title-main">Tiamat</span>';
+  }
   menuButtons.music.textContent = musicLabel();
   menuButtons.effects.textContent = effectsLabel();
   musicSlider.value = Math.round(audio.musicVolume * 100);
