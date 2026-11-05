@@ -24,6 +24,26 @@ const paintedDecor = {
     // Les objets peints couvrent toute l'emprise bloquante ; seul leur relief dépasse vers le nord.
     donjon: { hideBorder: true, objects: { 'pilier-pierre': wall => ({ patch: wall.height > wall.width ? 'pierre-longue' : 'pierre-large', rise: 8 }) } },
     run: { hideBorder: true, objects: { pilier: { patch: 'pilier-ocre', rise: 32 }, roc: wall => ({ patch: wall.width > wall.height ? 'rochers-larges' : 'rochers-longs', rise: 0 }) } },
+    // Lot 4 : les trois dernières zones. Les cloisons et la baie sont dans l'image ; les meubles viennent de planches à fond vert.
+    appartement: {
+      hide: ['cloison'],
+      sprites: ['app-canape', 'app-tablebasse', 'app-livres', 'app-table', 'app-comptoir', 'app-cuisine', 'app-lit', 'app-placard', 'app-radiateur', 'app-douche', 'app-lavabo'],
+      objects: {
+        canape: { name: 'app-canape', width: 130 }, tablebasse: { name: 'app-tablebasse', width: 100 }, livres: { name: 'app-livres', width: 52 },
+        table: { name: 'app-table', width: 62 }, comptoir: { name: 'app-comptoir', width: 240 }, cuisine: { name: 'app-cuisine', width: 240 },
+        lit: { name: 'app-lit', height: 140 }, placard: { name: 'app-placard', width: 70 }, radiateur: { name: 'app-radiateur', width: 100 },
+        douche: { name: 'app-douche', width: 60 }, lavabo: { name: 'app-lavabo', width: 56 }
+      }
+    },
+    penthouse: {
+      hide: ['baie', 'cloison-i'],
+      sprites: ['pent-canape-a', 'pent-canape-b', 'pent-ilot', 'pent-marbre'],
+      objects: {
+        'cuisine-i': { name: 'pent-ilot', width: 150 }, marbre: { name: 'pent-marbre', width: 80 },
+        'canape-i': wall => ({ name: wall.y < -100 ? 'pent-canape-a' : 'pent-canape-b', width: 200 })
+      }
+    },
+    escalier: {},
     antre: { hideBorder: true, sprites: ['amas-cristal'], objects: { 'amas-cristal': { name: 'amas-cristal', patch: 'cristaux', rise: 20 } } },
     // Les objets dépassent leur rectangle de collision (vue en trois quarts) : largeur ou hauteur voulue, en unités du jeu.
     square: { hide: ['immeuble-sq'], sprites: ['banc', 'arbre-square', 'lampadaire'], objects: { banc: { name: 'banc', width: 96 }, arbre: { name: 'arbre-square', height: 118 }, lampadaire: { name: 'lampadaire', height: 92 } } },
