@@ -5,8 +5,8 @@
 const portraitArt = {};
 // Seulement les répliques déjà affichées ; rien n'est ajouté à la sauvegarde.
 const dialogueLog = { entries: [], open: false, limit: 40 };
-const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant', 'remi-neutre', 'felix-neutre', 'izzy-neutre', 'izzy-sourire', 'izzy-narquoise', 'celeste-neutre', 'celeste-sourire', 'celeste-alerte', 'ishara-course-neutre', 'ishara-course-sourire', 'ishara-course-inquiete', 'concierge-neutre'];
-const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2', 'Rémi': 'remi', 'Félix': 'felix', 'Céleste': 'celeste', 'Izzy': 'izzy', 'Le concierge': 'concierge' };
+const portraitNames = ['yarden-neutre', 'yarden-souriante', 'yarden-agacee', 'yarden-surprise', 'ishara-neutre', 'ishara-sourire', 'ishara-inquiete', 'inconnu-1-neutre', 'inconnu-1-menacant', 'inconnu-2-neutre', 'inconnu-2-menacant', 'remi-neutre', 'felix-neutre', 'izzy-neutre', 'izzy-sourire', 'izzy-narquoise', 'celeste-neutre', 'celeste-sourire', 'celeste-alerte', 'ishara-course-neutre', 'ishara-course-sourire', 'ishara-course-inquiete', 'concierge-neutre', 'tiamat-neutre', 'tiamat-amusee', 'tiamat-froide'];
+const portraitBase = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Inconnu 1': 'inconnu-1', 'Inconnu 2': 'inconnu-2', 'Rémi': 'remi', 'Félix': 'felix', 'Céleste': 'celeste', 'Izzy': 'izzy', 'Le concierge': 'concierge', 'Tiamat': 'tiamat' };
 // Couleurs de lecture uniquement : aucune indication de pouvoir ou d'affiliation.
 const dialogueCharacters = { 'Yarden': 'yarden', 'Ishara': 'ishara', 'Inconnue': 'ishara', 'Tiamat': 'tiamat', 'Céleste': 'celeste', 'Izzy': 'izzy', 'Félix': 'felix', 'Le 4B': 'felix', 'Rémi': 'remi' };
 function dialogueCharacter(who) { return dialogueCharacters[who] || 'neutral'; }
@@ -79,10 +79,10 @@ function drawPortrait(who, expression) {
   const course = base === 'ishara' && isharaOutfit === 'course' && (portraitArt[`ishara-course-${expression}`] || portraitArt['ishara-course-neutre']);
   const image = course || (base && (portraitArt[`${base}-${expression}`] || portraitArt[`${base}-neutre`]));
   if (image) {
-    pen.fillStyle = '#2b3347'; pen.fillRect(0, 0, size, size);
+    pen.fillStyle = who === 'Tiamat' ? '#0c0816' : '#2b3347'; pen.fillRect(0, 0, size, size);
     pen.drawImage(image, 0, 0, size, size);
   } else if (who === 'Tiamat') {
-    // Pas de visage : un œil de dragon, iris bleu-violet et pupille fendue, dans le noir.
+    // Secours si les images de l'œil manquent : un œil de dragon dessiné en code, iris bleu-violet et pupille fendue, dans le noir.
     const dark = pen.createRadialGradient(size / 2, size / 2, 6, size / 2, size / 2, size * .75);
     dark.addColorStop(0, '#2a1d52'); dark.addColorStop(1, '#0a0716');
     pen.fillStyle = dark; pen.fillRect(0, 0, size, size);
