@@ -102,7 +102,7 @@ function makeEnemy(spec) {
 }
 
 function resetEnemy(enemy) {
-  Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, cornered: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null, engaged: false, incapacitated: false, sprite: { time: 0, moving: false, face: -1, strike: 0 } });
+  Object.assign(enemy, { x: enemy.spawnX, y: enemy.spawnY, hp: enemy.maxHp, flash: 0, tangled: 0, cooldown: 0, windup: 0, charge: 0, chargeHit: false, cornered: false, dirX: 0, dirY: 1, routeTimer: 0, waypoint: null, engaged: false, incapacitated: false, sprite: { time: 0, moving: false, face: -1, strike: 0 } });
   if (enemy.boss) enemy.active = false;
 }
 
@@ -128,6 +128,8 @@ function updateEnemy(enemy, seconds) {
 function stepEnemy(enemy, seconds) {
   if (enemy.hp <= 0 || (enemy.boss && !enemy.active)) return;
   if (enemy.ranged) { stepSpider(enemy, seconds); return; }
+  // Emmêlée : elle ne bouge ni n'attaque, et tout coup porte au point faible (dégâts doublés dans game.js).
+  if (enemy.tangled > 0) { enemy.tangled = Math.max(0, enemy.tangled - seconds); return; }
   enemy.cooldown = Math.max(0, enemy.cooldown - seconds);
   const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
   // Un monstre dont l'éveil est limité reste immobile jusqu'à ce que Yarden s'approche, puis ne s'arrête plus.
@@ -156,7 +158,17 @@ function stepEnemy(enemy, seconds) {
       enemy.chargeHit = true;
       hurtPlayer();
     }
-    if (Math.hypot(dx, dy) < step - .1) enemy.charge = 0;
+    if (Math.hypot(dx, dy) < step - .1) {
+      enemy.charge = 0;
+      // La créature du square percute le banc scellé : ses membres s'emmêlent, la jonction de la tête est à découvert (canon du chapitre 4).
+      if (enemy.art === 'creature' && currentZone.id === 'square') {
+        const bench = walls.find(wall => wall.kind === 'banc');
+        if (bench) {
+          const nearX = clamp(enemy.x, bench.x, bench.x + bench.width), nearY = clamp(enemy.y, bench.y, bench.y + bench.height);
+          if (Math.hypot(enemy.x - nearX, enemy.y - nearY) <= enemy.radius + 6) { enemy.tangled = 3; enemy.windup = 0; lootToast('La créature s’emmêle dans le banc'); }
+        }
+      }
+    }
     return;
   }
   if (enemy.windup > 0) {

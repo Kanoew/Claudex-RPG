@@ -42,6 +42,7 @@ function cityScene() {
     { until: () => player.x > 120 },
     { run: () => { ch2b.goalText = ''; sceneActor('izzy', 'izzy', 215, 100, { face: -1 }); } },
     { say: ['Un « 70 », dans une rue commerçante. Tiamat arrive une demi-seconde trop tard : c’est la première fois.', 'Niveau 70. Déité Xochiquetzal. Une fleur d’or portée à découvert, des talons dorés, un rouge laqué. Izzy lit le désir des gens, en permanence. Sur Yarden, elle ne lit rien.'] },
+    { say: ['Tiamat[froide] (voix intérieure) : « Elle est une adresse. Va-t’en. »'] },
     { moves: [moveOf('izzy', [[160, 105]], 70), moveOf('yarden', [[110, 110]], 70)] },
     { say: ['Izzy[narquoise] : « J’ai un studio à Ouchy. Il est vide. Il est à toi. »', 'Yarden se ferme.'] },
     { say: ['Izzy : « Je t’achète trois jours. »'] },
