@@ -240,7 +240,7 @@ function drawRoom(offsetX, offsetY) {
   ctx.restore();
   walls.forEach((wall, index) => {
     const x = wall.x + offsetX, y = wall.y + offsetY;
-    if (paintedDecorHides(currentZone, wall)) return;
+    if (paintedDecorHides(currentZone, wall) || paintedBorderHidden(currentZone, index)) return;
     if (drawPaintedObject(currentZone, wall, x, y)) return;
     if (crystal) { drawAntreSolid(wall, x, y, index >= 4); return; }
     if (custom) { custom.solid(wall, x, y, index); return; }

@@ -122,7 +122,7 @@ const zones = {
     room: { x: -160, y: -200, width: 320, height: 420 },
     start: { x: 0, y: 180 },
     blocks: [
-      { x: -160, y: 40, width: 115, height: 180, kind: 'mur-int' }, { x: 45, y: 40, width: 115, height: 180, kind: 'mur-int' },
+      { x: -160, y: -200, width: 46, height: 420, kind: 'mur-int' }, { x: 114, y: -200, width: 46, height: 420, kind: 'mur-int' },
       { x: -110, y: -70, width: 220, height: 34, kind: 'comptoir-remi' }
     ],
     doors: [], enemies: [], props: []
@@ -183,7 +183,7 @@ const zones = {
     id: 'preau', title: 'LAUSANNE · LE PRÉAU', theme: 'preau',
     room: { x: -170, y: -140, width: 340, height: 280 },
     start: { x: 0, y: 90 },
-    blocks: [{ x: -170, y: -140, width: 340, height: 60, kind: 'mur-ecole' }, { x: -44, y: -36, width: 88, height: 24, kind: 'banc-pierre' }, { x: -130, y: -60, width: 22, height: 22, kind: 'colonne' }, { x: 108, y: -60, width: 22, height: 22, kind: 'colonne' }],
+    blocks: [{ x: -170, y: -140, width: 340, height: 60, kind: 'mur-ecole' }, { x: -44, y: -36, width: 88, height: 24, kind: 'banc-pierre' }, { x: -166, y: -10, width: 24, height: 24, kind: 'colonne' }, { x: 142, y: -10, width: 24, height: 24, kind: 'colonne' }],
     doors: [], enemies: [], props: []
   },
   flon: {

@@ -19,16 +19,27 @@ ZONES = {
     'square': ((-300, -230, 600, 450), (0.32, -130, 0.50)),
     'flon': ((-300, -200, 600, 420), (0.43, -160, 0.50)),
     'exterieur': ((-200, -520, 400, 1040), None),
+    # Lot 2 : intérieurs et Abysse. Image recadrée au rapport de la zone, sans ancrage (sauf l'impasse : sa façade finit au bas des blocs).
+    'impasse': ((-170, -200, 340, 360), (0.465, -90, 0.5)),
+    'cour': ((-140, -200, 280, 380), None),
+    'comptoir': ((-160, -200, 320, 420), None),
+    'quatreb': ((-190, -250, 380, 420), None),
+    'preau': ((-170, -140, 340, 280), None),
+    'hall': ((-220, -160, 440, 320), None),
+    'donjon': ((-480, -336, 960, 672), None),
+    'run': ((-470, -300, 940, 720), None),
+    'antre': ((-480, -400, 960, 800), None),
 }
 
 def background(name, room, anchor):
     im = Image.open(SRC + name.replace('-jour', '-jour') + '.jpg').convert('RGB')
     W, H = im.size
     rx, ry, rw, rh = room
-    if anchor is None:  # ruelle : toute la hauteur, bande centrale
-        cw = int(rh and H * rw / rh)
-        x0 = max(0, min(W - cw, int(W * 0.5 - cw / 2)))
-        crop = im.crop((x0, 0, x0 + cw, H))
+    if anchor is None:  # sans ancrage : recadrage centré au rapport largeur/hauteur de la zone
+        if W / H > rw / rh:
+            cw = int(H * rw / rh); x0 = (W - cw) // 2; crop = im.crop((x0, 0, x0 + cw, H))
+        else:
+            ch = int(W * rh / rw); y0 = (H - ch) // 2; crop = im.crop((0, y0, W, y0 + ch))
     else:
         face, bloc, cx = anchor
         sy = (ry + rh - bloc) / (H * (1 - face))           # unités par pixel, vertical
@@ -107,4 +118,5 @@ if __name__ == '__main__':
     sheet('quartier', ['voiture-bordeaux', 'voiture-bleue', 'velos', 'arbre', 'fleurs', 'poubelle'])
     sheet('square', ['banc', 'arbre-square', 'lampadaire'], single=True)
     sheet('flon', ['table-a', 'table-b', 'table-c', 'bar'], single=True, gap=40)
+    sheet('impasse', ['impasse-poubelle', 'impasse-poubelle-metal', 'impasse-velo'], single=True)
     sheet('exterieur', ['benne', 'caisses', 'poubelles', 'poubelles-b', 'scooter'])
