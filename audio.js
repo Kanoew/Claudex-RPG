@@ -4,7 +4,7 @@
 // Aucun son avant le premier geste ; musique et effets ont leurs propres réglages.
 const audio = { context: null, master: null, music: null, sfx: null, noise: null, duck: null, ducked: false, musicOn: true, effectsOn: true, musicVolume: .6, effectsVolume: .6, tracks: {}, requested: new Set(), loadingTheme: null, trackNode: null, trackSource: null, trackEnvelope: null, trackTheme: null, bus: null, synthTheme: null, retired: [], override: null, theme: null, step: 0, next: 0, timer: null, played: [] };
 const musicKey = 'yarden-musique-1', effectsKey = 'yarden-effets-1', musicVolumeKey = 'yarden-volume-musique-1', effectsVolumeKey = 'yarden-volume-effets-1';
-const musicFileVersion = 63;
+const musicFileVersion = 64;
 
 function readSetting(key) {
   const store = storage();
@@ -21,7 +21,13 @@ const effectsLabel = () => audio.effectsOn ? 'Effets : activés' : 'Effets : cou
 
 // À appeler au premier geste du joueur (clic, touche, doigt) : crée le moteur sonore.
 function unlockAudio() {
-  if (audio.context || typeof AudioContext === 'undefined') return;
+  // Sur certains navigateurs Android, l'appui du doigt (pointerdown) ne compte pas comme un geste autorisé : le son reste suspendu.
+  // On retente donc à chaque geste (appui, relâchement, clic, touche) tant que le contexte n'est pas en marche.
+  if (audio.context) {
+    if (audio.context.state === 'suspended' && !document.hidden) audio.context.resume();
+    return;
+  }
+  if (typeof AudioContext === 'undefined') return;
   try {
     const context = new AudioContext();
     const master = context.createGain(), music = context.createGain(), sfx = context.createGain();
@@ -248,8 +254,9 @@ function playSfx(name) {
   }
 }
 
-window.addEventListener('pointerdown', unlockAudio);
-window.addEventListener('keydown', unlockAudio);
+for (const gesture of ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown']) window.addEventListener(gesture, unlockAudio);
+// Les deux premières pistes (écran titre, puis ruelle) sont mises en cache dès l'ouverture, pour qu'elles démarrent sans attente au premier geste.
+if (typeof fetch === 'function') setTimeout(() => { for (const name of ['titre', 'ruelle']) fetch(`assets/musique/${name}.mp3?v=${musicFileVersion}`).catch(() => {}); }, 1500);
 document.addEventListener('visibilitychange', () => {
   if (!audio.context) return;
   if (document.hidden) audio.context.suspend(); else audio.context.resume();
