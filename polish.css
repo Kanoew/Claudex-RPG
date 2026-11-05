@@ -132,8 +132,14 @@ h1 { font: 600 20px/1 var(--display); letter-spacing: .08em; color: var(--ink); 
     linear-gradient(0deg, #101117 3%, #10111700 85%), url('assets/decors/exterieur.jpg') center 45% / cover;
   padding-inline: max(28px, env(safe-area-inset-left)) max(28px, env(safe-area-inset-right));
 }
-#menu-panel[data-kind="title"][data-view="main"] .window-heading { padding-top: clamp(28px, 12vh, 120px); padding-bottom: 20px; border-bottom-color: #b598cb66; }
-#menu-panel[data-kind="title"][data-view="main"] #menu-title { font-size: clamp(52px, 10vw, 88px); line-height: .95; text-transform: uppercase; max-width: 430px; letter-spacing: -.015em; }
+#menu-panel[data-kind="title"][data-view="main"] .window-heading { padding-top: clamp(28px, 12vh, 120px); padding-bottom: 18px; border-bottom: 0; }
+#menu-panel[data-kind="title"][data-view="main"] #menu-title { font-weight: 600; line-height: 1.1; text-transform: uppercase; max-width: 430px; letter-spacing: 0; text-shadow: 0 3px 20px #0008; }
+#menu-title .title-kicker { display: block; font-size: clamp(22px, 6.9vw, 30px); letter-spacing: .19em; color: #d19ca7; margin-bottom: 5px; }
+#menu-title .title-main { display: block; font-size: clamp(66px, 23.6vw, 104px); letter-spacing: .025em; line-height: .98; color: #e4d9ea; }
+@supports (background-clip: text) {
+  #menu-title .title-main { background: linear-gradient(165deg, #faf4e6 10%, #e4d9ea 60%, #ac92bf); background-clip: text; color: transparent; }
+}
+#menu-panel[data-kind="title"][data-view="main"] #menu-title::after { content: ''; display: block; width: 108px; height: 2px; margin-top: 19px; background: linear-gradient(90deg, #b95b6d, #8b6d9f44, transparent); }
 #menu-panel[data-kind="title"][data-view="main"] .window-body { align-items: flex-start; gap: 20px; padding-top: 0; }
 #menu-panel[data-kind="title"][data-view="main"] #menu-note { text-align: left; color: #d0c4d6; margin: 0 0 8px; font-size: 15px; letter-spacing: .04em; }
 #menu-panel[data-kind="title"][data-view="main"] #menu-main { width: min(360px, 100%); }
@@ -180,6 +186,9 @@ h1 { font: 600 20px/1 var(--display); letter-spacing: .08em; color: var(--ink); 
   #story-next { min-width: 80px; padding-inline: 8px; }
   #menu-panel[data-kind="title"][data-view="main"] .window-heading { padding-top: 6px; padding-bottom: 12px; }
   #menu-panel[data-kind="title"][data-view="main"] #menu-title { font-size: 44px; max-width: none; }
+  #menu-title .title-kicker { font-size: 16px; margin-bottom: 3px; }
+  #menu-title .title-main { font-size: 48px; }
+  #menu-panel[data-kind="title"][data-view="main"] #menu-title::after { margin-top: 9px; }
   #menu-panel[data-kind="title"][data-view="main"] .window-body { gap: 8px; }
   #menu-panel[data-kind="title"][data-view="main"] #menu-main { width: min(420px, 75%); }
   #menu-panel[data-kind="title"][data-view="main"] #menu-vignette { display: none; }
