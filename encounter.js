@@ -8,6 +8,7 @@ const spiderEnemy = () => zoneEnemies.antre[0];
 
 function showStory(lines, done) {
   resetInput();
+  if (typeof yardenSprite !== 'undefined') yardenSprite.moving = false;
   story.active = true;
   story.lines = [...lines];
   story.done = done;

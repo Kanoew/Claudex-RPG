@@ -165,11 +165,12 @@ function runEndScript() {
 function marteryScript() {
   return [
     { run: enterMarterey },
-    { say: ['Rue Marterey, Lausanne. Dix heures.'] },
+    { card: 'Rue Marterey · Dix heures', seconds: 1.8 },
     { moves: [moveOf('ishara', [[18, -52]], 90), moveOf('yarden', [[-26, -42]], 90, { delay: .5 })] },
     { run: () => { ch2b.shutterAt = mirrorNow(); } },
     { wait: 1.8 },
-    { say: ['Ishara appuie deux fois sur l’interphone.'] },
+    { run: () => playSfx('sonnette') },
+    { wait: 1.1 },
     ...comptoirScript()
   ];
 }
@@ -202,15 +203,13 @@ function sousgareScript() {
     { say: ['Quatre étages, des fenêtres alignées. Des fleurs au deuxième.'] },
     { camera: null },
     { moves: [moveOf('ishara', [[46, -38]], 80), moveOf('yarden', [[2, -38]], 80, { delay: .4 })] },
-    { say: ['Ishara compose le digicode.'] },
+    { run: () => playSfx('digicode') },
+    { wait: 1 },
     { run: enterCour },
-    { say: ['La cour, des pavés sans une herbe, du lierre taillé, des arbustes.'] },
     { moves: [moveOf('ishara', [[-20, -170]], 85), moveOf('yarden', [[10, -150]], 85, { delay: .4 })] },
     { run: enterEscalier },
     { until: above(-60) },
-    { say: ['Des marches de pierre, l’air est dense ici.'] },
     { until: above(-530) },
-    { say: ['Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.'] },
     { run: () => { ch2b.buff = true; } },
     { say: ['Le buff d’Ishara se déclenche d’un coup, elle scintille de doré.'] },
     ...quatrebScript()

@@ -249,6 +249,16 @@ function playSfx(name) {
     gain.gain.setValueAtTime(name === 'hit' ? .3 : .35, now); gain.gain.linearRampToValueAtTime(0, now + (name === 'hit' ? .1 : .24));
     oscillator.connect(gain); gain.connect(audio.sfx);
     oscillator.start(now); oscillator.stop(now + .26);
+  } else if (name === 'sonnette') {
+    // Ding-dong.
+    tone('sine', 76, now, .45, .4, audio.sfx); tone('sine', 72, now + .42, .7, .4, audio.sfx);
+  } else if (name === 'digicode') {
+    // Quatre touches, puis le grésillement de la gâche.
+    [0, .16, .32, .48].forEach(t => tone('square', 88, now + t, .07, .12, audio.sfx));
+    tone('sawtooth', 43, now + .7, .35, .12, audio.sfx);
+  } else if (name === 'cuisine') {
+    // Casserole et cuillère.
+    [0, .3, .55, 1.0, 1.25].forEach((t, i) => tone('triangle', i % 2 ? 91 : 96, now + t, .12, .14, audio.sfx));
   } else if (name === 'levelup') {
     [72, 76, 79, 84].forEach((note, i) => tone('square', note, now + i * .09, .16, .35, audio.sfx));
   }

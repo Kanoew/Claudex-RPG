@@ -224,12 +224,14 @@ const zones = {
     blocks: [
       // Cloisons : le couloir (x -60 à 60) relie le salon aux chambres.
       { x: -320, y: -30, width: 260, height: 20, kind: 'cloison' }, { x: 60, y: -30, width: 260, height: 20, kind: 'cloison' },
-      { x: -80, y: -10, width: 20, height: 50, kind: 'cloison' }, { x: -80, y: 120, width: 20, height: 180, kind: 'cloison' },
+      { x: -80, y: -10, width: 20, height: 133, kind: 'cloison' }, { x: -80, y: 170, width: 20, height: 130, kind: 'cloison' },
+      // Murs du salon et de la cuisine côté couloir (passages en y -83..-42, comme sur le décor peint).
+      { x: -80, y: -300, width: 20, height: 217, kind: 'cloison' }, { x: 60, y: -300, width: 20, height: 217, kind: 'cloison' },
       { x: 60, y: -10, width: 20, height: 40, kind: 'cloison' }, { x: 60, y: 110, width: 20, height: 190, kind: 'cloison', door: 'ishara' },
       { x: 80, y: 150, width: 240, height: 20, kind: 'cloison' },
       // Salon et cuisine.
       { x: -250, y: -90, width: 130, height: 44, kind: 'canape' }, { x: -235, y: -170, width: 100, height: 44, kind: 'tablebasse' },
-      { x: -310, y: -290, width: 34, height: 44, kind: 'livres' }, { x: -30, y: -130, width: 60, height: 60, kind: 'table' },
+      { x: -310, y: -290, width: 34, height: 44, kind: 'livres' },
       { x: 70, y: -180, width: 240, height: 36, kind: 'comptoir' }, { x: 70, y: -300, width: 240, height: 40, kind: 'cuisine' },
       // Chambre d'appoint et salle de bain.
       { x: -310, y: 150, width: 90, height: 140, kind: 'lit' }, { x: -210, y: 255, width: 120, height: 40, kind: 'placard' },

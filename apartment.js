@@ -13,7 +13,6 @@ const apartmentSpots = [
   { id: 'livres', x: -285, y: -232, r: 52, label: 'Livres', lines: () => ['Des livres empilés dans l’ordre qu’Ishara est la seule à comprendre.'] },
   { id: 'tablebasse', x: -185, y: -148, r: 62, label: 'Table basse', lines: () => ['Deux tasses sur la table basse : une vide, une à moitié pleine.'] },
   { id: 'canape', x: -185, y: -68, r: 72, label: 'Canapé', lines: () => ['Le canapé fait face à la table basse.'] },
-  { id: 'table', x: 0, y: -100, r: 58, label: 'Table', lines: () => ['Une table, vide, comme souvent ici.'] },
   { id: 'comptoir', x: 190, y: -150, r: 58, label: 'Comptoir', lines: () => ['Le comptoir, les clés, la bouilloire.'] },
   { id: 'porte-ishara', x: 40, y: 225, r: 52, label: 'Porte fermée', lines: () => ['La porte est fermée.'] },
   { id: 'placard', x: -150, y: 245, r: 56, label: 'Placard', lines: () => ['Le placard contient des affaires qui ne sont pas les tiennes.'] },

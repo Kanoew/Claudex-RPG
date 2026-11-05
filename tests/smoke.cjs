@@ -341,6 +341,7 @@ const tests = [
       if (g.currentZone.id === 'run' && !g.scene.active) for (const enemy of g.zoneEnemies.run) enemy.hp = 0;
       if (g.currentZone.id === 'square' && g.scene.free) g.zoneEnemies.square[0].hp = 0;
       if (g.pointsState.open) { while (g.pointsState.left > 0) g.addPoint(); g.closePoints(); }
+      if (g.stats.open) g.closeStats();
       if (g.currentZone.id === 'marterey' && g.scene.free) Object.assign(g.player, { x: 150, y: 110 });
       if (g.currentZone.id === 'flon' && g.scene.free) { g.ch6.visited = 3; g.ch6.found = true; }
       g.update(.05);
@@ -904,7 +905,7 @@ const tests = [
     g.draw();
     // Chaque objet du canon est examinable, avec un texte qui reprend le canon.
     const ids = g.apartmentSpots.map(s => s.id);
-    for (const id of ['fenetre', 'livres', 'tablebasse', 'canape', 'table', 'comptoir', 'porte-ishara', 'placard', 'lit', 'parquet', 'shampoings', 'radiateur', 'miroir']) assert(ids.includes(id), id);
+    for (const id of ['fenetre', 'livres', 'tablebasse', 'canape', 'comptoir', 'porte-ishara', 'placard', 'lit', 'parquet', 'shampoings', 'radiateur', 'miroir']) assert(ids.includes(id), id);
     const texts = g.apartmentSpots.map(s => (s.lines() || []).join(' ')).join(' ');
     for (const part of ['plantes', 'deux tasses', 'table basse', 'comptoir', 'bouilloire', 'La porte est fermée', 'shampoings', 'serviettes', 'robinet']) assert(texts.toLowerCase().includes(part.toLowerCase()), part);
     assert(!/bleu/i.test(texts));
@@ -934,7 +935,8 @@ const tests = [
     for (let i = 0; i < 20; i++) g.update(.05);
     g.keys.clear();
     assert(g.player.y > 40, 'Le couloir est ouvert');
-    Object.assign(g.player, { x: -30, y: 80 });
+    // Porte recalée sur le décor peint : entre y 123 et 170.
+    Object.assign(g.player, { x: -30, y: 146 });
     g.keys.add('a');
     for (let i = 0; i < 30; i++) g.update(.05);
     g.keys.clear();
@@ -962,7 +964,8 @@ const tests = [
     assert(!said.some(line => /nue|seins|poitrine/i.test(line)), 'Rien d’explicite : seulement l’agrafe');
     const all = said.join('\n');
     assert(all.includes('« ...C’est acceptable. »'));
-    assert(all.includes('des yeux violets'), 'Yeux violets dans la version jeu');
+    assert(!all.includes('Quelqu’un la regarde'), 'Le miroir se passe de narration (décision de Jordan, 5 novembre 2026)');
+    assert(all.includes('péquenaud'), 'Yarden juge son reflet, cynique');
     for (const banned of ['Jordan', 'bleu-gris', 'septum', 'piercing', 'Angel', 'ear cuff', 'dragon', 'collier', 'chaîne']) assert(!all.includes(banned), banned);
     assert(!all.includes('—') && !all.includes('–'), 'Pas de tiret cadratin');
     assert.equal(said.filter(line => /^Tiamat(?:\[[a-z]+\])? : /.test(line)).length, 5);
@@ -1506,6 +1509,21 @@ const tests = [
     const lines = g.cityScene().flatMap(step => step.say || []);
     const at = lines.findIndex(line => line.includes('Elle est une adresse. Va-t’en.'));
     assert(at > 0 && /^Tiamat\[froide\] \(voix intérieure\)/.test(lines[at]), 'La réplique de Tiamat est montrée au chapitre 5');
+  }],
+  ['Mort pendant le premier run : on reprend au dernier point de passage, pas au premier donjon', () => {
+    const g = game('loaded');
+    g.skipOpening();
+    g.saveCheckpoint('impasse');
+    assert.equal(g.readSave().checkpoint, 'impasse');
+    g.enterZone('run', 'start');
+    g.hurtPlayer(99);
+    g.update(2);
+    assert(g.over, 'Yarden est tombée');
+    assert.equal(g.elements.retry.textContent, 'Reprendre au dernier point de passage');
+    g.fire('retry:click');
+    assert(!g.over, 'Le combat reprend');
+    assert.notEqual(g.currentZone.id, 'donjon', 'Pas de retour au premier donjon');
+    assert.equal(g.player.hp, g.player.maxHp);
   }],
   ['Carte : sélection, itinéraire à pied, position et sauvegarde préservées', () => {
     const g = game('loaded');

@@ -89,7 +89,12 @@ function paintedDecorImage(zone) {
 // Dessine le fond peint de la zone ; renvoie faux si la zone n'en a pas (ou s'il n'est pas chargé).
 function drawPaintedDecor(zone, offsetX, offsetY) {
   const image = paintedDecorImage(zone);
-  if (!image) return false;
+  if (!image) {
+    if (!paintedDecor.zones[zone.id] || paintedDecor.images[zone.id] !== undefined) return false;
+    ctx.fillStyle = '#0b0c12';
+    ctx.fillRect(zone.room.x + offsetX, zone.room.y + offsetY, zone.room.width, zone.room.height);
+    return true;
+  }
   ctx.drawImage(image, zone.room.x + offsetX, zone.room.y + offsetY, zone.room.width, zone.room.height);
   return true;
 }

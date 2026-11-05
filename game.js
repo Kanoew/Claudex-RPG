@@ -26,7 +26,7 @@ function finishCombat(message, delay = 0) {
   resetInput();
   for (const enemy of allEnemies()) { enemy.windup = 0; enemy.charge = 0; }
   resultText.textContent = message;
-  retryButton.textContent = freeMode.active ? 'Retourner en ville' : currentZone.id === 'antre' ? 'Reprendre l’antre' : 'Recommencer le donjon';
+  retryButton.textContent = freeMode.active ? 'Retourner en ville' : currentZone.id === 'antre' ? 'Reprendre l’antre' : storyRetry() ? 'Reprendre au dernier point de passage' : 'Recommencer le donjon';
   if (stage === 'escaped' && !freeMode.active) unlockFree();
   updateFreeHud();
   resultDetails.textContent = `Temps de jeu : ${Math.floor(elapsed)} s · PV restants : ${player.hp}/${player.maxHp}`;
@@ -69,9 +69,13 @@ function resetDungeonRun() {
   updateAttackButton();
 }
 
+// Mort hors du premier donjon et de l'antre (premier run, square…) : on reprend au dernier point de passage enregistré.
+function storyRetry() { return player.hp <= 0 && !['donjon', 'antre'].includes(currentZone.id) && !!readSave(); }
+
 retryButton.addEventListener('click', () => {
   if (freeMode.active) freeReturn();
   else if (currentZone.id === 'antre' && !encounter.complete) retryAntre();
+  else if (storyRetry()) applyCheckpoint(readSave().checkpoint);
   else resetDungeonRun();
 });
 
