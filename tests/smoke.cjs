@@ -43,7 +43,7 @@ function game(imageMode, keepOpening, store) {
   // Même ordre et portées globales que les scripts defer de la page.
   for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'sheets.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'chapitre4.js', 'chapitre5.js', 'chapitre6.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'points.js', 'bag.js', 'libre.js', 'save.js', 'music-score.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-ch4.js', 'render-ch6.js', 'render-quartier.js', 'render-appart.js', 'lighting.js', 'decors.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
-  const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, ch4, ch6, openPoints, addPoint, closePoints, pointsState, get playerLevel(){return playerLevel}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, sceneLights, lightAt, drawLightShadows, drawSceneLighting, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  const state = vm.runInContext('({ cityScene, player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, ch4, ch6, openPoints, addPoint, closePoints, pointsState, get playerLevel(){return playerLevel}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, sceneLights, lightAt, drawLightShadows, drawSceneLighting, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   Object.assign(state, vm.runInContext('({ paintedDecor, drawPaintedObject, paintedBorderHidden })', context));
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
@@ -1480,6 +1480,32 @@ const tests = [
     assert.equal(g.elements['story-name'].textContent, 'TIAMAT, PAR YARDEN');
     g.showStoryLine('Tiamat (voix intérieure) : « Sois sur tes gardes. »');
     assert.equal(g.elements['story-name'].textContent, 'TIAMAT · VOIX INTÉRIEURE');
+  }],
+  ['Chapitre 4 : la créature s’emmêle dans le banc scellé ; chapitre 5 : « Elle est une adresse » est montrée à Izzy', () => {
+    const g = game('loaded');
+    g.skipOpening();
+    g.enterZone('square', 'start');
+    const creature = g.zoneEnemies.square[0];
+    assert.equal(creature.art, 'creature');
+    const bench = g.walls.find(wall => wall.kind === 'banc');
+    assert(bench, 'Le banc est un obstacle du square');
+    Object.assign(creature, { x: 0, y: -10, engaged: true, charge: .32, chargeHit: false, dirX: 0, dirY: 1, windup: 0 });
+    for (let i = 0; i < 6 && !(creature.tangled > 0); i++) g.updateEnemy(creature, .1);
+    assert(creature.tangled > 0, 'Elle percute le banc et s’emmêle');
+    const frozen = { x: creature.x, y: creature.y };
+    g.updateEnemy(creature, .5);
+    assert.deepEqual({ x: creature.x, y: creature.y }, frozen, 'Emmêlée, elle ne bouge pas');
+    for (let i = 0; i < 12; i++) g.updateEnemy(creature, .5);
+    assert.equal(creature.tangled, 0, 'Elle se dégage au bout de trois secondes');
+    // Emmêlée, elle prend le double : un coup de faux gratuit (1 dégât) en retire 2.
+    Object.assign(creature, { x: -150, y: -60, hp: creature.maxHp, tangled: 3, charge: 0, windup: 0, flash: 0 });
+    Object.assign(g.player, { x: -150, y: -20, armed: true, hp: g.player.maxHp });
+    g.startAttack(false);
+    g.update(.05);
+    assert.equal(creature.hp, creature.maxHp - 2, 'Dégâts doublés sur la créature emmêlée');
+    const lines = g.cityScene().flatMap(step => step.say || []);
+    const at = lines.findIndex(line => line.includes('Elle est une adresse. Va-t’en.'));
+    assert(at > 0 && /^Tiamat\[froide\] \(voix intérieure\)/.test(lines[at]), 'La réplique de Tiamat est montrée au chapitre 5');
   }],
   ['Carte : sélection, itinéraire à pied, position et sauvegarde préservées', () => {
     const g = game('loaded');

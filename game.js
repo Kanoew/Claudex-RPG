@@ -137,7 +137,7 @@ function update(seconds) {
     attack.hits.add(enemy);
     playSfx('hit');
     if (enemy.ranged) { hitSpider(attack.empowered); continue; }
-    enemy.hp = Math.max(0, enemy.hp - attack.damage);
+    enemy.hp = Math.max(0, enemy.hp - attack.damage * (enemy.tangled > 0 ? 2 : 1));
     enemy.flash = .2;
     updateStatus();
   }

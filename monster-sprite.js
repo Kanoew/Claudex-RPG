@@ -55,6 +55,7 @@ function monsterPose(enemy) {
   else if (enemy.ranged && encounter.phase === 'blinded') frame = clip.blinded;
   else if (enemy.ranged && enemy.flash > 0) frame = clip.hurt;
   else if (clip.hurt !== undefined && !enemy.ranged && enemy.flash > 0 && enemy.windup <= 0) frame = clip.hurt;
+  else if (enemy.tangled > 0 && clip.hurt !== undefined) frame = clip.hurt;
   else if (enemy.charge > 0 || sprite.strike > 0) frame = clip.strike;
   else if (enemy.windup > 0) frame = clip.windup;
   else if (sprite.moving) frame = clip.walk[Math.floor(sprite.time / clip.walkSeconds) % clip.walk.length];
