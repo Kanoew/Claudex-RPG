@@ -44,6 +44,7 @@ function game(imageMode, keepOpening, store) {
   for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'sheets.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'chapitre4.js', 'chapitre5.js', 'chapitre6.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'points.js', 'bag.js', 'libre.js', 'save.js', 'music-score.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-ch4.js', 'render-ch6.js', 'render-quartier.js', 'render-appart.js', 'lighting.js', 'decors.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
   const state = vm.runInContext('({ player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, ch4, ch6, openPoints, addPoint, closePoints, pointsState, get playerLevel(){return playerLevel}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, sceneLights, lightAt, drawLightShadows, drawSceneLighting, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
+  Object.assign(state, vm.runInContext('({ paintedDecor, drawPaintedObject, paintedBorderHidden })', context));
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -126,6 +127,41 @@ const tests = [
       g.draw();
       g.draw();
       assert.equal(JSON.stringify({ player: g.player, enemies: g.enemies, walls: g.walls }), before);
+    }
+  }],
+  ['Raccords peints : emprise des 16 obstacles, bords et secours si une image manque', () => {
+    const g = game('loaded');
+    for (const [id, expected] of Object.entries({ quatreb: 1, preau: 1, donjon: 2, run: 10, antre: 2 })) {
+      g.loadZone(id);
+      const geometry = JSON.stringify(g.walls);
+      let count = 0;
+      for (const [index, wall] of g.walls.entries()) {
+        g.calls.length = 0;
+        if (!g.drawPaintedObject(g.currentZone, wall, wall.x, wall.y)) continue;
+        count++;
+        assert(index >= 4, 'Les murs extérieurs ne reçoivent pas une image de pilier');
+        const call = g.calls.find(call => call[0] === 'drawImage');
+        const [x, y, w, h] = call.slice(-4);
+        assert.equal(x, wall.x); assert.equal(w, wall.width);
+        assert.equal(y + h, wall.y + wall.height, 'Pied de l’objet calé sur le bas de la collision');
+        assert(y <= wall.y, 'Toute la hauteur bloquante reste couverte');
+        const sourceName = id === 'antre' ? 'amas-cristal' : 'raccords';
+        const png = fs.readFileSync(path.join(root, 'assets/decors/objets', sourceName + '.png'));
+        const [, , sx, sy, sw, sh] = call;
+        assert(sx >= 0 && sy >= 0 && sx + sw <= png.readUInt32BE(16) && sy + sh <= png.readUInt32BE(20), 'Découpe dans les limites de l’image');
+        const art = g.paintedDecor.objects[sourceName];
+        g.paintedDecor.objects[sourceName] = null;
+        assert.equal(g.drawPaintedObject(g.currentZone, wall, wall.x, wall.y), false, 'Objet manquant : dessin en code');
+        g.paintedDecor.objects[sourceName] = art;
+        const bg = g.paintedDecor.images[id];
+        g.paintedDecor.images[id] = null;
+        assert.equal(g.drawPaintedObject(g.currentZone, wall, wall.x, wall.y), false, 'Fond manquant : dessin en code');
+        assert.equal(g.paintedBorderHidden(g.currentZone, 0), false, 'Fond manquant : conserver les bords');
+        g.paintedDecor.images[id] = bg;
+      }
+      assert.equal(count, expected);
+      assert(g.paintedBorderHidden(g.currentZone, 0));
+      assert.equal(JSON.stringify(g.walls), geometry, 'Le rendu ne déplace aucune collision');
     }
   }],
   ['Barres lisibles et repère du Troll dès l’apparition', () => {
@@ -591,9 +627,9 @@ const tests = [
   ['Zones : le donjon est lu dans des données et se joue à l’identique', () => {
     const g = game();
     const same = (a, b) => assert.equal(JSON.stringify(a), JSON.stringify(b));
-    // Mêmes dimensions, mêmes murs et mêmes blocs qu’avant la mise en données.
+    // Même géométrie qu'avant la mise en données ; « kind » ne choisit que l'apparence des blocs.
     same(g.room, { x: -480, y: -336, width: 960, height: 672 });
-    same(g.walls, [
+    same(g.walls.map(({ x, y, width, height }) => ({ x, y, width, height })), [
       { x: -504, y: -360, width: 1008, height: 24 }, { x: -504, y: 336, width: 1008, height: 24 },
       { x: -504, y: -336, width: 24, height: 672 }, { x: 480, y: -336, width: 24, height: 672 },
       { x: -192, y: -96, width: 72, height: 144 }, { x: 120, y: 48, width: 96, height: 72 }

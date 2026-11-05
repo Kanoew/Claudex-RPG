@@ -2,7 +2,7 @@
 
 // Décors peints : un fond par zone dans assets/decors/<id de zone>.jpg, posé sur le rectangle de la zone (2 pixels par unité), et des objets peints
 // (assets/decors/objets/) posés sur leurs rectangles de collision. Les collisions, portes et personnages restent ceux du jeu.
-// Sans l'image, l'ancien dessin en code sert de secours. Les images sont fabriquées par docs/art/outils/decors.py.
+// Sans l'image, l'ancien dessin en code sert de secours. Fonds : docs/art/outils/decors.py ; planche de raccords : docs/RACCORDS-DECORS.md.
 // `hide` : obstacles que l'image contient déjà (non dessinés) ; `objects` : sorte d'obstacle -> objet peint (ou fonction de l'obstacle) ;
 // `variant` : version du fond à utiliser (par exemple « jour »), vide pour la version de base.
 const paintedDecor = {
@@ -18,20 +18,26 @@ const paintedDecor = {
     impasse: { hideBorder: true, hide: ['pressing', 'mur'], sprites: ['impasse-poubelle', 'impasse-poubelle-metal', 'impasse-velo'], objects: { poubelles: { name: 'impasse-poubelle-metal', height: 80 }, velo: { name: 'impasse-velo', width: 74 } } },
     cour: { hide: ['lierre', 'arbuste'] },
     comptoir: { hide: ['mur-int', 'comptoir-remi'] },
-    // Le bureau de Félix n'est pas dans l'image : il reste dessiné en code.
-    quatreb: { hide: ['etagere', 'papier'] },
-    // Le banc du préau n'est pas dans l'image : il reste dessiné en code.
-    preau: { hide: ['mur-ecole', 'colonne'] },
+    quatreb: { hideBorder: true, hide: ['etagere', 'papier'], objects: { bureau: { patch: 'bureau', rise: 20 } } },
+    preau: { hideBorder: true, hide: ['mur-ecole', 'colonne'], objects: { 'banc-pierre': { patch: 'banc', rise: 10 } } },
     hall: { hide: ['comptoir-hall', 'ascenseur-hall'] },
-    // Salles de l'Abysse : les piliers et rochers du jeu restent dessinés en code par-dessus le fond.
-    donjon: {},
-    run: {},
-    antre: {},
+    // Les objets peints couvrent toute l'emprise bloquante ; seul leur relief dépasse vers le nord.
+    donjon: { hideBorder: true, objects: { 'pilier-pierre': wall => ({ patch: wall.height > wall.width ? 'pierre-longue' : 'pierre-large', rise: 8 }) } },
+    run: { hideBorder: true, objects: { pilier: { patch: 'pilier-ocre', rise: 32 }, roc: wall => ({ patch: wall.width > wall.height ? 'rochers-larges' : 'rochers-longs', rise: 0 }) } },
+    antre: { hideBorder: true, sprites: ['amas-cristal'], objects: { 'amas-cristal': { name: 'amas-cristal', patch: 'cristaux', rise: 20 } } },
     // Les objets dépassent leur rectangle de collision (vue en trois quarts) : largeur ou hauteur voulue, en unités du jeu.
     square: { hide: ['immeuble-sq'], sprites: ['banc', 'arbre-square', 'lampadaire'], objects: { banc: { name: 'banc', width: 96 }, arbre: { name: 'arbre-square', height: 118 }, lampadaire: { name: 'lampadaire', height: 92 } } },
     flon: { hide: ['facade-flon', 'bar'], sprites: ['table-a', 'table-b', 'table-c', 'bar'], objects: { bar: { name: 'bar', width: 230 }, table: wall => ({ name: ['table-a', 'table-b', 'table-c'][Math.abs(wall.x) % 3], width: 64 }) } },
     marterey: { hide: ['kebab', 'porte-marron', 'laverie'] },
     exterieur: { sprites: ['benne', 'caisses', 'poubelles', 'scooter'], objects: { benne: 'benne', caisses: 'caisses', poubelles: 'poubelles', scooter: 'scooter' }, noProps: true }
+  },
+  // Rectangles source dans raccords.png (1086 × 1448), sauf cristaux dans amas-cristal.png (1122 × 1402).
+  // Les sept autres objets partagent une seule image ; le Canvas lit directement ces rectangles.
+  patches: {
+    bureau: [62, 39, 428, 284], banc: [583, 111, 461, 184],
+    'pierre-longue': [190, 373, 164, 339], 'pierre-large': [586, 451, 453, 201],
+    'pilier-ocre': [178, 747, 188, 301], 'rochers-larges': [554, 775, 507, 229],
+    'rochers-longs': [173, 1089, 200, 335], cristaux: [174, 91, 773, 1178]
   },
   images: {},
   objects: {}
@@ -45,6 +51,7 @@ function loadPaintedDecor() {
     image.onerror = () => { store[key] = null; };
     image.src = path;
   };
+  load(paintedDecor.objects, 'raccords', 'assets/decors/objets/raccords.png?v=1');
   for (const [id, config] of Object.entries(paintedDecor.zones)) {
     load(paintedDecor.images, id, `assets/decors/${id}.jpg?v=4`);
     if (config.variant) load(paintedDecor.images, `${id}-jour`, `assets/decors/${id}-jour.jpg?v=4`);
@@ -78,15 +85,17 @@ function drawPaintedObject(zone, wall, x, y) {
   const rule = (paintedDecor.zones[zone.id].objects || {})[wall.kind];
   const value = typeof rule === 'function' ? rule(wall) : rule;
   const spec = typeof value === 'string' ? { name: value } : value;
-  const art = spec && paintedDecor.objects[spec.name];
+  const part = spec && spec.patch && paintedDecor.patches[spec.patch];
+  const art = spec && paintedDecor.objects[spec.name || (part ? 'raccords' : '')];
   if (!art) return false;
   const w = wall.width, h = wall.height;
   const scale = spec.height ? spec.height / art.height : spec.width ? spec.width / art.width : Math.min(w / art.width, h * 1.7 / art.height);
-  const dw = art.width * scale, dh = art.height * scale;
+  const dw = part ? w : art.width * scale, dh = part ? h + (spec.rise || 0) : art.height * scale;
   ctx.save();
-  ctx.fillStyle = '#05080e88';
+  ctx.fillStyle = part ? '#05080e30' : '#05080e88';
   ctx.beginPath(); ctx.ellipse(x + w / 2 + 3, y + h - 2, dw / 2, Math.max(4, dh * .08), 0, 0, Math.PI * 2); ctx.fill();
-  ctx.drawImage(art, x + (w - dw) / 2, y + h - dh, dw, dh);
+  if (part) ctx.drawImage(art, ...part, x, y + h - dh, dw, dh);
+  else ctx.drawImage(art, x + (w - dw) / 2, y + h - dh, dw, dh);
   ctx.restore();
   return true;
 }
