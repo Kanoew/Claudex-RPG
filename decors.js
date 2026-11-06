@@ -75,7 +75,10 @@ function loadPaintedDecor() {
   for (const [id, config] of Object.entries(paintedDecor.zones)) {
     load(paintedDecor.images, id, `assets/decors/${id}.jpg?v=4`);
     if (config.variant) load(paintedDecor.images, `${id}-jour`, `assets/decors/${id}-jour.jpg?v=4`);
-    for (const name of config.sprites || []) load(paintedDecor.objects, name, `assets/decors/objets/${name}.png?v=4`);
+    for (const name of config.sprites || []) {
+      const version = name === 'assiette-oeufs' ? 1 : 4;
+      load(paintedDecor.objects, name, `assets/decors/objets/${name}.png?v=${version}`);
+    }
   }
 }
 

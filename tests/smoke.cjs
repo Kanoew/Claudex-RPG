@@ -44,7 +44,7 @@ function game(imageMode, keepOpening, store) {
   for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'sheets.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'chapitre4.js', 'chapitre5.js', 'chapitre6.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'points.js', 'bag.js', 'libre.js', 'save.js', 'music-score.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-ch4.js', 'render-ch6.js', 'render-quartier.js', 'render-appart.js', 'lighting.js', 'decors.js', 'popups.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
   const state = vm.runInContext('({ cityScene, player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, ch4, ch6, openPoints, addPoint, closePoints, pointsState, get playerLevel(){return playerLevel}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, sceneLights, lightAt, drawLightShadows, drawSceneLighting, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
-  Object.assign(state, vm.runInContext('({ paintedDecor, drawPaintedObject, paintedBorderHidden })', context));
+  Object.assign(state, vm.runInContext('({ paintedDecor, drawPaintedObject, paintedBorderHidden, sceneCameraOffsets })', context));
   return Object.assign(state, { audioLog, elements, document, patterns, calls, fire(name, event = {}) { for (const fn of listeners[name] || []) fn(event); } });
 }
 function armed(mode) {
@@ -985,7 +985,17 @@ const tests = [
     let dark = false, tattoo = false, morning = false;
     for (let guard = 0; guard < 600 && !(g.scene.free && g.currentZone.id === 'quartier'); guard++) {
       if (g.story.active) { said.push(g.story.current); if (g.scene.dark) dark = true; if (g.scene.tattoo) { tattoo = true; g.draw(); } g.advanceStory(); }
-      else if (g.scene.free && g.currentZone.id === 'appartement' && g.home.stage === 'matin') { morning = true; Object.assign(g.player, { x: 300, y: -95 }); g.update(.05); }
+      else if (g.scene.free && g.currentZone.id === 'appartement' && g.home.stage === 'matin') {
+        if (!morning) {
+          morning = true;
+          Object.assign(g.player, { x: -190, y: -262 });
+          assert.equal(g.nearSpot().id, 'fenetre', 'Les objets habituels restent examinables le matin');
+          Object.assign(g.player, { x: 150, y: -140 });
+          assert.equal(g.nearSpot().id, 'oeufs', 'Le point ajouté du matin est accessible');
+          g.useInteract();
+          assert(g.story.active && g.story.current.includes('œufs au plat'));
+        } else { Object.assign(g.player, { x: 300, y: -95 }); g.update(.05); }
+      }
       else g.update(.05);
     }
     assert(morning, 'Le matin, Yarden explore l’appartement avant de sortir');
@@ -1040,8 +1050,21 @@ const tests = [
     assert(g.scene.active);
     g.startAttack(false);
     assert.equal(g.attack.remaining, 0, 'Pas d’attaque pendant la scène');
+    const world = JSON.stringify([g.player, g.sceneActors, g.walls]);
+    const plain = g.sceneCameraOffsets({ x: 0, y: 0 }, { top: 0, bottom: 500 });
+    const covered = g.sceneCameraOffsets({ x: 0, y: 0 }, { top: 160, bottom: 500 });
+    assert.equal(covered.y - plain.y, 80, 'La carte décale le centre de la moitié de sa hauteur');
+    for (const direction of [-1, 1]) {
+      const offset = g.sceneCameraOffsets({ x: direction * 10000, y: direction * 10000 }, { top: 160, bottom: 500 });
+      assert(offset.x + g.room.x <= 0 && offset.x + g.room.x + g.room.width >= 366);
+      assert(offset.y + g.room.y <= 160 && offset.y + g.room.y + g.room.height >= 500, 'Caméra bornée au décor');
+    }
+    assert.equal(JSON.stringify([g.player, g.sceneActors, g.walls]), world, 'Le cadrage ne déplace ni acteurs ni collisions');
+    g.scene.free = true;
+    assert.equal(g.sceneCameraOffsets(g.player, { top: 160, bottom: 500 }), null, 'Exploration libre inchangée');
     g.resetScene();
     assert(!g.scene.active && Object.keys(g.sceneActors).length === 0);
+    assert.equal(g.sceneCameraOffsets(g.player, { top: 0, bottom: 500 }), null, 'Pas de cadrage spécial hors scène');
   }],
   ['Antre : la vibration pulse les câbles et fait trembler l’image très légèrement, sans attaquer', () => {
     const g = beginSpider(armed('loaded'));

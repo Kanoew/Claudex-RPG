@@ -26,7 +26,7 @@ const apartmentSpots = [
 
 // Points examinables par zone : l'appartement d'Ishara et le comptoir de Rémi (chapitre2b.js).
 function spotsOfZone() {
-  if (currentZone.id === 'appartement') return apartmentSpots;
+  if (currentZone.id === 'appartement') return extraSpots && extraSpots.zone === currentZone.id ? [...apartmentSpots, ...extraSpots.list] : apartmentSpots;
   if (currentZone.id === 'comptoir') return comptoirSpots;
   if (extraSpots && extraSpots.zone === currentZone.id) return extraSpots.list;
   return null;
