@@ -17,11 +17,11 @@ function enterQuatreB() {
 
 zones.quatreb.goal = () => ch2b.descending ? 'Les livres de Félix, puis sors ↓' : 'Parle à Félix';
 
-// Livres du 4B, à lire après la scène. Registre : texte de Jordan. Feuille annotée : répliques de Félix à Ishara, passées à la troisième personne.
+// Livres du 4B, à lire après la scène. Registre : texte de Jordan. Feuille annotée : répliques de Félix à Ishara, passées à la troisième personne comme le registre.
 const felixBooks = [
   { id: 'registre', x: -125, y: -60, r: 58, label: 'Registre relié', lines: () => ['Registre relié. « Le silence n’est pas de l’argent. L’argent s’use. Un nom, non. Quand "Mithra" en fabrique un, il le porte. Structurellement. Trente ans de noms qu’il n’a jamais lâchés. »'] },
   { id: 'carnet', x: 125, y: -60, r: 58, label: 'Carnet de plume', lines: () => ['Carnet de plume. « Le corps est une commodité. Pratique pour tremper une plume. »'] },
-  { id: 'feuille', x: -125, y: 40, r: 58, label: 'Feuille annotée', lines: () => ['Feuille annotée. « Ishara, quant à elle : son instinct, ce petit talent qu’elle a pour savoir en qui avoir confiance avant même qu’on parle. Ce n’est pas elle. Enfin, c’est elle, mais ce n’est pas qu’elle. »', '« Ce qui l’a bénie travaille dans la même maison que ce que je porte. Les serments. Les liens. Son dieu et mon résidu, on tremperait nos plumes dans le même encrier. »'] },
+  { id: 'feuille', x: -125, y: 40, r: 58, label: 'Feuille annotée', lines: () => ['Feuille annotée. « Ishara, quant à elle : son instinct, ce petit talent qu’elle a pour savoir en qui avoir confiance avant même qu’on parle. Ce n’est pas elle. Enfin, c’est elle, mais ce n’est pas qu’elle. »', '« Ce qui l’a bénie travaille dans la même maison que ce que porte "Mithra". Les serments. Les liens. Son dieu et le résidu de "Mithra" tremperaient leurs plumes dans le même encrier. »'] },
   { id: 'feuillet', x: 0, y: -70, r: 50, label: 'Feuillet volant', lines: () => ['Feuillet volant. « Une identité, c’est un lien. Un nom qu’on n’a pas fini de payer, c’est un nom qu’on ne trahit pas. »'] }
 ];
 zones.quatreb.label = () => 'Le 4B';
