@@ -46,8 +46,16 @@ function finishTextTyping() {
   if (!textTyping.timer) return false;
   stopTextTyping();
   document.getElementById('story-text').textContent = textTyping.full;
+  followTyping(document.getElementById('story-text'));
   return true;
 }
+// Fait suivre le texte qui s'écrit : chaque conteneur qui défile descend jusqu'en bas.
+function followTyping(element) {
+  for (let node = element; node && node.parentElement !== undefined && node !== document.body; node = node.parentElement) {
+    if (node.scrollHeight > node.clientHeight + 1) node.scrollTop = node.scrollHeight;
+  }
+}
+
 function startTextTyping(element, text, who) {
   stopTextTyping();
   const rate = textCharsPerSecond(who);
@@ -58,7 +66,7 @@ function startTextTyping(element, text, who) {
   const started = Date.now();
   textTyping.timer = setInterval(() => {
     const count = Math.min(text.length, Math.floor((Date.now() - started) / 1000 * rate) + 1);
-    if (count !== textTyping.shown) { textTyping.shown = count; element.textContent = text.slice(0, count); }
+    if (count !== textTyping.shown) { textTyping.shown = count; element.textContent = text.slice(0, count); followTyping(element); }
     if (count >= text.length) stopTextTyping();
   }, 30);
 }

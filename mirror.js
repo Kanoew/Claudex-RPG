@@ -61,12 +61,9 @@ function mirrorScript() {
 
 function mirrorSteps() {
   return [
-    { say: ['Le robinet chauffe lentement.'] },
     { mirror: 'show' },
-    { say: ['Quelqu’un la regarde.', 'Une fille. Traits acérés, mâchoire nette, peau pâle, des yeux violets qui jaugent.', 'Elle le comprend une demi-seconde trop tard.'] },
-    { say: ['Les cheveux sont noirs, avec des mèches entre lavande et gris, comme de la cendre qui aurait décidé d’être belle.', 'Le chignon a survécu à l’Abysse, aux ogres et à la soirée.', 'Des lunettes rondes. Elles étaient là depuis le début et elle ne les avait jamais vues.', 'Le liner est intact. Yarden n’a aucune explication.'] },
-    { say: ['Yarden : « Tiamat. »', 'Tiamat : « Oui. »', 'Yarden[agacee] : « C’est quoi, ce style ? »', 'Tiamat : « Le tien. »', 'Yarden[surprise] : « J’ai l’air d’une... gothique. »', 'Tiamat[amusee] : « Tu as l’air de quelqu’un qu’on remarque et qu’on ne questionne pas. Les humains rangent ce qu’ils voient. Ils te classeront dans "style assumé" et s’arrêteront là. Personne ne cherche un boss de donjon sous du liner. »'] },
-    { say: ['Elle regarde encore.', 'Le visage est froid, difficile à lire, avec quelque chose d’affûté dans le regard qui n’appartient à aucune étudiante de vingt ans.', 'Un visage qu’elle respecterait, en face.', 'Yarden[souriante] : « ...C’est acceptable. »', 'Tiamat : « Je sais. »'] },
+    { say: ['Yarden : « Tiamat. »', 'Tiamat : « Oui. »', 'Yarden[agacee] : « C’est quoi, ce style ? »', 'Tiamat : « Le tien. »', 'Yarden[agacee] : « On dirait le genre de péquenaud qui venait m’affronter, avant. »', 'Tiamat[amusee] : « Tu as l’air de quelqu’un qu’on remarque et qu’on ne questionne pas. Les humains rangent ce qu’ils voient. Ils te classeront dans "style assumé" et s’arrêteront là. Personne ne cherche un boss de donjon sous du liner. »'] },
+    { say: ['Yarden[souriante] : « ...C’est acceptable. »', 'Tiamat : « Je sais. »'] },
     { mirror: 'hide' },
     { card: 'La douche', seconds: 2.2 },
     { run: () => { yardenOutfit = 'serviette'; } },

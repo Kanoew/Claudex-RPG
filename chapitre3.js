@@ -22,11 +22,10 @@ function quatrebScript() {
   return [
     { run: enterQuatreB },
     // Seuil.
-    { say: ['La porte s’ouvre sans aucune difficulté.', 'Ishara : « Félix ? »', 'Tiamat[froide] (voix intérieure) : « Sois sur tes gardes. »'] },
-    { say: ['Une lourde pression semble émaner de la pièce.', 'Un appartement chaud, rempli de papier en couches sur les murs, des caractères illisibles.', 'Plusieurs étagères, des bocaux, des crânes alignés.'] },
+    { say: ['Ishara : « Félix ? »', 'Tiamat[froide] (voix intérieure) : « Sois sur tes gardes. »'] },
+    { say: ['Une lourde pression semble émaner de la pièce.'] },
     { moves: [moveOf('yarden', [[0, -10]], 80), moveOf('ishara', [[-48, 5]], 80, { delay: .3 })] },
     // Félix.
-    { say: ['Au fond, Félix assis. Encriers, plumes, lampes à bras articulés. Aucune lecture de niveau par Yarden. Une absence.', 'Ses yeux la suivent avec du retard.'] },
     { say: ['Félix : « Vous êtes récente. »', 'Félix : « Très récente. Deux jours maximum. Vous cachez quelque chose. »'] },
     { say: ['Félix : « La plupart des gens viennent ici avec un but, et repartent souvent sans rien. Vous avez l’air d’être venue avec un but précis. C’est plus poli que la moyenne. »', 'Yarden : « Ishara dit que tu fais des papiers. »', 'Félix : « Ishara dit vrai. »'] },
     { say: ['Félix pousse un tabouret. Ishara reste debout.', 'Félix : « Une identité complète ? Un nom, les registres. Une bonne histoire. Et surtout du silence. Pour les deux premiers ce sera en crédits. Le troisième, lui, se paie différemment. »', 'Félix : « Quel nom voulez-vous porter dans ce monde ? »'] },

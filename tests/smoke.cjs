@@ -41,7 +41,7 @@ function game(imageMode, keepOpening, store) {
     localStorage: store || { data: {}, getItem(k) { return k in this.data ? this.data[k] : null; }, setItem(k, v) { this.data[k] = String(v); }, removeItem(k) { delete this.data[k]; } }
   });
   // Même ordre et portées globales que les scripts defer de la page.
-  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'sheets.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'chapitre4.js', 'chapitre5.js', 'chapitre6.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'points.js', 'bag.js', 'libre.js', 'save.js', 'music-score.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-ch4.js', 'render-ch6.js', 'render-quartier.js', 'render-appart.js', 'lighting.js', 'decors.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
+  for (const file of ['enemies.js', 'dungeon.js', 'hud.js', 'zones.js', 'state.js', 'transitions.js', 'yarden-sprite.js', 'monster-sprite.js', 'encounter.js', 'sheets.js', 'scene.js', 'chapitre2b.js', 'chapitre3.js', 'chapitre4.js', 'chapitre5.js', 'chapitre6.js', 'dialogue.js', 'metro.js', 'night.js', 'mirror.js', 'apartment.js', 'levelup.js', 'stats.js', 'points.js', 'bag.js', 'libre.js', 'save.js', 'music-score.js', 'audio.js', 'opening.js', 'render-antre.js', 'weapon-art.js', 'render-ch2b.js', 'render-ch4.js', 'render-ch6.js', 'render-quartier.js', 'render-appart.js', 'lighting.js', 'decors.js', 'popups.js', 'render.js', 'combat.js', 'input.js', 'movement.js', 'menu.js', 'game.js']) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
   vm.runInContext(keepOpening === 'title' ? '0' : keepOpening ? 'closeMenu(); startOpening()' : 'closeMenu(); skipOpening()', context);
   const state = vm.runInContext('({ cityScene, player, enemies, boss, attack, skill, dodge, keys, input, room, walls, startAttack, startDodge, update, updateEnemy, draw, hurtPlayer, resetInput, bossMarker, zones, zoneEnemies, activeEnemies, allEnemies, makeEnemy, loadZone, doorAtPlayer, enterZone, encounter, story, advanceStory, useCrystal, hitSpider, tickVenom, segmentTouchesPlayer, canUseCrystal, doorIsOpen, get zoneFade(){return zoneFade}, get currentZone(){return currentZone}, mirrorStep, mirrorScript, mirrorArt, audio, unlockAudio, playSfx, scheduleMusic, setMusic, setEffects, setMusicVolume, setEffectsVolume, musicLabel, effectsLabel, syncMusic, home, nearSpot, useInteract, canInteract, apartmentSpots, enterApartment, stats, yardenStats, openStats, closeStats, statsText, statsRows, statsHtml, drawMenuVignette, menu, openMenu, closeMenu, menuContinue, menuNewGame, readSave, applyCheckpoint, saveCheckpoint, clearSave, scene, sceneActors, nightScript, levelUp, startOpening, skipOpening, restoreAfterCombat, startScene, get credits(){return credits}, ch4, ch6, openPoints, addPoint, closePoints, pointsState, get playerLevel(){return playerLevel}, freeMode, freeSpots, selectMapSpot, followMapRoute, freeRoute, freeDirection, walkToStreet, zoneTransition, tickZoneTransition, resetZoneTransition, startFreeMode, updateFree, failleRemaining, freeReturn, openMap, closeMap, finishCombat, freeUnlocked, get combatOverFlag(){return combatOver}, get debt(){return debt}, get identityName(){return identityName}, quatrebScript, bag, scytheSealed, get scytheFreed(){return scytheFreed}, get isharaOutfit(){return isharaOutfit}, chapter2b, impasseScript, runEndScript, followIshara, ch2b, zones, get abyssReached(){return abyssReached}, get riftShown(){return riftShown}, sceneArt, loadSceneArt, sceneActorPose, resetScene, sceneLights, lightAt, drawLightShadows, drawSceneLighting, parseStoryLine, showStoryLine, drawPortrait, dialogueLog, openDialogueHistory, closeDialogueHistory, resetDialogueHistory, weaponArt, drawAttackArc, drawWeaponPickup, sceneActor, loadWeaponArt, loadPortraits, portraitArt, antreResonanceLevel, antreShake, yardenSprite, yardenArt, yardenFrame, yardenProgressFrame, yardenPose, yardenCell, monsterPose, monsterArt, monsterClips, get stage(){return stage}, get over(){return combatOver}, get exitOpen(){return exitOpen}, get elapsed(){return elapsed} })', context);
   Object.assign(state, vm.runInContext('({ paintedDecor, drawPaintedObject, paintedBorderHidden })', context));
@@ -341,6 +341,8 @@ const tests = [
       if (g.currentZone.id === 'run' && !g.scene.active) for (const enemy of g.zoneEnemies.run) enemy.hp = 0;
       if (g.currentZone.id === 'square' && g.scene.free) g.zoneEnemies.square[0].hp = 0;
       if (g.pointsState.open) { while (g.pointsState.left > 0) g.addPoint(); g.closePoints(); }
+      if (g.stats.open) g.closeStats();
+      if (g.currentZone.id === 'appartement' && g.home.stage === 'matin' && g.scene.free) Object.assign(g.player, { x: 300, y: -95 });
       if (g.currentZone.id === 'marterey' && g.scene.free) Object.assign(g.player, { x: 150, y: 110 });
       if (g.currentZone.id === 'flon' && g.scene.free) { g.ch6.visited = 3; g.ch6.found = true; }
       g.update(.05);
@@ -666,11 +668,14 @@ const tests = [
     assert.equal(ext.theme, 'ruelle');
     assert.equal(ext.enemies.length, 0, 'Pas de monstre dehors : les humains ne voient pas la faille, rien n’en sort');
     // Rien ne bouche les portes ni les points d'arrivée, et les obstacles restent dans la ruelle.
-    const hits = (x, y, margin) => ext.blocks.some(b => x > b.x - margin && x < b.x + b.width + margin && y > b.y - margin && y < b.y + b.height + margin);
+    // La façade peinte de la résidence (au nord) bloque : on vérifie les obstacles de la rue elle-même.
+    const obstacles = ext.blocks.filter(b => b.kind !== 'facade-residence');
+    assert(ext.blocks.some(b => b.kind === 'facade-residence'), 'La façade de la résidence est un mur');
+    const hits = (x, y, margin) => obstacles.some(b => x > b.x - margin && x < b.x + b.width + margin && y > b.y - margin && y < b.y + b.height + margin);
     assert.equal(hits(0, ext.room.y + ext.room.height - 90, 30), false);
-    assert.equal(hits(0, ext.room.y + 90, 30), false);
-    assert(ext.blocks.every(b => b.x >= ext.room.x && b.x + b.width <= ext.room.x + ext.room.width && b.y > ext.room.y && b.y + b.height < ext.room.y + ext.room.height));
-    assert(ext.blocks.every(b => ['benne', 'caisses', 'poubelles', 'scooter'].includes(b.kind)));
+    assert.equal(hits(0, -260, 30), false, 'Le devant de la porte de la fête est libre');
+    assert(obstacles.every(b => b.x >= ext.room.x && b.x + b.width <= ext.room.x + ext.room.width && b.y > ext.room.y && b.y + b.height < ext.room.y + ext.room.height));
+    assert(obstacles.every(b => ['benne', 'caisses', 'poubelles', 'scooter'].includes(b.kind)));
     assert(ext.props.filter(p => p.kind === 'lampe').length === 2);
     assert(ext.props.some(p => p.kind === 'lampe-eteinte') && ext.props.some(p => p.kind === 'grille'));
     assert(ext.props.length >= 60 && ext.props.filter(p => p.kind !== 'lampe' && p.kind !== 'grille').every(p => !hits(p.x, p.y, 8)));
@@ -684,7 +689,7 @@ const tests = [
       return !g.walls.some(w => x > w.x - 13 && x < w.x + w.width + 13 && y > w.y - 13 && y < w.y + w.height + 13);
     };
     const start = [Math.round((0 - r.x) / cell), Math.round((r.height - 90) / cell)];
-    const goal = [Math.round((0 - r.x) / cell), Math.round((-495 - r.y) / cell)];
+    const goal = [Math.round((0 - r.x) / cell), Math.round((-262 - r.y) / cell)];
     const seen = new Set([start.join()]), queue = [start];
     let reached = false;
     while (queue.length && !reached) {
@@ -696,7 +701,7 @@ const tests = [
         seen.add(key); queue.push([nx, ny]);
       }
     }
-    assert(reached, 'La rue est accessible depuis la faille');
+    assert(reached, 'La porte de la fête est accessible depuis la faille');
     // Sortie du donjon : arrivée devant la faille, fondu, aucun monstre.
     const s = armed();
     s.enemies[0].hp = s.enemies[1].hp = 0;
@@ -904,7 +909,7 @@ const tests = [
     g.draw();
     // Chaque objet du canon est examinable, avec un texte qui reprend le canon.
     const ids = g.apartmentSpots.map(s => s.id);
-    for (const id of ['fenetre', 'livres', 'tablebasse', 'canape', 'table', 'comptoir', 'porte-ishara', 'placard', 'lit', 'parquet', 'shampoings', 'radiateur', 'miroir']) assert(ids.includes(id), id);
+    for (const id of ['fenetre', 'livres', 'tablebasse', 'canape', 'comptoir', 'porte-ishara', 'placard', 'lit', 'parquet', 'shampoings', 'radiateur', 'miroir']) assert(ids.includes(id), id);
     const texts = g.apartmentSpots.map(s => (s.lines() || []).join(' ')).join(' ');
     for (const part of ['plantes', 'deux tasses', 'table basse', 'comptoir', 'bouilloire', 'La porte est fermée', 'shampoings', 'serviettes', 'robinet']) assert(texts.toLowerCase().includes(part.toLowerCase()), part);
     assert(!/bleu/i.test(texts));
@@ -934,7 +939,8 @@ const tests = [
     for (let i = 0; i < 20; i++) g.update(.05);
     g.keys.clear();
     assert(g.player.y > 40, 'Le couloir est ouvert');
-    Object.assign(g.player, { x: -30, y: 80 });
+    // Porte recalée sur le décor peint : entre y 123 et 170.
+    Object.assign(g.player, { x: -30, y: 146 });
     g.keys.add('a');
     for (let i = 0; i < 30; i++) g.update(.05);
     g.keys.clear();
@@ -962,7 +968,8 @@ const tests = [
     assert(!said.some(line => /nue|seins|poitrine/i.test(line)), 'Rien d’explicite : seulement l’agrafe');
     const all = said.join('\n');
     assert(all.includes('« ...C’est acceptable. »'));
-    assert(all.includes('des yeux violets'), 'Yeux violets dans la version jeu');
+    assert(!all.includes('Quelqu’un la regarde'), 'Le miroir se passe de narration (décision de Jordan, 5 novembre 2026)');
+    assert(all.includes('péquenaud'), 'Yarden juge son reflet, cynique');
     for (const banned of ['Jordan', 'bleu-gris', 'septum', 'piercing', 'Angel', 'ear cuff', 'dragon', 'collier', 'chaîne']) assert(!all.includes(banned), banned);
     assert(!all.includes('—') && !all.includes('–'), 'Pas de tiret cadratin');
     assert.equal(said.filter(line => /^Tiamat(?:\[[a-z]+\])? : /.test(line)).length, 5);
@@ -975,10 +982,13 @@ const tests = [
     Object.assign(g.player, { x: -170, y: 90 });
     g.useInteract();
     const said = [];
-    let dark = false, tattoo = false;
+    let dark = false, tattoo = false, morning = false;
     for (let guard = 0; guard < 600 && !(g.scene.free && g.currentZone.id === 'quartier'); guard++) {
-      if (g.story.active) { said.push(g.story.current); if (g.scene.dark) dark = true; if (g.scene.tattoo) { tattoo = true; g.draw(); } g.advanceStory(); } else g.update(.05);
+      if (g.story.active) { said.push(g.story.current); if (g.scene.dark) dark = true; if (g.scene.tattoo) { tattoo = true; g.draw(); } g.advanceStory(); }
+      else if (g.scene.free && g.currentZone.id === 'appartement' && g.home.stage === 'matin') { morning = true; Object.assign(g.player, { x: 300, y: -95 }); g.update(.05); }
+      else g.update(.05);
     }
+    assert(morning, 'Le matin, Yarden explore l’appartement avant de sortir');
     assert(g.currentZone.id === 'quartier' && dark && tattoo && g.scene.dark === null && g.scene.tattoo === null);
     const all = said.join('\n');
     for (const part of ['Pathétique', 'J’ai connu pire', 'Plusieurs organisations', 'par terre']) assert(all.includes(part), part);
@@ -1506,6 +1516,21 @@ const tests = [
     const lines = g.cityScene().flatMap(step => step.say || []);
     const at = lines.findIndex(line => line.includes('Elle est une adresse. Va-t’en.'));
     assert(at > 0 && /^Tiamat\[froide\] \(voix intérieure\)/.test(lines[at]), 'La réplique de Tiamat est montrée au chapitre 5');
+  }],
+  ['Mort pendant le premier run : on reprend au dernier point de passage, pas au premier donjon', () => {
+    const g = game('loaded');
+    g.skipOpening();
+    g.saveCheckpoint('impasse');
+    assert.equal(g.readSave().checkpoint, 'impasse');
+    g.enterZone('run', 'start');
+    g.hurtPlayer(99);
+    g.update(2);
+    assert(g.over, 'Yarden est tombée');
+    assert.equal(g.elements.retry.textContent, 'Reprendre au dernier point de passage');
+    g.fire('retry:click');
+    assert(!g.over, 'Le combat reprend');
+    assert.notEqual(g.currentZone.id, 'donjon', 'Pas de retour au premier donjon');
+    assert.equal(g.player.hp, g.player.maxHp);
   }],
   ['Carte : sélection, itinéraire à pied, position et sauvegarde préservées', () => {
     const g = game('loaded');

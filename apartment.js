@@ -13,13 +13,12 @@ const apartmentSpots = [
   { id: 'livres', x: -285, y: -232, r: 52, label: 'Livres', lines: () => ['Des livres empilés dans l’ordre qu’Ishara est la seule à comprendre.'] },
   { id: 'tablebasse', x: -185, y: -148, r: 62, label: 'Table basse', lines: () => ['Deux tasses sur la table basse : une vide, une à moitié pleine.'] },
   { id: 'canape', x: -185, y: -68, r: 72, label: 'Canapé', lines: () => ['Le canapé fait face à la table basse.'] },
-  { id: 'table', x: 0, y: -100, r: 58, label: 'Table', lines: () => ['Une table, vide, comme souvent ici.'] },
   { id: 'comptoir', x: 190, y: -150, r: 58, label: 'Comptoir', lines: () => ['Le comptoir, les clés, la bouilloire.'] },
   { id: 'porte-ishara', x: 40, y: 225, r: 52, label: 'Porte fermée', lines: () => ['La porte est fermée.'] },
   { id: 'placard', x: -150, y: 245, r: 56, label: 'Placard', lines: () => ['Le placard contient des affaires qui ne sont pas les tiennes.'] },
   { id: 'cour', x: -292, y: 90, r: 48, label: 'Fenêtre sur cour', lines: () => ['Elle voit la cour intérieure.'] },
   { id: 'lit', x: -228, y: 215, r: 58, label: 'Lit', lines: () => ['Un lit simple, aux draps propres.'] },
-  { id: 'parquet', x: -170, y: 90, r: 60, label: 'Parquet', lines: () => ['Le parquet, et un tapis fin.'], script: () => home.stage === 'nuit' ? nightScript() : null },
+  { id: 'parquet', x: -170, y: 90, r: 60, label: 'Parquet', lines: () => ['Le parquet.'], script: () => home.stage === 'nuit' ? nightScript() : null },
   { id: 'shampoings', x: 290, y: 100, r: 60, label: 'Douche', lines: () => ['Petite, propre, fonctionnelle. Deux shampoings. Violet, Ishara. Rouge, la coloc.'] },
   { id: 'radiateur', x: 190, y: 105, r: 52, label: 'Radiateur', lines: () => ['Des serviettes sèchent sur le radiateur.'] },
   { id: 'miroir', x: 290, y: 28, r: 56, label: 'Lavabo', lines: () => ['Le robinet. Simple, efficace.'], script: () => home.stage === 'arrive' ? mirrorScript() : null }
@@ -111,13 +110,34 @@ function nightScript() {
     { say: ['Dans le noir, les plumes tatouées sur son avant-bras droit se mettent à luire.', 'Tiamat : « Tes tatouages portent la faux. C’est à toi. »'] },
     { tattoo: false },
     { dark: false },
-    { say: ['Au matin : du café, du thé et des courbatures.'] },
     { run: () => { home.stage = 'matin'; } },
     { card: 'Jour 2', seconds: 2 },
+    // Ellipse du matin : Ishara est déjà descendue et a laissé des œufs. Yarden explore librement, puis sort par l'entrée (à l'est).
+    { run: () => { yardenOutfit = ''; isharaOutfit = 'course'; morningEggs.eaten = false; extraSpots = { zone: 'appartement', list: morningSpots }; Object.assign(player, { x: -170, y: 90 }); updateStatus(); } },
+    { until: () => player.x > 285 && Math.abs(player.y + 95) < 60 },
+    { run: () => { extraSpots = null; } },
     ...impasseScript()
   ];
 }
 
 function apartmentGoal() {
-  return home.stage === 'arrive' ? 'Va à la salle de bain, en face de la chambre d’appoint' : home.stage === 'nuit' ? 'Va dormir sur le parquet de la chambre d’appoint ←' : 'Le matin';
+  return home.stage === 'arrive' ? 'Va à la salle de bain, en face de la chambre d’appoint' : home.stage === 'nuit' ? 'Va dormir sur le parquet de la chambre d’appoint ←' : 'Sors : la porte d’entrée est à l’est →';
+}
+
+// Le matin du jour 2 : une assiette d'œufs sur le comptoir (image assets/decors/objets/assiette-oeufs.png si elle existe, sinon dessin simple).
+const morningEggs = { x: 150, y: -165, eaten: false };
+const morningSpots = [
+  { id: 'oeufs', x: morningEggs.x, y: morningEggs.y + 25, r: 56, label: 'Assiette', lines: () => { morningEggs.eaten = true; return ['Des œufs au plat, encore tièdes. Un mot posé à côté : « En bas. »']; } }
+];
+
+function drawMorningEggs(offsetX, offsetY) {
+  if (currentZone.id !== 'appartement' || home.stage !== 'matin' || morningEggs.eaten) return;
+  const x = morningEggs.x + offsetX, y = morningEggs.y + offsetY;
+  const art = typeof paintedDecor !== 'undefined' && paintedDecor.objects['assiette-oeufs'];
+  if (art) { const w = 36, h = w * art.height / art.width; ctx.drawImage(art, x - w / 2, y - h / 2, w, h); return; }
+  ctx.save();
+  ctx.fillStyle = '#f1ece2'; ctx.beginPath(); ctx.ellipse(x, y, 15, 9, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#fffaf0'; ctx.beginPath(); ctx.ellipse(x - 4, y, 6, 4, 0, 0, Math.PI * 2); ctx.ellipse(x + 5, y + 1, 6, 4, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#f2b233'; ctx.beginPath(); ctx.arc(x - 4, y, 2.2, 0, Math.PI * 2); ctx.arc(x + 5, y + 1, 2.2, 0, Math.PI * 2); ctx.fill();
+  ctx.restore();
 }

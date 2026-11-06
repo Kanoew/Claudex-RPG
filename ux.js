@@ -106,7 +106,7 @@ function uxFocusable(panel) {
 
 function updateUxLayout() {
   uxSetData('input', uxTouchMode() ? 'touch' : 'keyboard');
-  const context = story.active ? 'dialogue' : scene.active && !scene.free ? 'cinematic' : ['donjon', 'antre', 'run', 'faille'].includes(currentZone.id) ? 'combat' : 'exploration';
+  const context = story.active ? 'dialogue' : scene.active && !scene.free ? 'cinematic' : (['donjon', 'antre', 'run', 'faille'].includes(currentZone.id) || (zoneEnemies[currentZone.id] || []).some(enemy => enemy.hp > 0 && !(enemy.boss && !enemy.active))) ? 'combat' : 'exploration';
   uxSetData('context', context);
   uxSetData('storyPlace', currentZone.id === 'exterieur' && !scene.metro && !scene.mirror ? 'top' : 'bottom');
   uxApp.classList.toggle('has-interaction', !document.getElementById('interact').hidden);

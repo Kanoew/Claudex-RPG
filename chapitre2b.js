@@ -37,9 +37,11 @@ function collectRunLoot() {
   zoneEnemies.run.forEach((enemy, index) => {
     if (enemy.hp > 0 || enemy.looted) return;
     enemy.looted = true;
+    popText(player, '+0 XP', 'xp');
     const drop = runDrops[index];
     if (!drop) return;
     bag.push({ ...drop });
+    popText(sceneActors.ishara, '+1 objet', 'loot');
     lootToast(`+ ${drop.name} · niv. ${drop.level}`);
   });
 }
@@ -98,11 +100,9 @@ function enterComptoir() {
 
 // Le comptoir se visite : tout ce qui est décrit au canon peut être examiné (Examiner), avant de parler à Rémi.
 const comptoirSpots = [
-  { id: 'encens', x: -125, y: 0, r: 52, label: 'Encens', lines: () => ['De l’encens bon marché, et quelque chose de plus minéral dessous.'] },
   { id: 'balance', x: -70, y: -8, r: 44, label: 'Balance', lines: () => ['Une balance de précision, posée sur le comptoir.'] },
   { id: 'ardoise', x: 0, y: 6, r: 44, label: 'Ardoise', lines: () => ['Une ardoise à la craie, accrochée au mur. Aucune trace électronique.'] },
-  { id: 'lampe', x: 75, y: -8, r: 48, label: 'Lampe', lines: () => ['Une lampe à spectre particulier : la lumière a une teinte verte, presque froide.'] },
-  { id: 'porte', x: 0, y: 70, r: 40, label: 'Porte', lines: () => ['La porte marron, derrière elles. Il faut appuyer deux fois sur l’interphone.'] }
+  { id: 'lampe', x: 75, y: -8, r: 48, label: 'Lampe', lines: () => ['Une lampe à spectre particulier : la lumière a une teinte verte, presque froide.'] }
 ];
 
 function enterSousgare() {
@@ -152,7 +152,6 @@ function impasseScript() {
 // Après le dernier gobelin : le butin, les deux heures dehors, puis la suite du chapitre.
 function runEndScript() {
   return [
-    { say: ['Ishara ramasse quatre fragments et deux bourses. Le dernier gobelin n’a rien laissé.', 'Aucune expérience gagnée.'] },
     { card: 'Quarante minutes dedans, deux heures dehors.', seconds: 2.6 },
     { run: () => { enterImpasse(false); sceneActors.ishara.x = 20; sceneActors.ishara.y = -90; Object.assign(player, { x: 40, y: -120 }); ch2b.goalText = 'Suis Ishara ↓'; } },
     { moves: [moveOf('ishara', [[-60, 40], [-110, 150]], 85)] },
@@ -165,11 +164,12 @@ function runEndScript() {
 function marteryScript() {
   return [
     { run: enterMarterey },
-    { say: ['Rue Marterey, Lausanne. Dix heures.'] },
+    { card: 'Rue Marterey · Dix heures', seconds: 1.8 },
     { moves: [moveOf('ishara', [[18, -52]], 90), moveOf('yarden', [[-26, -42]], 90, { delay: .5 })] },
     { run: () => { ch2b.shutterAt = mirrorNow(); } },
     { wait: 1.8 },
-    { say: ['Ishara appuie deux fois sur l’interphone.'] },
+    { run: () => playSfx('sonnette') },
+    { wait: 1.1 },
     ...comptoirScript()
   ];
 }
@@ -177,7 +177,6 @@ function marteryScript() {
 function comptoirScript() {
   return [
     { run: () => { enterComptoir(); ch2b.goalText = 'Regarde autour de toi, puis rejoins le comptoir'; } },
-    { say: ['Un couloir étroit. De l’encens.'] },
     { until: () => player.y < -18 && Math.abs(player.x) < 100 },
     { run: () => { ch2b.goalText = ''; } },
     { moves: [moveOf('ishara', [[-60, -12]], 95), moveOf('yarden', [[20, -12]], 95)] },
@@ -202,15 +201,13 @@ function sousgareScript() {
     { say: ['Quatre étages, des fenêtres alignées. Des fleurs au deuxième.'] },
     { camera: null },
     { moves: [moveOf('ishara', [[46, -38]], 80), moveOf('yarden', [[2, -38]], 80, { delay: .4 })] },
-    { say: ['Ishara compose le digicode.'] },
+    { run: () => playSfx('digicode') },
+    { wait: 1 },
     { run: enterCour },
-    { say: ['La cour, des pavés sans une herbe, du lierre taillé, des arbustes.'] },
     { moves: [moveOf('ishara', [[-20, -170]], 85), moveOf('yarden', [[10, -150]], 85, { delay: .4 })] },
     { run: enterEscalier },
     { until: above(-60) },
-    { say: ['Des marches de pierre, l’air est dense ici.'] },
     { until: above(-530) },
-    { say: ['Quatrième étage. La porte du 4B est entrouverte, avec une lumière chaude à l’intérieur.'] },
     { run: () => { ch2b.buff = true; } },
     { say: ['Le buff d’Ishara se déclenche d’un coup, elle scintille de doré.'] },
     ...quatrebScript()
