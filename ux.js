@@ -12,15 +12,27 @@ let uxAutomaticInput = window.matchMedia('(pointer: coarse)').matches ? 'touch' 
 let uxModal = null;
 const uxPanels = ['menu-panel', 'stats-panel', 'bag-panel', 'points-panel', 'map-panel', 'history-panel', 'result'].map(id => document.getElementById(id));
 const uxStory = document.getElementById('story-panel');
+const uxSceneArea = { covered: 0, canvasHeight: 1 };
 
 function uxTouchMode() { return (uxPrefs.input === 'auto' ? uxAutomaticInput : uxPrefs.input) === 'touch'; }
 
-// Le cadrage du poignet reste centré sur les deux protagonistes, même après une rotation
-// ou l'apparition du dialogue qui réduit la hauteur du terrain.
-function uxSceneOffsets() {
-  const actor = sceneActors.compact;
-  if (currentZone.id !== 'exterieur' || !scene.active || !actor || (actor.mode !== 'stumble' && actor.variant !== 'recul')) return null;
-  return { x: width / 2 - (player.x + actor.x) / 2, y: height * .6 - (player.y + actor.y) / 2 };
+// Le poignet et les autres dialogues cadrent les acteurs dans la zone libre.
+function uxSceneOffsets(focus) {
+  return sceneCameraOffsets(focus, uxSceneViewport());
+}
+
+function uxSceneViewport() {
+  return { top: scene.active && !scene.free ? Math.max(0, Math.min(height - 80, uxSceneArea.covered * height / uxSceneArea.canvasHeight)) : 0, bottom: height };
+}
+
+// Mesure en CSS puis conversion en unités du Canvas (qui peut être agrandi sur PC).
+// La place de la carte reste réservée entre deux répliques, sans saut de caméra.
+function uxMeasureScene() {
+  const rect = canvas.getBoundingClientRect();
+  const cardHeight = document.getElementById('story-card').getBoundingClientRect().height || Math.min(window.innerHeight * .3, 176);
+  const side = window.matchMedia('(orientation: landscape) and (max-height: 550px)').matches;
+  uxSceneArea.canvasHeight = Math.max(1, rect.height);
+  uxSceneArea.covered = side ? 0 : Math.max(0, uxApp.querySelector('header').getBoundingClientRect().bottom + 16 + cardHeight - rect.top);
 }
 
 function uxSavePreferences() {
@@ -71,8 +83,11 @@ function uxMeasureHeader() {
   const top = Math.round(uxApp.querySelector('header').getBoundingClientRect().bottom - uxApp.getBoundingClientRect().top + 8);
   const value = `${top}px`;
   if (uxApp.style.getPropertyValue('--story-top') !== value) uxApp.style.setProperty('--story-top', value);
+  uxMeasureScene();
 }
 new ResizeObserver(uxMeasureHeader).observe(uxApp.querySelector('header'));
+new ResizeObserver(uxMeasureScene).observe(canvas);
+new ResizeObserver(uxMeasureScene).observe(document.getElementById('story-card'));
 uxMeasureHeader();
 
 const uxInputSelect = document.getElementById('ux-input');
@@ -105,6 +120,10 @@ function uxFocusable(panel) {
 }
 
 function updateUxLayout() {
+  const scripted = String(scene.active && !scene.free);
+  const sceneChanged = uxApp.dataset.scriptedScene !== scripted;
+  uxSetData('scriptedScene', scripted);
+  seeThrough();
   uxSetData('input', uxTouchMode() ? 'touch' : 'keyboard');
   const context = story.active ? 'dialogue' : scene.active && !scene.free ? 'cinematic' : (['donjon', 'antre', 'run', 'faille'].includes(currentZone.id) || (zoneEnemies[currentZone.id] || []).some(enemy => enemy.hp > 0 && !(enemy.boss && !enemy.active))) ? 'combat' : 'exploration';
   uxSetData('context', context);
@@ -140,6 +159,7 @@ function updateUxLayout() {
     const value = String(Math.round(Math.max(0, Math.min(1, cooldown / recovery)) * 100) / 100);
     if (button.style.getPropertyValue('--recovery') !== value) button.style.setProperty('--recovery', value);
   }
+  if (sceneChanged) uxMeasureScene();
 }
 
 // Les fenêtres interceptent le clavier avant les commandes de jeu.

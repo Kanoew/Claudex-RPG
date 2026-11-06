@@ -29,6 +29,24 @@ function cameraFocus() {
   if (sceneCam.follow && Math.hypot(sceneCam.x - player.x, sceneCam.y - player.y) < 2) sceneCam.on = false;
   return sceneCam;
 }
+
+// Le cadrage utilise la portion du Canvas réellement libre, sans déplacer les acteurs.
+function sceneCameraOffsets(focus, viewport) {
+  if (!scene.active || scene.free) return null;
+  let target = focus;
+  if (story.active && (!sceneCam.on || sceneCam.follow)) {
+    const actors = [player, ...Object.values(sceneActors).filter(actor => actor.visible && Math.hypot(actor.x - player.x, actor.y - player.y) <= 200)];
+    target = {
+      x: (Math.min(...actors.map(a => a.x)) + Math.max(...actors.map(a => a.x))) / 2,
+      y: (Math.min(...actors.map(a => a.y)) + Math.max(...actors.map(a => a.y))) / 2
+    };
+  }
+  const fit = (wanted, low, high) => low > high ? (low + high) / 2 : Math.max(low, Math.min(high, wanted));
+  return {
+    x: fit(width / 2 - target.x, width - room.x - room.width, -room.x),
+    y: fit((viewport.top + viewport.bottom) / 2 + 24 - target.y, viewport.bottom - room.y - room.height, viewport.top - room.y)
+  };
+}
 const sceneArt = { strips: {} };
 const sceneCells = { ishara: { cell: [86, 115], anchor: [43, 111] }, course: { cell: [140, 115], anchor: [70, 111] }, celeste: { cell: [211, 148], anchor: [105, 132] }, remi: { cell: [120, 124], anchor: [60, 120] }, felix: { cell: [120, 124], anchor: [60, 120] }, inconnus: { cell: [211, 148], anchor: [105, 132] }, fete: { cell: [128, 148], anchor: [64, 132] } };
 // Inconnu 1 (grand) et Inconnu 2 (compact) : chibi, regardent à gauche ; on les retourne pour la droite (figurants anonymes).
@@ -142,18 +160,20 @@ function startScene(steps = sceneScript()) {
   attack.remaining = 0;
   dodge.remaining = 0;
   Object.assign(scene, { active: true, free: false, steps, index: -1, current: null, timer: 0, motions: {}, log: [] });
+  seeThrough();
   nextSceneStep();
 }
 
-// Pendant la nuit et les tatouages, le texte ne grise pas l'image derrière lui.
+// Pendant les scènes scriptées, seul le dialogue porte un fond.
 function seeThrough() {
-  document.getElementById('story-panel').classList.toggle('see-through', !!(scene.dark || scene.tattoo));
+  document.getElementById('story-panel').classList.toggle('see-through', scene.active);
 }
 
 function resetScene() {
   sceneCam.on = false;
   audio.override = null;
   Object.assign(scene, { active: false, free: false, card: null, mirror: null, metro: null, dark: null, tattoo: null, done: false, steps: [], index: 0, current: null, timer: 0, motions: {}, log: [] });
+  seeThrough();
   for (const id of Object.keys(sceneActors)) delete sceneActors[id];
 }
 
@@ -196,11 +216,13 @@ function nextSceneStep() {
       step.run();
     } else if (step.finish) {
       scene.active = false;
+      seeThrough();
       updateStatus();
       updateAttackButton();
       return;
     } else if (step.end) {
       scene.active = false;
+      seeThrough();
       scene.done = true;
       stage = 'escaped';
       finishCombat(step.end);
