@@ -11,7 +11,9 @@ function drawSceneMetro() {
   const m = scene.metro;
   if (!m) return;
   const t = mirrorNow() - m.start, fade = Math.min(1, t / .5);
-  const top = Math.max(10, height * .05), bandH = Math.min(height * .52, 330);
+  const viewport = typeof uxSceneViewport === 'function' ? uxSceneViewport() : { top: 0, bottom: height };
+  const available = viewport.bottom - viewport.top;
+  const top = viewport.top + Math.max(10, available * .05), bandH = Math.min(available * .7, 330);
   const sway = Math.sin(t * 1.8) * 2.2;
   ctx.save();
   ctx.globalAlpha = fade;

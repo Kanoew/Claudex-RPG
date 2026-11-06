@@ -197,3 +197,32 @@ h1 { font: 600 20px/1 var(--display); letter-spacing: .08em; color: var(--ink); 
   #story-card.tiamat #story-portrait { animation: none; box-shadow: 0 0 8px #b082e533; }
   button { transition: none; }
 }
+
+/* Scènes scriptées : aucun voile sur le terrain ; carte de lecture et commandes séparées. */
+#app[data-scripted-scene="true"] > #story-panel:not([hidden]) {
+  background: transparent; border: 0; box-shadow: none; pointer-events: none;
+}
+#app[data-scripted-scene="true"] #story-card {
+  background: #19191f; padding: 10px; border: 1px solid #49434f; border-top: 3px solid var(--character);
+  border-radius: 5px 5px 14px 5px; pointer-events: auto;
+}
+#app[data-scripted-scene="true"] #story-card.tiamat { background: #211629; }
+#app[data-scripted-scene="true"] .story-actions { pointer-events: auto; }
+#app[data-scripted-scene="true"] #controls,
+#app[data-scripted-scene="true"] #controls * { visibility: hidden; }
+@media (orientation: portrait), (min-height: 551px) {
+  #app[data-scripted-scene="true"][data-context] #view { margin-top: 0; }
+  #app[data-scripted-scene="true"][data-context] #controls { height: 160px; min-height: 160px; flex-shrink: 0; }
+  #app[data-scripted-scene="true"] > #story-panel:not([hidden]) {
+    inset: 0; width: 100%; height: 100%; max-height: none; margin: 0; padding: 0; display: block;
+  }
+  #app[data-scripted-scene="true"] #story-card {
+    position: absolute; top: var(--story-top, 120px); left: max(8px, env(safe-area-inset-left)); right: max(8px, env(safe-area-inset-right));
+    width: min(880px, calc(100% - 16px)); height: min(30dvh, 176px); max-height: 30dvh; margin: 0 auto; overflow-y: auto;
+  }
+  #app[data-scripted-scene="true"] .story-actions {
+    position: absolute; bottom: max(8px, env(safe-area-inset-bottom)); right: max(8px, env(safe-area-inset-right));
+    width: min(440px, calc(100% - 16px)); flex-direction: row-reverse; gap: 6px;
+  }
+  #app[data-scripted-scene="true"] #story-next { flex: 1; }
+}

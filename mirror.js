@@ -25,9 +25,11 @@ function drawSceneMirror() {
   const m = scene.mirror;
   if (!m) return;
   const fade = Math.min(1, (mirrorNow() - m.start) / .5);
-  const portraitWidth = Math.min(width * .8, height * .52 * mirrorSource[0] / mirrorSource[1], 360);
+  const viewport = typeof uxSceneViewport === 'function' ? uxSceneViewport() : { top: 0, bottom: height };
+  const available = viewport.bottom - viewport.top;
+  const portraitWidth = Math.min(width * .8, available * .8 * mirrorSource[0] / mirrorSource[1], 360);
   const portraitHeight = portraitWidth * mirrorSource[1] / mirrorSource[0];
-  const left = (width - portraitWidth) / 2, top = Math.max(16, height * .04);
+  const left = (width - portraitWidth) / 2, top = viewport.top + Math.max(16, (available - portraitHeight) / 2);
   ctx.save();
   ctx.globalAlpha = fade;
   ctx.fillStyle = '#140d09ee';
