@@ -3,7 +3,9 @@
 > Fichier de contexte. À lire EN ENTIER au début de chaque session, par Claude comme par ChatGPT/Codex.
 > Si une consigne de ce fichier contredit une demande orale, on le signale avant de coder.
 
-## État actuel (5 novembre 2026)
+## État actuel (6 novembre 2026)
+
+- **Reprise de session** : lire ensuite `docs/REPRISE.md` (où on en est, ce qui reste, comment on travaille).
 
 - **Le jeu** : RPG narratif en Canvas 2D (HTML, JavaScript, GitHub Pages), jouable sur téléphone. Chapitres 1 à 6 jouables d'un bout à l'autre, mode libre (failles au hasard) après la fin, sac et crédits, points de VIT, sauvegarde par points de passage dans le navigateur. Combat en temps réel. Texte des dialogues qui s'écrit progressivement (vitesse réglable).
 - **Décors** : dessinés en code par défaut, remplacés par des décors peints (GPT) quand l'image existe : rue du quartier (nuit et jour), Sous-gare, Marterey, ruelle, square, Flon, impasse, cour, comptoir de Rémi, 4B, préau, hall d'Ouchy, salle de pierre, salle ocre, antre (`decors.js`, `assets/decors/`). Toutes les zones ont maintenant un décor peint, y compris l'escalier, l'appartement d'Ishara et le penthouse d'Izzy (lot 4) ; le dessin en code ne sert plus que de secours.
