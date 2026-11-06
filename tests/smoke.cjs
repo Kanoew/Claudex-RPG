@@ -334,7 +334,8 @@ const tests = [
       if (g.story.active) { g.advanceStory(); continue; }
       if (g.scene.free) {
         if (g.currentZone.id === 'impasse') Object.assign(g.player, g.chapter2b.runDone ? { x: -100, y: 145 } : { x: 41, y: -150 });
-        else if (g.currentZone.id === 'escalier') Object.assign(g.player, { x: 0, y: g.player.y - 40 });
+        else if (g.currentZone.id === 'escalier' || g.currentZone.id === 'cour') Object.assign(g.player, { x: 0, y: g.player.y + (g.ch2b.descending ? 40 : -40) });
+        else if (g.currentZone.id === 'quatreb') Object.assign(g.player, { x: 0, y: 160 });
         else if (g.currentZone.id === 'comptoir') Object.assign(g.player, { x: 0, y: -25 });
         else if (g.currentZone.id === 'quartier') Object.assign(g.player, g.home.stage === 'matin' ? { x: -230, y: 170 } : { x: 0, y: -50 });
       }
