@@ -3,7 +3,7 @@
 // Décors du chapitre 2 (le lendemain matin) : l'impasse, le run en Abysse, la rue Marterey, le comptoir de Rémi, le 4B et son escalier.
 // Tout est dessiné en code, dans des rectangles qui suivent les collisions. Plans, couleurs et détails sont inventés à minima ;
 // les éléments canon sont dans PROJECT.md (sections 27 à 29).
-const ch2b = { shutterAt: 0, slate: '', buff: false, paperStillAt: 0, riftAt: 0, goalText: '' };
+const ch2b = { shutterAt: 0, slate: '', buff: false, paperStillAt: 0, riftAt: 0, goalText: '', descending: false };
 
 function ch2bRect(offsetX, offsetY) {
   return (x, y, w, h, color) => { ctx.fillStyle = color; ctx.fillRect(x + offsetX, y + offsetY, w, h); };

@@ -12,7 +12,7 @@ const runDeadCount = () => zoneEnemies.run.filter(enemy => enemy.hp <= 0).length
 
 function resetChapter2b() {
   chapter2b.runDone = false;
-  ch2b.shutterAt = 0; ch2b.slate = ''; ch2b.buff = false;
+  ch2b.shutterAt = 0; ch2b.slate = ''; ch2b.buff = false; ch2b.descending = false;
   for (const enemy of zoneEnemies.run) { resetEnemy(enemy); enemy.looted = false; }
   bag.length = 0; credits = 0; yardenOutfit = ''; debt = 0; identityName = ''; scytheFreed = false; isharaOutfit = 'soiree';
 }
@@ -52,8 +52,8 @@ zones.run.label = () => `Gobelins Niv. 15 à 19 · ${runDeadCount()}/${runTotal(
 zones.marterey.goal = () => 'Suis Ishara';
 zones.comptoir.goal = () => 'Rémi évalue le butin';
 zones.sousgare.goal = () => 'Suis Ishara';
-zones.cour.goal = () => 'Suis Ishara';
-zones.escalier.goal = () => 'Monte ↑';
+zones.cour.goal = () => ch2b.descending ? 'Sors dans la rue ↓' : 'Suis Ishara';
+zones.escalier.goal = () => ch2b.descending ? 'Descends ↓' : 'Monte ↑';
 zones.impasse.label = () => 'Impasse du pressing';
 zones.marterey.label = () => 'Rue Marterey';
 zones.comptoir.label = () => 'Le comptoir de Rémi';

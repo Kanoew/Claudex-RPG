@@ -13,8 +13,9 @@ const yardenClips = {
   idle: { ...yardenSmall, durations: [280, 110, 110, 140, 140, 320] },
   'running-right': { ...yardenSmall, durations: [120, 120, 120, 120, 120, 120, 120, 220] },
   'running-left': { ...yardenSmall, durations: [120, 120, 120, 120, 120, 120, 120, 220] },
-  'walk-down': { ...yardenLarge, durations: Array(8).fill(110) },
-  'walk-up': { ...yardenLarge, durations: Array(8).fill(110) },
+  // Marches haut et bas refaites le 6 novembre 2026 sur la grille du repos (source : docs/art/yarden/marche-haut-bas-source.png).
+  'walk-down': { ...yardenSmall, durations: Array(4).fill(220) },
+  'walk-up': { ...yardenSmall, durations: Array(4).fill(220) },
   // Impact du coup sur les images 4 et 5 : elles restent plus longtemps à l'écran.
   'scythe-right': { ...yardenLarge, anchor: [84.5, 132], weights: [1, 1, 1.2, 1.4, 1.4, 1] },
   'scythe-left': { ...yardenLarge, anchor: [126.7, 132], weights: [1, 1, 1.2, 1.4, 1.4, 1] },
@@ -36,7 +37,7 @@ function loadYardenArt() {
     const image = new Image();
     image.onload = () => { yardenArt.strips[name] = image; };
     image.onerror = () => { yardenArt.strips[name] = null; };
-    image.src = `assets/yarden/${name}.png?v=37`;
+    image.src = `assets/yarden/${name}.png?v=38`;
   }
   // Tenues d'intérieur : un repos de six cases, utilisé pour toutes les poses tant que la tenue est portée.
   for (const name of ['serviette', 'tshirt-short']) {
